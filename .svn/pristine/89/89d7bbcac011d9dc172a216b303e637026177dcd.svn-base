@@ -1,0 +1,151 @@
+input {
+	-webkit-appearance: none;
+	border: 0;
+	outline: none;
+	-webkit-appearance: none;
+	background-color: transparent;
+	width: 100%;
+	font-size: inherit;
+	color: #000;
+	vertical-align: middle;
+	line-height: normal;
+}
+
+.main {
+}
+
+.main .content {
+}
+
+.main .content .content-wraper {
+}
+
+.main .content .content-wraper .content-title {
+	text-align: center;
+	font-size: 21px;
+	color: #3d3d3d;
+	font-family: PingFangSC-Medium, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+.main .content .content-wraper .content-form {
+	margin-top: 30px;
+}
+
+.main .content .content-wraper .content-form .varify-code-wraper {
+	display: flex;
+	justify-content: space-between;
+}
+
+.main .content .content-wraper .content-form .input-wraper {
+	border: 1px solid #bfbfbf;
+	border-radius: 5px;
+	padding: 11px;
+	color: #666666;
+	margin-bottom: 15px;
+	display: flex;
+	align-items: center;
+}
+
+.main .content .content-wraper .content-form .varify-code {
+	/*display: inline-block;*/
+	flex: 3;
+}
+
+.main .content .content-wraper .content-form .varify-code-submit-wraper {
+	/*margin-left: 16px;*/
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0;
+	min-width: 48px;
+	width: 65px;
+	flex: 1;
+	margin-left: 15px;
+}
+
+.main .content .content-wraper .content-form .varify-code .varify-code-submit {
+	text-align: center;
+}
+
+.main .content .content-wraper .content-form .varify-code .varify-code-submit button {
+	width: 100%;
+	color: #666666;
+	padding: 13px 8px;
+	background: transparent;
+	border: none;
+	outline: none;
+	-webkit-appearance: none;
+}
+.main .content .content-wraper .content-form .varify-code .varify-code-submit button:active {
+	color: #333333;
+}
+
+.main .content .content-wraper .content-form .input-wraper .input-lable {
+	display: inline-block;
+	width: 64px;
+}
+
+.main .content .content-wraper .content-form .input-wraper .input-content {
+	padding-left: 10px;
+	/*width: 16.67vw;*/
+	flex: 1;
+}
+.main .content .content-wraper .content-form .varify-code .input-content input {
+	/*margin-left: 10px;*/
+}
+
+.main .content .content-wraper .content-submit {
+}
+
+.main .content .content-wraper .content-submit button {
+	background: #cb2613;
+	color: #ffffff;
+	border-radius: 3px;
+	border: none;
+	outline: none;
+	width: 100%;
+	height: 48px;
+	line-height: 48px;
+	font-family: PingFangSC-Medium, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+.main .content .content-wraper .content-submit button:active {
+	background: rgba(220, 34, 12, .8);
+}
+
+.loading {
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.1);
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 99999;
+}
+
+.loading .loading-wraper {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.loading .loading-wraper .loading-icon {}
+.loading .loading-wraper .loading-icon i {
+	font-size: 30px;
+	color: #333333;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+	color: #d8d8d8;
+}
+::-moz-placeholder { /* Firefox 19+ */
+	color: #d8d8d8;
+}
+:-ms-input-placeholder { /* IE 10+ */
+	color: #d8d8d8;
+}
+:-moz-placeholder { /* Firefox 18- */
+	color: #d8d8d8;
+}

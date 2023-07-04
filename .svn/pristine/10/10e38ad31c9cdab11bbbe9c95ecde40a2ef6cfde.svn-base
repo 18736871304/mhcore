@@ -1,0 +1,166 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<table class="common">
+	<tr>
+		<td class="reprot_title">
+			应收起期
+		</td>
+		<td class="report_common">
+			<input class="easyui-datebox" style="width: 160%" id="qrenewStartDate" name="qrenewStartDate" notnull="应收起期">
+		</td>
+		
+		<td class="reprot_title">
+			应收止期
+		</td>
+		<td class="report_common">
+			<input class="easyui-datebox" style="width: 160%" id="qrenewEndDate" name="qrenewEndDate" notnull="应收止期">
+		</td>
+		
+		<td class="reprot_title">
+			出单业务员
+		</td>
+		<td class="report_common">
+			<input class="txt" name="qreuserid" id="qreuserid" readonly onclick="disuUserDlg($('#qreuserid'),$('#qresuerkey'));">
+			<input type='hidden' id='qresuerkey'>
+		</td>
+		<td class="reprot_title">
+			服务人员
+		</td>
+		<td class="report_common">
+			<input class="txt" name="qseruserid" id="qseruserid" readonly onclick="disuUserDlg($('#qseruserid'),$('#qseruserkey'));">
+			<input type='hidden' id='qseruserkey'>
+		</td>
+	</tr>
+	<tr>
+		<td class="reprot_title">
+			签约渠道
+		</td>
+		<td class="report_common">
+			<select class="easyui-combobox" style="width:160%" panelHeight="auto" name="qriskchannel" id="qriskchannel">
+			</select>
+		</td>
+		
+		<td class="reprot_title">
+			保险产品编码
+		</td>
+		<td class="report_common">
+			<input class="txt" name="qgroupcode" id="qgroupcode">
+		</td>
+		
+		<td class="reprot_title">
+			保险公司
+		</td>
+		<td class="report_common">
+			<input class="easyui-combobox" id="qinsorgancode" style="width:160%" name="qinsorgancode" data-options="valueField:'id',textField:'text',multiple:true,panelHeight:'auto'">
+		</td>
+		
+		<td class="reprot_title">
+			险种名称
+		</td>
+		<td class="report_common">
+			<input class="easyui-combobox" id="qriskcode" style="width:160%" name="qriskcode" data-options="valueField:'id',textField:'text',multiple:true,panelHeight:'auto'">
+		</td>
+		
+		<td class="reprot_title">
+			保单年度
+		</td>
+		<td class="report_common">
+			<input class="txt" name="qpolicyyear" id="qpolicyyear">
+		</td>
+		
+		<td class = "reprot_title">
+			确认方式
+		</td>
+		<td class = "report_common">
+			<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="qrenew_callbacktype" id="qrenew_callbacktype">
+			</select>
+		</td>
+	</tr>
+	<%@ include file="/WEB-INF/jsp/admin/team/organAndTeamQuery.jsp"%>
+</table>
+
+<script>
+function initRenewRateQuery()
+{
+	disComBox($('#qinsorgancode'), "insorgancode", null);
+	disComBox($('#qriskchannel'), "channel", null);
+	disComBox($('#qrenew_callbacktype'),"renew_callbacktype",null);
+	
+	init02Org();
+	
+	$('#qrenewStartDate').datebox('setValue', getMonthOneFormatDate());
+	$('#qrenewEndDate').datebox('setValue', getNextMonthOneFormatDate());
+}
+
+function qRenewAftercodeselect(comboxid) 
+{
+	if (comboxid.attr("id") == "qinsorgancode") {
+		var tParam = new Object();
+		var codes = comboxid.combobox('getValues');
+		var ic = "";
+		for (var i = 0; i < codes.length; i++) {
+			if (ic != "") ic += "\',\'";
+			ic += codes[i];
+		}
+		tParam.insorgancode = ic;
+		var tturl1 = "policy/getRiskListin.do";
+			displayCombox($('#qriskcode'), tParam, tturl1, "dd_key", "dd_value");
+	}else {
+		organAfterSelect(comboxid);
+	}
+}
+
+function getRenewQueryParam() 
+{
+	var tParam = new Object();
+
+	tParam.reuserid = $('#qresuerkey').val();
+	tParam.seruserid = $('#qseruserkey').val();
+
+	var codes = $('#qinsorgancode').combobox('getValues');
+	var ic = "";
+	for (var i = 0; i < codes.length; i++) {
+		if (ic != "") ic += "\',\'";
+		ic += codes[i];
+	}
+	tParam.insorgancode = ic;
+
+	tParam.agentflag = '02';
+	tParam.renewflag = 'Y';
+
+	tParam.q02org = $('#q02org').combobox('getValue');
+	tParam.q03org = $('#q03org').combobox('getValue');
+	tParam.q04org = getOrgan04Code();
+	tParam.teamid = getQTeamId();
+
+	//险种编码多选
+	var codess = $('#qriskcode').combobox('getValues');
+	var icc = "";
+	for (var j = 0; j < codess.length; j++) {
+		if (icc != "") icc += "\',\'";
+		icc += codess[j];
+	}
+	tParam.mainriskcode = icc;
+
+	tParam.renewStartDate = $('#qrenewStartDate').datebox("getValue");
+	tParam.renewEndDate = $('#qrenewEndDate').datebox("getValue");
+
+	tParam.riskchannel = $('#qriskchannel').combobox('getValue');
+	tParam.policyyear = $('#qpolicyyear').val();
+	tParam.renew_callbacktype = $('#qrenew_callbacktype').combobox('getValue');
+	tParam.groupcode = $('#qgroupcode').val();
+	tParam.ismain = 'Y';
+	
+	return tParam;
+}
+
+function renewratequery() 
+{
+	var tturl = "policy/getReRateReport.do";
+	var tParam = getRenewQueryParam();
+	displayDataGrid20($('#renewList'), tParam, tturl);
+	
+	var sumurl = "policy/getRePolicySum.do";
+	ajaxdeal(sumurl, tParam, displaysumdata, null);
+}
+
+</script>

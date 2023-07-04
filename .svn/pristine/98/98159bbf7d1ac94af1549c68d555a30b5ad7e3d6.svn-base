@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: calc(100vw/18.75);">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投保失败</title>
+    <script src="zhongan/zxes/js/hengqin/jquery-1.10.1.min.js"></script>
+
+    <style>
+        html {
+            font-size: calc(100vw/ 18.75);
+            font-family: "微软雅黑";
+            color: #222;
+            max-width: 750px;
+            margin: auto;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        @media screen and (min-width:750px) {
+            html {
+                font-size: 21px;
+            }
+        }
+
+        input[placeholder],
+        [placeholder],
+        *[placeholder] {
+            color: #222 !important;
+        }
+
+        input {
+            -webkit-appearance: none;
+            -webkit-border-radius: 0;
+            -webkit-user-select: text;
+            caret-color: #F76F6F;
+        }
+
+        body {
+            background: #f0efef;
+        }
+
+        a {
+            text-decoration: none;
+            color: #222;
+            -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+            -webkit-user-select: none;
+            -moz-user-select: none;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .left {
+            float: left;
+        }
+
+        .right {
+            float: right;
+        }
+
+
+        .wrap {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            padding: 0.75rem;
+            padding-top: 1rem;
+        }
+
+        .wrap-success {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .wrap-success img {
+            width: 4.25rem;
+            height: 4.25rem;
+            margin: 0.6rem auto;
+        }
+
+        .wrap-success p {
+            font-weight: bold;
+            height: 2rem;
+            letter-spacing: 0.1rem;
+            line-height: 2rem;
+        }
+
+        .type {
+            font-weight: bold;
+            padding-top: 1.25rem;
+            font-size: 0.7rem;
+            color: #dc220d;
+            padding-left: 0.625rem;
+        }
+
+        .tips {
+            color: #e1e1e1;
+            line-height: 1.2rem;
+            text-align: justify;
+            padding-top: 0.4rem;
+            padding-bottom: 1.25rem;
+            font-size: 0.6rem;
+            color: #666666;
+            border-bottom: 2px solid #e1e1e1;
+            padding-left: 0.625rem;
+            padding-right: 0.625rem;
+        }
+
+        .dan-num {
+            padding-top: 0.6rem;
+            padding-bottom: 0.6rem;
+            border-top: 1px solid #e1e1e1;
+            border-bottom: 1px solid #e1e1e1;
+        }
+
+        .dan-num p {
+            height: 2rem;
+            line-height: 2rem;
+            font-size: 0.7rem;
+        }
+
+
+        .dan-num p span:nth-child(1) {
+            color: #666666;
+        }
+
+        .dan-num p span:nth-child(2) {
+            color: #000000;
+        }
+
+        .wei-common {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .wei-common p {
+            font-size: 0.7rem;
+            color: #0c0c0e;
+            letter-spacing: 0.1rem;
+        }
+
+        .baodan p {
+            text-align: center;
+            font-size: 0.6rem;
+            color: #666666;
+        }
+
+
+        .wei-common {
+            padding-top: 2.5rem;
+            padding-bottom: 1.25rem;
+
+        }
+
+        .wei-common img {
+            width: 4.75rem;
+            height: 4.75rem;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class='wrap'>
+        <div class="wrap-success">
+            <img src="zhongan/zxes/images/fail.png" alt="">
+            <p>投保未成功</p>
+        </div>
+        <div class='type'>
+            <span>提示:</span>
+            <span id="bankid"></span>
+        </div>
+        <div class="tips">
+            <span>温馨提示:</span>
+            <span>温馨提示:很抱歉,您的保单投保没有成功，请再次核实填写信息和账户余额,您还可以与我们的保险经纪人员直接联系。</span>
+        </div>
+
+
+
+        <div class="wei-common">
+            <img src="zhongan/zxes/images/meihua.png" alt="">
+        </div>
+        <div class="baodan">
+            <p>长按或扫描二维码<br>关注保单信息进展</p>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            // 获取上一个页面传递的参数
+            // function GetRequest() {
+            //     var url = location.search;
+            //     var theRequest = new Object();
+            //     if (url.indexOf("?") != -1) {
+            //         var str = url.substr(1);
+            //         strs = str.split("&");
+            //         for (var i = 0; i < strs.length; i++) {
+            //             theRequest[strs[i].split("=")[0]] = decodeURI(strs[i].split("=")[1]);
+            //         }
+            //     }
+            //     return theRequest;
+            // }
+            // var params = {};
+            // params = GetRequest();
+            // console.log(params)
+
+
+            // 获取页面传递的参数,路径中的url
+            function GetRequest() {
+                var url = location.search;
+                var theRequest = new Object();
+                if (url.indexOf("?") != -1) {
+                    var str = url.substr(1);
+                    console.log(str)
+                    return str;
+                }
+            }
+            var urlid = GetRequest();
+            console.log(urlid)
+            var userurl = `../../life/common/payfail_html.do?${urlid}`
+
+        
+            $.ajax({
+                url: userurl,
+                type: "post",
+                async: true,
+                data: {},
+                beforeSend: function () {},
+                success: function (data) {
+                    var obj = JSON.parse(data);
+                    console.log(obj)
+                    $('#bankid').text(obj.message)
+                },
+                error: function (data) {
+                    error(data);
+                },
+                complete: function () {}
+            });
+
+
+
+
+            function sendPriceRequest(url, data, success, error) {
+                $.ajax({
+                    url: url,
+                    type: "post",
+                    async: true,
+                    data: data ? data : {},
+                    beforeSend: function () {},
+                    success: function (data) {
+                        if (success) {
+                            success(data);
+                            console.log(data)
+                        }
+                    },
+                    error: function (data) {
+                        if (error) {
+                            error(data);
+                        }
+                    },
+                    complete: function () {}
+                });
+            }
+
+
+
+        })
+    </script>
+</body>
+
+</html>

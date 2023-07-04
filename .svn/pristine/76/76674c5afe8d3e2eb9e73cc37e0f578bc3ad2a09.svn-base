@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>3分钟带你读懂险种区别【重疾险、医 疗险、意外险、寿险】</title>
+    <link rel="stylesheet" href="css/index.css">
+    <script>
+        !(function () {
+            function a() {
+                var html = document.documentElement;
+                var w = html.getBoundingClientRect().width;
+                if (w > 750) {
+                    w = 750;
+                }
+                var f = w / 7.5;
+                html.style.fontSize = f + "px";
+            }
+            a();
+            var timer;
+            window.onresize = function () {
+                clearTimeout(timer);
+                timer = setTimeout(a, 300);
+            }
+        })();
+    </script>
+
+</head>
+
+<body class="body">
+    <div class="template">
+
+        <div class="wrap">
+            <div class="nav">
+                <div class="title">
+                    <p>3分钟带你读懂险种区别【重疾险、医 疗险、意外险、寿险】</p>
+                </div>
+                <div class="author">
+                    <p class="yuan">原创</p>
+                    <p class="mei">&nbsp;&nbsp;美华君</p>
+                    <p class="bao" style="color: #576b95;" onclick="checkForm1()"> &nbsp;&nbsp;美华保险服务</p>
+                    <p class="time">&nbsp;&nbsp;一天前</p>
+                </div>
+                <div class="click">
+                    <p class="blue">点击上方<span style="color: #576b95;">蓝色字&nbsp;</span></p>
+                    <p>&nbsp;1&nbsp;对&nbsp;1沟通</p>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="con-title">
+                    <p>防坑必读</p>
+                </div>
+
+                <div class="banner-img">
+                    <a href="javascript:;" onclick="checkForm()">
+                        <img src="images/banner.png" alt="美华保险">
+                    </a>
+                </div>
+                <div class="triangle">
+                    <img src="images/triangle.png" alt="">
+                </div>
+                <div class="box">
+                    <p>很多人第一次买保险，不知道买哪个险种，不同的险种之间有什么区别区分？今天美华君就给大家来详细的讲解一下这行些问题！</p>
+                </div>
+                <div class="ins-list">
+                    <ul>
+                        <li>重疾险VS医疗险？</li>
+                        <li>意外险VS寿险？</li>
+                        <li>2020年保障全面的险种评测</li>
+                    </ul>
+                </div>
+                <div class="first">
+                    <p class="fir-title">一、重疾险VS医疗险？</p>
+                    <p class="con">重疾险和医疗险都是保障疾病的：重疾险（俗称大病险），属于给付型。医疗险（俗称住院险），属于补偿型。</p>
+                    <p class="case">直接给大家举个例子：</p>
+                </div>
+
+                <div class="case-beijing">
+                    <p class="fir-case">01. 老王买了100万重疾险。</p>
+                    <ul>
+                        <li>
+                            <p> 得了个癌症，申请理赔，保险公司一看材料，符合条款，赔钱！</p>
+                        </li>
+                        <li>
+                            <p>于是 100 万就直接打老王账户了。至于这 100 万怎么用，用不用，没人管你。</p>
+                        </li>
+                        <li>
+                            <p>老王说国内医疗不行，我要去美国治，可以。</p>
+                        </li>
+                        <li>
+                            <p>老王说我不治了，拿钱旅游世界吧，可以。</p>
+                        </li>
+                        <li>
+                            <p>老王说我治好了，还剩 50 万，给我儿子攒着念书吧，可以。</p>
+                        </li>
+                        <li>
+                            <p>这就叫给付型，只负责给钱。给多少只跟当初「保多少」有关，跟「花多少，治没治」没关系。</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="case-beijing case-beijing1">
+                    <p class="fir-case">02. 老王买了100万医疗险。</p>
+                    <ul>
+                        <li>
+                            <p>被车撞了，住院半年。各种费用加一起花了几十万。找保险公司报销。</p>
+                        </li>
+                        <li>
+                            <p>保险公司说：行，你提供医院的单据流水，住院费／手术费／药费／护理费……每一样都有赔付的标准和比例，对应保险条款，看看最后赔多少。</p>
+                        </li>
+                        <li>
+                            <p>比如老王实际花了 30 万，那最多赔 30 万，赔的额度不能超过老王的实际花费，也不能超过医疗险的保额。</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="table">
+                    <table border="1" style="border-collapse: collapse;" class="tab-list">
+                        <tr class="insurance">
+                            <td>险种</td>
+                            <td>重疾险</td>
+                            <td>医疗险</td>
+                        </tr>
+                        <tr>
+                            <td>保障本质</td>
+                            <td>弥补重疾导致家收入
+                                的损失（给付型）</td>
+                            <td>填补疾病产生的医疗
+                                费用（报销型）</td>
+                        </tr>
+                        <tr>
+                            <td>保障范围</td>
+                            <td>保险合同规定的重大
+                                疾病+轻症</td>
+                            <td>扣除免配额+社保外
+                                的医疗费用</td>
+                        </tr>
+                        <tr>
+                            <td>理赔时效</td>
+                            <td>符合重疾定义即赔</td>
+                            <td>治疗后拿发票报销
+                                （部分可垫付）</td>
+                        </tr>
+                        <tr>
+                            <td>理赔金额</td>
+                            <td>合同约定的保险金额</td>
+                            <td>治疗所花费的费用</td>
+                        </tr>
+                        <tr>
+                            <td>续保保费</td>
+                            <td>恒定不变，每年都一
+                                样（均衡费率定价）</td>
+                            <td>随年龄和费率变化，
+                                可能变高（自然费
+                                率定价）</td>
+                        </tr>
+                        <tr>
+                            <td>续保期限</td>
+                            <td>长期（依照合同规定）</td>
+                            <td>1年（最长）</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="case-beijing case-beijing2">
+                    <p class="fir-case">1、保障期限和续保上的差别</p>
+                    <ul>
+                        <li>
+                            <p> 重疾险通常都是长期险，买了可以保障几十年的那种，所以一般不用担心第二年还能不能再买。</p>
+                        </li>
+                        <li>
+                            <p>医疗险大部分都是一年期产品，不保证续保，在第二年可能面临提高保费、拒绝续保、产品停售等风险。</p>
+                        </li>
+
+                    </ul>
+
+
+                    <p class="fir-case">2、疾病方面的差别：医疗险稍高一筹</p>
+                    <ul>
+                        <li>
+                            <p> 重疾险保障疾病种类在合同里都会有约定，保监会规定至少包含25种重疾。这25种重疾就已经占到理赔率和发病率95%左右的比例。保险公司通常会再加一部分疾病上去，但也只是锦上添花。
+                                医疗险</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="yue-click">
+                    <div class="blue-down">
+                        <!-- <img src="images/blue-down.png" alt="美华保险"> -->
+                        <img src="images/arrow-green.png" alt="美华保险">
+                    </div>
+
+                    <div class="button" onclick="checkForm()">点击阅读全文</div>
+                </div>
+
+
+                <div class="bigbox">
+                    <div class="box-title">更多文章精选</div>
+                    <div class="box-first">
+                        <p class="box-before">购买前</p>
+                        <p class="box-kuai"></p>
+                    </div>
+                    <div class="box-list">
+                        <p class="box-nav">保险知识科普</p>
+                        <ul>
+                            <li>
+                                <p>投保规划</p>
+                                <p onclick="checkForm()"> <a href="javascript:;">不同年龄段如何规划保险？</a> </p>
+                            </li>
+                            <li>
+                                <p>投保原则</p>
+                                <p onclick="checkForm()"><a href="javascript:;">必须知道的科学投保五大原则！</a></p>
+                            </li>
+                            <li>
+                                <p>投保原则</p>
+                                <p onclick="checkForm()"><a href="javascript:;">这样的投保原则才正确！</a></p>
+                            </li>
+                            <li>
+                                <p>保费返还</p>
+                                <p onclick="checkForm()"><a href="javascript:;">挑返还型还是消费型，哪个更好？</a></p>
+                            </li>
+                            <li>
+                                <p>服务对比</p>
+
+                                <p onclick="checkForm()"><a href="javascript:;">从保险公司投诉率，看服务好不好！</a></p>
+                            </li>
+                            <li>
+                                <p>产品匹配</p>
+                                <p onclick="checkForm()"><a href="javascript:;">买保险都在同一家公司好不好？</a></p>
+                            </li>
+
+                            <li>
+                                <p>购买渠道</p>
+                                <p onclick="checkForm()"><a href="javascript:;">线上购买和线下购买，哪个更放心？</a></p>
+                            </li>
+                            <li>
+                                <p>保险合同</p>
+                                <p onclick="checkForm()"><a href="javascript:;">教你辨别保险合同的那些坑！</a></p>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="box-list">
+                        <p class="box-nav">高性价比方案推荐</p>
+                        <ul>
+                            <li>
+                                <p>投保规划</p>
+                                <p onclick="checkForm()"> <a href="javascript:;">不同年龄段如何规划保险？</a> </p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="box-first">
+                        <p class="box-before">购买中</p>
+                        <p class="box-kuai"></p>
+                    </div>
+
+                    <div class="box-list">
+                        <p class="box-nav">保险购买技巧</p>
+                        <ul>
+                            <li>
+                                <p>缴费年限</p>
+                                <p onclick="checkForm()"> <a href="javascript:;">缴费年限怎么选才不会亏？</a> </p>
+                            </li>
+                            <li>
+                                <p>健康告知</p>
+                                <p onclick="checkForm()"><a href="javascript:;">投保时，健康告知有什么小技巧？</a></p>
+                            </li>
+                            <li>
+                                <p>保费豁免</p>
+                                <p onclick="checkForm()"><a href="javascript:;">保费豁免好不好，买保险的时候一定要选吗？</a></p>
+                            </li>
+                            <li>
+                                <p>受益人</p>
+                                <p onclick="checkForm()"><a href="javascript:;">如何指定保险受益人？</a></p>
+                            </li>
+                            <li>
+                                <p>保额规划</p>
+
+                                <p onclick="checkForm()"><a href="javascript:;">保额要买多少才合适？</a></p>
+                            </li>
+                            <li>
+                                <p>产品匹配</p>
+                                <p onclick="checkForm()"><a href="javascript:;">买保险都在同一家公司好不好？</a></p>
+                            </li>
+
+                            <li>
+                                <p>轻症选择</p>
+                                <p onclick="checkForm()"><a href="javascript:;">重疾险的轻症数量是不是越多越好？</a></p>
+                            </li>
+                            <li>
+                                <p>多次赔付</p>
+                                <p onclick="checkForm()"><a href="javascript:;">重大疾病险多次赔付比单次的更划算吗？</a></p>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="box-first">
+                        <p class="box-before">购买后</p>
+                        <p class="box-kuai"></p>
+                    </div>
+                    <div class="box-list">
+                        <p class="box-nav">买保险后的注意事项</p>
+                        <ul>
+                            <li>
+                                <p>保险理赔</p>
+                                <p onclick="checkForm()"> <a href="javascript:;">理赔案件发生后，应该如何去理赔？</a> </p>
+                            </li>
+                            <li>
+                                <p>理赔资料</p>
+                                <p onclick="checkForm()"><a href="javascript:;">理赔资料一般有哪些，有什么要注意的细节？</a></p>
+                            </li>
+                            <li>
+                                <p>续保缴费</p>
+                                <p onclick="checkForm()"><a href="javascript:;">保费忘记交，保单状态会失效吗？</a></p>
+                            </li>
+                            <li>
+                                <p>保单管理</p>
+                                <p onclick="checkForm()"><a href="javascript:;">保单自已管理，理赔时，家人不知道咋办？</a></p>
+                            </li>
+                            <li>
+                                <p>理赔纠纷</p>
+
+                                <p onclick="checkForm()"><a href="javascript:;">出现理赔纠纷的正确操作流程！</a></p>
+                            </li>
+                            <li>
+                                <p>保险退保</p>
+                                <p onclick="checkForm()"><a href="javascript:;">保险退保时要留意哪些细节？</a></p>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="deash"></div>
+                    <div class="box-first">
+                        <p class="box-before" style="width:3.3rem;">还有实用的小工具哦</p>
+                        <p class="box-kuai" style="width:3.3rem;"></p>
+                    </div>
+                    <div class="tool">
+                        <ul>
+                            <li class="ceping">
+                                <p>保险测评</p>
+                                <p>公正客观解析产品</p>
+                            </li>
+                            <li class="gonglue">
+                                <p>保险攻略</p>
+                                <p>专业规划师定制方案</p>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li class="vip">
+                                <p>VIP甄选</p>
+                                <p>配置高性价比保险</p>
+                            </li>
+                            <li class="xingxing">
+                                <p>理赔协助</p>
+                                <p>24小时理赔在线服务</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 输入弹框 -->
+            <div id="checkFormPopHtml" class="pop-up">
+                <div class="pop-bg"></div>
+                <div class="pop-contain" id="pop-contain">
+                    <div class="pop-son-contain">
+                        <div class="pop-title">
+                            <span id="offPop" onclick="clikcNone()">&#10005</span>
+                        </div>
+
+                        <div class="tan-content">
+                            <div class="tan-title">
+                                <p>免费预约在线</p>
+                                <P>保险顾问一对一咨询</P>
+                            </div>
+                            <div class="form">
+                                <div class="username">
+                                    <input type="text" placeholder="请输入您的姓名" value="" id="user">
+                                </div>
+                                <i class="userError"></i>
+                                <div class="phone">
+                                    <input type="text" placeholder="请输入您的手机号" id="phone" value="">
+                                    <button id="send">发送验证码</button>
+                                    <!-- <input type="submit" value="重新发送(30)" id="send"> -->
+                                </div>
+                                <i class="errorMsg"></i>
+
+                                <div class="code">
+                                    <input type="text" placeholder="请输入您的验证码" value="" id="code">
+                                </div>
+                                <i class="phoneError"></i>
+
+                                <div class="send-click" id="sendClick">
+                                    <p>立即在线预约</p>
+                                </div>
+                            </div>
+                            <div class="secrecy">
+                                <p>用户安全声明：您提供的个人信息被严格保密，我们不会泄露给任何第三方或用于其他用途。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- 提交成功弹窗 -->
+            <div class="success">
+                <div class="success-bg"></div>
+                <div class="success-content">
+                    <div class="success-con">
+
+                        <div class="success-icon">
+                            <img src="images/success-icon.png" alt="美华保险">
+                            <p>恭喜您提交成功</p>
+                        </div>
+
+                        <div class="contact">
+                            <p>美华保险顾问将会与您联系，请耐心等候~</p>
+                        </div>
+
+                        <div class="success-bottom">
+                            <img src="images/logo.png" alt="美华保险">
+                        </div>
+
+                        <div class="success-close" id="success-close">
+                            <img src="images/close.png" alt="美华保险">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- 微信二维码弹窗 -->
+            <div class="success1">
+                <div class="success-bg1"></div>
+                <div class="success-content1" style="height:7rem;">
+                    <div class="success-con1">
+                        <div class="pop-title1">
+                            <span id="offPop1" onclick="clikcNone1()">&#10005</span>
+                        </div>
+                        <div class="success-icon1">
+                            <p>微信扫码关注，阅读全文</p>
+                        </div>
+                        <img src="images/weixin.png" alt="" class="img">
+                        <div class="success-icon1 success-icon2">
+                            <p>保险产品复杂</p>
+                            <p>直接咨询在线保险顾问</p>
+                        </div>
+                        <div class="mianfei">
+                            <p>免费为你讲解方案，省时省力省保费</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery-1.10.1.min.js"></script>
+    <script src="js/index.js"></script>
+</body>
+
+</html>

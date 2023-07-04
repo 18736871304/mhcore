@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: calc(100vw/18.75);">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>投保信息</title>
+    <link rel="stylesheet" href="../css/infos.css">
+    <link rel="stylesheet" href="../css/iosSelect.css">
+    <link rel="stylesheet" href="../css/font-awesome.css">
+    <style>
+        .title {
+            width: 100%;
+            height: auto;
+            background: #fff;
+        }
+
+        .banner_wrapper {
+            width: 100%;
+            height: auto;
+        }
+
+        .banner_desc p {
+            width: 100%;
+            height: 2.25rem;
+            line-height: 2.25rem;
+            overflow: hidden;
+            padding: 0 0.75rem;
+            background: #fff;
+            color: #686868;
+            box-sizing: border-box;
+        }
+
+        .banner_desc p {
+            border-bottom: 1px solid #e8e8e8;
+        }
+
+        .banner_desc p span {
+            font-size: 0.7rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .box-beijing {
+            width: 100%;
+            height: 0.5rem;
+            background-color: #f0efef;
+            /* border-top: 1px solid #d8d8d8; */
+        }
+
+        .wei-clause {
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+        }
+
+        .banner_desc .wei-clause a p {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .wei-clause a p {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed #d8d8d8;
+        }
+
+        .wei-clause a .last-child {
+            border-bottom: 0px dashed #d8d8d8;
+        }
+
+        .banner_desc p .zhu-size {
+            font-size: 0.8rem;
+            color: #222;
+        }
+
+
+        .no-bottom {
+            border-bottom: 0px dashed #d8d8d8;
+        }
+
+        .ze-button {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #dc220d;
+            width: 100%;
+            height: 2.8rem;
+            line-height: 2.8rem;
+            text-align: center;
+            color: #ffffff;
+            z-index: 510;
+            font-size: 0.8999rem;
+        }
+
+        .title {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 22.75rem;
+            background-color: #fff;
+            display: none;
+            z-index: 1002;
+            overflow-y: scroll;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body class="body">
+    <header class="header w100 pl bgColor">
+        <span>尊享e生2021版</span>
+        <br />
+        <span>本产品由众安在线财产保险股份有限公司承保</span>
+        <img src="../images/logo.png" />
+    </header>
+    <article class="info" style="margin-top: 4.7rem;">
+        <form id="formId" name="formName" method="post">
+            <input type="hidden" id="sumprem" value="">
+            <input type="hidden" id="uwid" value="${uwid}">
+            <!-- 投保人信息 -->
+            <section class="infoList product">
+                <p class="ml" style="color:#222">投保人信息</p>
+                <div class="infoSec pl pr bgColor borTop1 borBot1">
+
+                    <dl class="clearfix borBot1 dlSec">
+                        <dt class="w35 l-float">姓名</dt>
+                        <dd class="w65 l-float txtR hasArrow">
+                            <input type="text" class="textfield txtR personInfo" id="policyName" value=""
+                                placeholder="请输入投保人姓名">
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+
+                    <dl class="clearfix infoDl borBot1 dlSec">
+                        <dt class="w35 l-float">证件类型</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="text" class="textfield txtR personInfo" readonly value="身份证">
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+
+                    <dl class="clearfix borBot1 dlSec">
+                        <dt class="w35 l-float">证件号码</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="text" class="textfield txtR personInfo idNo_compare" id="idNo" value=""
+                                placeholder="请输入证件号码" onchange=calPrice1()>
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+
+                    <dl class="clearfix infoDl borBot1 dlSec">
+                        <dt class="w35 l-float">手机号码</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="tel" class="textfield txtR personInfo" id="tel" value=""
+                                placeholder="用于接收投保信息">
+                            <!-- <input class="textfield txtR mySelf" readonly=""> -->
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+
+                    <dl class="clearfix infoDl borBot1 dlSec">
+                        <dt class="w35 l-float">电子邮箱</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="email" class="textfield txtR personInfo" id="email" value=""
+                                placeholder="用于接收电子保单">
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+                </div>
+            </section>
+            <!-- 被保人信息 -->
+            <section class="infoList" id="scrollTop" style="margin-top:0.5rem">
+                <p class="ml" style="color:#222">被保人信息</p>
+                <!-- 投保人为子女父母配偶 -->
+                <div class="infoSec  bgColor borTop1 borBot1">
+                    <div class="show-user1 filter-item clearfloat">
+                        <div class="filter-left">为谁投保</div>
+                        <div class="filter-center">
+                            <ul class="clearfloat">
+                                <li style="margin-right: 11px;">
+                                    <a href="javascript:;" class='wei-style'>本人</a>
+                                </li>
+                                <li style="margin-right: 11px;">
+                                    <a href="javascript:;">子女</a>
+                                </li>
+                                <li style="margin-right: 11px;">
+                                    <a href="javascript:;">配偶</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">父母</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <!--被保人为本人  -->
+                    <div class="appured" style="display:block; padding-left: 0.75rem; padding-right:0.75rem">
+                        <div class=" show-sb01 filter-item clearfloat borBot1" style="border-top: 1px dashed #e1e1e1;">
+                            <div class="filter-left">是否有社保</div>
+                            <div class="filter-center">
+                                <ul class="clearfloat">
+                                    <li style="margin-right: 11px;">
+                                        <a href="javascript:;">无</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" class='wei-style'>有</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="show-xy01 filter-item clearfloat borBot1">
+                            <div class="filter-left">是否每日吸烟小于10支且吸烟史小于10年</div>
+                            <div class="filter-center">
+                                <ul class="clearfloat">
+                                    <li style="margin-right: 11px;">
+                                        <a href="javascript:;" class='wei-style'>否</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">是</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bigage01">
+                            <div class="show-jb01 filter-item clearfloat borBot1">
+                                <div class="filter-left">重大疾病保险金</div>
+                                <div class="filter-center">
+                                    <ul class="clearfloat">
+                                        <li style="margin-right: 11px;">
+                                            <a href="javascript:;">不投保</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" class='wei-style'>投保</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="show-jbzy01 filter-item clearfloat borBot1">
+                                <div class="filter-left">重大疾病住院津贴保险金</div>
+                                <div class="filter-center">
+                                    <ul class="clearfloat">
+                                        <li style="margin-right: 11px;">
+                                            <a href="javascript:;">不投保</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" class='wei-style'>投保</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="show-jbss01 filter-item clearfloat borBot1">
+                                <div class="filter-left">指定疾病及手术扩展特需医疗</div>
+                                <div class="filter-center">
+                                    <ul class="clearfloat">
+                                        <li style="margin-right: 11px;">
+                                            <a href="javascript:;">不投保</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" class='wei-style'>投保</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="show-hwyl01 filter-item clearfloat borBot1">
+                                <div class="filter-left">个人恶性肿瘤海外医疗</div>
+                                <div class="filter-center">
+                                    <ul class="clearfloat">
+                                        <li style="margin-right: 11px;">
+                                            <a href="javascript:;">不投保</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" class='wei-style'>投保</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="show-zybc01 filter-item clearfloat borBot1 ">
+                                <div class="filter-left">住院医疗费用补偿</div>
+                                <div class="filter-center">
+                                    <ul class="clearfloat">
+                                        <li style="margin-right: 11px;">
+                                            <a href="javascript:;">不投保</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" class='wei-style'>投保</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="small01">
+                            <div class="show-hljz01 filter-item clearfloat borBot1 ">
+                                <div class="filter-left">互联网门急诊</div>
+                                <div class="filter-center">
+                                    <ul class="clearfloat">
+                                        <li style="margin-right: 11px;">
+                                            <a href="javascript:;">不投保</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" class='wei-style'>投保</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                            <div class="show-jzfy01 filter-item clearfloat borBot1 " style="border-bottom: 0;">
+                                <div class="filter-left">急诊费用医疗保险金</div>
+                                <div class="filter-center">
+                                    <ul class="clearfloat">
+                                        <li style="margin-right: 11px;">
+                                            <a href="javascript:;">不投保</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" class='wei-style'>投保</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- 被保人为子女配偶 -->
+                    <div class="insured" style="display:none; padding-left: 0.75rem; padding-right:0.75rem">
+                        <dl class="clearfix infoDl borTop1 dlSec " style="    border-top: 1px dashed #e8e8e8;">
+                            <dt class="w35 l-float">姓名</dt>
+                            <dd class="w65 l-float txtR pr" style="box-sizing: border-box;">
+                                <input type="text" class="textfield txtR personInfo" id="insuredName" value=""
+                                    placeholder="请输入被保人姓名">
+                                <!-- <input class="textfield txtR mySelf" readonly=""> -->
+                            </dd>
+                            <span class="errorMsg"></span>
+                        </dl>
+
+
+                        <dl class="clearfix infoDl borTop1 dlSec ">
+                            <dt class="w55 l-float">证件类型</dt>
+                            <dd class="w40 l-float txtR pr hasArrow">
+                                <input type="text" class="textfield txtR personInfo cardType" readonly="" value="身份证">
+                                <!-- <select id="insuredCardType" class="cardType txtR personInfo dw-hsel"
+                                    onchange="changeInsuredCardType(this.value)" tabindex="-1">
+                                    <option value="0">身份证</option>
+                                    <option value="4">户口本</option>
+                                    <option value="7">出生证</option>
+                                </select> -->
+                                <!-- <i class="arrow"></i> -->
+                                <!-- <input class="textfield txtR mySelf" readonly=""> -->
+                            </dd>
+                            <span class="errorMsg"></span>
+                        </dl>
+
+
+
+                        <dl class="clearfix infoDl borTop1 dlSec ">
+                            <dt class="w35 l-float">证件号码</dt>
+                            <dd class="w65 l-float txtR pr" style="box-sizing: border-box;">
+                                <input type="text" class="textfield txtR personInfo idNo_compare" id="insuredIdNo"
+                                    value="" placeholder="请输入证件号码" onchange=calPrice1()>
+                                <!-- <input class="textfield txtR mySelf idNo_compare" readonly=""> -->
+                            </dd>
+                            <span class="errorMsg"></span>
+                        </dl>
+
+
+                        <dl class="clearfix infoDl borBot1 dlSec ">
+                            <dt class="w35 l-float">手机号</dt>
+                            <dd class="w65 l-float txtR pr" style="box-sizing: border-box;">
+                                <input type="tel" class="textfield txtR personInfo" id="insuredMobile"
+                                    name="insuredList[0].insuredMobile" value="" placeholder="请输入手机号码">
+                                <!-- <input class="textfield txtR mySelf" readonly=""> -->
+                            </dd>
+                            <span class="errorMsg"></span>
+                        </dl>
+
+                        <div class=" show-sb1 filter-item clearfloat borBot1">
+                            <div class="filter-left">是否有社保</div>
+                            <div class="filter-center">
+                                <ul class="clearfloat">
+                                    <li style="margin-right: 11px;">
+                                        <a href="javascript:;">无</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" class='wei-style'>有</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="show-xy filter-item clearfloat borBot1">
+                            <div class="filter-left">是否每日吸烟小于10支且吸烟史小于10年</div>
+                            <div class="filter-center">
+                                <ul class="clearfloat">
+                                    <li style="margin-right: 11px;">
+                                        <a href="javascript:;" class='wei-style'>否</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">是</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bigage">
+
+
+
+                            <div class="show-jb filter-item clearfloat borBot1">
+                                <div class="filter-left">重大疾病保险金</div>
+                                <div class="filter-center">
+                                    <ul class="clearfloat">
+                                        <li style="margin-right: 11px;">
+                                            <a href="javascript:;">不投保</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" class='wei-style'>投保</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="show-jbzy filter-item clearfloat borBot1">
+                                <div class="filter-left">重大疾病住院津贴保险金</div>
+                                <div class="filter-center">
+                                    <ul class="clearfloat">
+                                        <li style="margin-right: 11px;">
+                                            <a href="javascript:;">不投保</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" class='wei-style'>投保</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="show-jbss filter-item clearfloat borBot1">
+                                <div class="filter-left">指定疾病及手术扩展特需医疗</div>
+                                <div class="filter-center">
+                                    <ul class="clearfloat">
+                                        <li style="margin-right: 11px;">
+                                            <a href="javascript:;">不投保</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" class='wei-style'>投保</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                            <div class="show-hwyl filter-item clearfloat borBot1 ">
+                                <div class="filter-left">特定海外医疗</div>
+                                <div class="filter-center">
+                                    <ul class="clearfloat">
+                                        <li style="margin-right: 11px;">
+                                            <a href="javascript:;">不投保</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" class='wei-style'>投保</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                            <div class="show-zybc filter-item clearfloat borBot1 ">
+                                <div class="filter-left">住院医疗费用补偿</div>
+                                <div class="filter-center">
+                                    <ul class="clearfloat">
+                                        <li style="margin-right: 11px;">
+                                            <a href="javascript:;">不投保</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" class='wei-style'>投保</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="small">
+                            <div class="show-hljz filter-item clearfloat borBot1 ">
+                                <div class="filter-left">互联网门急诊</div>
+                                <div class="filter-center">
+                                    <ul class="clearfloat">
+                                        <li style="margin-right: 11px;">
+                                            <a href="javascript:;">不投保</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" class='wei-style'>投保</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="show-jzfy filter-item clearfloat borBot1 ">
+                                <div class="filter-left">急诊费用医疗保险金</div>
+                                <div class="filter-center">
+                                    <ul class="clearfloat">
+                                        <li style="margin-right: 11px;">
+                                            <a href="javascript:;">不投保</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" class='wei-style'>投保</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <input hidden id="productcode">
+                    <input hidden id="prem" value='0'>
+
+                </div>
+            </section>
+            <!-- 增加的投保人信息 -->
+            <div id="addinsured_div">
+            </div>
+            <!-- 点击增加 -->
+            <section class="infoList" id="addinsured_model" style="top : 0.5rem;display: block; ">
+                <div class="clearfix infoDl dingwei fl">
+                    <div class="zengjia" id="addinsured_button"
+                        style="font-size: 0.7rem;text-align: center; background:#fff;line-height: 2.1rem;">+添加被保人</div>
+                </div>
+            </section>
+            <section class="infoList" style="margin-top: 0.5rem;">
+                <p class="ml" style="color:#222">投保计划</p>
+                <div class="gxmp filter-item clearfloat borBot1 ">
+
+                    <div class="filter-left">家庭共享免赔</div>
+                    <div class="filter-center">
+                        <ul class="clearfloat">
+                            <!-- <li style="margin-right: 11px;">
+                                <a href="javascript:;">不投保</a>
+                            </li> -->
+                            <li style="margin-right: 0.75rem;">
+                                <a href="javascript:;" class='wei-style'>投保</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <!-- 受益人信息  -->
+            <section class="infoList" style="margin-top: 0.5rem;">
+                <p class="ml" style="color:#222">受益人信息</p>
+                <div class="infoSec pl pr bgColor borTop1 borBot1">
+                    <dl class="clearfix infoDl borBot1 dlSec">
+                        <dt class="w35 l-float">受益人</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="text" class="textfield txtR personInfo" readonly value="法定收益人">
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+                </div>
+            </section>
+            <!-- 用户协议 -->
+            <section class="infoList" style="border-bottom: none; padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                <div class="ml mr whetherRead">
+                    <i id="whetherCheck" class="unCheckBox"></i>
+                    <span style="text-align: justify;">本人已逐页阅读并同意
+                        <a href="javascript:;" id="zeren">《责任免除》</a><a href="javascript:;" id="zeren1">《投保须知》</a><a
+                            href="javascript:;" id="ztishi">《重要提示》</a>
+                    </span>
+                </div>
+                <div class="ml mr whetherRead1">
+                    <i id="whetherCheck1" class="unCheckBox"></i>
+                    <span style="text-align: justify;">我已查看并同意
+                        <a href="javascript:;" class="clause">《保险条款》</a>
+                        <a href="javascript:;" id='statement'>《投保声明》</a>
+                        <a href="javascript:;" id="user-info">《个人信息保护政策》</a>
+                        <!-- <a href="../PDF/flb.pdf" id="flb">《费率表》</a> -->
+                    </span>
+                </div>
+                <!-- <div class="ml mr whetherRead2">
+                    <i id="whetherCheck2" class="unCheckBox"></i>
+                    <span>保存常用投保人信息，二次投保免输入</span>
+                </div> -->
+            </section>
+        </form>
+        <!--投保按钮-->
+        <div class="bgColor fixedBox w100">
+            <dl class="clearfix infoDl w100">
+                <dt class="w65 l-float font16" style="text-align:center;position: relative;box-sizing: border-box;">
+                    <!-- <input type="text" readonly="" class="insurePrice w70" id="insurePrice" value="136.00元/年起"> -->
+                    <!-- <span readonly="" class="insurePrice" id="insurePrice">136.00</span><span>元</span> -->
+                    <!-- <p class="kf_p"><img src="../images/red_cs.png" alt="" style="width: 1rem;">
+                        <span class="wei-infokf">修改保障</span>
+                    </p> -->
+                    <span readonly="" class="insurePrice" id="insurePrice">136.00</span><span id="priceunit">元</span>
+                </dt>
+                <dd class="w35 r-float">
+                    <div class="insureBtn txtC" id="sureToSave">立即投保</div>
+                </dd>
+            </dl>
+        </div>
+    </article>
+    <!--加载动画-->
+    <div class="loading">
+        <div class="sk-circle">
+            <div class="sk-circle1 sk-child"></div>
+            <div class="sk-circle2 sk-child"></div>
+            <div class="sk-circle3 sk-child"></div>
+            <div class="sk-circle4 sk-child"></div>
+            <div class="sk-circle5 sk-child"></div>
+            <div class="sk-circle6 sk-child"></div>
+            <div class="sk-circle7 sk-child"></div>
+            <div class="sk-circle8 sk-child"></div>
+            <div class="sk-circle9 sk-child"></div>
+            <div class="sk-circle10 sk-child"></div>
+            <div class="sk-circle11 sk-child"></div>
+            <div class="sk-circle12 sk-child"></div>
+        </div>
+    </div>
+    <!--弹窗-->
+    <div class="mask">
+        <div class="pop repeat">
+            <span>失败提示</span>
+            <a class="pop-sure">确定</a>
+        </div>
+    </div>
+
+    <div class="forSelfMask">
+        <div class="forSelfPop forSelfRepeat">
+            <p>是否确认投保？</p>
+            <span>说明：根据相关规定，您作为投保人或被保险人购买产品将无法获得平台推广费和推荐奖励。</span>
+            <div class="forSelfBtn">
+                <a href="javascript:void(0);" class="forSelfUnsure">取消</a>
+                <a href="javascript:void(0);" class="forSelfSure">确定</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="zhezhao"></div>
+    <!-- 个人信息保护政策 -->
+    <div class="user-info">
+        <div class="calculation calculation1">
+            <div class="cal-content">
+                <p class="cal-title">《个人信息保护政策》</p>
+            </div>
+            <div class="return-close1">
+                <i class="fa fa-angle-down" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="user-con">
+            <p> <a href="../PDF/infopro.pdf">
+                    <p class="no-bottom" style="  border-bottom: 0px dashed #d8d8d8; margin-bottom: 2.8rem;">
+                        个人信息保护政策
+                    </p>
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!--投保声明  -->
+    <div class="statement">
+        <div class="calculation calculation1">
+            <div class="cal-content">
+                <p class="cal-title">《投保声明》</p>
+            </div>
+            <div class="return-close1">
+                <i class="fa fa-angle-down" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="user-con">
+            <p> 投保时，本投保人已就该产品的保障内容、保险金额以及免除责任向被保险人进行了明确说明，并征得其同意。</p>
+            <p> 本投保人授权美华保险销售有限公司（下称“美华保险”）作为本人的保险经纪人，并委托美华保险全权代为办理保险相关事宜。</p>
+            <p> 本投保人兹声明已如实填写各项投保信息，并知道如果投保信息不真实，保险公司将有权解除保险合同或拒赔，一切后果由本人承担。</p>
+            <p> 本投保人已阅读该产品的详细条款，了解并接受包括有关责任条款及免除责任条款、犹豫期、费用扣除、退保、保险单现金价值、投保人、被保险人义务的内容等重要事项。本投保人特此同意接受条款全部内容。</p>
+            <p> 本投保人已明确了解该保险合同的成立、生效是以保险公司出具保单为准，确认非以支付保费为保险合同的成立要件。</p>
+            <p> 本投保人已明确了解并接受本计划的。</p>
+            <p style="margin-bottom: 0.4rem;">
+                根据《中华人民共和国合同法》第十一条规定，数据电文是合法的合同表现形式之一。本人接受保险公司在美华保险提供的电子保单作为本投保书成立生效的合法有效凭证，具有完全证据效力。</p>
+        </div>
+    </div>
+
+
+    <!-- 责任免除 投保须知 弹窗 -->
+    <div class="zeren-info">
+        <div class="wei-ze">
+            <p class="ze-mchu ze-style">投保须知</p>
+            <p class="ze-xuzhi">责任免除</p>
+        </div>
+        <div class="ze-mian">
+            <p></p>
+            <p> 一、 产品责任 </p>
+            <p style="font-weight: bold;">若投保60周岁及以下的常规计划：</p>
+            <p> 1. 一般医疗责任 </p>
+            <p> （1） 因遭受意外伤害事故或在等待期 30 天后因患疾病； </p>
+            <p> （2） 在二级或以上的公立医院普通部发生的，需个人支付的、必须且合理的一般医疗费用； </p>
+            <p> （3） 一般医疗费用包括：住院医疗费用、特殊门诊医疗费用、门诊手术医疗费用、住院前30天和出院后30天门急诊医疗费用； </p>
+            <p>（4） 保险人在扣除 1 万元免赔额后，按 100%的赔付比例给付本项保险金，年累计给付以 300 万元为限；</p>
+            <p> （5） 以有基本医疗保险或公费医疗身份参保，但未以基本医疗保险或公费医疗身份就诊并结算的，按照应赔付金额的 60%进行赔付。</p>
+            <p>（6）床位费限1,000元/天。</p>
+            <p> 2. 重大疾病医疗责任</p>
+            <p> （1）因遭受意外伤害事故导致罹患或在等待期30天后初次确诊罹患本合同约定的100种重大疾病（及121种罕见病）；罕见病目录以国家卫生健康委员会于2018年5月22日发布的《第一批罕见病目录》为准。</p>
+            <p> （2） 在二级或以上的公立医院普通部发生的，需个人支付的、必须且合理的重大疾病医疗费用； </p>
+            <p> （3） 重大疾病医疗费用包括：住院医疗费用、特殊门诊医疗费用、门诊手术医疗费用、 住院前30天和出院后30天门急诊医疗费用；
+                <p> （4） 保险人按 100%的赔付比例给付本项保险金，年累计给付以 600 万元为限；</p>
+                <p> （5） 以有基本医疗保险或公费医疗身份参保，但未以基本医疗保险或公费医疗身份就诊并结算的，按照应赔付金额的 60%进行赔付；</p>
+                <p> （6）床位费限1,000元/天。</p>
+                <p> 3. 恶性肿瘤质子重离子医疗责任</p>
+                <p> （1） 等待期 30 天后初次确诊罹患恶性肿瘤-重度； </p>
+                <p> （2） 在上海市质子重离子医院接受质子重离子治疗而发生的相关费用； </p>
+                <p>（3） 保险人按 100%的赔付比例给付本项保险金，年累计给付以 600 万元为限，床位 费限 1500 元/天；</p>
+                <!-- <p> （4） 本项保险金与重大疾病医疗保险金共用保额。 </p> -->
+                <p> 4. 恶性肿瘤院外特定药品费用医疗责任</p>
+                <p> （1） 等待期 30 天后初次确诊罹患恶性肿瘤-重度； </p>
+                <p>（2） 治疗实际发生的合理且必需的且同时满足合同定义的院外特定药品费用； </p>
+                <p>（3） 保险人按 100%的赔付比例给付本项保险金，年累计给付以 600 万元为限；</p>
+                <p>（4）被保险人须在保险人指定的药店，且须符合条款约定的“授权申请、药品处方审核及购药流程”的相关规定，进行恶性肿瘤院外特定药品的购买；</p>
+                <p> （5） 仅赔付责任内约定的药品清单中列明的药品，若为社保目录内药品，社保报销后剩 余 100%赔付，以有基本医疗保险或公费医疗身份参保，但未以有基本医疗保
+                    险或公费医疗身份就诊并结算的，按照应赔付金额的 60%进行赔付；若为社保目录外 药品，100%赔付；约定的药品清单以保险人最新公布信息为准，保险人保留对药品清
+                    单进行变更的权利，将根据医疗水平的发展对药品清单进行更新； </p>
+                <p> 5.重大疾病责任（如购买）：</p>
+                <p> 指被保险人因遭受意外伤害事故导致罹患或在等待期30天后初次确诊罹患本产品定义的重大疾病，本产品按载明的保险金额给付重大疾病保险金。</p>
+                <p> 6.重大疾病住院津贴责任（如购买）：</p>
+                <p> 指被保险人因遭受意外伤害事故导致罹患或在等待期30天后初次确诊罹患本产品定义的重大疾病，对于被保险人每次实际住院天数，按100元/天给付重大疾病住院津贴保险金，单次住院给付日数以30日为限，同一保险年度累计给付天数以180天为限，若被保险人本次住院治疗与前次住院原因相同，并且前次出院与本次入院间隔不超过30日的，则本次住院与前次住院视为同一次住院。
+                </p>
+                <p> 7.指定疾病及手术扩展特需医疗保险责任（如购买）：</p>
+                <p> 指被保险人在等待期30天后初次罹患恶性肿瘤——重度或严重非恶性颅内肿瘤或接受指定移植手术或指定重大手术，在二级及以上的公立医院特需部、国际部、VIP部（不包括观察室、联合病房和康复病房）接受治疗的，本产品承担必需且合理的住院医疗费用、住院前30日（含住院当日）和出院后30日（含出院当日）的门急诊医疗费用
+                    （与该次住院原因相同）、门诊手术费用和特殊门诊医疗费用。</p>
+
+                <p>8.恶性肿瘤海外医疗加油包（如购买）：</p>
+                <p>包含国际第二诊疗意见费用责任、恶性肿瘤赴日医疗责任和恶性肿瘤特定地区海外医疗责任；</p>
+                <p>（1）国际第二诊疗意见费用责任：
+                    被保险人在等待期30天后经医院初次确诊罹患恶性肿瘤——重度的，向保险人提出申请，经审核同意并授权第三方服务提供商安排提供，可获取指定医疗服务机构清单中的医学专家根据被保险人提供的完整病历资料作出的独立、专业的国际第二诊疗意见。符合约定的国际第二诊疗意见费用保险金将由保险人审核同意后与授权服务提供商结算。保险人有调整授权服务提供商及指定医疗服务机构的权利。
+                </p>
+                <p>（2）恶性肿瘤赴日医疗责任：被保险人在等待期30天后经医院初次确诊罹患恶性肿瘤——重度的，经保险人授权第三方服务提供商安排提供的第二诊疗意见服务确定，前往指定日本医院接受治疗的、必需且合理的医疗费用，保险人按70%的比例给付保险金。赴日本治疗的累计次数限10次。
+                </p>
+                <p>（3）恶性肿瘤特定地区海外医疗责任：
+                    被保险人在等待期30天后经医院初次确诊罹患恶性肿瘤——重度的，经保险人授权第三方服务提供商安排提供的第二诊疗意见服务确定，前往特定地区海外指定医院接受治疗的、必需且合理的医疗费用，保险人按70%的比例给付保险金。本保单特定地区治疗国限美国和日本，可选择其中之一赴海外治疗，赴日本治疗的累计次数限10次，赴美国治疗的累计次数限5次。
+                </p>
+                <p>9.互联网门急诊加油包（如购买）：</p>
+                <p>包含在线问诊药品费用医疗责任和急诊费用医疗责任；</p>
+                <p>（1）在线问诊药品费用医疗责任：</p>
+                <p>a.在等待期30天后因患特定疾病；</p>
+                <p> b.在众安互联网医院发生的，需个人支付的、必须且合理的药品医疗费用；</p>
+                <p>c.保险人按70%的赔付比例给付本项保险金（即70%的药品费用由众安保险直付给众安互联网医院，您需要支付剩余的30%），每次给付以500元为限，月给付次数限2次，（若为月缴，月赔付次数限1次）,年给付次数限10次；
+                </p>
+                <p>（2）急诊费用医疗责任：</p>
+                <p>a.因遭受意外伤害事故或在等待期30天后因患疾病；</p>
+                <p> b.在二级或以上的公立医院急诊部发生的，需个人支付的、必须且合理的急诊医疗费用；</p>
+                <p> c.保险人每次在扣除100元免赔额后，按50%的赔付比例给付本项保险金，每次给付以500元为限，月给付次数限1次，年给付次数限4次。</p>
+                <p> 10.住院医疗费用补偿责任（如购买）：</p>
+                <p> （1）因遭受意外伤害事故或在等待期90天后因患疾病；</p>
+                <p> （2）在二级或以上的公立医院普通部发生的，需个人支付的、必须且合理的一般医疗费用；</p>
+                <p> （3）若已从基本医疗保险或公费医疗取得医疗费用补偿的，赔付比例为90%；若未从基本医疗保险或公费医疗取得医疗费用补偿的，赔付比例为60%；年累计给付以1万元为限。</p>
+                <p> （4）治疗疾病含以下所列疾病的一种或多种的，赔付比例为20%：痔疮，女性生殖系统疾病(即女性子宫、输卵管、卵巢、阴道、外阴器官疾病)、结节、息肉、囊肿、增生。</p>
+                <p> 11.本产品国内医疗总保额为600万元。</p>
+
+                <p style="font-weight: bold;"> 若投保61-70周岁的常规计划：</p>
+                <p>1.一般医疗责任</p>
+                <p>（1）因遭受意外伤害事故或在等待期30天后因患疾病；</p>
+                <p>（2）在二级或以上的公立医院普通部发生的，需个人支付的、必须且合理的一般医疗费用；</p>
+                <p>（3）一般医疗费用包括：住院医疗费用、特殊门诊医疗费用、门诊手术医疗费用、住院前30天和出院后30天门急诊医疗费用；</p>
+                <p>（4）一般医疗责任、重大疾病医疗责任与恶性肿瘤院外特定药品费用医疗责任共用1万元年免赔额；</p>
+                <p>（5）保险人在扣除相应的免赔额后，按100%的赔付比例给付本项保险金，年累计给付以300万元为限；</p>
+                <p>（6）以有基本医疗保险或公费医疗身份参保，但未以基本医疗保险或公费医疗身份就诊并结算的，按照应赔付金额的60%进行赔付。</p>
+                <p>（7）床位费限1,000元/天。</p>
+                <p>2.重大疾病医疗责任</p>
+                <p>（1）因遭受意外伤害事故导致罹患或在等待期30天后初次确诊罹患本合同约定的100种重大疾病（及121种罕见病）；罕见病目录以国家卫生健康委员会于2018年5月22日发布的《第一批罕见病目录》为准；
+                </p>
+                <p>（2）在二级或以上的公立医院普通部发生的，需个人支付的、必须且合理的重大疾病医疗费用；</p>
+                <p>（3）重大疾病医疗费用包括：住院医疗费用、特殊门诊医疗费用、门诊手术医疗费用、住院前30天和出院后30天门急诊医疗费用；</p>
+                <p>（4）一般医疗责任、重大疾病医疗责任与恶性肿瘤院外特定药品费用医疗责任共用1万元年免赔额；</p>
+                <p>（5）保险人在扣除相应的免赔额后，按100%的赔付比例给付本项保险金，年累计给付以600万元为限；</p>
+                <p>（6）以有基本医疗保险或公费医疗身份参保，但未以基本医疗保险或公费医疗身份就诊并结算的，按照应赔付金额的60%进行赔付；</p>
+                <p>（7）床位费限1,000元/天。</p>
+                <p>3.恶性肿瘤质子重离子医疗责任</p>
+                <p>（1）等待期30天后初次确诊罹患恶性肿瘤——重度；</p>
+                <p>（2）在上海市质子重离子医院接受质子重离子治疗而发生的相关费用；</p>
+                <p>（3）保险人按100%的赔付比例给付本项保险金，年累计给付以600万元为限，床位费限1500元/天；</p>
+                <p>4.恶性肿瘤院外特定药品费用医疗责任</p>
+                <p>（1）等待期30天后初次确诊罹患恶性肿瘤——重度；</p>
+                <p>（2）治疗实际发生的合理且必需的且同时满足合同定义的院外特定药品费用；</p>
+                <p>（3）保险人在扣除相应的免赔额后，按100%的赔付比例给付本项保险金，年累计给付以600万元为限；</p>
+                <p>（4）被保险人须在保险人指定的药店，且须符合条款约定的“授权申请、药品处方审核及购药流程”的相关规定，进行恶性肿瘤院外特定药品的购买；</p>
+                <p>（5）一般医疗责任、重大疾病医疗责任与恶性肿瘤院外特定药品费用医疗责任共用1万元年免赔额；</p>
+                <p>（6）仅赔付责任内约定的药品清单中列明的药品，若为社保目录内药品，社保报销后剩余100%赔付，以有基本医疗保险或公费医疗身份参保，但未以有基本医疗保险或公费医疗身份就诊并结算的，按照应赔付金额的60%进行赔付；若为社保目录外药品，100%赔付；约定的药品清单以保险人最新公布信息为准，保险人保留对药品清单进行变更的权利，将根据医疗水平的发展对药品清单进行更新；
+                </p>
+
+                <p> 5.本产品国内医疗总保额为600万元。</p>
+
+
+
+
+
+
+
+                <p> 二、 投被保险人要求</p>
+                <p> 1. 投保人资格：18 周岁以上有完全民事行为能力人，并与被保险人存在可保利益；仅限 在中国大陆地区有固定居所的人士投保。</p>
+
+                <p> 2.
+                    被保险人年龄：首次投保时年龄为出生满30天至70周岁，可选责任中，在线问诊药品费用医疗责任首次投保年龄为6至60周岁；急诊费用医疗责任首次投保年龄为出生满30天至60周岁；住院医疗费用补偿责任首次投保年龄为出生满30天至60周岁；其余可选责任首次投保年龄为出生满30天至60周岁。
+                </p>
+                <p> 3. 被保险人职业类别：被保险人不属于《众安保险特殊职业类别表》中的职业类别。</p>
+                <p> <a href="../PDF/job.pdf" style="color: #dc220d;"> 众安特殊职业类别 表1（5-7类人员表）.pdf</a> </p>
+                <p> 三、 产品说明</p>
+                <p>1.产品名称及条款：本产品名称为尊享e生2021版，</p>
+                <p> 请确认您已认真阅读投保须知、保障方案及《众安在线财产保险股份有限公司个人住院医疗保险条款（互联网2022版E款）》（注册号：C00017932512022021610051)、《众安在线财产保险股份有限公司附加恶性肿瘤质子重离子医疗保险条款（互联网2022版A款）》（注册号：C00017932522021111900133)、《众安在线财产保险股份有限公司附加恶性肿瘤特定药械费用医疗保险条款（互联网2022版A款）》（注册号：C00017932522021111900153)、《众安在线财产保险股份有限公司附加个人恶性肿瘤海外医疗保险条款（互联网2022版A款）》（注册号：C00017932522021111900193)、《众安在线财产保险股份有限公司附加个人急诊医疗保险条款（互联网2022版A款）》（注册号：C00017932522021112000963)、《众安在线财产保险股份有限公司附加指定疾病及手术扩展特需医疗保险条款（互联网2022版A款）》（注册号：C00017932522021111900263)
+                    、《众安在线财产保险股份有限公司附加重大疾病住院津贴保险条款（互联网2022版A款）》（注册号：C00017932522021111900373)、《众安在线财产保险股份有限公司个人在线问诊药品费用医疗保险条款（互联网2022版A款）》（注册号：C00017932512021111900453)
+                    、《众安在线财产保险股份有限公司个人重大疾病保险条款（互联网2022版A款）》（注册号：C00017932612021111900413)、《众安在线财产保险股份有限公司个人住院医疗费用补偿保险条款（互联网2022版A款）》（注册号：C00017932512021111900433)，您了解、同意并确认上述条款内容，特别是保险责任、责任免除及其他用粗体等方式显著提示的部分。作为投保人，您确认对被保险人具有保险利益。购买本产品即表示您同意接受本产品条款及投保须知的全部内容。
+                    <p> 2. 本产品保险期间：1 年。</p>
+
+
+                    <p> 3.本产品包含医疗垫付服务、重疾绿色通道服务、肿瘤特药服务、术后家庭护理服务、图文咨询服务、视频问诊服务和健康资讯服务。以上服务均限被保险人本人且应在等待期后的保险期限内使用。服务电话：1010-9955。
+                    </p>
+                    <p> 4.基本医疗保险：简称“社保”，是指包括城镇职工基本医疗保险、城乡居民基本医疗保险、城镇职工大病保险、城乡居民大病保险等政府举办的基本和大病医疗保障项目。</p>
+                    <p> 5.每一被保险人同一保险期间内限投保1份，多投保无效。</p>
+                    <p> 6.本产品保单生效日期为投保成功的次日零时。</p>
+                    <p> 7.本产品通过互联网在全国区域销售。</p>
+                    <p> 四、 保单服务 </p>
+                    <p> 1. 投保：您填写个人投保信息并勾选需要的保险计划，若核保通过，您可通过支付宝、银 行卡等支付方式交纳保费至众安保险指定账户（如为赠险无须交费），保险合同成立；
+                        若核保不通过，则投保人无需支付保险费，保险合同不成立。</p>
+                    <p> 2. 保单查询：本合同采用电子保单形式承保并提供电子发票，您可以通过下列方式查询保 单。如您需要纸质保单请拨打众安保险客服电话 1010-9955，众安保险提供 EMS 快递
+                        到付服务。登录众安官网
+                        www.zhongan.com、众安保险 APP 查看或拨打客服电话 1010-9955 进行查询。根据《中华人民共和国民法典》第四百六十九条规定，数据电文是合
+                        法的合同表现形式。您投保本保险时视为接受以众安保险提供的电子保单作为本投保书 成立的合法有效凭证，具有完全证据效力。</p>
+
+                    <p> 3. 理赔：下载“众安保险”APP，在线申请理赔，审核通过，理赔金转账至被保险人/受益人的账户。</p>
+                    <p> 4. 服务电话：如需变更保单信息、咨询保险产品相关事宜、理赔信息，请联系众安保险客 户服务热线：1010-9955。</p>
+                    <p> 5. 众安保险投诉热线：021-80399188。</p>
+                    <p> 五、 承保公司说明 </p>
+                    <p> 1. 本保险产品由众安在线财产保险股份有限公司承保（即本投保须知所称“众安保险”）， 众安保险总部设立于上海，通过互联网在中华人民共和国境内（港、澳、台地区除外）
+                        开展与互联网交易直接相关的保险业务，主要服务会通过电话、互联网上的服务、第三 方服务机构等方式为您提供全面便捷的保险服务。众安保险不设分支机构，在您所在的
+                        地区，可能无法直接提供及时的面对面线下服务。
+                    </p>
+                    <p> 六、 偿付能力</p>
+                    <p style="word-break:break-all;"> 1. 众安保险最近季度偿付能力充足率符合监管要求，详情请参见公司官网偿付能力披露信息：
+                        http://www.zhongan.com/channel/public/publicInfo_cfnlxx.html </p>
+                    <p> 七、 信息安全及相关授权等。</p>
+                    <p> 1.众安保险严格遵守现行的关于个人信息、数据及隐私保护的法律法规，采取充分的技术手段和制度管理，保护您提供给众安保险的个人信息、数据和隐私不受到非法的泄露或披露给未获授权的第三方。在必要情形下第三方可能接触并使用您的个人信息，包括得到授权的众安保险员工、以及不时执行与众安保险的业务、营销活动和数据整理有关工作的其他公司或人员。所有此类人员及公司均需遵守相关保密协议，同时也需遵守国家关于个人信息保护有关法律法规，以确保您的个人信息随时得到保护。除上述用途外，众安保险不会将您的个人信息用于任何未经您同意的用途。除了众安保险的业务合作伙伴、法律顾问、外部审计机构或按照法律规定、监管规定或司法裁决之外，众安保险不会将所接受的任何个人信息泄露、篡改、毁损、出售或者提供给任何第三方。 </p>
+                    <p> 2.投保时,投保人已就该产品的保障内容、保险金额以及信息授权等向被保险人/被保险人监护人进行了明确说明,并征得其同意。在投保本产品前您应履行相应的如实告知义务，如有不实告知，我公司有权依据《保险法》十六条的规定解除保险合同，并对合同解除前发生的保险事故不承担保险责任。基于提供保险服务、提高服务质量的需要，您授权：众安保险及众安保险的合作机构在承保前或承保后以多种方式核实投保信息的真实性、调查获取被保险人与保险有关的相关信息(包括但不限于健康情况、诊疗情况、既往病史等)，同意查询被保险人已在电子票夹归集保管的、或通过电子票夹使用被保险人的姓名、身份证号等个人信息向医院查询被保险人就诊的电子票据。如众安保险经前述核查发现您存在未如实告知情况的，众安保险将依法解除保险合同；众安保险向与具有必要合作关系的机构提供您的信息（包括但不限于投保、承保、理赔、医疗等）；众安保险及众安保险的合作机构可对您的信息进行合理使用，可通过知悉您信息的机构查询与您有关的全部信息。为确保信息安全，众安保险及合作机构应采取有效措施，并承担保密义务。</p>
+                    <p> 八、 个人信息保护政策 </p>
+                    <p> <a href="../PDF/yszc.pdf" style="color: #dc220d;"> 个人信息保护政策- 第四版.pdf</a> </p>
+                    <P>九、代扣服务授权及协议</P>
+                    <p><a href="../PDF/dkfw.pdf" style="color: #dc220d;"> 代扣服务授权及协议.pdf</a> </p>
+                </p>
+
+                <p> 十、众安保险特殊职业类别表</p>
+                <p> 1.农\副\牧\渔业：特种养殖(蜂\蛇\鳄鱼)人员、山核桃采摘人员、养殖工人(沿海)、沿海作业渔民、远洋渔船船员、近海渔船船员</p>
+                <p> 2.森林木材业：伐木工人、锯木工人、运材人员、起重机之操作人、装运工人、磅秤员、锯木工人、木材搬运工人、木制家俱制造工人、金属家俱制造工人、森林防火人员</p>
+                <p> 3.地质矿产：地质探测员(山区，海上)、坑探工人、地震物探爆炸工人、海洋地质取样工人、海洋测绘人员(海上作业)、地面采矿工人、井下采矿工人、支护工人、矿物采掘爆破工人、矿井开掘工人、露天采矿挖掘机司机、钻孔机司机、井筒冻结工人、矿井机车运输工人、火药\雷管管理工、矿山井下抢险\救灾人员、湖盐采掘船工人、湖盐采掘爆破工人、所有作业人员、技术员、油气井清洁保养修护工、钻勘设备装修保养工、钻油井工人、钻井设备\井架安装工人、油气井测试工人、采油\气工人、井下作业工人、油气管道保护工人、采石业工人、采石业工人(从事凿眼、放炮、破料等)
+                </p>
+                <p> 4.运输业：拖拉机驾驶人员、机动三轮车人员、营业用货车司机、营业用货车随车工人、砂石车司机，随车工人、工程卡车人员、液化气\油罐车司机,随车人员、营业用摩托车驾驶员、（沿海）客货轮水手长、（沿海）客货轮水手、（沿海）客货轮铜匠、（沿海）客货轮木匠、（沿海）客货轮泵匠、（沿海）客货轮电机师、（沿海）客货轮厨师、（沿海）客货轮服务生、（沿海）客货轮实习生、游览船工作人员、小汽艇工作人员、码头工人及领班、港口作业缉私人员、救难船员、潜水员、（沿海）船舶机工、视觉航标工(灯塔\航标维护保养)、港口维护工(码头维修\水面防污)、航道航务施工工人、（内河）客货轮船长、（内河）客货轮水手长、（内河）客货轮水手、（内河）客货轮铜匠、（内河）客货轮木匠、（内河）客货轮泵匠、（内河）客货轮电机师、（内河）客货轮厨师、（内河）客货轮服务生、（内河）客货轮实习生、（远洋）客货轮船长、（远洋）客货轮机长和高级船员、（远洋）客货轮大副、（远洋）客货轮二副、（远洋）客货轮三副、（远洋）客货轮大管轮、（远洋）客货轮二管轮、（远洋）客货轮三管轮、（远洋）客货轮报务员、（远洋）客货轮事务长、（远洋）客货轮医务人员及一般船员、（远洋）客货轮水手长、（远洋）客货轮水手、（远洋）客货轮铜匠、（远洋）客货轮木匠、（远洋）客货轮泵匠、（远洋）客货轮电机师、（远洋）客货轮厨师、（远洋）客货轮服务生、（远洋）船舶机工、（远洋）船舶轮机员、（远洋）客货轮实习生、直升机飞行员、航空摄影人员
+                </p>
+                <p> 5.工程施工：短工、鹰架架设工人、凿岩工人、爆破工人、砌筑工人、泥水匠、钢筋工人、室外装璜人员(高空)、木匠(室外及高空)、建筑油漆工(室外及高空)、建筑水电工(地下)、建筑焊工(室内)、建筑焊工(室外及高空)、铝\铁门窗装修工人、安装工人(室外及高空)、玻璃幕墙安装工人、山地铺设工人、电线架设及维护工人、高速公路工程人员、线桥专用机械操作工人、铁路舟桥工人、道岔制修工人、桥梁工程人员、隧道工程人员、电梯\升降机安装工人、电梯\升降机修理及维护工人、起重装卸机操作工人、起重工人、建筑工程车辆驾驶员、建筑工程车辆机械操作员、海湾港口工程人员、潜水工作人员、爆破工作人员、挖泥船工人
+                </p>
+                <p> 6.建筑材料：采掘工、水泥生产制造工人、水泥制品工人、石灰石焙烧工人、加气混凝土制造工人、装饰石材生产工人</p>
+                <p> 7.钢铁业：一般工人、高炉原料工人、高炉炉前工人、高炉运转工人、炼钢原料工人、平炉炼钢工人、转炉炼钢工人、电炉炼钢工人、炼钢浇铸工人、炼钢准备工人、整脱模工人、铁合金电炉治炼工人、火法冶炼工人、烟气制酸工人、金属轧制工人、酸洗工人、金属材料热处理工人、焊管工人、精整工人、金属材料丝拉拔工人、金属挤压工人、铸轧工人、钢丝绳制造工人、铸管工人、铸管精修工人、硬质合金成型工人、硬质合金烧结工人
+                </p>
+                <p> 8.机械制造加工业：焊接工人、车床工人(全自动)、车床工人(其他)、铸造工人、锅炉工人、铁工厂工人、机械厂工人、铣床工人、剪床工人、冲床工人、拉床工人、锯床工人、钻床工人、刨工、磨工、镗工、制齿工人、组合机床操作工人、加工中心操作工人、螺丝纹挤形工人、刃具扭制工人、弹性元件制造工人、锻造工人、金属热处理工人、粉末冶金制造工人、电切削工人、行车司机及指挥人员
+                </p>
+                <p> 9.机电产品制造与装配：有关高压电之工作人员、工具钳工、铁心叠装工人、铁路机车\车辆机械制修工人、铁路机车\车辆电气装修工人、铁路机车车辆制动修造工人、船体制造工人、拆船工人、船舶轮机装配工人、船舶附件制造工人、船舶修理工人、空调装修人员(高空)、工具五金制作工人、建筑五金制作工人、铝制品制作工人、航空环控救生装备试验工人(空中试验)、导弹部段装配工人、航天器引信装配工人、弹头装配工人、导弹总体装配工人
+                </p>
+                <p> 10.化学工业：硫酸，盐酸，硝酸等制造工人、纯碱\烧碱等制造工人、氟化盐生产工人、缩聚磷酸盐生产工人、高频等离子工人、气体深冷分离工人\制氧工人、液化气体制造工、二硫化碳制造工人、防腐工人、油制气工人、炼焦工\焦炉机车司机、煤制气工人、煤气储运工人、硫酸铵生产工人、过磷酸钙生产工人、脂肪烃生产工人、合成橡胶生产工人、化纤聚合工人、油墨制造工人、火柴制造工人、石棉制品生产工人、金刚石制造工人、爆竹\烟花制造及处理工人、火\炸药制造工人
+                </p>
+                <p> 11.造纸\纸产品：制浆备料工人、制浆设备操作工人、制浆废液回收利用工人</p>
+                <p> 12.玻璃\陶瓷\搪瓷制品制造业：玻璃加工工人、陶瓷烧成工人</p>
+                <p> 13.军工制造：枪\炮弹药装配工人、火工品\爆破器材制造人员、靶场试射工人</p>
+                <p> 14.新闻\出版\文化\印刷业：战地记者</p>
+                <p> 15.广告业：广告招牌制作架设人员、霓虹光管安装维修人员</p>
+                <p> 16.广播\影视\文艺：武打演员、特技演员</p>
+                <p> 17.服务业：锅炉工、救生员、动物园驯兽师、高楼外部清洁工、烟囱清洁工</p>
+                <p> 18.教育机构：飞行教官、飞行训练学员、军\警校学生</p>
+                <p> 19.电信及电力：电力工程设施之架设人员、电力高压电工程设施人员、电台天线维护人员、送电\配电线路工人、变电站值班人员、牵引电力线路安装维护工人、维修电工、锅炉本体设备检修工人、锅炉附属设备检修工人、高压线路带电检修工人、变压器检修工人、变电设备检修工人
+                </p>
+                <p> 20.水利：河道修防工人</p>
+                <p> 21.商业：液化瓦斯瓦料分装工、起重机操作员</p>
+                <p> 22.安全保卫\消防：交通警察、刑警、消防队队员、防暴警察、缉毒警察、消防灭火员、防毒防化防核抢险人员、一般事故抢险人员</p>
+                <p> 23.现役军人：特种兵(含海军陆战队员\伞兵\水兵\爆破兵\蛙人\化学兵\布雷排雷工兵\情报单位有特殊任务者)、空军飞行官兵\海军舰艇官兵\潜艇官兵、前线军人</p>
+                <p> 24.体育：曲棍球球员、冰上曲棍球球员、橄榄球球员、角力人员、摔跤人员、柔道人员、空手道人员、跆拳道人员、武术人员、拳击人员、潜水教练\人员、滑水教练\人员、滑雪教练\人员、马术教练\人员、特技表演教练\人员、雪车教练\与赛人员、滑翔机具教练\教室人员、赛车人员\教练、跳伞人员\教练
+                </p>
+        </div>
+        <div class="tou-ti">
+            <p> 尊敬的客户您好：</p>
+            <p> 欢迎您选择众安保险公司产品，当您投保本保险后，我司将根据您选择的险种，按照保险合同的约定，承担相应的保险赔偿责任。</p>
+            <p>保险人免责条款摘要，如下：</p>
+            <p>1、个人支付部分在保单约定的免赔额范围内的，不予理赔；按有社保身份投保，但不以社保身份就医的，按保单约定比例赔付；</p>
+            <p>2、初次投保前或非上一张保单期满后指定期限内重新投保前的既往症或先天性疾病，不予理赔；</p>
+            <p>3、投保前或等待期内检查结果异常，被医生建议进一步复查的，等待期后确诊的疾病，不予理赔；</p>
+            <p>4、非公立二级及以上医院就医的，不予理赔；特需病房、外宾病房或其它不属于基本医疗保险范畴的高等级病房治疗的、入住康复科、康复病床或接受康复治疗的，不予理赔（选购特需医疗的除外）；</p>
+            <p>5、医保支付、公费报销、第三方报销过的部分，不予理赔；非疾病性的治疗，不予理赔。</p>
+            <!-- <p></p> -->
+            <p> 为维护您的合法权益，我司就该产品保险合同中的责任免除条款及相关内容做如下书面说明，请您仔细阅读。</p>
+            <p> 一、责任免除事项：</p>
+            <p> 个人住院医疗保险类：</p>
+            <p> 1)投保人对被保险人的故意杀害或故意伤害；被保险人故意自杀、自伤，但被保险人自杀时为无民事行为能力人的除外；被保险人故意犯罪或者抗拒依法采取的刑事强制措施，或被政府依法拘禁或入狱期间伤病；被保险人殴斗、醉酒、主动吸食或注射毒品，违反规定使用麻醉或精神药品；被保险人未遵医嘱擅自服用、涂用、注射药物；被保险人酒后驾驶、无有效驾驶证驾驶或者驾驶无有效行驶证的机动交通工具；
+            </p>
+            <p> 2)被保险人所患既往症，及保险单中特别约定的除外疾病引起的相关费用，但投保时保险人已知晓并做出书面认可的除外；等待期内接受检查但在等待期后确诊的疾病；等待期内药物过敏、食物中毒、细菌或病毒感染（但因意外事故致有伤口而生感染者除外）或其他医疗导致的伤害；未经科学或者医学认可的试验性或者研究性治疗及其产生的后果所产生的费用；未被治疗所在地权威部门批准的治疗，未获得治疗所在地政府许可或批准的药品或药物，以及上述治疗或药品药物导致的后续医疗费用；所有基因疗法和细胞免疫疗法造成的医疗费用。各类医疗鉴定、检测费用，包括但不限于医疗事故鉴定、精神病鉴定、孕妇胎儿性别鉴定、验伤鉴定、亲子鉴定、遗传基因鉴定费用；因职业病、医疗事故导致的医疗费用；被保险人在不符合本合同约定的医院就诊发生的医疗费用；
+            </p>
+            <p> 3)未经医生建议自行进行任何治疗或未经医生处方自行购买药品产生的费用；虽持有医生处方或建议，但未在开具处方的医生执业的医疗机构购买药品、医疗器械或医疗耗材产生的费用（以收费票据载明信息为准）；虽持有医生建议，但治疗在非医疗机构进行或费用由非医疗机构收取（以医疗费票据载明信息为准）；虽持有医生处方，但处方剂量超过30天部分的药品费用；恶性肿瘤特定药品的使用与中国国家药品监督管理部门批准的该恶性肿瘤特定药品说明书所列明的适应症及用法用量不符；临床不能证明医嘱或处方所列恶性肿瘤特定药品对被保险人所患的恶性肿瘤治疗有效；被保险人的疾病状况对购买或领取的恶性肿瘤特定药品已经形成耐药；冒名住院、被保险人未到达医院就诊即代诊、不符合入院标准、挂床住院或住院病人应当出院而拒不出院（从医院确定出院之日起发生的一切医疗费用）；
+            </p>
+            <p> 4)肥胖症相关手术、整形手术、美容或整容手术、变性手术及前述手术的并发症或因前述手术导致的医疗事故；被保险人怀孕、流产、分娩（含剖腹产）、避孕、节育（含绝育）、绝育后复通、治疗不孕不育症、人工受孕、产前产后检查及由以上原因导致的并发症；牙科疾病及相关治疗，视力矫正手术，但因意外所致的不受此限；被保险人因预防、康复、休养或疗养、医疗咨询、健康体检、非处方药物、以捐献身体器官为目的的医疗行为、保健性或非疾病治疗类项目发生的医疗费用；眼镜或隐形眼镜、义齿、义眼、义肢、轮椅、拐杖、助听器等康复性器具，所有非处方医疗器械所产生的费用；包皮环切术、包皮剥离术、包皮气囊扩张术、性功能障碍治疗；除心脏瓣膜、人工晶体、人工关节、心脏起搏器、人工肺、人工肾、人工食管、人工胰、人工血管以外的人工器官材料费、安装和置换等费用；
+            </p>
+            <p> 5)被保险人从事保险合同所附《众安特殊职业类表》中的职业；被保险人从事职业运动或可获得报酬的运动或竞技，在训练或比赛中受伤；被保险人从事或参加高风险运动，如：潜水、滑水、冲浪、赛艇、漂流、滑翔翼、热气球、跳伞或其他高空运动、蹦极、乘坐或驾驶商业民航班机以外的飞行器、攀岩、攀登海拔3500米以上的独立山峰、攀爬建筑物、滑雪、滑冰、武术、摔跤、柔道、空手道、跆拳道、拳击、马术、赛马、赛车、特技表演（含训练）、替身表演（含训练）、探险或考察活动（洞穴、极地、沙漠、火山、冰川等）；
+            </p>
+            <p> 6)被保险人患性病，精神和行为障碍，遗传性疾病，先天性畸形、变形或染色体异常（依据世界卫生组织《疾病和有关健康问题的国际统计分类》（ICD-10）确定）；被保险人感染艾滋病病毒或患艾滋病（但符合约定的“职业原因导致人类免疫缺陷病毒（HIV）感染”、“输血原因导致人类免疫缺陷病毒（HIV）感染”、“器官移植原因导致HIV感染”不在此限）；
+            </p>
+            <p> 7)战争、军事行动、暴乱或者武装叛乱；核爆炸、核辐射或者核污染、化学污染。</p>
+            <p> 恶性肿瘤院外特定药品费用医疗保险类：</p>
+            <p> 1)仅有临床不适症状，入院诊断和出院诊断均不是恶性肿瘤——重度的治疗；</p>
+            <p> 2)使用未获得中国国家药品监督管理局许可或批准上市的药品或药物；</p>
+            <p> 3)进行未经科学或者医学认可的试验性或者研究性治疗及前述治疗产生的后果所产生的费用；</p>
+            <p> 4)被保险人在中华人民共和国领土以外的国家或地区以及香港特别行政区、澳门特别行政区、台湾地区接受治疗；</p>
+            <p> 5)被保险人未遵医嘱，私自服用、涂用或注射特定药品；</p>
+            <p> 6)被保险人未在保险人指定或认可的药店购买的药品；</p>
+            <p> 7)被保险人未按本附加合同约定的流程进行购药申请或经申请未审核通过；</p>
+            <p> 8)被保险人首次购买特定药品的日期不在保险期间内的；</p>
+            <p> 9)特定药品处方的开具与中国国家药品监督管理局批准的该药品说明书中所列明的适应症和用法用量不符；</p>
+            <p> 10)被保险人提交审核的医学材料不能证明该药品对被保险人当前的疾病状态产生有益的治疗疗效。</p>
+            <p> 11)被保险人的疾病状况，经专科医生审核，确定对药品已经耐药后仍继续购买该药品。</p>
+            <p> 12)被保险人在非医院发生的恶性肿瘤特定药品基因检测费用（以收费票据载明信息为准）。</p>
+            <p> 恶性肿瘤质子重离子医疗保险类：</p>
+            <p> 1）被保险人在非指定医疗机构就诊发生的费用。</p>
+            <p> 重大疾病保险类：</p>
+            <p> 1)投保人对被保险人的故意杀害、故意伤害；</p>
+            <p> 2)被保险人故意犯罪或抗拒依法采取的刑事强制措施；</p>
+            <p> 3)被保险人故意自伤、或自本合同成立或者本合同效力恢复之日起2年内自杀，但被保险人自杀时为无民事行为能力人的除外；</p>
+            <p> 4)被保险人服用、吸食或注射毒品；</p>
+            <p> 5)被保险人酒后驾驶、无合法有效驾驶证驾驶，或驾驶无合法有效行驶证的机动车；</p>
+            <p> 6)战争、军事冲突、暴乱或武装叛乱；</p>
+            <p> 7)被保险人感染艾滋病病毒或患艾滋病；</p>
+            <p> 8)核爆炸、核辐射或核污染；</p>
+            <p> 9)遗传性疾病、先天性畸形、变形或染色体异常。</p>
+            <p> 完整除外责任以保险条款为准。</p>
+            <p> 二、名词解释：</p>
+            <p> （1）赔付比例：保险合同中约定的扣除免赔额和免赔事项后，保险人赔付给被保险人的金额和被保险人实际发生的损失之间的比例。</p>
+            <p> （2）免责条款/事项：指保险公司约定的用以免除合同责任或赔付责任的条款。</p>
+            <p> （3）免赔额：在保险合同中规定的损失在一定限度内保险人不负赔偿责任的额度。</p>
+            <p> （4）等待期：是指保险合同在生效的指定时期内，即使发生保险事故，客户也不能获得保险赔偿。</p>
+            <p> （5）保险期间：本合同的有效期间。</p>
+            <p> （6）保险人：与投保人订立保险合同，并承担赔偿或者给付保险金责任的保险公司。</p>
+            <p> （7）投保人：与保险人订立保险合同，并按照保险合同负有支付保险费义务的人。</p>
+            <p> （8）被保险人：其财产或者人身受保险合同保障，享有保险金请求权的人。</p>
+            <p> （9）受益人：人身保险合同中由被保险人或者投保人指定的享有保险金请求权的人。</p>
+            <p> （10）保险利益：投保人对保险标的具有的法律上承认的利益。</p>
+            <p> （11）就诊医院：本产品承保的一般医疗/重大疾病医疗责任/恶性肿瘤院外特定药品费用医疗责任/住院医疗费用补偿责任限中华人民共和国卫生部门审核认定的二级或以上的公立医院普通部;恶性肿瘤质子重离子医疗责任就诊医院限上海市质子重离子医院；如购买指定疾病及手术拓展特需医疗责任的，该项责任就诊医院可额外扩展至二级及以上的公立医院特需部、国际部、VIP部（不包括观察室、联合病房和康复病房）;如购买了恶性肿瘤赴日医疗/恶性肿瘤特定地区海外医疗责任的，该两项责任就诊医院分别限为指定的日本医院和特定地区的指定海外医院，本保单特定地区治疗国限美国和日本，可选择其中之一赴海外治疗；如购买在线问诊药品费用医疗责任的，就诊医院限众安互联网医院；如购买急诊费用医疗责任的，就诊医院限中华人民共和国卫生部门审核认定的二级或以上的公立医院急诊部；如购买重大疾病住院津贴/重大疾病责任的，就诊医院限中华人民共和国卫生部门审核认定的二级或以上的公立医院。
+            </p>
+            <p> （12）周岁：以法定身份证明文件中记载的出生日期为基础计算的实足年龄。</p>
+            <p> （13）毒品：指《中华人民共和国刑法》规定的鸦片、海洛因、甲基苯丙胺（冰毒）、吗啡、大麻、可卡因以及国家规定管制的其他能够使人形成瘾癖的麻醉药品和精神药品，但不包括由医生开具并遵医嘱使用的用于治疗疾病但含有毒品成分的处方药品。
+            </p>
+            <p> （14）高风险运动：指潜水、滑水、冲浪、赛艇、漂流、滑 翔翼、热气球、跳伞或其他高空运动、蹦极、乘坐或驾驶商业民航班机以外的飞行器、攀岩、攀登海拔 3500
+                米以上的独立山峰、攀爬建筑物、滑雪、滑冰、武术、摔跤、柔道、空手道、跆拳道、拳击、马术、赛马、赛车、特技表演（含训练）、替身表演（含训练）、探险或考察活动（洞穴、极地、沙漠、火山、冰川等等）。</p>
+            <p> 1.潜水：指以辅助呼吸器材在江、河、湖、海、水库、运河等水域进行的水下运动。</p>
+            <p> 2.攀岩：指攀登悬崖、楼宇外墙、人造悬崖、冰崖、冰山等运动。</p>
+            <p> 3.武术：指两人或者两人以上对抗性柔道、空手道、跆拳道、散打、拳击等各种拳术及各种使用 器械的对抗性比赛。</p>
+            <p> 4.特技表演：指进行马术、杂技、驯兽等表演。</p>
+            <p> 5.探险：指明知在某种特定的自然条件下有失去生命或使身体受到伤害的危险，而故意使自己置身其中的行为。如江河漂流、徒步穿越沙漠或人迹罕至的原始森林等活动。</p>
+            <p> （15）酒后驾驶：指经检测或者鉴定，发生事故时车辆驾驶人员每百毫升血液中的酒精含量达到或者超过一定的标准，公安机关交通管理部门依据《道路交通安全法》的规定认定为饮酒后驾驶或者醉酒后驾驶。</p>
+            <p> （16）无有效驾驶证驾驶（被保险人存在下列情形之一者）：</p>
+            <p> 1.无驾驶证或驾驶证有效期已届满；</p>
+            <p> 2.驾驶的机动车与驾驶证载明的准驾车型不符；</p>
+            <p> 3.实习期内驾驶公共汽车、营运客车或者载有爆炸物品、易燃易爆化学物品、剧毒或者放射性等危险物品的机动车，实习期内驾驶的机动车牵引挂车；</p>
+            <p> 4.持未按规定审验的驾驶证，以及在暂扣、扣留、吊销、注销驾驶证期间驾驶机动车</p>
+            <p> 5.使用各种专用机械车、特种车的人员无国家有关部门核发的有效操作证，驾驶营业性客车的驾驶人无国家有关部门核发的有效资格证书；</p>
+            <p> 6.依照法律法规或公安机关交通管理部门有关规定不允许驾驶机动车的其他情况下驾车。</p>
+            <p> （17）无有效行驶证（指下列情形之一）：</p>
+            <p> 1.机动车被依法注销登记的；</p>
+            <p> 2.无公安机关交通管理部门核发的行驶证、号牌、临时号牌或临时移动证的机动交通工具；</p>
+            <p> 3.未在规定检验期限内进行机动车安全技术检验或检验未通过的机动交通工具。</p>
+            <p> （18）不可抗力：指不能预见、不能避免并不能克服的客观情况。</p>
+            <p> （19）保险金申请人：指受益人或被保险人的继承人或依法享有保险金请求权的其他自然人。</p>
+            <p> （20）其他释义详见保险条款</p>
+
+
+
+            <p style="font-weight: bold;">必选责任特别约定：</p>
+            <p>1．在上一张保单期满后指定期限内重新投保、因遭受意外伤害导致的医疗无等待期，但若下一年度保单生效时未交清本年度保单的保险费，则下一年度保单的等待期重新计算。</p>
+            <p>2．等待期内接受检查但在等待期后确诊的疾病不在本产品的责任范围内。</p>
+            <p>3．本保单一般医疗保险金、重大疾病医疗保险金及恶性肿瘤院外特定药品费用医疗保险金就诊医院限中华人民共和国卫生部门审核认定的二级或以上的公立医院普通部。</p>
+            <p>4．本保单国内医疗总保额600万。</p>
+            <p>5．（0-60周岁标准版）本保单一般医疗保险金的年免赔额为1万元。</p>
+            <p>6．（61-70周岁标准版及慢病版）本保单一般医疗保险金、重大疾病医疗保险金及恶性肿瘤院外特定药品费用医疗保险金共用1万元年免赔额。</p>
+            <p>7．如被保险人在等待期后（因意外伤害事故导致的无等待期）初次确诊罹患本产品约定的罕见病且在医院接受治疗的，我们在重大疾病医疗保险金项下扩展承担给付罕见病治疗的医疗费用；罕见病目录以国家卫生健康委员会于2018年5月22日发布的《第一批罕见病目录》为准。
+            </p>
+            <p>8．本保单标准版一般医疗保险金及重大疾病医疗保险金的赔付比例100%，慢病版一般医疗保险金及重大疾病医疗保险金的赔付比例90%；以有基本医疗保险或公费医疗身份参保，但未以有基本医疗保险或公费医疗身份就诊并结算的，按照应赔付金额的60%进行赔付。
+            </p>
+            <p>9．本保单一般医疗保险金及重大疾病医疗保险金床位费限1,000元/天。</p>
+            <p>10．本保单恶性肿瘤院外特定药品费用医疗责任仅赔付责任内约定的药品清单中列明的药品，若为社保目录内药品，社保报销后剩余100%赔付，以有基本医疗保险或公费医疗身份参保，但未以有基本医疗保险或公费医疗身份就诊并结算的，按照应赔付金额的60%进行赔付；若为社保目录外药品，100%赔付；约定的药品清单以保险人最新公布信息为准，保险人保留对药品清单进行变更的权利，将根据医疗水平的发展对药品清单进行更新。
+            </p>
+            <p>11．本保单生效之日零时起2日（含第2日）为犹豫期，犹豫期后投保人申请退保的，退还未满期净保险费。未满期净保险费=保险费×[1-当期实际经过天数/当期实际天数)]×（1-35%）；经过天数不足一天的按一天计算，如本保单已发生保险金给付，未满期净保险费为零。
+            </p>
+            <p>12．本产品包含医疗垫付服务、重疾绿色通道服务、肿瘤特药服务、术后家庭护理服务、图文咨询服务、视频问诊服务和健康资讯服务。以上服务均限被保险人本人且应在等待期后的保险期限内使用。服务电话：1010-9955。
+            </p>
+            <p>13．每一被保险人同一保险期间内限投保1份，多投保无效。</p>
+            <p>恶性肿瘤质子重离子医疗特别约定</p>
+            <p>本保单恶性肿瘤质子重离子医疗责任就诊医院限上海质子重离子医院。床位费限1500元/天。在该医院接受的化学疗法、肿瘤免疫疗法、肿瘤内分泌疗法和肿瘤靶向疗法所产生的药品费不在保障范围内。</p>
+            <p>重大疾病加油包特别约定</p>
+            <p>1．本保单因遭受意外伤害导致的重大疾病无等待期。</p>
+            <p>2．本保单重大疾病责任就诊医院限中华人民共和国卫生部门审核认定的二级或以上的公立医院。</p>
+            <p>3．本保单重大疾病责任赔付后，该责任不可重新投保。</p>
+            <p>重大疾病住院津贴加油包特别约定</p>
+            <p>1．本保单因遭受意外伤害导致的重大疾病住院津贴无等待期。</p>
+            <p>2．本保单重大疾病住院津贴责任就诊医院限中华人民共和国卫生部门审核认定的二级或以上的公立医院。</p>
+            <p>3．本保单重大疾病住院日津贴额100元/天，免赔天数0天/次，被保险人每次住院的给付天数以30天为限，对同一被保险人在同一保险期间内一次或多次住院的累计给付天数以180天为限；若被保险人本次住院治疗与前次住院原因相同，并且前次出院与本次入院间隔不超过30日的，则本次住院与前次住
+                院视为同一次住院。</p>
+            <p>家庭共享免赔额加油包特别约定</p>
+            <p>本保单同一订单下的所有被保险人一般医疗共享1万元年免赔额。</p>
+            <p>指定疾病及手术扩展特需医疗加油包特别约定</p>
+            <p>本产品被保险人接受恶性肿瘤——重度或严重非恶性颅内肿瘤、指定移植手术或指定重大手术治疗时本保单就诊医院可额外扩展至二级及以上的公立医院特需部、国际部、VIP部（不包括观察室、联合病房和康复病房），无论是否以社会基本医疗保险身份就诊，责任内赔付比例均为100%，年免赔额为0元，床位费限1500元/天。
+            </p>
+            <p>海外医疗加油包特别约定</p>
+            <p>1．本产品国际第二诊疗意见费用责任赔付比例100%；符合约定的国际第二诊疗意见费用保险金将由保险人审核同意后与授权服务提供商结算。保险人有调整授权服务提供商及指定医疗服务机构的权利。</p>
+            <p>2．（适用于恶性肿瘤赴日医疗责任）本产品被保险人在众安授权的第三方服务提供商安排的日本指定医院进行恶性肿瘤——重度治疗的，责任内赔付比例为70%，年免赔额为0元。赴日本治疗的累计次数限10次。</p>
+            <p>3．（适用于特定地区海外医疗责任）本产品被保险人在众安授权的第三方服务提供商安排的特定地区的指定海外医院进行恶性肿瘤——重度治疗的，责任内赔付比例为70%，年免赔额为0元。本保单特定地区治疗国限美国和日本，可选择其中之一赴海外治疗，赴日本治疗的累计次数限10次，赴美国治疗的累计次数限5次。
+            </p>
+            </p>
+            <p>门急诊加油包特别约定</p>
+            <p>1．（6-65周岁适用）本保单在线问诊药品费用医疗责任就诊医院限众安互联网医院。每次药品赔付限额500元，赔付比例70%，由保险人与众安互联网医院直接结算，月赔付次数限2次，（若为月缴，月赔付次数限1次），年赔付次数限10次。在线问诊及药品服务的疾病清单以保险人最新公布信息为准，保险人保留对疾病清单进行变更的权利。
+            </p>
+            <p>2．本保单如因疾病或遭受意外伤害导致的在线问诊药品费用医疗有30天等待期。</p>
+            <p>3．本保单急诊费用医疗责任就诊医院限中华人民共和国卫生部门审核认定的二级或以上的公立医院急诊部。每次治疗免赔额为100元，单次赔付限额500元，限社保目录内费用，赔付比例50%，月赔付次数限1次，年赔付次数限4次。
+            </p>
+            <p>住院医疗费用补偿加油包特别约定</p>
+            <p>1．个人住院医疗费用补偿责任新保等待期为90天。</p>
+            <p>2．本保单个人住院医疗费用补偿责任就诊医院限中华人民共和国卫生部门审核认定的二级或以上的公立医院普通部</p>。
+            <p>3．本保单个人住院医疗费用补偿责任保险金额1万元；若已从社会基本医疗保险或公费医疗取得医疗费用补偿的，该责任赔付比例为90%；若未从社会基本医疗保险或公费医疗取得医疗费用补偿的，该责任赔付比例为60%。</p>
+            <p>4．本保单个人住院医疗费用补偿责任治疗疾病含以下所列疾病的一种或多种的，赔付比例为20%：痔疮，女性生殖系统疾病(即女性子宫、输卵管、卵巢、阴道、外阴器官疾病)、结节、息肉、囊肿、增生。</p>
+            <p>5．本保单个人住院医疗费用补偿责任不承担任何脊椎疾病（包括但不限于各种颈椎病、腰椎间盘突出/膨出/移位/滑脱）治疗产生的医疗费用。</p>
+            <p>6．本保单个人住院医疗费用补偿保险金与一般医疗保险金、重大疾病医疗保险金不重复赔偿。</p>
+            <p>轻度疾病加油包特别约定</p>
+            <p>1．本保单因遭受意外伤害导致的轻度疾病无等待期。</p>
+            <p>2．本保单轻度疾病责任就诊医院限中华人民共和国卫生部门审核认定的二级或以上的公立医院。</p>
+            <p>3．本保单轻度疾病保险金赔付后，该责任不可重新投保。</p>
+            <p>中老年特定疾病加油包特别约定</p>
+            <p>1．本保单中老年特定疾病责任的就诊医院限中华人民共和国卫生部门审核认定的二级或以上的公立医院。</p>
+            <p>2．本保单中老年特定疾病保险金理赔后，该责任不可重新投保。</p>
+            <p>特种进口药品费用医疗加油包特别约定</p>
+            <p>1．本保单特种进口药品费用医疗责任的就诊医疗机构限海南博鳌超级医院或海南博鳌恒大国际医院。</p>
+            <p>2．本保单特种进口药品费用医疗责任仅赔付责任内约定的《特种进口药品及适用疾病清单》中列明的药品，赔付比例100%，《特种进口药品及适用疾病清单》以保险人最新公布信息为准，保险人保留对清单进行变更的权利。</p>
+
+
+
+
+        </div>
+
+        <div class="ze-button" id="ze-button">已阅读并同意</div>
+    </div>
+    <!-- 重要提示 -->
+    <div class="impor">
+        <div class="calculation calculation1">
+            <div class="cal-content">
+                <p class="cal-title">《重要提示》</p>
+            </div>
+            <!-- <div class="return-close1">
+                <i class="fa fa-angle-down" aria-hidden="true"></i>
+            </div> -->
+        </div>
+        <div class="user-con">
+
+            <P>1.等待期：指自本合同生效日起计算的一段时间，具体天数由保险人和投保人在投保时约定并在本合同上载明。在等待期内发生保险事故，等待期内接受检查但在等待期后确诊的疾病，保险人不承担给付保险金的责任。本产品等待期30天，如购买住院医疗费用补偿保险责任，该责任等待期为90天；上一张保单期满后指定期限内重新投保、因遭受意外伤害导致的医疗（在线问诊药品费用责任除外）无等待期；
+            </p>
+            <P>2. 对于以下情形，本产品不予赔付：</p>
+            <P> 1)
+                既往症：被保险人所患既往症，及保险合同中特别约定的除外疾病；其中，既往症指在保险合同生效前罹患的被保险人已知或应该知道的有关疾病。如：投保之前，医生已有明确诊断，长期治疗未间断；投保之前，医生已有明确诊断，治疗后症状未完全消失，有间断用药情况；投保之前，未经医生诊断和治疗，但症状或体征明显且持续存在，以普通人医学常识应当知晓。
+            </p>
+            <P> 2) 未如实告知：对于健康告知问询的疾病和事项，您/被保险人存在未如实告知的情况。</p>
+            <P> 3) 责任免除：条款中责任免除约定的内容。</p>
+            <P> 4) 住院医疗费用补偿保险免除责任：任何脊椎疾病（包括但不限于各种颈椎病、腰椎间盘突出/膨出/移位/滑脱）治疗产生的医疗费用。</p>
+            <P>3. 投保告知：投保时，投保人已就该产品的保障内容以及保险金额等向被保险人/被保险人监护人进行了明确说明，并征得其同意。</p>
+            <P>4. 医院就诊范围：</p>
+            <P> 1）限中华人民共和国卫生部门审核认定的二级或以上的公立医院普通部;</p>
+            <P> 2）恶性肿瘤质子重离子医疗责任就诊医院限上海市质子重离子医院；</p>
+            <P> 3）如购买指定疾病及手术拓展特需医疗责任的，该项责任就诊医院可额外扩展至二级及以上的公立医院特需部、国际部、VIP部（不包括观察室、联合病房和康复病房）;</p>
+            <P> 4）如购买了恶性肿瘤赴日医疗/恶性肿瘤特定地区海外医疗责任的，该两项责任就诊医院分别限为指定的日本医院和特定地区的指定海外医院，本保单特定地区治疗国限美国和日本，可选择其中之一赴海外治疗；</p>
+            <P> 5）如购买在线问诊药品费用医疗责任的，就诊医院限众安互联网医院；</p>
+            <P> 6）如购买急诊费用医疗责任的，就诊医院限中华人民共和国卫生部门审核认定的二级或以上的公立医院急诊部；</p>
+            <P> 7）如购买重大疾病住院津贴/重大疾病责任的，就诊医院限中华人民共和国卫生部门审核认定的二级或以上的公立医院；</p>
+            <P> 8）如购买特种进口药品费用医疗责任的，就诊医院限海南博鳌超级医院或博鳌恒大国际医院。</p>
+            <P>5. 犹豫期说明：</p>
+            <p>本产品生效之日零时起2
+                日（含第2日）为犹豫期。在此期间请您认真审视保险合同，如果您认为保险合同与投保人的需求不相符，您可以在此期间提出解除保险合同，保险人将无息退还投保人所支付的全部保险费。自保险人收到投保人解除合同的书面申请或双方认可的其他形式起，保险合同即被解除，合同解除前发生的保险事故保险人不承担保险责任。保险合同生效后超过2日，您要求解除本合同，自众安保险接到保险合同解除申请书之日次日零时起，保险合同的效力终止，众安保险收到完整申请资料之日起30日内退还未满期保险费。如投保人在本合同成立时选择交清保险费，未满期净保险费=保险费×[1-(保险单已经过天数/保险期间天数)]×（1-35%）；经过天数不足一天的按一天计算，如本合同已发生保险金给付，未满期净保险费为零。投保人通过保险人同意或认可的网站等互联网渠道提出对本合同进行解除保险合同，视为投保人书面申请。
+            </p>
+            <P>6.保费支付说明：
+            </p>
+            <p>本产品可选择一次性支付全年保费，保险费交清前，本合同不生效；本合同的付款宽限期为30天，如投保人未按照保险合同约定的付款时间足额交付当期保费，且在保险合同约定的付款宽限期内仍未足额补交当期保费的，则保险合同的保险期间在上一交费周期结束时终止。对于保险期间终止后发生的保险事故，保险人不承担保险责任。（详见相关条款描述）
+            </p>
+            <P>7.重新投保：本合同为一年期不保证续保合同。保险期间届满，投保人需要重新向保险公司申请投保本产品，交纳保险费，并获得新的保险合同。在上一张保单期满后于保险人指定期限内通过指定路径重新投保的，不计算等待期，对保障期间连续的保单，按照首年投保时的健康告知核保。如对重新投保有疑问，可致电众安客服进行咨询。我们审核通过方可为投保人办理重新投保手续。恶性肿瘤质子重离子医疗责任、重大疾病住院津贴责任（可选）、指定疾病及手术拓展特需医疗责任（可选）、国际第二诊疗意见费用责任（可选）、恶性肿瘤赴日医疗责任（可选）、恶性肿瘤特定地区海外医疗责任（可选）、在线问诊药品费用医疗责任（可选）、急诊费用医疗责任（可选）需经保险人审核同意后方可重新投保，重大疾病责任（可选）住院医疗费用补偿保险责任（可选）理赔后不得重新投保。若保险期间届满，本保险产品已停止销售，保险公司不再接受投保申请，但会向您提供投保其他保险产品的合理建议。
+            </p>
+            <P>8. 补偿原则和赔付标准 ：</p>
+            <P>1)本合同适用医疗费用补偿原则。若被保险人已从其他途径（包括社会基本医疗保险、公费医疗、工作单位、保险人在内的任何商业保险机构，以及依法承担侵权损害赔偿责任的第三人等）获得医疗费用补偿，则保险人仅对被保险人实际发生的医疗费用扣除其所获医疗费用补偿后的余额按照本合同的约定进行赔付。
+            </p>
+            <P>2)若被保险人以参加社会基本医疗保险或公费医疗身份投保，但未以参加社会基本医疗保险或公费医疗身份就诊并结算的，则保险人根据本合同单独约定的给付比例进行赔付。</p>
+            <P>9.优选体用户优享价格规则说明：本产品针对首次投保时每日吸烟小于10支且吸烟史小于10年的被保险人或上一张保单期满后指定期限内重新投保时在我司无理赔记录的被保险人，适用优选体用户优享价格；优选体用户优享价格以系统显示为准。
+            </p>
+            <p>10.家庭单用户优享价格规则说明：本保险产品针对首次投保或上一张保单期满后指定期限内重新投保时多人投保有家庭单用户优享价格：i.首次投保时，相较单人投保，同一订单下承保人数如为2人，每人价格优享5%；如为3人，每人价格优享10%；如为4人及以上，每人价格优享15%；ii重新投保时，若家庭单成员均为无理赔客户，每年按实际重新投保人数计算对应的家庭单优享价格，实际重新投保人数如为2人，每人价格优享5%；如为3人，每人价格优享10%；如为4人及以上，每人价格优享15%；iii.若家庭单已有成员为有理赔客户，有理赔客户恢复标准价格，剩余的无理赔客户按其每年的实际无理赔重新投保人数计算对应的家庭单优享价格；家庭单用户优享价格以系统显示为准
+            </p>
+            <p>11.如用户投保时同时选择了优选体用户规则及家庭单用户规则，则最终销售价格以家庭单优享价格为准。</p>
+            <P style="padding-bottom: 3.5rem;">
+                12.退保说明：您拨打众安保险客服电话1010-9955或952299或通过众安保险APP发起退保/批改的申请，并提供完整申请资料，众安保险审核通过后，最晚于5个工作日内完成受理，退保保费会退还至保费支付账户或您名下指定账户。您通过我们同意或认可的网站等互联网渠道提出对本主险合同进行解除合同，视为您书面申请。
+            </p>
+        </div>
+        <div class="ze-button ze-button1" id="ze-button">已阅读并同意</div>
+    </div>
+    <!-- 条款 -->
+    <div class="title" style="display: none;">
+        <div class="banner_desc">
+            <p><span class="left zhu-size">销售价格表</span></p>
+            <a href="../PDF/flb.docx">
+                <p><span class="left">销售价格表</span><span class="right">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i></span></p>
+            </a>
+        </div>
+        <div class="box-beijing"></div>
+        <div class="banner_desc">
+            <p><span class="left zhu-size">主条款</span></p>
+            <a href="../PDF/zx_zyyl.docx">
+                <p><span class="left">个人住院医疗保险条款（互联网2022版E款）</span><span class="right">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i></span></p>
+            </a>
+        </div>
+        <div class="box-beijing"></div>
+        <div class="banner_desc">
+            <p><span class="left zhu-size">附加条款</span></p>
+            <div class="wei-clause">
+                <a href="../PDF/zx_exzlhw.pdf">
+                    <p>
+                        <span class="left">附加个人恶性肿瘤海外医疗保险条款（互联网2022版A款）</span><span class="right">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                    </p>
+                </a>
+                <a href="../PDF/fj_zjzyjt.pdf">
+                    <p><span class="left">附加重大疾病住院津贴保险条款互联网2022版A款）</span><span class="right">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i></span></p>
+                </a>
+                <a href="../PDF/grylbc.pdf">
+                    <p><span class="left">个人住院医疗费用补偿保险条款（互联网2022版A款）</span><span class="right">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i></span></p>
+                </a>
+                <a href="../PDF/fj_zdjb.pdf">
+                    <p><span class="left">个人重大疾病保险条款（互联网2022版A款）</span><span class="right">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i></span></p>
+                </a>
+                <a href="../PDF/fj_zdjb_sskz_txyl.pdf">
+                    <p><span class="left">附加指定疾病及手术扩展特需医疗保险条款（互联网2022版A款）</span><span class="right">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i></span></p>
+                </a>
+
+                <a href="../PDF/grjz.pdf">
+                    <p><span class="left">附加个人急诊医疗保险条款（互联网2022版A款）</span><span class="right">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i></span></p>
+                </a>
+
+                <a href="../PDF/fj_exzl_zzlz.pdf">
+                    <p><span class="left">附加恶性肿瘤质子重离子医疗保险条款（互联网2022版A款）</span><span class="right">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i></span></p>
+                </a>
+                <a href="../PDF/grwz.pdf">
+                    <p><span class="left">个人在线问诊药品费用医疗保险条款（互联网2022版A款）</span><span class="right">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i></span></p>
+                </a>
+                <a href="../PDF/fj_exzl_tdyp.pdf">
+                    <p class="no-bottom" style="  border-bottom: 0px dashed #d8d8d8; margin-bottom: 2.8rem;"><span
+                            class="left">附加恶性肿瘤院外特定药品费用医疗保险条款（互联网2022版A款）</span><span class="right">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i></span></p>
+                </a>
+            </div>
+            <div class="box-beijing"></div>
+            <div class="ze-button" id="ze-button1">已阅读并同意</div>
+        </div>
+    </div>
+</body>
+<script src=" ../js/hengqin/jquery-1.10.1.min.js"></script>
+<script src=" ../js/hengqin/mobiscroll-2.13.2.full.min.js" type="text/javascript"></script>
+<script src=" ../js/hengqin/iscroll.js" type="text/javascript"></script>
+<script src=" ../js/hengqin/iosSelect.js" type="text/javascript"></script>
+<script src="../js/hengqin/iosSelect_2.js" type="text/javascript"></script>
+<script src=" ../js/hengqin/checkFn.js"></script>
+<script src=" ../js/hengqin/areaData_v2.js"></script>
+<script src=" ../js/zhongan/insuranceInformation1.js?v=2021827_02"></script>
+<script type="text/javascript">
+    var insplan = '${insplan}';
+    var isextend = '${isextend}';
+
+    $(function () {
+        $("select").each(function () {
+            $(this).scroller('destroy').scroller($.extend({
+                preset: 'select'
+            }, {
+                theme: "android-ics light",
+                lang: "zh",
+                display: 'bottom',
+                rtl: true,
+                inputClass: 'tmp',
+                onSelect: function () {
+                    if ($(this).find("option:selected").text() == "请选择") {
+                        $(this).siblings(".tmp").css("color", "#999999");
+                    } else {
+                        $(this).siblings(".tmp").css("color", "#222222");
+                    }
+                }
+            }));
+        });
+        $(".tmp").each(function () {
+            if ($(this).val() == "请选择") {
+                $(this).css("color", "#999999");
+            } else {
+                $(this).css("color", "#222222");
+            }
+        });
+
+        $('.pop-sure').click(function () {
+            $('.mask').css("display", "none");
+        });
+    })
+</script>
+
+</html>

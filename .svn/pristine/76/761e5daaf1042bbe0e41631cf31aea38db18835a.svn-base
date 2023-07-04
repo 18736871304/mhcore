@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2022年百万医疗险全网测评 哪款值得买？</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="./css/animate.min.css">
+
+    <link rel="stylesheet" href="./css/swiper-bundle.css">
+    <link rel="stylesheet" href="./css/mobile.css?v=2022_03_01">
+    <script>
+        !(function () {
+            function a() {
+                var html = document.documentElement;
+                var w = html.getBoundingClientRect().width;
+                if (w > 750) {
+                    w = 750;
+                }
+                var f = w / 7.5;
+                html.style.fontSize = f + "px";
+            }
+            a();
+            var timer;
+            window.onresize = function () {
+                clearTimeout(timer);
+                timer = setTimeout(a, 300);
+            }
+        })();
+    </script>
+</head>
+
+<body>
+    <div class="template">
+        <div class="wrap">
+            <div class="banner">
+              
+                <img src="./images/banner_mobile.png" alt="">
+            </div>
+            <div class="content">
+                <div class="left-wrap">
+                    <div class="infor">
+                        <div class="info-moudle">
+                            <div class="insureName">
+                                <label class="text" for="">您的姓名：</label>
+                                <div class="nameValue">
+                                    <input type="text" value="" placeholder="请输入您的姓名" id="user">
+                                    <img src="./images/error.png" alt="">
+                                </div>
+                            </div>
+                            <div class="insureName">
+                                <label class="text" for="">您的电话：</label>
+                                <div class="nameValue">
+                                    <input type="text" value="" placeholder="请输入您的电话" id="phone">
+                                    <img src="./images/error.png" alt="">
+                                </div>
+                            </div>
+                            <div class="insureName">
+                                <label class="text" for="">您的年龄：</label>
+                                <div class="nameValue">
+                                    <input type="text" value="" placeholder="请输入您的年龄" id="age">
+                                    <img src="./images/error.png" alt="">
+                                </div>
+                            </div>
+                            <div class="insureName">
+                                <label class="text" for="">您的性别：</label>
+                                <div class="call">
+                                    <ul>
+                                        <li class="insureSelect">男</li>
+                                        <li>女</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="baofei">保费 <span>￥0.00</span> </div>
+                            <div class="zhu">*请输入您的真实手机号码,便于接收保费测算结果</div>
+
+                            <div class="phoneSubmit phoneSubmit1">
+                                <img src="./images/mobileBtn.png" alt="">
+                            </div>
+
+                            <div class="xieyi">点击立即测算保费，视为本人同意美华保险销售有限公司后续致电联系进行保险产品介绍及投保服务协助，同意接受个人信息使用授权
+                                <span class="shouquan" style="color: #0792ff; cursor: pointer;">[个人信息使用授权]</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="moudle moudle1">
+                        <div class="moudle-content">
+                            <img src="./images/img_m_01.png" alt="">
+                            <div class="bigBtn">
+                                <img src="./images/bigBtn.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="moudle moudle2">
+                        <div class="moudle-content">
+                            <img src="./images/img_m_02.png" alt="">
+                            <div class="bigBtn">
+                                <img src="./images/smallBtn.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="moudle moudle2">
+                        <div class="moudle-content">
+                            <img src="./images/img_m_04.png" alt="">
+                            <div class="bigBtn">
+                                <img src="./images/smallBtn.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="moudle moudle3">
+                        <div class="moudle-content">
+                            <img src="./images/img_m_03.png" alt="">
+                            <div class="lunbo">
+                                <div class="swiper mySwiper">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide">
+                                            <img src="./images/banner03.png" alt="">
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <img src="./images/banner02.png" alt="">
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <img src="./images/banner01.png" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="swiper-pagination"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+
+                </div>
+            </div>
+
+            <div class="boxtan">
+                <div class="gg cc">
+                    <div class="zhe"></div>
+                    <div class="actile actile1">
+                        <h3>个人信息使用授权</h3>
+                        <p>本人在此授权美华保险销售有限公司（简称"美华保险"）以及美华保险授权的第三方服务者（以下统称"授权方"）在中国法律允许的范围内，收集与此次申请相关的本人的个人信息，已知晓并同意美华保险及其授权方在下列情况下使用本人的个人信息：
+                        </p>
+                        <ul>
+                            <li>审核本次申请，并/或提供相关后续保险服务；</li>
+                            <li>进行保险产品的销售及相关数据处理；</li>
+                            <li>根据相关法律法规的要求。</li>
+                        </ul>
+
+
+                        <p>同时，本人在此确认已经获得本人所指定的受益人和他相关人员同意，为上述目的向美华保险及其授权方提供并授权使用他们的个人信息资料。</p>
+                        <div class="close"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- <div class="boxtan">
+                <div class="gg cc">
+                    <div class="zhe"></div>
+                    <div class="actile actile1">
+                        <h3>个人信息使用授权</h3>
+                        <p>本人在此授权美华保险销售有限公司（简称"美华保险"）以及美华保险授权的第三方服务者（以下统称"授权方"）在中国法律允许的范围内，收集与此次申请相关的本人的个人信息，已知晓并同意美华保险及其授权方在下列情况下使用本人的个人信息：
+                        </p>
+                        <ul>
+                            <li>审核本次申请，并/或提供相关后续保险服务；</li>
+                            <li>进行保险产品的销售及相关数据处理；</li>
+                            <li>根据相关法律法规的要求。</li>
+                        </ul>
+                        <p>同时，本人在此确认已经获得本人所指定的受益人和他相关人员同意，为上述目的向美华保险及其授权方提供并授权使用他们的个人信息资料。</p>
+                        <div class="close"></div>
+                    </div>
+                </div>
+            </div> -->
+
+
+        </div>
+    </div>
+
+    <script src="./js/jquery-1.10.1.min.js"></script>
+    <script src="./js/swiper-bundle.js"></script>
+    <script src="js/index.js?v=2022_03_01"></script>
+
+    <script>
+        $("#user").focus(function () {
+
+            $("#user").css({
+                "border": "2px solid  #0692f2",
+                "color": "#0692f2"
+            })
+        });
+        $("#user").blur(function () {
+
+            $("#user").css({
+                "border": "2px solid  #0692f2",
+                "color": "#0692f2"
+            })
+        });
+        $("#phone").focus(function () {
+
+            $("#phone").css({
+                "border": "2px solid  #0692f2",
+                "color": "#0692f2"
+            });
+        });
+        $("#age").focus(function () {
+
+            $("#age").css({
+                "border": "2px solid  #0692f2",
+                "color": "#0692f2"
+            });
+        });
+
+
+        $(function () {
+            $(".bigBtn").click(function () {
+                $('body,html').animate({
+                    scrollTop: '310'
+                }, 500);
+            })
+        })
+
+        var swiper = new Swiper(".mySwiper", {
+            pagination: {
+                el: ".swiper-pagination",
+            },
+        });
+        if (isMobile()) {
+
+        } else {
+            window.location.href = './index.html'
+        }
+
+        function isMobile() {
+            let flag = navigator.userAgent.match(
+                /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+            )
+            return flag;
+        }
+    </script>
+</body>
+
+</html>

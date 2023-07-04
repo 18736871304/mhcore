@@ -1,0 +1,126 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  height: 0;
+  width: 0;
+  clear: both;
+}
+
+ul li,
+ol li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  outline: 0;
+  display: inline-block;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+input {
+  border: 0;
+  outline: 0;
+}
+
+em,
+i {
+  font-style: normal;
+}
+
+img {
+  border: none;
+  outline: 0;
+}
+
+html {
+  font-family: "寰蒋闆呴粦";
+  width: 100%;
+}
+
+body {
+  width: 100%;
+  position: relative;
+}
+
+.template {
+  width: 100%;
+  height:100%;
+  margin: 0 auto;
+}
+
+.wrap {
+  width: 100%;
+  height: auto;
+ 
+}
+
+.wrap img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+body.PC,
+html,
+div {
+  margin: 0 auto;
+  font-size: 0.4rem;
+  background: #f5f5f5;
+}
+
+.foot{
+   width: 100%;
+   background: #f5f5f5;
+   margin-bottom: 30px;
+}
+
+.foot p{
+   text-align: center;
+   color: #666;
+   font-size: 14px;
+   line-height: 22px;
+}
+
+.foot p span a{
+  color: #666;
+  cursor: pointer;
+}
+.foot p a{
+  color: #666;
+  cursor: pointer;
+}
+
+.foot p span a:before {
+  content: " ";
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+    vertical-align: middle;
+    background: url(./images/beian.png) no-repeat;
+    background-size: 100%;
+  }
+  .box{
+     position: relative;
+     /* width: 1.2rem;
+     height: 1.2rem; */
+  }
+  #QR{
+    position: absolute;
+    width: 12.7%;
+    top: 0;
+    left: 35.8%;
+    z-index: 100;
+    margin-top: -27.12%;
+}

@@ -1,0 +1,57 @@
+html, body {
+	font-size: 16px;
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+	font-family: PingFangSC-Regular, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+img {
+	width: 100%;
+}
+
+.main {
+	position: relative;
+	max-width: 750px;
+	min-height: 100vh;
+	margin: 0 auto;
+}
+
+.hide {
+	display: none !important;
+}
+
+.show {
+	display: block !important;
+}
+
+li {
+	list-style: none;
+}
+
+.selected {
+	/*border: 1px solid #dc220d !important;*/
+	/*color: #dc220d !important;*/
+	border: 1px solid #dc220d !important;
+	color: #fff !important;
+	background: #dc220d !important;
+}
+/*解决滑动穿透*/
+body.modal-open {
+	position: fixed;
+	width: 100%;
+}
+/*input的竖线颜色*/
+input, textarea {
+	caret-color: #dc220d;
+}
+/*重置弹框按钮颜色*/
+.weui-btn_primary {
+	background: #dc220d;
+}
+.weui-btn_primary:not(.weui-btn_disabled):active {
+	background: #ee6f60;
+}
+
+.weui-popup__modal { position: fixed !important; }

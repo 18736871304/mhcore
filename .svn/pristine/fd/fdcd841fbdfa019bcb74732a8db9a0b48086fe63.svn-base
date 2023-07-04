@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!-- saved from url=(0083)https://insurance.anbangaxb.com/product/insurance/front/life/sel/pro_clause_01.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="initial-scale=1, width=device-width">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+<title>保险条款</title>
+<link rel="stylesheet" href="./Pro_clause_files/public.css">
+<script src="./Pro_clause_files/hm.js"></script>
+<script src="./Pro_clause_files/jquery-1.7.2.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="./Pro_clause_files/jquery.scrollLoading.js"></script>
+<script type="text/javascript">
+$(function(){
+	$(".scrollLoading").scrollLoading(); 
+});
+/* window.onbeforeunload = function(event){
+			sessionStorage.setItem('prevUrl', window.location.href);
+	} */
+	sessionStorage.setItem('prevUrl', window.location.href);
+</script>
+</head>
+<body class="bgw">
+
+<header class="header bgHeader">
+    <a onclick="history.go(-1)" class="upPage"></a>
+	<h1>保险条款</h1>
+</header>
+
+<article>
+	<div class="tkpic">
+        <img src="./Pro_clause_files/tk_01.png" alt="">
+		<img data-url="./Pro_clause_files/tk_02.png" src="./Pro_clause_files/tk_02.png" class="scrollLoading">
+		<img data-url="./Pro_clause_files/tk_03.png" src="./Pro_clause_files/tk_03.png" class="scrollLoading">
+		<img data-url="./Pro_clause_files/tk_04.png" src="./Pro_clause_files/tk_04.png" class="scrollLoading">
+		<img data-url="./Pro_clause_files/tk_05.png" src="./Pro_clause_files/tk_05.png" class="scrollLoading">
+		<img data-url="../Pro_clause_files/tk_06.png" src="./Pro_clause_files/tk_06.png" class="scrollLoading">
+		<img data-url="./Pro_clause_files/tk_07.png" src="./Pro_clause_files/tk_07.png" class="scrollLoading">
+		<img data-url="../Pro_clause_files/tk_08.png" src="./Pro_clause_files/tk_08.png" class="scrollLoading">
+		<img data-url="./Pro_clause_files/tk_09.png" src="./Pro_clause_files/tk_09.png" class="scrollLoading">
+		<img data-url="./Pro_clause_files/tk_10.png" src="./Pro_clause_files/tk_10.png" class="scrollLoading">
+    </div>
+</article>
+
+
+<script type="text/javascript" src="./Pro_clause_files/hide-wc-menu.js"></script>
+<script type="text/javascript" src="./Pro_clause_files/bottom.js"></script>
+
+</body></html>

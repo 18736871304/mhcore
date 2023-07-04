@@ -1,0 +1,190 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<%@ include file="/WEB-INF/common/include.jsp"%><head>
+<title></title>
+<script>
+
+var inputList;
+var checkList;
+
+window.onload = function()
+{
+	initDataGrid($('#userList'));
+	
+	inputList = [
+	 			$('#userid'),
+	 			$('#usergrade')
+	 	];
+
+	 checkList = [
+	 			$('#usergrade')
+	 	];
+	
+	OrganInit();
+	/* var tturl = "user/getUsertype.do";
+	var tParam = new Object();
+	tParam.typeStr = "('02')";
+	displayCombox($('#qusergrade'),tParam,tturl,"dd_key","dd_value"); */
+}
+
+function aftercodeselect(comboxid)
+{
+}
+
+function selectone()
+{
+	var row = $('#userList').datagrid('getSelected');
+	$('#userid').val(row.userid);
+	
+	dealorgan(row.organcode);
+	$('#usergrade').combobox('setValue',row.usergrade);
+}
+
+function userquery()
+{
+	var tturl = "user/getUserList.do";
+	var tParam = new Object();
+	tParam.usercode = $('#qusercode').val();
+	tParam.realname = $('#qrealname').val();
+	tParam.mobilenumber = $('#qmobilenumber').val();
+	tParam.organcode = $('#qorgancode').val();
+	tParam.typeStr = "'02'"; 
+	
+	displayDataGrid($('#userList'), tParam, tturl);
+	clearCarData();
+}
+
+function saveSuss()
+{
+	clearCarData();
+	$('#userList').datagrid('reload');
+}
+
+function clearCarData() 
+{
+	cleardata(inputList);
+}
+
+function useredit()
+{
+	var row = $('#userList').datagrid('getSelected');
+	
+	if(row==null)
+	{
+		$.messager.alert('操作提示','请选中要修改的数据！','error');
+		return;
+	}
+	
+	if(!checknotnull(checkList))
+	{
+		return;
+	}
+
+	var tparam = prepareparam(inputList);
+	tparam.usertype = row.typecode;
+
+	ajaxdeal("user/usergradeUpdate.do",tparam,null,null,saveSuss);
+	userquery();
+}
+
+function dealorgan(organcode)
+{
+	var tParam = new Object();
+	tParam.organcode = organcode;
+	
+	var tturl1 = "basiclaw/getlawgrade.do";
+	
+	displayCombox($('#usergrade'),tParam,tturl1,"dd_key","dd_value");
+}
+
+</script>
+
+</head>
+<body>
+<%@ include file="/WEB-INF/jsp/organ/OrganInfoDlg.jsp"%>
+<div style="margin-left:0%">
+	<table class = "common">
+		<tr>
+			<td class = "title">
+				员工编号
+			</td>
+			<td class = "common">
+				<input class = "txt" name="qusercode" id="qusercode">
+			</td>
+			<td class = "title">
+				员工姓名
+			</td>
+			<td class = "common">
+				<input class = "txt" name="qrealname" id="qrealname">
+			</td>
+			<td class = "title">
+				手机号码
+			</td>
+			<td class = "common">
+				<input class = "txt" name="qmobilenumber" id="qmobilenumber">
+			</td>
+		</tr>
+		<tr>
+			<td class = "title">
+				机构编码
+			</td>
+			<td class = "common">
+				<input class = "txt" name="qorgancode" id="qorgancode"
+				readonly  onclick = "disorgan($('#qorgancode'),'none');">
+			</td>
+			 <!-- <td class = "title">
+				员工职称
+			</td>
+			<td class = "common">
+				<select class = "easyui-combobox" style="width:160%" name="qusergrade" id="qusergrade">
+				</select>
+			</td> -->
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+	<br>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id = "userquery" onclick = "userquery()">员工查询</a>
+	<br>
+	<br>
+	<table id="userList" class="easyui-datagrid" title="员工信息" style="width:auto;height:auto"
+		data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone" >
+		<thead>
+			<tr>
+				<th data-options="field:'organ03name',width:100">所属分公司</th>
+				<th data-options="field:'organname',width:100">所属事业部</th>
+				<th data-options="field:'usercode',width:80">员工编号</th>
+				<th data-options="field:'realname',width:100">员工姓名</th>
+				<th data-options="field:'mobilenumber',width:90">手机号码</th>
+				<th data-options="field:'cardno',width:150">身份证号码</th>
+				<th data-options="field:'usertype',width:80">员工状态</th>
+				<th data-options="field:'usergradename',width:110">员工级别</th>
+				<th data-options="field:'workyears',width:70">司龄（月）</th>
+			</tr>
+		</thead>
+	</table>
+	<br>
+	<table class = "common">
+		<tr>
+			<input class = "txt" hidden name="userid" readonly id="userid" notnull = "员工编码">
+			<input class = "txt" hidden name="usertype" readonly id="usertype" notnull = "状态编码">
+			<td class = "title">
+				员工级别
+			</td>
+			<td class = "common">
+				<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="usergrade" id="usergrade" notnull = "员工级别">
+				</select>
+			</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+	<br>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" id = "useredit" onclick = "useredit()">职级修改</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<%@ page contentType="text/html;charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no, email=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>美华保险服务委托协议</title>
+    <link rel="stylesheet" href="../css/user/agreement/normalize.css?v=20190912_01">
+    <link rel="stylesheet" href="../css/user/agreement/common.css?v=20190912_01">
+    <link rel="stylesheet" href="../css/user/agreement/notice.css?v=20190912_01">
+</head>
+<body>
+<div class="main">
+    <div class="header">
+        <div class="logo">
+            <img src="../images/user/agreement/meihua_logo.png">
+        </div>
+        <div class="title-img">
+            <img src="../images/user/agreement/notice_title.png">
+        </div>
+    </div>
+    <div class="content" id="content">
+        <!--<div class="wave" id="wave"></div>-->
+        <p>尊敬的客户：</p>
+        <p style="margin-top: 20px;">
+            感谢您委托我公司（美华保险网：http://www.un29.com）代为办理保险业务。本公司是中国银保监会批准，受保险公司委托，为投保人提供中介服务的保险专业中介机构。为了保护您的合法权益，按照《保险代理机构监管规定》及《互联网保险业务监管暂行办法》的要求，本公司应履行客户告知义务，现将有关事项告知如下，请仔细阅读。
+        </p>
+        <p style="margin-top: 20px;">一、公司基本情况</p>
+        <p>（一）名称：美华保险销售有限公司</p>
+        <p>（二）地址：上海市闵行区江月路1188号5幢B601室、B603室、B605室、B607室</p>
+        <p>（三）许可证名称及编号：经营保险代理业务许可证编号：203006000000800</p>
+        <p>（四）业务范围：在全国区域内（港、澳、台除外）代理销售保险产品；代理收取保险费；代理相关保险业务的损失勘察和理赔；中国保监会批准的其他业务。</p>
+        <p>（五）经营区域：全国（港、澳、台除外）</p>
+        <p>（六）联系方式：400-9200-713/021-64116006</p>
+        <p style="margin-top: 20px;">
+            二、根据保险监管部门的规定，只有持《保险代理从业人员执业证书》的人员方可从事保险代理业务，您可要求本公司业务人员出示《保险代理从业人员执业证书》，并可登录中国银保监会保险中介监管信息系统查询业务人员持证情况（网址：http://iir.circ.gov.cn）。
+        </p>
+        <p style="margin-top: 20px;">
+            三、请仔细阅读保险条款，重点关注保险责任、责任免除、被保险人权利义务、免赔额或免赔率的计算、犹豫期解除合同、退保损失、健康保险产品等待期等内容，并可要求本公司业务人员对上述内容进行详细讲解。
+        </p>
+        <p style="margin-top: 20px;">
+            四、请向本公司业务人员了解《中华人民共和国保险法》等法律法规对于索赔时效、保险公司理赔时限、合同中止与失效、未成年人投保限额等的相关规定，以及不履行如实告知义务、故意制造保险事故或夸大事故损失、申报年龄不真实等情形导致的法律后果。
+        </p>
+        <p style="margin-top: 20px;">
+            五、本公司承诺将通过有效的技术手段和管理措施对投保人（被保险人或都受益人）的个人信息、投保交易信息等非公开信息进行保密，严格限制保密信息的接触人，妥善保管保密信息；并在与保险公司的数据交换过程中采用了加密与验证保证交易安全。
+        </p>
+        <p style="margin-top: 20px;">
+            六、关联关系说明：我公司及董事、高级管理人员与被代理保险公司或者相关中介机构不存在关联关系。
+        </p>
+        <p style="margin-top: 20px;">
+            七、本公司已按《保险专业代理机构监管规定》投保职业责任保险。
+        </p>
+        <p style="margin-top: 20px;">八、如果您发现本公司业务人员存在误导行为及其他损害您合法权益的行为，可向本公司投诉，投诉电话：400-9200-713。</p>
+        <p style="margin-top: 20px;color: #000;text-align: right;font-weight: 600;">
+            美华保险销售有限公司
+        </p>
+    </div>
+    <input hidden = "" id = "openid" value = "${openid}">
+    <div class="confirm-button">
+        <button id="confirmBtn">我已阅读并同意授权</button>
+    </div>
+</div>
+<!--<script src="lib/jQuery-1.12.4.min.js"></script>-->
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js?v=180428"></script>
+<script src="../js/user/agreement/lib/jQuery-1.12.4.min.js"></script>
+<script>
+    document.querySelector('#confirmBtn').addEventListener('click', function () {
+        window.location.href = './agreement.do?openid='+$('#openid').val()
+    })
+    
+    var jsstr = ${jsstr};
+    console.log(jsstr);
+	wx.config(jsstr);
+
+	var pyqtitle = '${pyqtitle}';
+	var pyqlink = '${pyqlink}';
+	var pyqimgurl = '${pyqimgurl}';
+
+	var hytitle = '${hytitle}';
+	var hydesc = '${hydesc}';
+	var hylink = '${hylink}';
+	var hyimgurl = '${hyimgurl}';
+
+	var reuserid = '${reuserid}';
+	var shareid = '${shareid}';
+
+	wx.ready(function () {	//朋友圈
+	   	wx.onMenuShareTimeline({
+	        title: pyqtitle, // 分享标题
+	        link: pyqlink+'&shareid='+shareid+'&reuserid='+reuserid, // 分享链接
+	        imgUrl: pyqimgurl,
+	        success: function (res) {
+	            //alert(1);
+	        },
+	        cancel: function (res) {
+	        	//alert(2);
+	        },
+	        fail: function (res) {
+			            
+	        }
+	    });
+	    //朋友
+	    wx.onMenuShareAppMessage({
+	        title: hytitle, // 分享标题
+	        desc: hydesc, // 分享描述
+	        link: hylink+'&shareid='+shareid+'&reuserid='+reuserid, // 分享链接
+	        imgUrl: hyimgurl,
+	        type: '', // 分享类型,music、video或link，不填默认为link
+	        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+	        success: function () {
+	            // 用户确认分享后执行的回调函数
+	        	//alert(2);
+	        },
+	        cancel: function () {
+	            // 用户取消分享后执行的回调函数
+	        	//alert(4);
+	        }
+	    });
+	});
+	wx.error(function (res) {
+	  //alert(res.errMsg);
+	});
+
+//    var waveDOM = '<div class="wave-circle"></div>'
+//    var waveNum = Math.floor(document.querySelector('#content').offsetWidth / 30)
+//    console.log(waveNum)
+//    var innerDOM = ''
+//    for (var i = 0; i < waveNum; i++) {
+//        innerDOM += waveDOM
+//    }
+//    document.querySelector('#wave').innerHTML = innerDOM
+</script>
+</body>
+</html>

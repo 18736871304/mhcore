@@ -1,0 +1,36 @@
+.main .header {
+
+}
+
+.main .content p {
+    margin: 0;
+    text-align: left;
+    color: #333;
+    line-height: 1.75;
+    font-size: 14px;
+    text-align: justify;
+    font-family: PingFangSC-Medium, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+.main .confirm-button {
+    max-width: 540px;
+    width: 92vw;
+    height: 50px;
+    margin: 0 auto;
+    padding: 50px 4vw;
+}
+
+.main .confirm-button button {
+    background: #fff;
+}
+.main .confirm-button button:active {
+    background: #f1f1f1;
+}
+button {
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    /*font-weight: 900;*/
+    color: #000;
+    border: none;
+    outline: none;
+}

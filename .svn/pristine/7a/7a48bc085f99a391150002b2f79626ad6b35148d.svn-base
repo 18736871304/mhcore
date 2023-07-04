@@ -1,0 +1,228 @@
+@charset "UTF-8";
+/* ab 2017.06.28 */
+
+/* 产品特色 */
+.feature-wrap h2 {
+	width: 90%;
+}
+.feature-parts {
+	width: 90%;
+	margin: 0 auto;
+}
+.feature-parts li{
+	border-bottom: 1px solid #d4d4d4;
+	padding: 1.8em 0 2em;
+	text-align: center;
+}
+.feature-parts li:first-child {
+	padding: .6em 0 2em;
+}
+.feature-parts li h3 {
+	color: #ff0000;
+	font-size: 1.25em;
+	font-weight: normal;
+}
+.feature-parts li .intro-txt1 {
+	color: #ff0000;
+	font-size: .85em;
+}
+.feature-parts li .intro-txt2 {
+	color: #999;
+	font-size: .7em;
+	padding-top: .6em;
+}
+
+/* 默认两列 */
+.feature-list{
+	width: 90%;
+	margin: 0 auto;
+	border-top: 1px solid #ccc;
+}
+.feature-list-box:first-of-type ul{
+	border-top: 0 none;
+}
+.feature-list li{
+	width: 50%;
+	box-sizing: border-box;
+	float: left;
+	padding: 1em 0;
+}
+.feature-list li:nth-chlid(even) {
+	float: right;
+}
+.feature-list li:nth-child(odd) {
+	border-right: 1px solid #ccc;
+}
+.feature-list li .block-parts{
+	width: 70%;
+}
+.feature-list li:nth-child(odd) .block-parts {
+	float: left;
+	padding-left: 10%;
+}
+.feature-list li:nth-child(even) .block-parts {
+	padding-right: 10%;
+	float: right;
+}
+.feature-list li .icon-box {
+	width: 112px;
+	height: 90px;
+	margin: 0 auto;
+	position:relative;
+	overflow: hidden;
+	margin-bottom: .5em;
+}
+.feature-list li .icon-box span{
+	width: 100%;
+	height: 90px;
+	display: inline-block;
+	position:absolute;
+	left: 0;
+	top: 0;
+}
+.feature-list li .feature-txt{
+	text-align: center;
+	color: #666;
+	width: 100%;
+}
+.feature-list li .block-parts .feature-ad-txt {
+	color: #ff0000;
+	font-size: 1.3em;
+}
+.feature-list li .icon-box.quan {
+	background: url(../../images/abzong/feature-quan-bg-224x180.png) center center no-repeat;
+	background-size: auto 100%;
+}
+.feature-list li .icon-box.quan span {
+	background-image: url(../../images/abzong/feature-quan-part-224x180.png);
+	background-repeat: no-repeat;
+	background-size: auto 100%;
+}
+.feature-list li.current .icon-box.quan span {
+	animation: drug 1.5s infinite steps(12);
+	-webkit-animation: drug 1.5s infinite steps(12);
+}
+.feature-list li .icon-box.mian {
+	background: url(../../images/abzong/feature-mian-bg-224x180.png) center center no-repeat;
+	background-size: auto 100%;
+	
+}
+.feature-list li .icon-box.mian span {
+	background-image: url(../../images/abzong/feature-mian-part-224x180.png);
+	background-repeat: no-repeat;
+	background-size: auto 100%;
+	opacity: 0;
+}
+.feature-list li.current .icon-box.mian span {
+	-webkit-animation: counter 1.5s infinite steps(5);
+	opacity: 1;
+}
+
+/* 单行单图标特色 */
+.single-txt {
+	padding: 1.9em 1em 1.9em 1.9em;
+}
+.single-txt .intro-txt {
+	display: inline-block;
+	height: 55.5px;
+	padding-left: 70px;
+	display: table-cell;
+	vertical-align: middle;
+	font-size: .7em;
+	line-height: 140%;
+	width: 100%;
+}
+.single-txt .intro-txt .fea-tit {
+	font-size: 1.2em;
+	font-weight: bold;
+	margin-bottom: .6em;
+}
+.single-txt .icon-quan {
+	background: url(../../images/abzong/icon-quan-111x111.png) left center no-repeat;
+	background-size: auto 55.5px;
+}
+.single-txt .icon-mian {
+	background: url(../../images/abzong/icon-mian-111x111.png) left center no-repeat;
+	background-size: auto 55.5px;
+}
+.feature-list-box .detail-box > div:nth-child(odd) .arrow-white {
+	left:23%;
+}
+.feature-list-box .detail-box  > div:nth-child(even) .arrow-white {
+	right:23%;
+}
+.feature-list-box2 .detail-box .arrow-white {
+	left:48%;
+}
+/* 案例 */
+.case-form {
+	border: 0 none;
+	width: 100%;
+	border-collapse:collapse;
+	border-spacing: 0;
+}
+.case-form td {
+	border: 1px solid #d4d4d4;
+	color: #666;
+	font-size: .8em;
+	padding: 1.2em 1em;
+	line-height: 1.6;
+}
+.case-form .case-head{
+	width:30%;
+	max-width: 100px;
+	text-align: center;
+}
+.case-form .case-head img {
+	max-width: 85px;
+	margin: 0 auto;
+}
+.case-form td h3 {
+	font-weight: normal;
+	font-size: 1.1em;
+	color: #cd0606;
+}
+.example-txt {
+    padding: 1.2em;
+    font-size: .7em;
+    line-height: 1.6;
+    color: #666;
+    background-color: #e9e9e9;
+    border-radius: 10px;
+    margin: 1.2em auto;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width:320px) {
+.insur-type {padding: .2em;}
+.insur-type li { width: 42%; padding-right: 3%;}
+.insur-type li:nth-child(2) {width: 54%;}
+}
+
+
+@keyframes counter {
+	to {
+		background-position: -560px 0;
+	}
+}
+@-webkit-keyframes counter {
+	to {
+		background-position: -560px 0;
+	}
+}
+
+@keyframes drug {
+	to {
+		background-position: -1344px 0;
+	}
+}
+@-webkit-keyframes drug {
+	to {
+		background-position: -1344px 0;
+	}
+}
+
+/*header start*/
+.header{width:100%; overflow:hidden; height:2.8rem; line-height:2.8rem; text-align:center; background: #f2f2f2;}
+.header h1{font-size:1rem;font-weight:bolder;color:#808080;letter-spacing:1px;}
+.header .upPage {position:absolute; top:0.4rem; left:0.4rem; width:2rem; height:2rem; background: url(/assets/images/back_icon.png) no-repeat; background-size:100%;}

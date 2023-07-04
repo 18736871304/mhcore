@@ -1,0 +1,156 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<%@ include file="/WEB-INF/common/include.jsp"%><head>
+<title></title>
+<link rel="stylesheet" href="../../../../css/inputbox/line6.css">
+<script>
+
+var hasSourceDetail = '0001,0012,0015';
+
+window.onload = function()
+{
+	policyDetailDlgInit();
+	
+	initDataGrid20($('#policyList'));
+	
+	initPolicyQuery('');
+	
+	disComBox($('#channel'),"source",null);
+	
+	init02Org();
+	policyUrlDlgInit();
+}
+
+function aftercodeselect(comboxid)
+{
+	if(comboxid.attr("id")=="channel")
+	{
+		var tParam = new Object();
+		tParam.comboxType = 'sourcedetail_'+comboxid.combobox('getValue');
+		
+		var tturl = "activity/getSourceDetail.do";
+		displayCombox($('#appname'),tParam,tturl,"dd_key","dd_value");
+		
+		if(hasSourceDetail.indexOf(comboxid.combobox('getValue'))>=0)
+		{
+			$(".appname_td").show();
+		}
+		else
+		{
+			$(".appname_td").hide();
+			$('#appname').combobox('setValue',"");
+		}
+	}
+	else
+	{
+		qPolicyAftercodeselect(comboxid);
+	}
+}
+
+function selectone()
+{
+
+}
+
+function queryPolicyInfo(val,row,index)
+{
+	return '<a href="#" onclick="openDlg('+index+')">查看详情</a>'; 
+}
+
+function openDlg(index)
+{
+	var rows=$('#policyList').datagrid('getRows');//获取所有当前加载的数据行
+	var row=rows[index];
+	
+	//alert(row.agentcom);
+	
+	dispolicyDetailDlg(row);
+}
+
+function activityModify()
+{
+	var row = $('#policyList').datagrid('getSelected');
+	if(row==null)
+	{
+		$.messager.alert('操作提示','请选中要修改的数据！','error');
+		return;
+	}
+	
+	if($('#channel').combobox('getValue')==null||$('#channel').combobox('getValue')=='')
+	{
+		$.messager.alert('操作提示','请选择渠道类型！','error');
+        return false;
+	}
+	
+	if(hasSourceDetail.indexOf($('#channel').combobox('getValue'))>=0)
+	{
+		if($('#appname').combobox('getValue')==null||$('#appname').combobox('getValue')=='')
+		{
+			$.messager.alert('操作提示','请选择流量来源！','error');
+	        return false;
+		}	
+	}
+	
+	var tparam = new Object();
+	tparam.activityid = row.activityid;
+	tparam.orderid = row.orderid;
+	
+	tparam.channel = $('#channel').combobox('getValue');
+	tparam.appname = $('#appname').combobox('getText');
+	
+	ajaxdeal("/activity/activityChannelUpdate.do",tparam,null,null,saveSuss);
+}
+
+function saveSuss()
+{
+	$('#channel').combobox('setValue',"");
+	$('#appname').combobox('setValue',"");
+	
+	$('#policyList').datagrid('reload');
+}
+
+</script>
+</head>
+<%@ include file="/WEB-INF/jsp/admin/policy/policyDetailDlg.jsp"%>
+<%@ include file="/WEB-INF/jsp/dilog/policyUrlDlg.jsp"%>
+<body>
+<div style="margin-left:0%">
+	<%@ include file="/WEB-INF/common/query/policy/policyCommonQuery.jsp"%>
+	<br>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id = "policyquery" onclick = "policyquery()">查询</a>
+	<br>
+	<br>
+	<table id="policyList" class="easyui-datagrid" title="保单信息" style="width:auto;height:auto"
+		data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone" >
+		<thead>
+			<tr>
+				<%@ include file="/WEB-INF/jsp/admin/policy/include/policyListItem.jsp"%>
+			</tr>
+		</thead>
+	</table>
+	<br>
+	<table class = "common">
+		<tr>
+			<td class = "reprot_title_4">
+				渠道类型
+			</td>
+			<td class = "report_common_4">
+				<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="channel" id="channel" notnull = "渠道类型">
+				</select>
+			</td>
+			<td class = "reprot_title_4 appname_td" hidden>
+				流量来源
+			</td>
+			<td class = "report_common_4 appname_td" hidden>
+				<select class = "easyui-combobox" style="width: 90%" panelHeight="auto" name="appname" id="appname" notnull = "流量来源">
+				</select>
+			</td>
+			<td></td><td></td>
+			<td></td><td></td>
+		</tr>
+	</table>
+	<br>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" id = "activityModify" onclick = "activityModify()">修改</a>
+</div>
+</body>
+</html>

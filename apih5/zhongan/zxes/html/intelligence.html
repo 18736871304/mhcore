@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: calc(100vw/18.75);">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>核保信息</title>
+    <link rel="stylesheet" href="../css/infos.css?v=20201119_04">
+    <link rel="stylesheet" href="../css/iosSelect.css">
+    <link rel="stylesheet" href="../css/font-awesome.css">
+    <style>
+        .intel {
+            background-color: #dc220d;
+            color: #fff;
+            height: 2.8rem;
+            font-size: 0.8999rem;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header w100 pl bgColor">
+        <span>尊享e生2020版</span>
+        <br />
+        <span>本产品由众安在线财产保险股份有限公司承保</span>
+        <img src="../images/logo.png" />
+    </header>
+    <article class="info" style="margin-top: 4.7rem;">
+        <form id="formId" name="formName" method="post">
+            <!-- 
+            <input type="hidden" id="sumprem" value="">
+            <input type="hidden" id="uwid" value="${uwid}"> -->
+
+
+            <!-- 投保人信息 -->
+            <section class="infoList product">
+                <p class="ml" style="color:#222">投保人信息</p>
+                <div class="infoSec pl pr bgColor borTop1 borBot1">
+
+                    <dl class="clearfix borBot1 dlSec">
+                        <dt class="w35 l-float">姓名</dt>
+                        <dd class="w65 l-float txtR hasArrow">
+                            <input type="text" class="textfield txtR personInfo" id="policyName" value=""
+                                placeholder="请输入投保人姓名">
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+
+                    <dl class="clearfix infoDl borBot1 dlSec">
+                        <dt class="w35 l-float">证件类型</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="text" class="textfield txtR personInfo" readonly value="身份证">
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+
+                    <dl class="clearfix borBot1 dlSec">
+                        <dt class="w35 l-float">证件号码</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="text" class="textfield txtR personInfo idNo_compare" id="idNo" value=""
+                                placeholder="请输入证件号码">
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+
+
+                </div>
+            </section>
+
+            <!-- 被保人信息 -->
+            <section class="infoList" id="scrollTop" style="margin-top:0.5rem">
+                <p class="ml" style="color:#222">被保人信息</p>
+                <!-- 投保人为子女父母配偶 -->
+                <div class="infoSec  bgColor borTop1 borBot1">
+                    <div class="show-user1 filter-item clearfloat">
+                        <div class="filter-left">为谁投保</div>
+                        <div class="filter-center">
+                            <ul class="clearfloat">
+                                <li style="margin-right: 11px;">
+                                    <a href="javascript:;" class='wei-style'>本人</a>
+                                </li>
+                                <li style="margin-right: 11px;">
+                                    <a href="javascript:;">子女</a>
+                                </li>
+                                <li style="margin-right: 11px;">
+                                    <a href="javascript:;">配偶</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">父母</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+                    <!-- 被保人为子女配偶 -->
+                    <div class="insured" style="display:none; padding-left: 0.75rem; padding-right:0.75rem">
+                        <dl class="clearfix infoDl borTop1 dlSec " style="    border-top: 1px dashed #e8e8e8;">
+                            <dt class="w35 l-float">姓名</dt>
+                            <dd class="w65 l-float txtR pr" style="box-sizing: border-box;">
+                                <input type="text" class="textfield txtR personInfo" id="insuredName" value=""
+                                    placeholder="请输入被保人姓名">
+                                <!-- <input class="textfield txtR mySelf" readonly=""> -->
+                            </dd>
+                            <span class="errorMsg"></span>
+                        </dl>
+
+
+                        <dl class="clearfix infoDl borTop1 dlSec ">
+                            <dt class="w55 l-float">证件类型</dt>
+                            <dd class="w40 l-float txtR pr hasArrow">
+                                <input type="text" class="textfield txtR personInfo cardType" readonly="" value="身份证">
+                                <!-- <select id="insuredCardType" class="cardType txtR personInfo dw-hsel"
+                                    onchange="changeInsuredCardType(this.value)" tabindex="-1">
+                                    <option value="0">身份证</option>
+                                    <option value="4">户口本</option>
+                                    <option value="7">出生证</option>
+                                </select> -->
+                                <!-- <i class="arrow"></i> -->
+                                <!-- <input class="textfield txtR mySelf" readonly=""> -->
+                            </dd>
+                            <span class="errorMsg"></span>
+                        </dl>
+
+                        <dl class="clearfix infoDl borTop1 dlSec ">
+                            <dt class="w35 l-float">证件号码</dt>
+                            <dd class="w65 l-float txtR pr" style="box-sizing: border-box;">
+                                <input type="text" class="textfield txtR personInfo idNo_compare" id="insuredIdNo"
+                                    value="" placeholder="请输入证件号码">
+                                <!-- <input class="textfield txtR mySelf idNo_compare" readonly=""> -->
+                            </dd>
+                            <span class="errorMsg"></span>
+                        </dl>
+                    </div>
+
+
+                    <input hidden id="productcode">
+                    <input hidden id="prem" value='0'>
+
+                </div>
+            </section>
+
+            <!-- 增加的投保人信息 -->
+            <div id="addinsured_div">
+            </div>
+
+
+            <!-- 点击增加 -->
+            <section class="infoList" id="addinsured_model" style="top : 0.5rem;display: block; ">
+                <!-- <div class="infoSec pl pr bgColor borTop1 borBot1">
+                </div> -->
+                <div class="clearfix infoDl dingwei fl">
+                    <div class="zengjia" id="addinsured_button"
+                        style="font-size: 0.7rem;text-align: center; background:#fff;line-height: 2.1rem;">+添加被保人</div>
+                </div>
+
+            </section>
+
+
+
+    
+
+
+        </form>
+        <!--投保按钮-->
+        <div class="bgColor fixedBox w100">
+            <p class="intel">智能核保</p>
+        </div>
+
+
+
+    </article>
+    <!--加载动画-->
+    <div class="loading">
+        <div class="sk-circle">
+            <div class="sk-circle1 sk-child"></div>
+            <div class="sk-circle2 sk-child"></div>
+            <div class="sk-circle3 sk-child"></div>
+            <div class="sk-circle4 sk-child"></div>
+            <div class="sk-circle5 sk-child"></div>
+            <div class="sk-circle6 sk-child"></div>
+            <div class="sk-circle7 sk-child"></div>
+            <div class="sk-circle8 sk-child"></div>
+            <div class="sk-circle9 sk-child"></div>
+            <div class="sk-circle10 sk-child"></div>
+            <div class="sk-circle11 sk-child"></div>
+            <div class="sk-circle12 sk-child"></div>
+        </div>
+    </div>
+    <!--弹窗-->
+    <div class="mask">
+        <div class="pop repeat">
+            <span>失败提示</span>
+            <a class="pop-sure">确定</a>
+        </div>
+    </div>
+
+    <div class="forSelfMask">
+        <div class="forSelfPop forSelfRepeat">
+            <p>是否确认投保？</p>
+            <span>说明：根据相关规定，您作为投保人或被保险人购买产品将无法获得平台推广费和推荐奖励。</span>
+            <div class="forSelfBtn">
+                <a href="javascript:void(0);" class="forSelfUnsure">取消</a>
+                <a href="javascript:void(0);" class="forSelfSure">确定</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src=" ../js/hengqin/jquery-1.10.1.min.js?v=20180504"></script>
+<script src=" ../js/hengqin/mobiscroll-2.13.2.full.min.js?v=20180504" type="text/javascript"></script>
+<script src=" ../js/hengqin/iscroll.js?v=20180504" type="text/javascript"></script>
+<script src=" ../js/hengqin/iosSelect.js?v=20180504" type="text/javascript"></script>
+<script src="../js/hengqin/iosSelect_2.js" type="text/javascript"></script>
+<script src=" ../js/hengqin/checkFn.js?v=20180504"></script>
+<script src="../js/common/insuCommon.js?v=20180504"></script>
+<script src=" ../js/hengqin/areaData_v2.js"></script>
+<script src=" ../js/zhongan/insuranceInformation2.js?v=20201130_02"></script>
+<script type="text/javascript">
+    var insplan = '${insplan}';
+    var isextend = '${isextend}';
+
+    $(function () {
+        $("select").each(function () {
+            $(this).scroller('destroy').scroller($.extend({
+                preset: 'select'
+            }, {
+                theme: "android-ics light",
+                lang: "zh",
+                display: 'bottom',
+                rtl: true,
+                inputClass: 'tmp',
+                onSelect: function () {
+                    if ($(this).find("option:selected").text() == "请选择") {
+                        $(this).siblings(".tmp").css("color", "#999999");
+                    } else {
+                        $(this).siblings(".tmp").css("color", "#222222");
+                    }
+                }
+            }));
+        });
+        $(".tmp").each(function () {
+            if ($(this).val() == "请选择") {
+                $(this).css("color", "#999999");
+            } else {
+                $(this).css("color", "#222222");
+            }
+        });
+
+        $('.pop-sure').click(function () {
+            $('.mask').css("display", "none");
+        });
+    })
+</script>
+
+</html>

@@ -1,0 +1,143 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<%@ include file="/WEB-INF/common/include.jsp"%><head>
+	<title></title>
+	<link rel="stylesheet" href="../../../../css/inputbox/line6.css">
+<script>
+
+var inputList;
+var checkList;
+var doubleList;
+
+window.onload = function()
+{	
+	initDataGrid20($('#riskdefinelist'));
+
+	disComBox($('#qinsorgancode'),"insorgancode",null);
+	disComBox($('#qrisktype'),"risktype",null);
+	disComBox($('#qisseal'),"isseal",null);
+	disComBox($('#qismain'),"ismain",null);
+	disComBox($('#qjointype'),"jointype",null);
+	
+	$('#qisseal').combobox('setValue','01');
+	$('#qismain').combobox('setValue','Y');
+}
+
+function aftercodeselect(comboxid)
+{
+}
+
+function selectone()
+{
+}
+
+function saveSuss()
+{
+	clearCarData();
+	$('#riskdefinelist').datagrid('reload');
+}
+
+function clearCarData() 
+{
+	//cleardata(inputList);
+}
+
+function riskdefinequery()
+{
+	//var tturl = "supplier/getRiskdefineShortList.do";
+	var tturl = "supplier/getRiskdefineList20.do";
+	
+	var tParam = new Object();
+
+	tParam.insorgancode = $('#qinsorgancode').combobox('getValue');
+	tParam.riskname = $('#qriskname').val();
+	tParam.risktype = $('#qrisktype').combobox('getValue');
+
+	tParam.isseal = $('#qisseal').combobox('getValue');
+	tParam.ismain = $('#qismain').combobox('getValue');
+	tParam.jointype = $('#qjointype').combobox('getValue');
+	
+	displayDataGrid20($('#riskdefinelist'), tParam, tturl);
+
+	clearCarData();
+}
+
+</script>
+
+
+</head>
+<body>
+<div style="margin-left:0%">
+	<table class = "common">
+		<tr>
+			<td class = "reprot_title">
+				险种类型
+			</td>
+			<td class = "report_common">
+				<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="qrisktype" id="qrisktype">
+				</select>
+			</td>
+		
+			<td class = "reprot_title">
+				保险公司
+			</td>
+			<td class = "report_common">
+				<select class = "easyui-combobox" style="width:160%" name="qinsorgancode" id="qinsorgancode">
+				</select>
+			</td>
+			<td class = "reprot_title">
+				险种名称
+			</td>
+			<td class = "report_common">
+				<input class = "txt" name="qriskname" id="qriskname">
+			</td>
+			
+			<td class = "reprot_title" hidden>
+				是否主险
+			</td>
+			<td class = "report_common" hidden>
+				<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="qismain" id="qismain">
+				</select>
+			</td>
+			
+			<td class = "reprot_title">
+				产品属性
+			</td>
+			<td class = "report_common">
+				<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="qjointype" id="qjointype">
+				</select>
+			</td>
+			
+			<td class = "reprot_title">
+				是否在售
+			</td>
+			<td class = "report_common">
+				<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="qisseal" id="qisseal">
+				</select>
+			</td>
+			<td></td><td></td>
+		</tr>
+	</table>
+	<br>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id = "riskdefinequery" onclick = "riskdefinequery()">查询</a>
+	<br>
+	<br>
+	<table id="riskdefinelist" class="easyui-datagrid" title="保险产品查询" style="width:auto;height:auto"
+		data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone" >
+		<thead>
+			<tr>
+				<th data-options="field:'groupcode',width:90">保险产品编码</th>
+				<th data-options="field:'risktypename',width:80">险种类型</th>
+				<th data-options="field:'insorganname',width:90">保险公司</th>
+				<th data-options="field:'riskname',width:320">险种名称</th>
+				<th data-options="field:'jointypename',width:80">产品属性</th>
+				<th data-options="field:'issealname',width:80">是否在售</th>
+				<th data-options="field:'freelookperiod',width:80">犹豫期天数</th>
+				<th data-options="field:'coefficient',width:80">产品系数</th>
+			</tr>
+		</thead>
+	</table>
+	<br>
+</div>
+</body>
+</html>

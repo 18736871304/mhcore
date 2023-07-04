@@ -1,0 +1,528 @@
+#footer_wrapper {
+	overflow: hidden;
+}
+
+/*#editFormBox .weui-half-screen-dialog {*/
+/*border-top-left-radius: 0;*/
+/*border-top-right-radius: 0;*/
+/*}*/
+#editFormBox .weui-half-screen-dialog__hd {
+	height: 4em;
+}
+#editFormBox .weui-btn_primary {
+	background-color: #dc220d;
+}
+
+.weui-toptips {
+	/*position: fixed;*/
+	/*z-index: 999999;*/
+	border-radius: 0;
+	/*opacity: 1;*/
+}
+#editFormBox .weui-cell_select-after {
+	padding-left: 0;
+}
+#editFormBox .weui-input {
+	font-size: 15px;
+}
+
+#editFormBox .weui-cell_select .weui-cell__bd:after {
+	right: 0;
+}
+
+.edit-box .edit-form-box .edit-form .edit-form-choose-list .edit-form-choose-item .choose-item-title {
+	background: #ffffff;
+	padding: 5px 0 0px 0px;
+	font-size: 12px;
+	color: #3E3C3C;
+}
+
+.edit-box .edit-form-box .edit-form .weui-cell_select-after {
+	padding-left: 5px;
+}
+
+.weui-cell_select .weui-cell__bd:after {
+	right: 0;
+}
+
+.edit-box .edit-form-box .edit-form .edit-box .edit-form-box .edit-form .edit-form-choose-list {
+	padding: 10px 0;
+	background: #fff;
+}
+
+.edit-box .edit-form-box .edit-form .edit-form-choose-list .edit-form-choose-item .edit-form-select-button {
+	display: flex;
+	flex-flow: wrap;
+	padding: 0 16px 0 0px;
+}
+
+.edit-box .edit-form-box .edit-form .edit-form-choose-list .edit-form-choose-item .choose-item-title {
+	background: #ffffff;
+	padding: 5px 0 0px 0px;
+	font-size: 12px;
+	color: #3E3C3C;
+}
+
+.edit-box .edit-form-box .edit-form .edit-form-choose-list .edit-form-choose-item .weui-cell:before {
+	content: '';
+	display: none;
+}
+
+.weui-toptips {
+	/*position: fixed;*/
+	/*z-index: 999999;*/
+	border-radius: 0;
+	/*opacity: 1;*/
+}
+.baofei {
+	display: flex;
+	justify-content: space-between;
+}
+.edit-box .edit-form .edit-form-weui-cell .edit-form-cell-tips {
+	font-size: 15px;
+	color: #686868;
+	font-weight: lighter;
+}
+
+.editplan-page {
+	background: #F2F0F0;
+}
+.editplan-page .editplan-header{
+	padding: 15px 15px 15px 15px;
+	background: #dc220d;
+}
+.editplan-page .editplan-header .header{
+	line-height: 40px;
+	color: #ffffff;
+}
+.editplan-page .editplan-header .editplan-header-add-box{
+	display: flex;
+	width: 110px;
+	height: 94px;
+	/*margin-top: 30px;*/
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: #fff;
+	border-radius: 3px;
+	cursor: pointer;
+}
+.editplan-page .editplan-header .editplan-header-add-box:active{
+	background: #e6e6e6;
+}
+.editplan-page .editplan-header .editplan-header-add-box .add-btn{
+	text-align: center;
+}
+.editplan-page .editplan-header .editplan-header-add-box .add-btn .add-btn-icon{
+	text-align: center;
+}
+.editplan-page .editplan-header .editplan-header-add-box .add-btn .add-btn-icon i{
+	/*font-size: 32px;*/
+}
+.editplan-page .editplan-header .editplan-header-add-box .add-btn .add-btn-text{}
+
+.editplan-page .editplan-list-box{}
+.editplan-page .editplan-list-box .editplan-list{}
+.editplan-page .editplan-list-box .editplan-list .editplan-list-item{}
+.editplan-page .editplan-list-box .editplan-list .editplan-list-item .list-item{
+	margin-top: 10px;
+}
+
+.editplan-page .editplan-list-box .editplan-list .editplan-list-item .list-item{
+	margin-top: 10px;
+}
+
+.add-touch-area {
+	position:relative;
+}
+.add-touch-area:after {
+	content: '';
+	position: absolute;
+	top: -10px;
+	bottom: -10px;
+	left: -10px;
+	right: -10px;
+}
+
+.edit-box {
+	width: 100vw;
+	min-height: 100vh;
+	/*padding-bottom: 40px;*/
+	background: #dc220d;
+}
+.edit-box .edit-header {
+	padding: 15px;
+	color: #ffffff;
+	line-height: 2.5;
+}
+.edit-box .edit-header .edit-header-type{}
+.edit-box .edit-header .edit-header-type i {}
+.edit-box .edit-header .edit-header-type span {}
+.edit-box .edit-form-box{
+	background: #dc220d;
+	padding-top: 15px;
+
+}
+.edit-box .edit-form{
+}
+.edit-box .edit-form .categrory{
+	/*margin-top: 10px;*/
+}
+.edit-box .edit-form-box .next-button{
+	margin-top: 15px;
+	text-align: center;
+}
+.edit-box .edit-form-box .next-button button {
+	background: #ffffff;
+	width: 90%;
+	padding: 11px;
+	font-size: 16px;
+	outline: none;
+	border: none;
+}
+.edit-box .edit-form .edit-form-weui-cell{
+	background: #ffffff;
+}
+.edit-box .edit-form .edit-form-weui-cell.edit-form-select-button button{
+	border: 1px solid #eee;
+	background: transparent;
+	padding: 2px 5px;
+	margin: 3px 10px 5px 0;
+	outline: none;
+	font-size: 12px;
+	color: #6D6767;
+}
+.edit-box .edit-form .edit-form-weui-cell.edit-form-select-button button:last-child {
+	margin-right: 0;
+}
+.edit-box .edit-form .edit-form-weui-cell .edit-form-weui-cell-bd{
+	text-align: right;
+	padding-right: 15px;
+	color: #282828;
+	font-size: 15px;
+	line-height: 44px;
+}
+.edit-box .edit-form-box .edit-form{
+	margin-top: 10px;
+}
+#selectBox .edit-form-box.footer_wrapper {
+	padding-top: 0;
+}
+#selectBox .edit-form-box.footer_wrapper {
+	background: #f2f2f2;
+}
+.edit-box .edit-form-box .edit-form:first-child {
+	margin-top: 0;
+}
+
+.edit-box .edit-form-box .edit-form .edit-form-part {
+	padding: 0 10px;
+	margin-bottom: 10px;
+	background: #fff;
+}
+
+.edit-box .edit-form-box .edit-form .edit-form-weui-cell.edit-form-cell-row{
+	padding: 10px 15px 10px 0px;
+}
+.edit-box .edit-form-box .edit-form .categrory .edit-form-weui-cell{
+	padding: 10px 15px 10px 0px;
+}
+
+.edit-form-cell-title {
+	font-size: 15px;
+	color: #3E3C3C;
+}
+.edit-form-cell-tips {
+	font-size: 15px;
+	color: #ccc;
+	font-weight: lighter;
+}
+/*重置样式*/
+.weui-cell:before {
+	left: 0;
+	border-top: 1px solid #d8d8d8;
+}
+
+.title-border.weui-cell:before {
+	left: 0;
+	border-top: 1px solid rgba(49, 49, 49, 1);
+}
+
+.edit-box .weui-label {
+	width: auto;
+	color: #3E3C3C;
+	font-size: 15px;
+}
+
+
+.edit-box .edit-form-box .edit-form .edit-family-add {
+	 height: 80px;
+	color: #ffffff;
+	display: flex;
+	justify-content: space-between;
+}
+
+.edit-box .edit-form-box .edit-form .edit-family-add .tab-wrap {
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+.edit-box .edit-form-box .edit-form .edit-family-add .tab-wrap .tab-ul{
+	display: flex;
+	padding: 0 5px;
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+.edit-box .edit-form-box .edit-form .edit-family-add .tab-wrap .tab-ul li{
+	position: relative;
+	overflow: hidden;
+	min-width: 85px;
+	height: 74px;
+	border: 1px solid #fff;
+	border-radius: 10px;
+	color: #fff;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-right: 5px;
+	box-sizing: border-box;
+}
+
+.edit-box .edit-form-box .edit-form .edit-family-add .tab-wrap .tab-ul li .delete-icon {
+	position: absolute;
+	top: -2px;
+	right: -2px;
+	width: 25px;
+}
+
+.edit-box .edit-form-box .edit-form .edit-family-add .tab-wrap .tab-ul li p:first-child {
+	font-size: 16px;
+}
+
+.edit-box .edit-form-box .edit-form .edit-family-add .tab-wrap .tab-ul li p:last-child {
+	font-size: 12px;
+}
+
+.edit-box .edit-form-box .edit-form .edit-family-add .tab-wrap .tab-ul li.current-tab {
+	position: relative;
+	background: #ffffff;
+	border: 1px solid #dc220d;
+	color: #dc220d;
+}
+
+.edit-box .edit-form-box .edit-form .edit-family-add .tab-wrap .tab-ul li.current-tab:after {
+	content: '';
+	display: block;
+	position: absolute;
+	bottom: -2px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 0;
+	height: 0;
+	border: 6px solid;
+	border-color: transparent transparent #dc220d;
+}
+
+.edit-box .edit-form-box .edit-form .edit-family-add .add-button {
+	min-width: 88px;
+	color: #ffffff;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.edit-box .edit-form-box .edit-form .edit-family-add .add-button i {
+	font-size: 34px;
+}
+.edit-box .edit-form-box .edit-form .edit-family-add .add-button span.add-button-text {
+	font-size: 12px;
+}
+.edit-box .edit-form-box .edit-form .edit-family-add .add-button span.add-button-icon {
+	line-height: 1;
+}
+
+#selectBox {
+	/*overflow: hidden;*/
+	overflow-y: scroll;
+}
+
+#selectBox .weui-popup__modal {
+	max-height: 70vh;
+}
+
+.edit-box .edit-form-box .confirm-button{
+	margin-top: 15px;
+	text-align: center;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	z-index: 999;
+}
+.edit-box .edit-form-box .confirm-button button {
+	background: #DC220D;
+	color: #ffffff;
+	width: 100%;
+	padding: 11px;
+	font-size: 16px;
+	outline: none;
+	border: none;
+}
+
+.edit-box .edit-form-box .edit-form #selectBox .edit-form-box {
+	padding-bottom: 45px;
+}
+
+#insurancePreview {
+	padding: 0;
+}
+#insurancePreview .insurance-preview-box {}
+#insurancePreview .preview-box {
+	width: 100%;
+}
+#insurancePreview .preview-box .selected-list {}
+#insurancePreview .preview-box .selected-list ul {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+}
+#insurancePreview .preview-box .selected-list ul li {
+
+	color: #979797;
+	/*min-width: 54px;*/
+	text-align: center;
+	font-size: 14px;
+	/*margin-right: 2px;*/
+	/*overflow: hidden;*/
+	position: relative;
+	padding: 0 10px;
+	display: flex;
+	align-items: center;
+}
+
+#insurancePreview .preview-box .selected-list ul li:after {
+	content: '';
+	position: absolute;
+	height: 18px;
+	width: 1px;
+	background: #d8d8d8;
+	top: 7px;
+	right: -2px;
+}
+
+#insurancePreview .preview-box .selected-list ul li:first-child {
+	padding-left: 0;
+}
+#insurancePreview .preview-box .selected-list ul li:last-child:after {
+	display: none;
+}
+#insurancePreview .preview-box .selected-list ul li span {
+	display: inline-block;
+	line-height: 1;
+	/*width: 64px;*/
+	height: 18px;
+	line-height: 18px;
+	border-radius: 16px;
+}
+
+#insurancePreview .preview-box .selected-list ul li.current-selected span {
+	background: #dc220d;
+	color: #fff;
+	padding: 5px 11px;
+}
+
+#insurancePreview .preview-box .selected-list ul li span:first-child{}
+#insurancePreview .preview-box .selected-list ul li span:last-child{}
+#insurancePreview .preview-box .selected-detail {}
+#insurancePreview .preview-box .selected-detail .selected-detail-name{
+	font-size: 14px;
+	color: #282828;
+	padding: 12px 0;
+}
+#insurancePreview .preview-box .selected-detail .selected-detail-content {
+	display: flex;
+	/*justify-content: space-between;*/
+	clear: both;
+}
+#insurancePreview .preview-box .selected-detail .selected-detail-content li {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+}
+
+#insurancePreview .preview-box .selected-detail .selected-detail-content li:after {
+	content: '';
+	position: absolute;
+	height: 26px;
+	width: 1px;
+	background: #d8d8d8;
+	top: 5px;
+	right: 7px;
+}
+#insurancePreview .preview-box .selected-detail .selected-detail-content li:last-child:after {
+	display: none;
+}
+#insurancePreview .preview-box .selected-detail .selected-detail-content li span{}
+#insurancePreview .preview-box .selected-detail .selected-detail-content li span:first-child{
+	color: #979797;
+	font-size: 11px;
+	/*transform: scale(0.95);*/
+}
+#insurancePreview .preview-box .selected-detail .selected-detail-content li span:last-child{
+	color: #282828;
+	font-size: 12px;
+}
+
+#footer_wrapper .weui-toast.weui-toast--text {
+	font-size: 14px;
+	height: auto;
+}
+#footer_wrapper .weui-dialog {
+	transition: none;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#footer_wrapper .categrory .selected {
+	position: relative;
+}
+#footer_wrapper .categrory .selected:after {
+	content: '';
+	/*background: url("/images/insureplan/del1.png") no-repeat center;*/
+	position: absolute;
+	top: -2px;
+	right: -2px;
+	display: block;
+	width: 10px;
+	height: 10px;
+	background-size: contain;
+}
+
+#insurancePreview .preview-box .selected-detail .selected-detail-name {
+	float: left;
+}
+
+#insurancePreview .preview-box .selected-detail .btns {
+	float: right;
+	height: 22px;
+	padding-top: 12px;
+	font-size: 12px;
+}
+
+#insurancePreview .preview-box .selected-detail .btns div {
+	display: inline-block;
+	color: #DC220D;
+	height: 100%;
+	line-height: 100%;
+}
+
+#insurancePreview .edit-form-weui-cell.weui-cell {
+	padding-top: 0;
+}
+
+#selectappnt{
+	display:flex;
+	flex-flow: wrap;
+}

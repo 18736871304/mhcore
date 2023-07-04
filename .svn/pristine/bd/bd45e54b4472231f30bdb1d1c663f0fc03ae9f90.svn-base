@@ -1,0 +1,390 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<%@ include file="/WEB-INF/common/include.jsp"%><head>
+	<title></title>
+<script>
+
+var inputList;
+var checkList;
+var doubleList;
+
+window.onload = function()
+{
+	initDataGrid20($('#calldatalist'));
+	
+	disComBox($('#qfollowupstep'),"followupstep",null);
+	
+	disComBox($('#qinitSourceLevel'),"hotline_sourcelevle",null);
+	disComBox($('#qSourceLevel'),"sourcelevle",null);
+	disComBox($('#qchannel'),"source",null);
+	
+	$('#qstartDate').datebox('setValue',getNowDate());
+	$('#qendDate').datebox('setValue',getTomorrowDate());
+	
+	setRowsHeight(36);
+	
+	init02Org();
+}
+
+function setRowsHeight(height)
+{	
+
+}
+
+function aftercodeselect(comboxid)
+{
+	if(comboxid.attr("id")=="qchannel")
+	{
+		var tParam = new Object();
+		tParam.comboxType = 'sourcedetail_'+comboxid.combobox('getValue');
+		
+		var tturl = "activity/getSourceDetail.do";
+		displayCombox($('#qappname'),tParam,tturl,"dd_key","dd_value");
+	}
+	else
+	{
+		organAfterSelect(comboxid);	
+	}
+}
+
+function selectone()
+{
+}
+
+function saveSuss()
+{
+}
+
+function calldataquery()
+{
+	var tturl = "report/getActivityCallList.do";
+
+	var tParam = new Object();
+		
+	tParam.startDate = $('#qstartDate').datebox("getValue");
+	tParam.endDate = $('#qendDate').datebox("getValue");
+	tParam.username = $('#qusername').val();
+	
+	tParam.name = $('#qname').val();
+	tParam.mobile = $('#qmobile').val();
+	tParam.followupstep = $('#qfollowupstep').combobox('getValue');
+	
+	tParam.q02org = $('#q02org').combobox('getValue');
+	tParam.q03org = $('#q03org').combobox('getValue');
+	tParam.q04org = getOrgan04Code();
+	tParam.teamid = getQTeamId();
+	
+	tParam.hotlineStartDate = $('#qstartdate').datebox("getValue");
+	tParam.hotlineEndDate = $('#qenddate').datebox("getValue");
+	tParam.initSourceLevel = $('#qinitSourceLevel').combobox('getValue');
+	tParam.sourceLevel = $('#qSourceLevel').combobox('getValue');
+	var channel = $('#qchannel').combobox('getValue');
+	if (channel.length == 4) {
+		tParam.channel = channel;
+	} else if (channel.length > 4) {
+		tParam.channeldetail = channel;
+	}
+	tParam.appname = $('#qappname').combobox('getText');
+	
+	displayDataGrid20($('#calldatalist'), tParam, tturl);
+	
+	ajaxdeal("report/getActivityCallSum.do",tParam,displaysumdata,null);
+	
+	setRowsHeight(36);
+	initDataGrid20($('#calldatalist'));
+}
+
+function displaysumdata(data)
+{
+	if(data==null)
+	{
+		$('#connectminute').val(0);	
+	}
+	else
+	{
+		$('#connectminute').val(data.connectminute);	
+	}
+		
+}
+
+function getNowDate()
+{
+	var curDate = new Date();
+	
+    var date = new Date(curDate.getTime() - 0);
+    
+    var seperator1 = "-";
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = year + seperator1 + month + seperator1 + strDate;
+    return currentdate;
+}
+
+function getTomorrowDate()
+{
+	var curDate = new Date();
+	
+    var date = new Date(curDate.getTime() + 24*60*60*1000);
+    
+    var seperator1 = "-";
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = year + seperator1 + month + seperator1 + strDate;
+    return currentdate;
+}
+
+
+function calldownload(val,row,index)
+{
+	return '<span onclick=play("'+ row.recordurl + '") class="play-btn">播放</span>';
+}
+
+function disSourceLevel(val,row,index)
+{
+	if(val=='A+')
+	{
+		return 'A理财';	
+	}
+	else if(val=='A')
+	{
+		return 'A重疾';	
+	}
+	else if(val=='A-')
+	{
+		if(row.initSourceLevel=='A')
+		{
+			return 'A-重疾'
+		}
+		else if(row.initSourceLevel=='A+')
+		{
+			return 'A-理财'
+		}
+		else
+		{
+			return val;
+		}  
+	}
+	else
+	{
+		return val;
+	}
+}
+
+</script>
+
+<style>
+	table.common {
+		width: 100%;
+	}
+
+	.common .reprot_title {
+		width: 6%;
+	}
+
+	.combo .combo-text {
+		width: 80% !important;
+	}
+
+	.report_common .txt {
+		width: 95%;
+	}
+
+
+
+	tr .report_common {
+		width: 10%;
+	}
+
+	.combo {
+		width: 95% !important;
+	}
+
+
+
+	/* .common .txt {
+		width: 55%;
+	} */
+	.combo-p {
+		width: 13% !important;
+	}
+
+	.combo-panel {
+		width: 90% !important;
+		height: auto !important;
+	}
+
+	.combo-arrow {
+		float: right;
+	}
+	#audio {
+		height: 30px;
+		position: fixed;
+		top: 0px;
+		right: 20px;
+		z-index: 3000;
+	}
+	.play-btn {
+    cursor: pointer;
+	}
+	.play-btn:hover {
+		color: #95B8E7;
+	}
+</style>
+
+</head>
+<body>
+<div style="margin-left:0%">
+	<table class = "common">
+		<tr>
+			<td class = "reprot_title">
+				线索产生起期
+			</td>
+			<td class = "report_common">
+				<input class="easyui-datebox" style="width: 90%" id="qstartdate" name="qstartdate">
+			</td>
+			
+			<td class = "reprot_title">
+				线索产生止期
+			</td>
+			<td class = "report_common">
+				<input class="easyui-datebox" style="width: 90%" id="qenddate" name="qenddate">
+			</td>
+			
+			<td class = "reprot_title">
+				资源等级
+			</td>
+			<td class = "report_common">
+				<select class = "easyui-combobox" style="width: 90%" panelHeight="auto" name="qSourceLevel" id="qSourceLevel">
+				</select>
+			</td>
+			
+			<td class = "reprot_title">
+				初始资源等级
+			</td>
+			<td class = "report_common">
+				<select class = "easyui-combobox" style="width: 90%" panelHeight="auto" name="qinitSourceLevel" id="qinitSourceLevel">
+				</select>
+			</td>
+			
+			<td class = "reprot_title">
+				渠道类型
+			</td>
+			<td class = "report_common">
+				<select class = "easyui-combobox" style="width: 90%" panelHeight="auto" name="qchannel" id="qchannel">
+				</select>
+			</td>
+			
+			<td class = "reprot_title">
+				流量来源
+			</td>
+			<td class = "report_common">
+				<select class = "easyui-combobox" style="width: 90%" panelHeight="auto" name="qappname" id="qappname">
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class = "reprot_title">
+				录音时间起期
+			</td>
+			<td class = "report_common">
+				<input class="easyui-datebox" style="width:160%" name="qstartDate" id="qstartDate">
+			</td>
+			<td class = "reprot_title">
+				录音时间止期
+			</td>
+			<td class = "report_common">
+				<input class="easyui-datebox" style="width:160%" name="qendDate" id="qendDate">
+			</td>
+			
+			<td class = "reprot_title">
+				业务员姓名
+			</td>
+			<td class = "report_common">
+				<input class = "txt" name="qusername" id="qusername">
+			</td>
+			
+			<td class = "reprot_title">
+				客户姓名
+			</td>
+			<td class = "report_common">
+				<input class = "txt" name="qname" id="qname">
+			</td>
+			<td class = "reprot_title">
+				电话号码
+			</td>
+			<td class = "report_common">
+				<input class = "txt" name="qmobile" id="qmobile">
+			</td>
+			
+			<td class = "reprot_title">
+				跟进步骤
+			</td>
+			<td class = "report_common">
+				<select class = "easyui-combobox" panelHeight="auto" style="width:160%" name="qfollowupstep" id="qfollowupstep">
+				</select>
+			</td>
+		</tr>
+		<%@ include file="/WEB-INF/jsp/admin/team/organAndTeamQuery.jsp"%>
+	</table>
+	<br>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id = "calldataquery" onclick = "calldataquery()">查询</a>
+	<br>
+	<br>
+	<table id="calldatalist" class="easyui-datagrid" title="CRM录音管理" style="width:auto;height:auto"
+		data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone" >
+		<thead>
+			<tr>
+				<th data-options="field:'organname',width:70">所属营业部</th>
+				<th data-options="field:'teamname',width:100">所属团队</th>
+				<th data-options="field:'username',width:70">业务员姓名</th>
+				<th data-options="field:'anstime',width:130">录音开始时间</th>
+				<th data-options="field:'connectminute',width:60" sortable="true">录音时长</th>
+				<th data-options="field:'music',width:60,formatter:calldownload">播放</th>
+				<th data-options="field:'name',width:70">客户姓名</th>
+				<th data-options="field:'followupstepname',width:60">跟进步骤</th>
+				<th data-options="field:'makedate',width:125">线索产生时间</th>
+				
+				<th data-options="field:'sourcelevel',width:60,formatter:disSourceLevel">资源等级</th>
+				<th data-options="field:'batchno',width:60">批次号</th>
+				<th data-options="field:'channelname',width:60">渠道类型</th>
+				<th data-options="field:'appname',width:60">流量来源</th>
+				<th data-options="field:'crm_remark',width:260">备注信息</th>
+				<th data-options="field:'remark',width:560">跟进记录</th>
+			</tr>
+		</thead>
+	</table>
+	<br>
+	<table class = "common">
+		<tr>
+			<td class = "title">
+				录音时长合计
+			</td>
+			<td class = "common">
+				<input class = "txt" name="connectminute" readonly id="connectminute">
+			</td>
+			<td></td><td></td>
+		</tr>
+	</table>
+</div>
+<audio src="" ref="audio" id="audio" controls="controls" autoplay="autoplay"></audio>
+</body>
+<script>
+	function play(url) {
+		$('#audio').attr('src', url);
+	}
+</script>
+</html>

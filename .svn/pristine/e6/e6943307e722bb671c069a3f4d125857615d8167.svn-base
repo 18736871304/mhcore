@@ -1,0 +1,209 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<%@ include file="/WEB-INF/common/include.jsp"%><head>
+<title></title>
+<script>
+
+window.onload = function()
+{
+	policyDetailDlgInit();
+	
+	initDataGrid20($('#policyList'));
+	
+	disComBox($('#qinsorgancode'),"insorgancode",null);
+
+	disComBox($('#qstate'),"policyexam",null);
+	
+	$('#qstate').combobox('setValue','80');
+	
+	/*
+	disComBox($('#qstate'),"articlestate",null);
+	
+	$('#qstate').combobox('setValue','01');
+	*/
+	
+	var tturl = "policy/get02Org.do";
+	displayCombox($('#q02org'),null,tturl,"dd_key","dd_value");
+}
+
+function aftercodeselect(comboxid)
+{
+	if(comboxid.attr("id")=="q02org")
+	{	
+		var tParam = new Object();
+		tParam.organcode = comboxid.combobox('getValue');
+		
+		var tturl1 = "policy/get03Org.do";
+		
+		displayCombox($('#q03org'),tParam,tturl1,"dd_key","dd_value");
+	}
+	else if(comboxid.attr("id")=="q03org")
+	{
+		var tParam = new Object();
+		tParam.organcode = comboxid.combobox('getValue');
+		
+		var tturl1 = "policy/get04Org.do";
+		
+		displayCombox($('#q04org'),tParam,tturl1,"dd_key","dd_value");
+	}
+}
+
+function selectone()
+{
+
+}
+
+function policyquery()
+{
+	var tturl = "policy/getPolicyList.do";
+
+	var tParam = new Object();
+
+	tParam.contno = $('#qcontno').val();
+	tParam.appname = $('#qappname').val();
+	tParam.reuserid = $('#qreuserid').val();
+	tParam.insorgancode = $('#qinsorgancode').combobox('getValue');
+	tParam.state = $('#qstate').combobox('getValue');
+	tParam.agentflag = '02';
+	
+	tParam.q02org = $('#q02org').combobox('getValue');
+	tParam.q03org = $('#q03org').combobox('getValue');
+	tParam.q04org = $('#q04org').combobox('getValue');
+	//tParam.querytype = 'articletype';
+	
+	displayDataGrid20($('#policyList'), tParam, tturl);
+
+	clearCarData();
+}
+
+function saveSuss()
+{
+	$('#policyList').datagrid('reload');
+}
+
+function policyExam(state)
+{
+	var rows = $('#policyList').datagrid('getSelections');
+	
+	if(rows.length <= 0)
+	{
+		$.messager.alert('操作提示','请选中要操作的数据！','error');
+		return;
+	}
+	
+	var tparam = new Object();
+	
+	var orderStr = "";
+	
+	for(var i=0;i<rows.length;i++)
+	{
+		orderStr = orderStr + "'" + rows[i].orderid + "'";
+		
+		if(i!=rows.length-1)
+		{
+			orderStr = orderStr + ",";
+		}
+	}
+	
+	tparam.orderid = orderStr;
+	tparam.state = state;
+	
+	ajaxdeal("policy/policyUpdateStace.do",tparam,null,null,saveSuss);
+}
+
+function queryPolicyInfo(val,row,index)
+{
+	return '<a href="#" onclick="openDlg('+index+')">查看详情</a>'; 
+}
+
+function openDlg(index)
+{
+	var rows=$('#policyList').datagrid('getRows');//获取所有当前加载的数据行
+	var row=rows[index];
+	
+	//alert(row.agentcom);
+	
+	dispolicyDetailDlg(row);
+}
+
+</script>
+
+</head>
+<body>
+<%@ include file="/WEB-INF/jsp/admin/policy/policyDetailDlg.jsp"%>
+<div style="margin-left:0%">
+	<table class = "common" hidden="hidden">
+		<tr>
+			<td class = "title">
+				保单号
+			</td>
+			<td class = "common">
+				<input class = "txt" name="qcontno" id="qcontno">
+			</td>
+			<td class = "title">
+				投保人姓名
+			</td>
+			<td class = "common">
+				<input class = "txt" name="qappname" id="qappname">
+			</td>
+			<td class = "title">
+				业务员工号
+			</td>
+			<td class = "common">
+				<input class = "txt" name="qreuserid" id="qreuserid">
+			</td>
+		</tr>
+		<tr>
+			<td class = "title">
+				保险公司
+			</td>
+			<td class = "common">
+				<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="qinsorgancode" id="qinsorgancode">
+				</select>
+			</td>
+			<td class = "title">
+				保单状态
+			</td>
+			<td class = "common">
+				<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="qstate" id="qstate">
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class = "title">
+				省公司
+			</td>
+			<td class = "common">
+				<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="q02org" id="q02org">
+				</select>
+			</td>
+			<td class = "title">
+				分公司
+			</td>
+			<td class = "common">
+				<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="q03org" id="q03org">
+				</select>
+			</td>
+			<td class = "title">
+				事业部
+			</td>
+			<td class = "common">
+				<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="q04org" id="q04org">
+				</select>
+			</td>
+		</tr>
+	</table>
+	
+	<br>
+	<table id="policyList" class="easyui-datagrid" title="保单信息" style="width:auto;height:auto"
+		data-options="rownumbers:true,pagination:true,onClickRow: selectone" >
+		<%@ include file="/WEB-INF/jsp/admin/policy/include/policyExamList.jsp"%>
+	</table>
+	<br>
+	<br>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id = "articlequery" onclick = "policyquery()">查询</a>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id = "policyExam" onclick = "policyExam('40')">审核通过</a>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id = "policyExam" onclick = "policyExam('82')">审核不通过</a>
+</div>
+</body>
+</html>

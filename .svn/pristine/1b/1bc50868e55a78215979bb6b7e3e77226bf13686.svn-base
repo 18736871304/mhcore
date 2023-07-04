@@ -1,0 +1,308 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.clearfix {
+  clear: both;
+  content: "";
+  display: block;
+  overflow: hidden
+}
+
+ul li,
+ol li, li{
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  outline: 0;
+  display: inline-block;
+}
+
+
+input,button,textarea{
+  border: 0;
+  outline: 0;
+}
+
+
+
+em,
+i {
+  font-style: normal;
+}
+
+img {
+  border: none;
+  outline: 0;
+}
+
+html {
+  font-family: "微软雅黑";
+  width: 100%;
+}
+
+body {
+  width: 100%;
+  background: #ffd0b5;
+  position: relative;
+}
+
+.container {
+  width: 100%;
+  background: url(../images/image1.png) no-repeat;
+  background-size: 100%;
+}
+
+.wrap {
+  width: 100%;
+}
+
+.banner img,
+.bottom img,
+.wrap img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.banner {
+  padding-top: 0.37rem;
+}
+
+/* 右边的 */
+.infor {
+  padding: 0.44rem 0.38rem 0;
+  border-radius: 0.2rem;
+  margin: 0 0.24rem;
+  margin-bottom: 0.36rem;
+  background: #fff;
+}
+
+.insureName {
+  margin-bottom: 0.5rem;
+}
+
+.insureName label {
+  font-size: 0.3rem;
+  color: #4A4544;
+  letter-spacing: 0.01rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+  display: block;
+  position: relative;
+}
+
+.insureName label>span {
+  font-size: 0.2rem;
+  color: #999;
+}
+
+.insureName label::after {
+  display: inline-block;
+  content: '*';
+  margin-left: 5px;
+  color: #FF2B00;
+}
+
+.question-value label::after {
+  content: '';
+}
+
+.insureName .nameValue {
+  position: relative;
+}
+
+.insureName .nameValue>p {
+  content: '';
+  color: #FF0000;
+  font-size: 0.24rem;
+  bottom: -20px;
+  font-weight: 400;
+  position: absolute;
+}
+
+
+.insureName .nameValue>input {
+  width: 100%;
+  display: block;
+  border-bottom: 0.01rem solid #BABABA;
+  font-size: 0.26rem;
+  line-height: 0.7rem;
+}
+
+.insureName .nameValue .icon {
+  color: #aaa;
+  position: absolute;
+  right: 0;
+  font-size: 0.22rem;
+  transform: scale(1,2);
+  top: 0.45rem;
+}
+
+.insureName .call ul li {
+  width: 22%;
+  margin-right: 4%;
+  font-size: 0.26rem;
+  margin-bottom: 0.18rem;
+  line-height: 0.77rem;
+  background: #F5F5F5;
+  border-radius: 0.1rem;
+  text-align: center;
+  float: left;
+}
+
+.insureName .call ul li:nth-child(4n) {
+  margin-right: 0;
+}
+
+.insureName .call ul li:nth-child(5), .insureName .call ul li:nth-child(6), .insureName .call ul li:nth-child(7), .insureName .call ul li:nth-child(8){
+  margin-bottom: 0;
+}
+
+.insureName .call ul li.insure-select {
+  background: #FE5D17;
+  color: #fff;
+}
+
+.insureName .situation li {
+  height: 0.77rem;
+  line-height: 0.77rem;
+  text-align: center;
+  margin: 0 0.17rem 0.17rem 0;
+  background: #FE5D17;
+  color: #fff;
+  font-size: 0.26rem;
+  padding: 0 0.3rem;
+  float: left;
+  border-radius: 0.1rem;
+}
+
+.insureName .situation li span{
+  margin-left: 0.1rem;
+  transform: scale(1.5);
+}
+
+.insureName .situation ul,.insureName .situation .input-add,.insureName .situation .input-box  {
+  float: left;
+}
+
+.insureName .situation>.input-box {
+  height: 0.77rem;
+  width: 1.2rem;
+  line-height: 0.77rem;
+  font-size: 0.26rem;
+  padding: 0 0.1rem;
+  border-radius: 0.1rem;
+  border: 1px solid #BABABA;
+}
+
+.insureName .situation .input-add {
+  height: 0.77rem;
+  width: 0.77rem;
+  line-height: 0.77rem;
+  font-size: 0.4rem;
+  text-align: center;
+  background: #F5F5F5;
+  color: #B7B6B6;
+  border-radius: 0.1rem;
+}
+
+.verification-code {
+  display: flex;
+}
+
+.nameValue .send{
+  width: 3rem;
+  line-height: 0.64rem;
+  font-size: 0.26rem;
+  background: #FE5D17;
+  border-radius: 0.32rem;
+  margin-left: 0.34rem;
+  text-align: center;
+  color: #fff;
+}
+
+.nameValue .send1{
+  background: #999;
+}
+
+.nameValue .question{
+  width: 100%;
+  font-size: 0.26rem;
+  background: #F5F5F5;
+  border-radius: 0.2rem;
+  padding: 0.2rem;
+  border: none;
+  font-family: 'Source Han Sans CN';
+  display: block;
+}
+
+.nameValue .question::placeholder {
+  color: #c9c8c8;
+}
+
+.self-photo {
+  font-size: 0.32rem;
+  font-weight: 500;
+  color: #4A4544;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.self-photo .self-tips {
+  transition: all 0.3s;
+  transform: rotate(-90deg) scale(1,2);
+}
+
+.self-photo img {
+  display: inline-block;
+  width: 0.78rem;
+}
+
+.hide-message {
+  height: 0;
+  opacity: 0;
+}
+
+.self-photo .tips-up {
+  transform: rotate(90deg) scale(1,2);
+}
+.success {
+  padding: 0.86rem 0.24rem 0;
+}
+
+.success-text1{
+  font-size: 0.43rem;
+  font-weight: 500;
+  color: #333333;
+  text-align: center;
+}
+
+.success-text1 img {
+  width: 0.42rem;
+  height: 0.42rem;
+  vertical-align: middle;
+  margin-right: 0.13rem;
+}
+
+.success-text2{
+  line-height: 0.4rem;
+  font-size: 0.28rem;
+  font-weight: 400;
+  color: #999999;
+  margin: 0.3rem 0.7rem;
+}
+
+.success-image1 {
+  width: 100%;
+}
+
+.success-image1 img{
+  width: 100%;
+}

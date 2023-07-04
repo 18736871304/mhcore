@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.1.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+    http://www.springframework.org/schema/jdbc 
+    http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+    
+   	<bean id="iams_organDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.insure.organ.dao.iams_organDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    
+    <bean id="iams_placeDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.insure.organ.dao.iams_placeDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    
+    <bean id="iams_menugroupDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.insure.authority.dao.iams_menugroupDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    
+     <bean id="iams_userDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.insure.authority.dao.iams_userDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    
+    <bean id="iams_configDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.insure.common.dao.iams_configDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    
+    <bean id="iams_ComboxDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.insure.common.dao.iams_ComboxDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    
+    <bean id="iams_menuDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.insure.authority.dao.iams_menuDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    
+    <bean id="iams_menurelationDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.insure.authority.dao.iams_menurelationDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+   
+   <bean id="iams_userauthorityDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.insure.authority.dao.iams_userauthorityDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    
+	<bean id="iams_noticeDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.insure.notice.dao.iams_noticeDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+   
+	<bean id="iams_msgDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.insure.message.dao.iams_msgDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    
+    <bean id="iams_messagelogDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.insure.message.dao.iams_messagelogDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    
+    <bean id="iams_fileDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.insure.common.dao.iams_fileDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    
+    <bean id="iams_MaxOrderNoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.insure.common.dao.iams_MaxOrderNoDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+   <bean id="multipartResolver"  
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
+        <!-- set the max upload size100MB -->  
+        <property name="maxUploadSize">  
+            <value>104857600</value>  
+        </property>  
+        <property name="maxInMemorySize">  
+            <value>4096</value>  
+        </property>  
+    </bean> 
+</beans>

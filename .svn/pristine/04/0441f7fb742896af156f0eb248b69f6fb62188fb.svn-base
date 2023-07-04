@@ -1,0 +1,83 @@
+.index-page-loading {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.index-page {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+.index-page .index-page-container{
+	flex: 1;
+	padding: 15px 10px 0 10px;
+}
+
+
+.index-page .index-page-container .hosting-content{}
+/*tab*/
+.index-page .index-page-container .hosting-content .hosting-tab-box{}
+.index-page .index-page-container .hosting-content .hosting-tab-box .hosting-tab-wrap{}
+.index-page .index-page-container .hosting-content .hosting-tab-box .hosting-tab-wrap ul{
+	display: flex;
+	justify-content: space-between;
+	height: 49px;
+	line-height: 49px;
+	font-size: 15px;
+	color: #979797;
+}
+.index-page .index-page-container .hosting-content .hosting-tab-box .hosting-tab-wrap ul li{
+	font-size: 14px;
+	width: 63px;
+	text-align: center;
+}
+
+.index-page .index-page-container .hosting-content .hosting-tab-box .hosting-tab-wrap ul li.active {
+	font-size: 16px;
+	color: #282828;
+}
+
+.index-header .service-wrap .service-box .service-img img{
+  margin-top: 20px;
+}
+
+/*empty*/
+.index-page .index-page-container .hosting-content .hosting-data-box {}
+.index-page .index-page-container .hosting-content .hosting-data-box .hosting-data-empty{
+	min-height: calc(100vh - 15px - 128px - 49px - 78px);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.index-page .index-page-container .hosting-content .hosting-data-box .hosting-data-empty .hosting-data-empty-box{
+	text-align: center;
+}
+.index-page .index-page-container .hosting-content .hosting-data-box .hosting-data-empty .hosting-data-empty-box .empty-text{
+	font-size: 12px;
+	color: #979797;
+	margin-top: 14px;
+}
+.index-page .index-page-container .hosting-content .hosting-data-box .hosting-data-empty .hosting-data-empty-box .empty-img{
+	width: 163px;
+	height: 135px;
+}
+.index-page .index-page-container .hosting-content .hosting-data-box .hosting-data-empty .hosting-data-empty-box .empty-img img{}
+/*charts*/
+.index-page .index-page-container .hosting-content .hosting-charts-box{}
+/*list*/
+.index-page .index-page-container .hosting-content .hosting-list-box{}
+
+.index-page .hosting-footer{
+	display: flex;
+	justify-content: center;
+	padding: 25px 0;
+}
+.index-page .hosting-footer .hosting-footer-wrap{
+	width: 137px;
+	height: 28px;
+}

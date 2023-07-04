@@ -1,0 +1,233 @@
+@charset "UTF-8";
+
+body,div,article,section,header,footer,figure,p,time,ul,li,form,input,button,select,table,tr,th,td,h1,h2,h3,dl,dt,dd{
+	margin:0;
+	padding:0;
+	font-family: "微软雅黑", 'Microsoft Yahei','HelveticaNeue',sans-serif;	
+}
+
+body{background-color:#f2f2f2; color: #666;}
+ul,li{list-style:none;}
+input,button,textarea,select{border:0 none;-webkit-appearance:none;font-family:'Microsoft Yahei','HelveticaNeue';}
+input:focus, select:focus, input:active, textarea{ outline:none;}
+a,img,button,input,textarea{-webkit-tap-highlight-color:transparent;}
+h1,h2,h3{font-weight:normal;}
+em,dfn,cite{font-style:normal;}
+a:link,a:visited,a:active{text-decoration:none;}
+a:hover{text-decoration:none;}
+.clearfix:after{content:""; display:block; clear:both; height:0; font-size:0;}
+.bs{-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+::-webkit-scrollbar{width: 0;height: 0;}
+
+/*文本排列*/
+.txtc{text-align:center !important;}
+.txtr{text-align:right !important;}
+.txtl{text-align:left !important;}
+.pr{position: relative;}
+.fl{float: left;}
+.fr{float: right;}
+.dinb{display: inline-block !important;}
+.fcred{color: #fe0000}
+.fcgrey{color: #a9a9a9 !important;}
+.l0{left: 0 !important;}
+.bgw{background-color: #fff;}
+.fw{font-weight: bold;}
+.fz06{font-size: 0.6rem !important;}
+.fz07{font-size: 0.7rem !important;}
+
+.w4em{width: 4.5rem !important;}
+.w20{width: 20% !important;}
+.w25{width: 25% !important;}
+.w30{width: 30% !important;}
+.w40{width: 40% !important;}
+.w45{width: 45% !important;}
+.w50{width: 50% !important;}
+.w60{width: 60% !important;}
+.w70{width: 70% !important;}
+.w80{width: 80% !important;}
+.w90{width: 90% !important;}
+.w100{width: 100% !important;}
+.mb05{margin-bottom: 0.5rem; }
+.mb1{margin-bottom: 1rem !important; }
+.mt05{margin-top: 0.5rem !important; }
+.ml05{margin-left: 0.5rem; }
+.pt0{padding-top: 0 !important;}
+.pb0{padding-bottom: 0 !important;}
+.pb05{padding-bottom: 0.5rem !important;}
+.pr05{padding-right: 0.5rem !important;}
+.pl12{padding-left: 1.2rem !important;}
+.pb1{ padding-bottom: 1rem !important;}
+.ptb05{ padding-bottom: 0.5rem !important;padding-top: 0.5rem !important;}
+.nbor{border:0 !important;}
+.bor1{border: #e0e0e0 solid 1px !important;}
+.borb1{border-bottom: #f2f2f2 solid 1px !important;}
+.brad2{ border-radius: 2rem !important;}
+.ofxs{overflow-x: scroll; }
+
+.redbtn{display: block; width: 100%; height: 2.4rem; margin: 0 auto; line-height: 2.4rem; text-align: center; font-size: 1rem; color: #fff; border-radius: 3px; background-color: #fe0000; border: #fe0000 solid 1px;}
+.wbtn{ color: #fe0000; background-color: #fff; }
+.gbtn{ color: #666; background-color: #f2f2f2; border: #e0e0e0 solid 1px;  }
+.pic{display: block;}
+.pic img{display: block; width: 100%;}
+
+.mask{ display: none; z-index: 999; position: absolute; top:0; left:0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8);}
+.openBox{ display: none; z-index: 1000; position: absolute; }
+input[type=date]{-webkit-appearance:none; background-color: transparent;}
+
+/*header start*/
+.header{width:100%; overflow:hidden; height:2.8rem; line-height:2.8rem; text-align:center; background: #f2f2f2;}
+.header h1{font-size:1rem;font-weight:bolder;color:#808080;letter-spacing:1px;}
+.header .upPage {position:absolute; top:0.4rem; left:0.4rem; width:2rem; height:2rem; background: url(/assets/images/life/sel/back_icon.png) no-repeat; background-size:100%;}
+
+/*首页*/
+.conbox{border-top: #e0e0e0 solid 1px; border-bottom: #e0e0e0 solid 1px; background-color: #fff; }
+.instit{ text-align: center; line-height: 2.2rem; font-size: 0.8rem; color: #999; }
+.instit span{ margin: 0 1rem; }
+.instit.pf{ position: fixed; bottom:1rem; left: 0; width:  100%; }
+
+.conbox .insform:last-child{ border-bottom: 0;}
+.insform{width: 90%; margin: 0 auto; padding: 0.6rem 0.3rem; border-bottom: #f2f2f2 solid 1px;}
+.insform:after{content:""; display:block; clear:both; height:0; font-size:0;}
+.insform dt{ float: left; width: 35%; line-height: 1.8rem; font-size: 0.8rem;}
+.insform dd{ float: right; width: 65%; }
+.insform dd .inp{ display: block; width: 100%; height: 1.8rem; line-height: 1.8rem; font-size: 0.8rem; text-align: right; color: #666; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
+.insform dd .selpic{ background: transparent url(/assets/images/life/sel/icon_arr.png) right center no-repeat; background-size: auto 1rem;}
+.insform dd .dat{ padding:0 15% 0 5%; text-align: right; background: transparent url(/assets/images/life/sel/icon_date.png) 96% center no-repeat; background-size: auto 1rem; border-radius: 5px;}
+.insform dd .bor{ padding: 0 5%; border:#e0e0e0 solid 1px; border-radius: 5px; }
+.insform dd .sel, .insform dd .sel1{ display: block; width: 100%; height: 1.8rem; padding-right: 1rem; line-height: 1.8rem; font-size: 0.8rem; text-align: right; color: #666; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;word-break: break-all; word-wrap: break-word; direction: rtl;}
+.insform dd .txt{ line-height: 1.8rem; font-size: 0.8rem; text-align: right; }
+.insform dd .cbox{ display: inline-block; padding: 0 0.5rem; margin-left:0.2rem; height: 1.8rem; line-height: 1.8rem; font-size: 0.8rem; border: #e0e0e0 solid 1px; border-radius: 0.3rem; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
+.insform dd.d5 .cbox{ width: 17% ; text-align: center;}
+.insform dd .cbox.active{ color: #fe0000; border: #fe0000 solid 1px; background: url(/assets/images/life/sel/icon_active.png) right bottom no-repeat; background-size: auto 0.6rem;}
+.insform.h2 dt{ line-height: 2rem;}
+.insform.h2 dd .inp{ height: 2rem; line-height: 2rem; }
+.insform .redbtn{height: 1.8rem; line-height: 1.8rem; font-size: 0.6rem;}
+
+.instrans{width: 21rem;}
+.instrans li{float: left; width: 3.4rem; margin-right: 1rem; }
+.instrans li:last-child{ margin-right: 0; }
+.instrans li .tra{ width: 3.4rem; height: 3.4rem; border:#e0e0e0 solid 1px; border-radius: 5px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+.instrans li .tra.appcar{ background: url(/assets/images/life/sel/tra_car.png) top center no-repeat; background-size: 100% auto; }
+.instrans li .tra.plane{ background: url(/assets/images/life/sel/tra_plane.png) top center no-repeat; background-size: 100% auto; }
+.instrans li .tra.bus{ background: url(/assets/images/life/sel/tra_bus.png) top center no-repeat; background-size: 100% auto; }
+.instrans li .tra.tran{ background: url(/assets/images/life/sel/tra_tran.png) top center no-repeat; background-size: 100% auto; }
+.instrans li .tra.ship{ background: url(/assets/images/life/sel/tra_ship.png) top center no-repeat; background-size: 100% auto; }
+.instrans li .tratxt{ width: 2.8rem; height: 2rem; padding:0.2rem 0; margin: 0 auto; line-height: 1rem; font-size: 0.6rem; text-align: center; border-radius: 0 0 5px 5px; }
+.instrans li.active .tra{ border:#fe0000 solid 1px; }
+.instrans li.active .tra.appcar{ background-position: bottom center }
+.instrans li.active .tra.plane{ background-position: bottom center }
+.instrans li.active .tra.bus{ background-position: bottom center }
+.instrans li.active .tra.tran{ background-position: bottom center }
+.instrans li.active .tra.ship{ background-position: bottom center }
+.instrans li.active .tratxt{ color: #fff; background-color: #fe0000; }
+
+.insmsum{ padding: 0 0.5rem; background-color: #fff; border-radius: 5px;}
+.insmsum h2{position: relative; padding:0.5rem 0; line-height: 1.8rem; font-size: 1rem; text-align: center; color: #5f5f5f; font-weight: normal; border-bottom:#e5e5e5 solid 1px;}
+.insmsum .close{ display: block; position: absolute; top:0.8rem; left:0.3rem; width: 1rem; height: 1rem; background: url(/assets/images/life/sel/icon_close.png) center no-repeat; background-size: 100% 100%; }
+.insmsum .sumul li{ padding:0.5rem; line-height: 1.5rem; font-size: 0.8rem; border-bottom:#e5e5e5 solid 1px; }
+.insmsum .sumul li label{ display: block; position: relative; padding-left: 1.5rem; }
+.insmsum .sumul li label .inprad{ left:0; }
+
+.inprad{display: block; position: absolute; top:50%; width: 1rem; height: 1rem; margin: -0.5rem 0 0;-webkit-appearance:none;background-color: transparent;}
+.inprad:before{display: block; content: ""; position: absolute; top:0; left:0; width: 1rem; height: 1rem; border:#e0e0e0 solid 1px; background-color: #fff; border-radius: 1rem; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
+.inprad:checked:before{ border:#fe0000 solid 1px; background: #fe0000 url(/assets/images/life/sel/icon_ok.png) center no-repeat; background-size: 100% 100%; }
+
+.clause{ position: relative; width: 90%; margin: 0 auto; padding: 0.3rem 0 0.3rem 1.2rem; line-height: 1.8rem; font-size: 0.8rem; text-align: left; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+.clause a{ color: #fe0000; }
+.clause .inprad{ top:0.6rem; left:0; margin: 0;}
+
+.error{width: 90%; margin: 0 auto; padding-left: 1.5rem; line-height: 1.8rem; font-size: 0.8rem; text-align: left; color: #fe0000; background: url(/assets/images/life/sel/icon_err.png) left 0.2rem  no-repeat; background-size: auto 1rem; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+.insbtnbox{height: 2.6rem;}
+.insbtn{ position: fixed; bottom:0; left:0; width: 100%; background-color: #fff; }
+.insbtn .price{ display: block; float: left; width: 60%; height: 2.6rem; line-height: 2.6rem; text-align: center; font-size: 0.6rem; border-top: #e0e0e0 solid 1px; }
+.insbtn .price em{ font-size: 1.2rem; color: #fe0000; }
+.insbtn .price span{ display: inline-block; padding-left: 1.5rem; line-height: 2.6rem; background: url(/assets/images/life/sel/icon_money.png) left 0.45rem no-repeat; background-size: auto 1.5rem; }
+.insbtn .buybtn{ display: block; float: left; width: 40%; height: 2.6rem; line-height: 2.6rem; text-align: center; font-size: 1rem; color: #fff; background-color: #fe0000; }
+.btnline{ width: 90%; margin: 0 auto; padding: 1rem 0; }
+.btnline.pf{ position: fixed; bottom:1rem; left:5%; }
+
+.multi-switch{ display: inline-block; width:2.5rem; height: 1.4rem; user-select:none;-webkit-backface-visibility:hidden;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none}
+.multi-switch *{-webkit-transition:all ease 0.3s;-moz-transition:all ease 0.3s;-ms-transition:all ease 0.3s;-o-transition:all ease 0.3s;transition:all ease 0.3s}
+.multi-switch .switch-content{background:none;background-color:#e0e0e0;height:1.4rem;position:relative;cursor:pointer;border-radius:1.4rem;}
+.multi-switch .switch-content .switch-circle{background:#FFF; width:1.2rem; height:1.2rem; position:absolute; top:0.1rem; left:0%; z-index:1; margin-left:0.1rem; border-radius:1.2rem;}
+.multi-switch .switch-content .info-slide{position:absolute;z-index:2;width:50%;height:100%;display:block}
+.multi-switch .switch-content .info-slide.active{right:0;border-radius:0 1.2rem 1.2rem 0;}
+.multi-switch .switch-content .info-slide.disable{left:0;border-radius:1.2rem 0 0 1.2rem;}
+.multi-switch .switch-content.active{background-color:#5DC177}
+.multi-switch .switch-content.active .switch-circle{left:100%;margin-left:-1.3rem}
+.multi-switch .switch-content.disabled{background-color:#CCC;cursor:default}
+.multi-switch .switch-content.initial{background-color:#dddddd}
+.multi-switch .switch-content.initial .switch-circle{left:50%;margin-left:-1.3rem}
+.multi-switch input{display:none}
+
+/*支付选择*/
+.payment{padding: 0.8rem 5%; line-height: 1.8rem; text-align: left; border-bottom:#f2f2f2 solid 1px;}
+.conbox .payment:last-child{ border-bottom:0;}
+.payment h2{ font-size: 1rem; font-weight: bold; color: #333333;}
+.payment p{ position: relative; padding: 0 2.5rem; font-size: 0.8rem;}
+.payment p .inprad{ right: 0 !important; left: none;}
+.payment p.card{ background: url(/assets/images/life/sel/icon_card.png) left center no-repeat; background-size: auto 1rem;}
+.payment p.wx{ background: url(/assets/images/life/sel/icon_wx.png) left center no-repeat; background-size: auto 1.2rem;}
+
+.paystate{padding: 7rem 0;}
+.paystate .stapic{ height: 4.5rem;}
+.paystate .stapic.fail{ background: url(/assets/images/life/sel/pay_fail.png) top center no-repeat; background-size: auto 3.2rem;}
+.paystate .stapic.going{ background: url(/assets/images/life/sel/pay_going.png) top center no-repeat; background-size: auto 3.2rem;}
+.paystate p{ text-align: center; line-height: 1.8em; font-size: 0.8rem;}
+
+.paytxt{padding: 2rem 5%; line-height: 2em; font-size: 0.8rem; text-align: center;}
+.paytxt em{ font-size: 1.2rem; color: #fe0000}
+
+.paylimit{ width: 90%; margin: 0 auto; line-height: 2rem; font-size: 0.8rem; text-align: right;}
+
+/*投保成功*/
+.institle{ position: relative; padding: 0.6rem 5%; line-height: 1.8rem; font-size: 0.8rem; color: #333; text-align: left; font-weight: bold; border-bottom:#f2f2f2 solid 1px; }
+.institle em{ display: block; position: absolute; top:0.6rem; right: 5%; width: 1.5rem; height: 1.8rem; background: url(/assets/images/life/sel/icon_arr.png) right center no-repeat; background-size: auto 1rem; }
+.institle.active em{ background: url(/assets/images/life/sel/icon_arr_b.png) right center no-repeat; background-size: 1rem auto; }
+.institle span{ display: block; float: right; padding-right: 1.5rem; font-weight: normal; }
+.ordtit{width: 90%; margin: 0 auto; padding:0.6rem 0;}
+.ordtit .k{ padding:0.4rem 0; text-align: left; line-height: 1.8em; background: url(/assets/images/life/sel/icon_stamp.png) right center no-repeat; background-size: auto 100%;}
+.ordtit .k h2{  font-size: 1rem; font-weight: bold; color: #333;}
+.ordtit .k p{ font-size: 0.8rem; color: #bababa;}
+.ordtxt{width: 90%; margin: 0 auto; padding:0.6rem 0; line-height: 1.5em; font-size: 0.6rem; color: #8c8c8c;}
+.ordqrcode{width: 90%; margin: 0 auto;}
+.ordqrcode .pic{width: 47%}
+
+/*条款*/
+.clausebox{ width: 90%; margin: 0 auto; padding: 1rem 0 1rem;}
+.clausebox h2{ margin: 0 0 0.5rem; line-height: 2rem; font-size: 0.8rem; text-align: center; font-weight: bold; background: #f6f6f6;}
+.clausebox p{ padding: 0 0 0.5rem; line-height: 1.8em; font-size: 0.8rem; text-align: left;}
+.tkpic img{ 
+	display:block; 
+	width:100%; 
+	background:url(/assets/images/loading.gif) no-repeat center;
+}
+
+/*弹出层*/
+.popup {position: absolute;left: 0;top: 0;z-index: 10001;border: 1px #e4e4e4 solid;background: #fff;border-radius: 5px;display: none;}
+.cardclose {width: 1.5em;height: 1.5em;display: block;position: absolute;top: -0.8em;right: -0.8em;background: url(/assets/images/life/sel/icon_close1.png) no-repeat;background-size: 100%;}
+
+/*远盟医疗服务*/
+.ymbtnbox{height: 2.6rem;}
+.ymbtn{z-index: 999; position: fixed; bottom:0; left:0; width: 100%; background-color: #fff; }
+.ymbtn .con{ display: block; float: left; width: 70%; height: 2.6rem; line-height: 2.6rem; text-align: center; font-size: 0.8rem; color: #fe0000; border-top: #e0e0e0 solid 1px; }
+.ymbtn .con span{ display: inline-block; padding-left: 1.5rem; line-height: 2.6rem; background: url(/assets/images/life/sel/ym_icon.png) left center no-repeat; background-size: auto 1rem; }
+.ymbtn .buybtn{ display: block; float: left; width: 30%; height: 2.6rem; line-height: 2.6rem; text-align: center; font-size: 1rem; color: #fff; background-color: #fe0000; }
+.ymbg{background-color: #fff;}
+.ympic img{ display: block; width: 100%;}
+.ymbox{width: 90%; padding: 1rem 0; margin: 0 auto;}
+.ymbox h2{position: relative; margin-bottom:0.5rem; text-align: center;  line-height: 2rem; font-size: 1rem; color: #ff0000; font-weight: normal;}
+.ymbox h2:after{ display: block; content: ''; position: absolute; top: 50%; left:0; width: 100%; height: 1px; margin-top:-1px; background-color: #ff0000;}
+.ymbox h2 span{ position: relative; z-index: 9; display: inline-block; padding: 0 1rem; background-color: #fff;}
+.ymbox .con{padding: 0 0 1rem; line-height: 1.8em; font-size: 0.8rem; color: #666666;}
+.ymbox .con h3{ color: #ff0000; font-weight: normal;}
+
+@media screen and (min-width:360px) and (max-width:369px){html{font-size: 1.12rem}}
+@media screen and (min-width:370px) and (max-width:399px){html{font-size: 1.15rem}}
+@media screen and (min-width:400px) and (max-width:639px){html{font-size: 1.25rem}}
+@media screen and (min-width:640px){html{font-size: 1.4rem}}
+@media screen and (max-height:480px){.btnline.pf{ position: relative; bottom:0; left:0; }}
+
+
+

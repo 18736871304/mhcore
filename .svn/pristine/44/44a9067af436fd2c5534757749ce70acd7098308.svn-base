@@ -1,0 +1,112 @@
+/**
+ * creater:duqian
+ * create time:2018/06/19
+ * describe：保险产品列表css资源
+ **/
+.proListBox{}
+.proListBox .tabBox {
+	width: 100%;
+	display: inline-block;
+	background: #fff;
+	margin-bottom: 10px;
+}
+
+.proListBox .tabBox li {
+	width: 16.666666%;
+	text-align: center;
+	font-size: 17px;
+	color: #0C0C0E;
+	line-height: 40px;
+	display: inline-block;
+	float: left;
+}
+
+.proListBox .tabBox li.cur {
+	color: #DC220D;
+}
+
+.proListBox .tabBox li a {
+	height: 40px;
+	display: inline-block;
+}
+
+.proListBox .tabBox li.cur a {
+	border-bottom: 1px solid #DC220D;
+	color:#DC220D;
+}
+.proListBox .tabbody {
+	padding: 0 15px;
+}
+
+.proListBox .tabbody .tabCon {
+	width: 100%;
+	display: none;
+}
+
+.proListBox .tabbody .tabCon.cur {
+	display: inline-block;
+}
+
+.proListBox .tabbody .tabCon .row {
+	width: 100%;
+	margin-bottom: 15px;
+	background: #fff;
+	position: relative;
+	border-radius: 5px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+}
+
+.proListBox .tabbody .tabCon .row:last-child {
+	margin-bottom: 0;
+}
+
+.proListBox .tabbody .tabCon .row a {
+	display: inline-block;
+	width: 100%;
+	padding: 15px 20px;
+	position: relative;
+}
+
+.proListBox .tabbody .tabCon .row .title {
+	font-size: 0.9rem;
+	color: #0C0C0E;
+	line-height: 1;
+	display: inline-block;
+	width: 100%;
+	margin-bottom: 5px;
+}
+.proListBox .tabbody .tabCon .row .explain{
+	font-size: 0.7rem;
+	color: #6D6666;
+	line-height: 1.4rem;
+	display: block;
+	margin-bottom: 15px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space:nowrap;
+}
+.proListBox .tabbody .tabCon .row .pricebox{
+	font-size: 0.7rem;
+	color: #999;
+	line-height: 1.4rem;
+	display: inline-block;
+	position: absolute;
+	bottom: 10px;
+}
+.proListBox .tabbody .tabCon .row .pricebox span{
+	font-size: 1.0rem;
+	font-weight: bold;
+	line-height: 1.4rem;
+}
+.proListBox .tabbody .tabCon .row .pricebox .price{
+	font-size: 0.7rem;
+	color: #DA251D;
+	display: inline-block;
+	margin-right: 5px;
+}
+.proListBox .tabbody .tabCon .row .icon_img{
+	width: 80px;
+	height: 16px;
+	display: inline-block;
+	float: right;
+}

@@ -1,0 +1,239 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<%@ include file="/WEB-INF/common/include.jsp"%>
+
+<head>
+<title></title>
+<link rel="stylesheet" href="../../../../css/inputbox/line6.css">
+<script>
+var inputList;
+var checkList;
+var doubleList;
+
+window.onload = function () 
+{
+	initDataGrid20($('#xianShiRuleList'));
+	
+	inputList = [
+				$('#usergrade'),
+				$('#yearmonth'),
+				$('#nianfypstart'),
+				$('#nianfypend'),
+				$('#award'),
+			];
+
+			checkList = [
+				$('#usergrade'),
+				$('#yearmonth'),
+				$('#nianfypstart'),
+				$('#nianfypend'),
+				$('#award'),
+			];
+			
+	disComBox($('#usergrade'),"usergrade",null);
+	
+	$('#yearmonth').datebox({formatter:function(date){
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        m = m < 10 ? '0' + m : m;
+        return y.toString() + '-' + m.toString();
+    },parser:function(date){
+        console.log(date);
+        if (date) {
+            return new Date(String(date).substring(0, 4) + '-'
+                    + String(date).substring(5,7));
+        } else {
+            return new Date();
+        }
+    }});
+	
+	xianShiRuleQuery();
+}
+
+function aftercodeselect(comboxid) 
+{
+}
+
+function selectone() 
+{
+	var row = $('#xianShiRuleList').datagrid('getSelected');
+	
+	$('#yearmonth').datebox('setValue',row.yearmonth);
+	
+	if(row.usergrade!=null&&row.usergrade!='')
+	{
+		$('#usergrade').combobox('setValues', row.usergrade.split(","));
+	}
+	else
+	{
+		$('#usergrade').combobox('setValues', '');
+	}
+	
+	$('#nianfypstart').val(row.nianfypstart);
+	$('#nianfypend').val(row.nianfypend);
+	$('#award').val(row.award);
+}
+
+function saveSuss() 
+{
+	clearInputData() 
+	$('#xianShiRuleList').datagrid('reload');
+}
+
+function clearInputData() 
+{
+	cleardata(inputList);
+}
+
+function xianShiRuleAdd()
+{
+	if(!checknotnull(checkList))
+	{
+		return;
+	}
+
+	var tparam = prepareparam(inputList);
+	tparam.yearmonth = $('#yearmonth').datebox('getValue');
+	
+	var usergrade_combox = $('#usergrade').combobox('getValues');
+	var usergrade_str = "";
+	for (var j = 0; j < usergrade_combox.length; j++) {
+		usergrade_str = usergrade_str + usergrade_combox[j];
+		if(j!=usergrade_combox.length-1)
+		{
+			usergrade_str = usergrade_str + ","
+		}
+	}
+	tparam.usergrade = usergrade_str;
+	
+	ajaxdeal("pushrisk/xianShiRuleInsert.do", tparam, null, null, saveSuss);
+}
+
+function xianShiRuleEdit()
+{
+	var row = $('#xianShiRuleList').datagrid('getSelected');
+	
+	if (row == null) {
+		$.messager.alert('操作提示', '请选中要操作的数据！', 'error');
+		return;
+	}
+	
+	if(!checknotnull(checkList))
+	{
+		return;
+	}
+
+	var tparam = prepareparam(inputList);
+	tparam.yearmonth = $('#yearmonth').datebox('getValue');
+	
+	var usergrade_combox = $('#usergrade').combobox('getValues');
+	var usergrade_str = "";
+	for (var j = 0; j < usergrade_combox.length; j++) {
+		usergrade_str = usergrade_str + usergrade_combox[j];
+		if(j!=usergrade_combox.length-1)
+		{
+			usergrade_str = usergrade_str + ","
+		}
+	}
+	tparam.usergrade = usergrade_str;
+	
+	tparam.ruleserialno = row.ruleserialno;
+
+	ajaxdeal("pushrisk/xianShiRuleUpdate.do", tparam, null, null, saveSuss);
+}
+
+function xianShiRuleDelete()
+{
+	var row = $('#xianShiRuleList').datagrid('getSelected');
+	
+	if (row == null) {
+		$.messager.alert('操作提示', '请选中要操作的数据！', 'error');
+		return;
+	}
+
+	var tparam = prepareparam(inputList);
+	tparam.ruleserialno = row.ruleserialno;
+
+	ajaxdeal("pushrisk/xianShiRuleDelete.do", tparam, null, null, saveSuss);
+}
+
+function xianShiRuleQuery()
+{
+	var tturl = "pushrisk/getXianShiRuleList.do";
+
+	var tParam = new Object();
+
+	displayDataGrid20($('#xianShiRuleList'), tParam, tturl);
+
+	clearInputData();
+}
+	
+</script>
+</head>
+<body>
+	<div style="margin-left:0%">
+		<table id="xianShiRuleList" class="easyui-datagrid" title="限时奖励" style="width:auto;height:auto"
+			data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone">
+			<thead>
+				<tr>
+					<th data-options="field:'usergradename',width:350">职能级别</th>
+					<th data-options="field:'yearmonth',width:100">奖励月</th>
+					<th data-options="field:'nianfypstart',width:100">起始FYP</th>
+					<th data-options="field:'nianfypend',width:100">终止FYP</th>
+					<th data-options="field:'award',width:100">限时奖励</th>
+				</tr>
+			</thead>
+		</table>
+		<br>
+		<table class="common">
+			<tr>
+				<td class = "reprot_title_4">
+					职能级别
+				</td>
+				<td class = "report_common_4">
+					<select editable="false" class = "easyui-combobox" style="width:160%" name="usergrade" id="usergrade" notnull = "职能级别"
+					data-options="valueField:'id',textField:'text',multiple:true,panelHeight:'auto'">
+					</select>
+				</td>
+				
+				<td class = "reprot_title_4">
+					奖励月
+				</td>
+				<td class = "report_common_4">
+					<input class="easyui-datebox" style="width: 160%" id="yearmonth" name="yearmonth" notnull = "奖励月">
+				</td>
+			
+				<td></td><td></td>
+				<td></td><td></td>
+			</tr>
+			<tr>
+				<td class="reprot_title_4">
+					起始FYP
+				</td>
+				<td class="report_common_4">
+					<input class = "txt" name="nianfypstart" id="nianfypstart" notnull = "起始FYP">
+				</td>
+				
+				<td class="reprot_title_4">
+					终止FYP
+				</td>
+				<td class="report_common_4">
+					<input class = "txt" name="nianfypend" id="nianfypend" notnull = "终止FYP">
+				</td>
+				
+				<td class="reprot_title_4">
+					限时奖励
+				</td>
+				<td class="report_common_4">
+					<input class = "txt" name="award" id="award" notnull = "限时奖励">
+				</td>
+			</tr>
+		</table>
+		<br>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id="xianShiRuleAdd" onclick="xianShiRuleAdd()">新增</a>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" id="xianShiRuleEdit" onclick="xianShiRuleEdit()">修改</a>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" id="xianShiRuleDelete" onclick="xianShiRuleDelete()">删除</a>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,347 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<%@ include file="/WEB-INF/common/include.jsp"%>
+
+<head>
+	<title></title>
+	<link rel="stylesheet" href="../../../../css/inputbox/line3.css?v_2022_05_16">
+	<script>
+		var inputList;
+		var checkList;
+
+		window.onload = function () {
+			initDataGrid20($('#teamlist'));
+
+			inputList = [
+				$('#teamcode'),
+				$('#teamname'),
+				$('#teamleader'),
+				$('#ordernum'),
+				$('#organcode'),
+				$('#teamgrade'),
+				$('#upteamid'),
+				$('#isstop')
+			];
+
+			checkList = [
+				//$('#teamcode'),
+				$('#teamname'),
+				$('#teamleader'),
+				$('#ordernum'),
+				$('#organcode'),
+				$('#teamgrade'),
+				//$('#upteamid'),
+				$('#isstop')
+			];
+
+			disComBox($('#qisstop'), "isstop", null);
+			disComBox($('#isstop'), "isstop", null);
+
+			disComBox($('#teamgrade'), "teamgrade", null);
+			disComBox($('#qteamgrade'), "teamgrade", null);
+
+			OrganInit();
+			dlgUserInit();
+			dlgTeamInit();
+
+			var tturl = "policy/get02Org.do";
+			displayCombox($('#q02org'), null, tturl, "dd_key", "dd_value");
+		}
+
+		function aftercodeselect(comboxid) {
+			if (comboxid.attr("id") == "q02org") {
+				var tParam = new Object();
+				tParam.organcode = comboxid.combobox('getValue');
+
+				var tturl1 = "policy/get03Org.do";
+
+				displayCombox($('#q03org'), tParam, tturl1, "dd_key", "dd_value");
+			} else if (comboxid.attr("id") == "q03org") {
+				var tParam = new Object();
+				tParam.organcode = comboxid.combobox('getValue');
+
+				var tturl1 = "policy/get04Org.do";
+
+				displayCombox($('#q04org'), tParam, tturl1, "dd_key", "dd_value");
+			} else if (comboxid.attr("id") == "teamgrade") {
+				if (comboxid.combobox('getValue') == "0001") {
+					$('#upteamid').val("");
+					$('#upteamname').val("");
+				}
+			}
+		}
+
+		function selectone() {
+			var row = $('#teamlist').datagrid('getSelected');
+
+			$('#teamcode').val(row.teamcode);
+			$('#teamname').val(row.teamname);
+			$('#teamleader').val(row.teamleader);
+			$('#ordernum').val(row.ordernum);
+			$('#teamleadername').val(row.teamleadername);
+			$('#organcode').val(row.organcode);
+			$('#organname').val(row.organname);
+			$('#teamgrade').combobox('setValue', row.teamgrade);
+			$('#upteamid').val(row.upteamid);
+			$('#upteamname').val(row.upteamname);
+			$('#isstop').combobox('setValue', row.isstop);
+		}
+
+		function saveSuss() {
+			clearCarData();
+			$('#teamlist').datagrid('reload');
+		}
+
+		function clearCarData() {
+			cleardata(inputList);
+
+			$('#teamleadername').val('');
+			$('#organname').val('');
+			$('#upteamname').val('');
+		}
+
+		function teamquery() {
+			var tturl = "team/getTeamList.do";
+
+			var tParam = new Object();
+			tParam.teamname = $('#qteamname').val();
+			tParam.teamgrade = $('#qteamgrade').combobox('getValue');
+			tParam.isstop = $('#qisstop').combobox('getValue');
+			tParam.state = '01';
+
+			tParam.q02org = $('#q02org').combobox('getValue');
+			tParam.q03org = $('#q03org').combobox('getValue');
+
+			var q04org_codes = $('#q04org').combobox('getValues');
+			var q04orgStr = "";
+			for (var i = 0; i < q04org_codes.length; i++) {
+				if (q04orgStr != "") {
+					q04orgStr += "','";
+				}
+				q04orgStr += q04org_codes[i];
+			}
+			tParam.q04org = q04orgStr;
+
+			displayDataGrid20($('#teamlist'), tParam, tturl);
+			clearCarData();
+		}
+
+		function teamsave() {
+			if (!checknotnull(checkList)) {
+				return;
+			}
+
+			if ($('#teamgrade').combobox('getValue') != '0001') {
+				if ($('#upteamid').val() == null || $('#upteamid').val() == '') {
+					$.messager.alert('执行失败', "上级团队不能为空", 'error');
+					return;
+				}
+			}
+
+			var tparam = prepareparam(inputList);
+
+			ajaxdeal("team/teamInsert.do", tparam, null, null, saveSuss);
+		}
+
+		function teammodify() {
+			var row = $('#teamlist').datagrid('getSelected');
+			if (row == null) {
+				$.messager.alert('操作提示', '请选中要操作的数据！', 'error');
+				return;
+			}
+
+			if (!checknotnull(checkList)) {
+				return;
+			}
+
+			if ($('#teamgrade').combobox('getValue') != '0001') {
+				if ($('#upteamid').val() == null || $('#upteamid').val() == '') {
+					$.messager.alert('执行失败', "上级团队不能为空", 'error');
+					return;
+				}
+			}
+
+			var tparam = prepareparam(inputList);
+			tparam.teamid = row.teamid;
+
+			ajaxdeal("team/teamUpdate.do", tparam, null, null, saveSuss);
+		}
+
+		function teamdelete() {
+			var row = $('#teamlist').datagrid('getSelected');
+			if (row == null) {
+				$.messager.alert('操作提示', '请选中要删除的数据！', 'error');
+				return;
+			}
+
+			var tparam = new Object();
+			tparam.teamid = row.teamid;
+
+			ajaxdeal("team/teamDelete.do", tparam, null, null, saveSuss);
+		}
+	</script>
+
+	
+</head>
+
+<body>
+	<%@ include file="/WEB-INF/jsp/organ/OrganInfoDlg.jsp"%>
+	<%@ include file="/WEB-INF/jsp/admin/policy/userDlg.jsp"%>
+	<%@ include file="/WEB-INF/jsp/admin/team/teamDlg.jsp"%>
+	<div style="margin-left:0%">
+		<table class="common">
+			<tr>
+				<td class="title">
+					团队名称
+				</td>
+				<td class="common">
+					<input class="txt" name="qteamname" id="qteamname">
+				</td>
+
+				<td class="title">
+					团队级别
+				</td>
+				<td class="common">
+					<input class="easyui-combobox" name="qteamgrade" id="qteamgrade" panelHeight="auto"
+						style="width:160%">
+				</td>
+
+				<td class="title">
+					是否停止
+				</td>
+				<td class="common">
+					<input class="easyui-combobox" name="qisstop" id="qisstop" panelHeight="auto" style="width:160%">
+				</td>
+			<!-- </tr>
+
+			<tr> -->
+				<td class="title">
+					省公司
+				</td>
+				<td class="common">
+					<select class="easyui-combobox" style="width:160%" panelHeight="auto" name="q02org" id="q02org">
+					</select>
+				</td>
+				<td class="title">
+					分公司
+				</td>
+				<td class="common">
+					<select class="easyui-combobox" style="width:160%" panelHeight="auto" name="q03org" id="q03org">
+					</select>
+				</td>
+				<td class="title">
+					营业部
+				</td>
+				<td class="common">
+					<select class="easyui-combobox" style="width:160%" panelHeight="auto" name="q04org" id="q04org"
+						data-options="multiple:true">
+					</select>
+				</td>
+			</tr>
+		</table>
+		<br>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id="teamquery"
+			onclick="teamquery()">查询</a>
+		<br>
+		<br>
+		<table id="teamlist" class="easyui-datagrid" title="团队列表" style="width:auto;height:auto"
+			data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone">
+			<thead>
+				<tr>
+					<th data-options="field:'organ02name',width:70">所属省公司</th>
+					<th data-options="field:'organ03name',width:70">所属分公司</th>
+					<th data-options="field:'organname',width:70">所属营业部</th>
+					<th data-options="field:'teamname',width:100">团队名称</th>
+					<th data-options="field:'teamleadername',width:70">团队长</th>
+					<th data-options="field:'ordernum',width:40">排序</th>
+					<th data-options="field:'teamgradename',width:60">团队级别</th>
+					<th data-options="field:'upteamname',width:70">上级团队</th>
+					<th data-options="field:'isstopname',width:60">是否停止</th>
+				</tr>
+			</thead>
+		</table>
+		<br>
+		<table class="common">
+			<tr>
+				<td class="title">
+					团队名称
+				</td>
+				<td class="common">
+					<input class="txt" name="teamname" id="teamname" notnull="团队名称">
+				</td>
+
+				<td class="title">
+					团队长
+				</td>
+				<td class="common">
+					<input class="txt" name="teamleadername" id="teamleadername" notnull="团队长" readonly
+						onclick="disuUserDlg($('#reuserid'),$('#teamleader'),$('#teamleadername'),'02');">
+					<input class="txt" hidden name="teamleader" id="teamleader" notnull="团队长">
+					<input class="txt" hidden name="reuserid" id="reuserid" notnull="团队长">
+				</td>
+
+				<td class="title">
+					排序
+				</td>
+				<td class="common">
+					<input class="txt" name="ordernum" id="ordernum" notnull="排序">
+				</td>
+			<!-- </tr>
+			<tr> -->
+				<td class="title">
+					团队级别
+				</td>
+				<td class="common">
+					<select class="easyui-combobox" name="teamgrade" id="teamgrade" panelHeight="auto"
+						style="width:160%">
+					</select>
+				</td>
+
+				
+			</tr>
+			<tr>
+				<td class="title">
+					上级团队
+				</td>
+				<td class="common">
+					<input class="txt" name="upteamname" id="upteamname" notnull="上级团队" readonly
+						onclick="disuTeamDlg($('#upteamid'),$('#upteamname'),$('#organcode'),$('#organname'),'9999');">
+					<input class="txt" hidden name="upteamid" id="upteamid" notnull="上级团队">
+				</td>
+
+				<td class="title">
+					所属机构
+				</td>
+				<td class="common">
+					<input class="txt" name="organname" id="organname" notnull="所属机构" readonly
+						onclick="disorgan($('#organcode'),'05',$('#organname'),null);">
+					<input class="txt" hidden name="organcode" id="organcode" notnull="所属机构">
+				</td>
+				<td class="title">
+					是否停止：
+				</td>
+				<td class="common">
+					<select class="easyui-combobox" name="isstop" id="isstop" panelHeight="auto" style="width:160%">
+					</select>
+				</td>
+			</tr>
+			<tr hidden>
+				<td class="title">
+					团队编码
+				</td>
+				<td class="common">
+					<input class="txt" name="teamcode" id="teamcode" notnull="团队编码">
+				</td>
+			</tr>
+		</table>
+		<br>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id="teamsave"
+			onclick="teamsave()">团队新增</a>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" id="teammodify"
+			onclick="teammodify()">团队修改</a>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" id="teamdelete"
+			onclick="teamdelete()">团队删除</a>
+	</div>
+</body>
+
+</html>

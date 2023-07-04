@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>家庭保障方案</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 100%;
+      /* height: 100vh; */
+      background: linear-gradient(to bottom, #ed8d2f, #f6d5aa);
+      /* display: flex;
+      align-items: center; */
+    }
+
+    .container img {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .wrap {
+      width: 100%;
+      margin: 0 auto;
+      max-width: 7.5rem;
+      /* background: #FFFFFF;
+      box-shadow: 0px 3px 18px 0px rgba(239, 144, 12, 0.84);
+      border-radius: 0.35rem;
+      text-align: center;
+      transform: translateY(-60px) */
+    }
+
+    .beijing {
+      width: 100%;
+      height: auto;
+      position: relative;
+    }
+
+    .btn01 {
+      width: 1.05rem;
+      height: 3.5rem;
+      position: fixed;
+      right: 0;
+      bottom: 35%;
+    }
+
+    .btn02 {
+      width: 6.4rem;
+      height: 1.25rem;
+      position: fixed;
+      left: 50%;
+      bottom: 1.5%;
+      margin-left: -3.2rem;
+      animation: scaleAnimation .5s infinite;
+    }
+    @keyframes scaleAnimation {
+    0% {
+      width: 6.4rem;
+      height: 1.25rem;
+    }
+
+    50% {
+      width: 6.6rem;
+      height: 1.35rem;
+      position: fixed;
+      left: 50%;
+      bottom: 1.3%;
+      margin-left: -3.3rem;
+    }
+
+    to {
+      width: 6.4rem;
+      height: 1.25rem;
+    }
+}
+  </style>
+  <script>
+    !(function () {
+      function a() {
+        var html = document.documentElement;
+        var w = html.getBoundingClientRect().width;
+        if (w > 750) {
+          w = 750;
+        }
+        var f = w / 7.5;
+        html.style.fontSize = f + "px";
+      }
+      a();
+      var timer;
+      window.onresize = function () {
+        clearTimeout(timer);
+        timer = setTimeout(a, 300);
+      }
+    })();
+  </script>
+  <script src="./js/jquery-3.6.3.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="wrap">
+
+      <div class="beijing">
+        <img src="./images/beijing01.png" alt="">
+        <div class="btn01">
+          <img class="btn2" src="./images/clickZixun.png" alt="">
+        </div>
+        <img src="./images/beijing02.png" alt="">
+        <div class="btn02 btn2"> <img src="./images/zixun.png" alt="">
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <script>
+    let URL = window.location.href;
+    function getUrlParams2(url) {
+      let urlStr = url.split('?')[1]
+      const urlSearchParams = new URLSearchParams(urlStr)
+      const result = Object.fromEntries(urlSearchParams.entries())
+      return result
+    }
+
+
+    $('.btn2').click(function () {
+      let param = getUrlParams2(URL);
+      console.log(param)
+      var paramData = {
+        path: "pages/article40/article40",
+        query: 'appname=beibei&articletype=02&callbackid=' + param.clickid,
+        appletType: "tyb",
+      }
+
+      $.ajax({
+        url: "https://insure.meihualife.com//wxapplet/getWxPageSchema.do",
+        type: "post",
+        data: paramData,
+        success: function (data) {
+          var data = JSON.parse(data)
+          console.log(data)
+          if (data.code == '0') {
+            window.location.href = data.pageurl
+          }
+        },
+        error: function (data) {
+          console.log(5555555, data)
+        }
+      });
+    })
+
+
+  </script>
+</body>
+
+</html>

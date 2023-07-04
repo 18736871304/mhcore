@@ -1,0 +1,247 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<table class="common">
+	<tr>
+		<td class="reprot_title">
+			出单起期
+		</td>
+		<td class="report_common">
+			<input class="easyui-datebox" style="width: 90%" id="qacceptStartDate" name="qacceptStartDate"
+				notnull="出单起期">
+		</td>
+	
+		<td class="reprot_title">
+			出单止期
+		</td>
+		<td class="report_common">
+			<input class="easyui-datebox" style="width: 90%" id="qacceptEndDate" name="qacceptEndDate"
+				notnull="出单止期">
+		</td>
+	
+		<td class="reprot_title">
+			保单号
+		</td>
+		<td class="report_common">
+			<input class="txt" name="qcontno" id="qcontno">
+		</td>
+	
+		<td class="reprot_title">
+			保单状态
+		</td>
+		<td class="report_common">
+			<select class="easyui-combobox" style="width:90%" panelHeight="auto" name="qstate" id="qstate">
+			</select>
+		</td>
+	
+		<td class="reprot_title">
+			回访状态
+		</td>
+		<td class="report_common">
+			<select class="easyui-combobox" style="width:90%" panelHeight="auto" name="qinsrevisitstate" id="qinsrevisitstate">
+			</select>
+		</td>
+		
+		<td class="reprot_title">
+			回执状态
+		</td>
+		<td class="report_common">
+			<select class="easyui-combobox" style="width:90%" panelHeight="auto" name="qreceiptstate" id="qreceiptstate">
+			</select>
+		</td>
+	</tr>
+			
+	<tr>
+		<td class="reprot_title">
+			渠道类型
+		</td>
+		<td class="report_common">
+			<select class="easyui-combobox" style="width:90%" panelHeight="auto" name="qactivitychannel"
+				id="qactivitychannel">
+			</select>
+		</td>
+		
+		<td class = "reprot_title">
+			流量来源
+		</td>
+		<td class = "report_common">
+			<select class = "easyui-combobox" style="width: 90%" panelHeight="auto" name="qactivityappname" id="qactivityappname">
+			</select>
+		</td>
+		
+		<td class = "reprot_title">
+			是否续保
+		</td>
+		<td class = "reprot_common">
+			<select class = "easyui-combobox" style="width:90%" panelHeight="auto" name="qisxubao" id="qisxubao">
+			</select>
+		</td>
+		
+		<td class = "reprot_title dis_riskchannel" hidden>
+			签约渠道
+		</td>
+		<td class = "report_common dis_riskchannel" hidden>
+			<select class = "easyui-combobox" style="width:90%" panelHeight="auto" name="qriskchannel" id="qriskchannel">
+			</select>
+		</td>
+	</tr>
+			
+	<tr>
+		<td class="reprot_title">
+			业务员姓名
+		</td>
+		<td class="report_common">
+			<input class="txt" name="qusername" id="qusername">
+		</td>
+	
+		<td class="reprot_title">
+			服务人员
+		</td>
+		<td class="report_common">
+			<input class="txt" name="qserusername" id="qserusername">
+		</td>
+	
+		<td class="reprot_title">
+			保险公司
+		</td>
+		<td class="report_common">
+			<input class="easyui-combobox" id="qinsorgancode" style="width:90%" name="qinsorgancode"
+				data-options="valueField:'id',textField:'text',multiple:true,panelHeight:'auto'">
+		</td>
+	
+		<td class="reprot_title">
+			险种名称
+		</td>
+		<td class="report_common">
+			<input class="easyui-combobox" id="qriskcode" style="width:90%" name="qriskcode"
+				data-options="valueField:'id',textField:'text',multiple:true,panelHeight:'auto'">
+		</td>
+	
+		<td class="reprot_title">
+			客户姓名
+		</td>
+		<td class="report_common">
+			<input class="txt" name="qcusname" id="qcusname">
+		</td>
+	
+		<td class="reprot_title">
+			电话号码
+		</td>
+		<td class="report_common">
+			<input class="txt" name="qcusmobile" id="qcusmobile">
+		</td>
+	</tr>
+
+	<%@ include file="/WEB-INF/jsp/admin/team/organAndTeamQuery.jsp"%>
+</table>
+<script>
+function initPolicyQuery(typeStr)
+{
+	if(typeStr.indexOf('riskchannel')>=0)
+	{
+		$('.dis_riskchannel').show();
+	}
+	
+	disComBox($('#qriskchannel'),"channel",null);
+	disComBox($('#qinsorgancode'), "insorgancode", null);
+	disComBox($('#qstate'), "policyquery", null);
+	disComBox($('#qinsrevisitstate'), "insrevisitstate", null);
+	disComBox($('#qreceiptstate'), "receiptstate", null);
+	disComBox($('#qactivitychannel'), "source", null);
+	disComBox($('#qisxubao'), "yesno", null);
+	$('#qstate').combobox('setValue', '40');
+	$('#qacceptStartDate').datebox('setValue', getMonthOneFormatDate());
+}
+
+function qPolicyAftercodeselect(comboxid) 
+{
+	if(comboxid.attr("id")=="qactivitychannel")
+	{
+		var tParam = new Object();
+		tParam.comboxType = 'sourcedetail_'+comboxid.combobox('getValue');
+		
+		var tturl = "activity/getSourceDetail.do";
+		displayCombox($('#qactivityappname'),tParam,tturl,"dd_key","dd_value");
+	}
+	else if (comboxid.attr("id") == "qinsorgancode") {
+		var tParam = new Object();
+		var codes = comboxid.combobox('getValues');
+		var ic = "";
+		for (var i = 0; i < codes.length; i++) {
+			if (ic != "") ic += "\',\'";
+			ic += codes[i];
+		}
+		tParam.insorgancode = ic;
+		var tturl1 = "policy/getRiskListin.do";
+
+		displayCombox($('#qriskcode'), tParam, tturl1, "dd_key", "dd_value");
+	} else {
+		organAfterSelect(comboxid);
+	}
+}
+
+function getQueryParam() {
+	var tParam = new Object();
+
+	tParam.contno = $('#qcontno').val();
+	tParam.cusname = $('#qcusname').val();
+	tParam.cusmobile = $('#qcusmobile').val();
+
+	tParam.reusername = $('#qusername').val();
+	tParam.serusername = $('#qserusername').val();
+
+	var codes = $('#qinsorgancode').combobox('getValues');
+	var ic = "";
+	for (var i = 0; i < codes.length; i++) {
+		if (ic != "") ic += "\',\'";
+		ic += codes[i];
+	}
+	tParam.insorgancode = ic;
+	tParam.state = $('#qstate').combobox('getValue');
+	tParam.agentflag = '02';
+
+	tParam.q02org = $('#q02org').combobox('getValue');
+	tParam.q03org = $('#q03org').combobox('getValue');
+	tParam.q04org = getOrgan04Code();
+	tParam.teamid = getQTeamId();
+
+	//险种编码多选
+	var codess = $('#qriskcode').combobox('getValues');
+	var icc = "";
+	for (var j = 0; j < codess.length; j++) {
+		if (icc != "") icc += "\',\'";
+		icc += codess[j];
+	}
+	tParam.mainriskcode = icc;
+
+	tParam.insrevisitstate = $('#qinsrevisitstate').combobox('getValue');
+	tParam.acceptStartDate = $('#qacceptStartDate').datebox("getValue");
+	tParam.acceptEndDate = $('#qacceptEndDate').datebox("getValue");
+
+	var channel = $('#qactivitychannel').combobox('getValue');
+	if (channel.length == 4) {
+		tParam.channel = channel;
+	} else if (channel.length > 4) {
+		tParam.channeldetail = channel;
+	}
+	
+	tParam.isxubao = $('#qisxubao').combobox('getValue');
+	tParam.receiptstate = $('#qreceiptstate').combobox('getValue');
+	tParam.activityappname = $('#qactivityappname').combobox('getText');
+	tParam.riskchannel = $('#qriskchannel').combobox('getValue');
+	
+	return tParam;
+}
+
+function policyquery() {
+	var tturl = "policy/getPolicyList.do";
+
+	var tParam = getQueryParam();
+
+	displayDataGrid20($('#policyList'), tParam, tturl);
+
+	var sumurl = "policy/getPolicySum.do";
+
+	ajaxdeal(sumurl, tParam, displaysumdata, null);
+
+	clearCarData();
+}
+</script>

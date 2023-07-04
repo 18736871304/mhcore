@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>告知书</title>
+	<link rel="stylesheet" href="../css/pdfh5.css" />
+	<script src="../js/hengqin/pdf1.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/hengqin/pdf.workerh5.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/hengqin/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/hengqin/pdfh5.js" type="text/javascript" charset="utf-8"></script>
+	<style>
+		html {
+			font-size: calc(100vw/ 18.75);
+			font-family: "微软雅黑";
+			color: #222;
+			max-width: 750px;
+			margin: auto;
+		}
+
+		html,
+		body {
+			height: 100%;
+		}
+
+		@media screen and (min-width:750px) {
+			html {
+				font-size: 21px;
+			}
+		}
+
+		input[placeholder],
+		[placeholder],
+		*[placeholder] {
+			color: #222 !important;
+		}
+
+		input {
+			-webkit-appearance: none;
+			-webkit-border-radius: 0;
+			-webkit-user-select: text;
+			caret-color: #F76F6F;
+		}
+
+		body {
+			background: #f0efef;
+		}
+
+		a {
+			text-decoration: none;
+			color: #222;
+			-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+			-webkit-user-select: none;
+			-moz-user-select: none;
+		}
+
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		.left {
+			float: left;
+		}
+
+		.right {
+			float: right;
+		}
+
+
+
+		.pay-title {
+			padding: 0.5rem;
+			display: flex;
+			align-items: center;
+			font-weight: bold;
+			border-bottom: 3px solid #f2f2f2;
+			background: #fff;
+			margin: 0.5rem auto;
+		}
+
+		.pay-title .shu p {
+			width: 100%;
+			text-align: center;
+
+		}
+
+		.pay-title .shu {
+			width: 100%;
+		}
+
+		.pay-title img {
+			width: 1rem;
+			height: 1rem;
+
+			vertical-align: middle;
+		}
+
+		.goback {
+			width: 1.5rem;
+			height: 1.5rem;
+			vertical-align: middle;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="pay-title">
+		<div class="goback">
+			<img src="../images/icon_back.png" alt="">
+		</div>
+		<div class="shu">
+			<p id="pdftitle">客户告知书</p>
+		</div>
+
+	</div>
+	<div id="demo"></div>
+</body>
+<script>
+	$(function () {
+		$('.goback').click(function () {
+			// goBack();
+			window.history.go(-1)
+		})
+
+		// 获取页面传递的参数,路径中的url
+		function GetRequest() {
+			var url = location.search;
+			var theRequest = new Object();
+			if (url.indexOf("?") != -1) {
+				var str = url.substr(1);
+				return str;
+			}
+		}
+		var pdf = GetRequest();
+		if (pdf == "flb.pdf") {
+			$("#pdftitle").text("费率表")
+
+			$.ajax({
+				url: "../PDF/flb.PDF", //假设这是费率表pdf文件流的请求接口
+				type: "get",
+				mimeType: 'text/plain; charset=x-user-defined', //jq ajax请求文件流的方式
+				success: function (data) {
+					var pdfh5 = new Pdfh5('#demo', {
+						data: data
+					});
+				}
+			});
+		} else if (pdf == "user.pdf") {
+			$("#pdftitle").text("客户告知书")
+			$.ajax({
+				url: "../PDF/user.PDF", //假设这是pdf文件流的请求接口
+				type: "get",
+				mimeType: 'text/plain; charset=x-user-defined', //jq ajax请求文件流的方式
+				success: function (data) {
+					var pdfh5 = new Pdfh5('#demo', {
+						data: data
+					});
+				}
+			});
+		}
+	})
+</script>
+
+</html>

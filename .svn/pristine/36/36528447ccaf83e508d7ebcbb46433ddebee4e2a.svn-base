@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资深规划师1v1咨询</title>
+    <link rel="stylesheet" href="./images/favicon.ico">
+    <link rel="stylesheet" href="./css/index.css">
+    <script>
+        !(function () {
+            function a() {
+                var html = document.documentElement;
+                var w = html.getBoundingClientRect().width;
+                if (w > 750) {
+                    w = 750;
+                }
+                var f = w / 7.5;
+                html.style.fontSize = f + "px";
+            }
+            a();
+            var timer;
+            window.onresize = function () {
+                clearTimeout(timer);
+                timer = setTimeout(a, 300);
+            }
+        })();
+    </script>
+     
+</head>
+
+<body>
+    <div class="template">
+        <div class="wrap">
+            <img src="./images/img1-1.png" alt="">
+            <div class="content">
+                <div class="box_input">
+                    <div class="name_box">
+                        <p class="name_txt">您的姓名:</p>
+                        <p class="name_value">
+                            <input type="text" value="" placeholder="请输入您的姓名" id="user">
+                        </p>
+                    </div>
+                    <div class="phone_box">
+                        <p class="phone_txt">您的电话:</p>
+                        <p class="phone_value">
+                            <input type="text" value="" placeholder="请输入您的电话" id="password">
+                        </p>
+                    </div>
+                    <div class="code_box">
+                        <p class="name_txt">验证码:</p>
+                        <p class="code_value">
+                            <input type="text" value="" placeholder="请输入验证码" id="code">
+                            <button id="send">发送</button>
+                        </p>
+                    </div> 
+                    <!-- <p class="arrage">自动输入历史手机号《个人信息授权与保护声明》</p> -->
+                    <div class="click" id="sendClick">
+                        <img src="./images/click.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <img src="./images/img1-2.png" alt="">
+                <!-- <img src="./images/img1-3.png" alt="" style="margin-bottom: 0.6rem;"> -->
+               
+            </div>
+            <div class="zixun" id="zixun">
+                <p>1V1预约咨询</p>
+            </div>
+            
+        </div>
+        <div class="success">
+            <img src="./images/QR.png" alt="">
+        </div>
+        <script src="./js/jquery-1.10.1.min.js"></script>
+        <script src="./js/index.js"></script>
+        <!-- <script>
+            $(function () {
+                // 监听滚动事件
+                $(window).scroll(function () {
+                    if (($(window).scrollTop() > 400)) {
+                        $('.zixun').css('display', 'block')
+                    } else {
+                        $('.zixun').css('display', 'none')
+                    }
+                });
+                $("#zixun").click(function () {
+                    $('body,html').animate({
+                        scrollTop: '10'
+                    }, 500); 
+                })
+            })
+        </script> -->
+    </div>
+</body>
+
+</html>

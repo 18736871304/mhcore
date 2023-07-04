@@ -1,0 +1,231 @@
+﻿/**
+ * creater:duqian
+ * create time:2018/06/13
+ * describe：个人中心css资源
+ **/
+
+/******************************顶部 ****************************************/
+.usercenter {
+	position: relative;
+}
+.usercenter .haedBox{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.d_boxSz img {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+/******************************中间内容****************************************/
+.usercenter .quit{
+	width: 100%;
+	padding: 0 15px;
+	margin-top: 50px;
+}
+.btnBox{
+	width: 100%;
+}
+.d_boxSz a{
+	width: 100%;
+    height: 45px;
+    line-height: 45px;
+    background: #DC220D;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    color: #fff;
+    letter-spacing: 5px;
+}
+.usercenter .quit span{
+	width: 100%;
+	height: 49px;
+	line-height: 49px;
+	text-align: center;
+	display: inline-block;
+	font-size: 16px;
+	color: #DC220D;
+	background: #fff;
+	box-shadow: 0px 2px 4px rgba(0,0,0,0.1);
+	border-radius: 4px;
+}
+.formBox {
+    width: 100%;
+	padding:0px;
+
+}
+.infoBox{
+	width: 100%;
+    display: inline-block;
+    height: 50px;
+    position: relative;
+	
+}
+.box{
+	box-sizing: border-box;
+}
+.kes{
+	width:100%;
+	padding: 0px 15px;
+	background:#fff;
+	margin-bottom:15px;
+}
+.kest{
+	width:100%;
+	padding: 0px 15px;
+	background:#fff;
+	margin-bottom:5px;
+}
+.bana{
+	height:50px;
+}
+.bana span {
+    font-size: 0.8rem;
+    color: #999;
+    height: 50px;
+    line-height: 50px;
+    display: inline-block;
+    border: none;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-right: 24px;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background:url(../image/icon_right.png) no-repeat scroll right center transparent;
+    background-size: 16px 16px;
+}
+
+.infoBox input {
+	font-size: 0.8rem;
+	color: #0c0c0e;
+	line-height: 50px;
+	display: inline-block;
+	border: none;
+	width: 75%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding-right: 24px;
+}
+.bana input{
+    font-size: 0.85rem;
+    color: #0c0c0e;
+    line-height: 48px;
+    display: inline-block;
+    border: none;
+    width: 65%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-right: 24px;
+}
+.ect{
+	width:100%;
+	height:2%;
+}
+.ect p{
+    padding: 0.8rem 15px 0.8rem 15px;
+    font-size: 15px;
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+.name{
+	font-size: 0.8rem;
+	color:#666;
+	line-height: 50px;
+	display: inline-block;
+	float: left;
+	width: 35%;
+}
+.noback{
+	background:none;
+}
+.infoBox span{
+	display:inline-block;
+	width:100%;
+	line-height:50px;
+	font-size: 0.85rem;
+}
+.backlogo{
+	width:100%;
+	height:100%;
+	display: inline-block;
+	position:relative;
+}
+
+
+/*-- 轮播图 banner --*/
+.m-slider {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
+}
+.ks_wrap {
+    width: 100%;
+}
+.ks_ts {
+    -webkit-transition: 500ms;
+}
+.ks_dbox {
+    display: -webkit-box;
+    width: 100%;
+    text-align: left;
+}
+.ks_wt {
+    display: -webkit-box;
+    padding: 0;
+	margin-left:82%;
+	
+}
+.ks_wt li {
+    list-style: none;
+    text-align: center;
+    color: #fff;
+}
+.ks-circles {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+.ks_wrap img{
+	width:100%
+}
+.ks_wt_1 .ks_wt li {
+    line-height: 35px;
+    height: 35px;
+    border-right: solid 1px #bbb;
+    -webkit-box-flex: 1;
+}
+.ks-circles .ks_wt li {
+    overflow: hidden;
+    width: 12px;
+    height: 3px;
+    margin: 10px 5px;
+    text-indent: 20px;
+    background-color: #fff;
+}
+.ks_wt_1 .ks_wt .active {
+    color: #000;
+    background: -webkit-linear-gradient(top, #e7e7e7 0, #dfdfdf 100%);
+}
+.ks-circles .ks_wt .active {
+    -webkit-animation: kt2 .8s ease-in-out;
+    background: #fb2b49;
+}
+
+.touti{
+	width:100%;
+	position:relative;
+	padding-top:4%;
+}

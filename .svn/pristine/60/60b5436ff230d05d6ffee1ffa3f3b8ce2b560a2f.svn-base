@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>家庭保障方案</title>
+  <link rel="stylesheet" href="./css/mobile.css">
+  <script>
+    !(function () {
+      function a() {
+        var html = document.documentElement;
+        var w = html.getBoundingClientRect().width;
+        if (w > 750) {
+          w = 750;
+        }
+        var f = w / 7.5;
+        html.style.fontSize = f + "px";
+      }
+      a();
+      var timer;
+      window.onresize = function () {
+        clearTimeout(timer);
+        timer = setTimeout(a, 300);
+      }
+    })();
+  </script>
+  <script src="./js/jquery-3.6.3.min.js"></script>
+  <!-- 引入样式文件 -->
+  <link rel="stylesheet" href="./css/index.css" />
+  <!-- 引入 Vue 和 Vant 的 JS 文件 -->
+  <script src="./js/vue.min.js"></script>
+  <script src="./js/vant.min.js"></script>
+  <script src="./js/index.esm.js"></script>
+  <style>
+    .van-popup .van-checkbox-group .van-checkbox {
+      margin: 0.2rem 0 0 0.8rem;
+      font-size: 0.24rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container" id="app">
+    <div class="wrap">
+      <div class="banner">
+        <img src="./images/image2.png" alt="美华保险">
+      </div>
+      <div class="infor" style="margin-top: -0.15rem;">
+        <div class="insureName">
+          <label class="text">您的性别</label>
+          <div class="call">
+            <ul class="clearfix">
+              <li :class="[{'insure-select': gender == '男'}]" style="margin-bottom: 0;" @click="gender = '男'">男</li>
+              <li :class="[{'insure-select': gender == '女'}]" style="margin-bottom: 0;" @click="gender = '女'">女</li>
+            </ul>
+          </div>
+        </div>
+        <div class="insureName">
+          <label class="text" for="">本次规划的保险预算是多少？</label>
+          <div class="nameValue ">
+            <input v-model="data.yusuan" type="text" placeholder="请选择" @click="showMask(1)" readonly>
+            <p class="icon">></p>
+            <p class="yusuan-tips"></p>
+          </div>
+        </div>
+        <div class="insureName">
+          <label class="text" for="">您的家庭成员情况？<span>（可多选）</span></label>
+          <div class="call nameValue">
+            <ul class="clearfix">
+              <li class="insure-select">本人</li>
+              <li :class="[{'insure-select': familyArr.indexOf('配偶') > -1}]" @click="setfamily('配偶')">配偶</li>
+              <li :class="[{'insure-select': familyArr.indexOf('父亲') > -1}]" @click="setfamily('父亲')">父亲</li>
+              <li :class="[{'insure-select': familyArr.indexOf('母亲') > -1}]" @click="setfamily('母亲')">母亲</li>
+              <li :class="[{'insure-select': familyArr.indexOf('儿子') > -1}]" @click="setfamily('儿子')">儿子</li>
+              <li :class="[{'insure-select': familyArr.indexOf('女儿') > -1}]" @click="setfamily('女儿')">女儿</li>
+              <li :class="[{'insure-select': familyArr.indexOf('配偶父亲') > -1}]" @click="setfamily('配偶父亲')">配偶父亲</li>
+              <li :class="[{'insure-select': familyArr.indexOf('配偶母亲') > -1}]" @click="setfamily('配偶母亲')">配偶母亲</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="insureName">
+          <label class="text">主要是给哪位成员规划保险呢？</label>
+          <div class="call nameValue">
+            <ul class="clearfix">
+              <li :class="[{'insure-select': familyArr1.indexOf('本人') > -1}]" @click="setMember('本人')">本人</li>
+              <li v-for="(item,index) in insuredMember" :index="item"
+                :class="[{'insure-select': familyArr1.indexOf(item) > -1}]" @click="setMember(item)">{{item}} </li>
+            </ul>
+            <p class="family-tips"></p>
+          </div>
+        </div>
+        <div style="border: 1px solid transparent;"></div>
+      </div>
+      <div class="infor">
+        <div class="self-photo">
+          <p>
+            <img src="./images/image3.png" alt="" style="vertical-align: middle;margin-right: 5px;">
+            <span>本人</span>
+          </p>
+          <p @click="hideMessage" class="self-tips" :class="[{'tips-up': hide}]">></p>
+        </div>
+        <div class="self-message" :class="[{'hide-message': hide}]">
+          <div class="insureName">
+            <label class="text" for="">请问您怎么称呼？</label>
+            <div class="nameValue">
+              <input v-model="data.name" type="text" value="" placeholder="请输入">
+              <p class="name-tips"></p>
+            </div>
+          </div>
+          <div class="insureName">
+            <label class="text" for="">您的家庭年收入大概是多少？</label>
+            <div class="nameValue">
+              <input v-model="data.shouru" type="text" value="" placeholder="请选择" @click="showMask(2)" readonly>
+              <p class="icon">></p>
+              <p class="shouru-tips"></p>
+            </div>
+          </div>
+          <div class="insureName">
+            <label class="text" for="">出生日期是？（年龄会影响保费哦）</label>
+            <div class="nameValue">
+              <input v-model="data.birthday" type="text" value="" placeholder="请选择" @click="showMask(3)" readonly>
+              <p class="icon">></p>
+              <p class="shengri-tips"></p>
+            </div>
+          </div>
+          <!-- <div class="insureName" style="margin-bottom: 0.3rem;">
+            <label class="text" for="">被保人的疾病情况？</label>
+            <div class="nameValue situation clearfix">
+              <li v-for="(item,index) in taglist" :index="item">{{item}} <span @click="deltag(index)">×</span></li>
+              <div class="input-add" @click="inputAdd = false" v-if="inputAdd">＋</div>
+              <input v-model="tag" type="text" class="input-box" @blur="addBlur" v-else>
+              <p class="input5-tips"></p>
+              <p class="qingkuang-tips"></p>
+            </div>
+          </div> -->
+          <!-- <div class="insureName" style="margin-bottom: 0.3rem;">
+            <label class="text" for="">被保人的现有保障？</label>
+            <div class="nameValue situation clearfix">
+              <li v-for="(item,index) in taglist1" :index="item">{{item}} <span @click="deltag1(index)">×</span></li>
+              <div class="input-add" @click="inputAdd1 = false" v-if="inputAdd1">＋</div>
+              <input v-model="tag1" type="text" class="input-box" @blur="addBlur1" v-else>
+              <p class="input5-tips"></p>
+              <p class="baozhang-tips"></p>
+            </div>
+          </div> -->
+          <div class="insureName">
+            <label class="text" for="">被保人的疾病情况？</label>
+            <div class="nameValue">
+              <input v-model="data.taglist" type="text" value="" placeholder="请选择" @click="showMask(6)" readonly>
+              <p class="icon">></p>
+              <p class="qingkuang-tips"></p>
+            </div>
+          </div>
+          <div class="insureName">
+            <label class="text" for="">被保人的现有保障？</label>
+            <div class="nameValue">
+              <input v-model="data.taglist1" type="text" value="" placeholder="请选择" @click="showMask(7)" readonly>
+              <p class="icon">></p>
+              <p class="baozhang-tips"></p>
+            </div>
+          </div>
+
+        </div>
+        <div class="insureName">
+          <label class="text" for="">目前居住的地区</label>
+          <div class="nameValue">
+            <input v-model="data.diqu" type="text" value="" placeholder="请选择" @click="showMask(4)" readonly>
+            <p class="icon">></p>
+            <p class="diqu-tips"></p>
+          </div>
+        </div>
+        <div class="insureName">
+          <label class="text" for="">您的联系电话</label>
+          <div class="nameValue">
+            <input v-model="data.mobile" type="text" value="" placeholder="请输入">
+            <p class="phone-tips"></p>
+          </div>
+        </div>
+        <div class="insureName">
+          <label class="text" for="">验证码</label>
+          <div class="nameValue verification-code">
+            <input v-model="data.checkno" type="text" placeholder="请输入验证码">
+            <button class="send" @click="send">发送验证码</button>
+            <p class="verification-tips"></p>
+          </div>
+        </div>
+        <div class="insureName question-value">
+          <label class="text" for="">请描述您的咨询对象和问题</label>
+          <div class="nameValue">
+            <textarea v-model="data.question" class="question"
+              placeholder="家庭的顶梁柱重疾险应该怎么买？5岁孩子的保 险推荐？详细填写有助于规划师根据您的情况 定制方案哦~" cols="30" rows="6"></textarea>
+
+          </div>
+        </div>
+        <div class="insureName">
+          <label class="text" for="">请问哪一天联系您呢？</label>
+          <div class="nameValue">
+            <input v-model="data.time1" type="text" placeholder="请选择" @click="showMask(8)" readonly>
+            <p class="icon">></p>
+            <p class="time1-tips"></p>
+          </div>
+        </div>
+        <div class="insureName">
+          <label class="text" for="">请问什么时间联系您？</label>
+          <div class="nameValue">
+            <input v-model="data.time" type="text" placeholder="请选择" @click="showMask(5)" readonly>
+            <p class="icon">></p>
+            <p class="time-tips"></p>
+          </div>
+        </div>
+        <div class="from-submit" @click="fromSubmit">
+          <img src="./images/image4.png" alt="">
+        </div>
+      </div>
+    </div>
+    <van-popup v-model="visible1" round position="bottom" :style="{ height: '40%' }">
+      <van-picker show-toolbar :columns="columns1" :default-index="3" @confirm="onConfirm" @cancel="onCancel"
+        @change="onChange" />
+    </van-popup>
+    <van-popup v-model="visible2" round position="bottom" :style="{ height: '40%' }">
+      <van-picker show-toolbar :columns="columns2" :default-index="3" @confirm="onConfirm" @cancel="onCancel"
+        @change="onChange" />
+    </van-popup>
+    <van-popup v-model="visible3" round position="bottom" :style="{ height: '40%' }">
+      <van-datetime-picker v-model="currentDate" type="date" title="选择年月日" :min-date="minDate" :max-date="maxDate"
+        @confirm="onConfirm" @cancel="onCancel" @change="onChange" />
+    </van-popup>
+    <van-popup v-model="visible4" round position="bottom" :style="{ height: '40%' }">
+      <van-area :area-list="areaList" @confirm="onConfirm" @cancel="onCancel" @change="onChange" />
+    </van-popup>
+    <van-popup v-model="visible8" round position="bottom" :style="{ height: '40%' }">
+      <van-datetime-picker v-model="currentDate1" type="date" title="选择年月日" :min-date="minDate1" :max-date="maxDate1"
+        @confirm="onConfirm" @cancel="onCancel" @change="onChange" />
+    </van-popup>
+    <van-popup v-model="visible5" round position="bottom" :style="{ height: '40%' }">
+      <van-datetime-picker v-model="currentTime" type="time" title="选择时间" :min-hour="10" :max-hour="20"
+        @confirm="onConfirm" @cancel="onCancel" @change="onChange" />
+    </van-popup>
+    <van-popup v-model="visible6" round position="bottom" :style="{ height: '40%' }">
+      <van-checkbox-group v-model="checkData1" @confirm="onConfirm" @cancel="onCancel" @change="onChange">
+        <van-checkbox v-for="item in columns4" :name="item" :key="item" @click="checkClick(item)">{{ item
+          }}</van-checkbox>
+      </van-checkbox-group>
+      <!-- <van-picker show-toolbar :columns="columns4" :default-index="3" @confirm="onConfirm" @cancel="onCancel" @change="onChange"/> -->
+    </van-popup>
+    <van-popup v-model="visible7" round position="bottom" :style="{ height: '40%' }">
+      <van-checkbox-group v-model="checkData2" @confirm="onConfirm" @cancel="onCancel" @change="onChange">
+        <van-checkbox v-for="item in columns5" :name="item" :key="item" @click="checkClick1(item)">{{ item
+          }}</van-checkbox>
+      </van-checkbox-group>
+      <!-- <van-picker show-toolbar :columns="columns5" :default-index="3" @confirm="onConfirm" @cancel="onCancel" @change="onChange"/> -->
+    </van-popup>
+  </div>
+  <script src="./js/index.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          visible1: false,
+          visible2: false,
+          visible3: false,
+          visible4: false,
+          visible5: false,
+          visible6: false,
+          visible7: false,
+          visible8: false,
+          type: '', // 弹出框类型
+          columns1: ['3000元', '5000元', '8000元', '10000元', '15000元', '20000元', '25000元', '30000元', '50000元', '80000元', '100000元', '300000元', '500000元', '1000000元'],
+          columns2: ['5万', '10万', '15万', '20万', '25万', '30万', '35万', '40万', '45万', '50万', '55万', '60万', '65万', '70万', '75万', '80万', '85万', '90万', '95万', '100万'],
+          columns3: [],
+          columns4: ['无', '其他', 'BMI偏高', 'BMI偏低', '高血压', '肺气肿', '慢性支气管炎', '肺结核', '哮喘', '肺炎', '肺纤维化', '肺结节', '乙肝-大三阳', '乙肝-小三阳',
+            '乙肝病毒携带', '甲状腺功能亢进', '甲状腺功能减退', '乳腺增生', '胆囊息肉', '肾囊肿', '肾结石', '肾炎', '子宫肌瘤', '宫颈炎', '孕期28周内', '孕期28周后', '轻度脂肪肝',
+            '中度脂肪肝', '重度脂肪肝', '结节/息肉/囊肿等赘生物', '近两年内有住院史或体检异常', '为2周岁下婴儿（是否早产/出生不满5斤）', '心脑血管疾病', '良性肿瘤', '精神类疾病（抑郁症/焦躁症等）',
+            '吸毒史/艾滋病患者', '甲型肝炎/丙型肝炎', '高血脂', '高血糖'],
+          columns5: ['无', '社保（包含新农合）', '重疾险', '寿险', '医疗险', '意外险', '防癌险', '其他', '年金险', '理财险'],
+          areaList: areaList,
+          minDate: new Date(1930, 0, 1),
+          maxDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()),
+          currentDate: new Date(2021, 0, 17),
+          minDate1: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()),
+          maxDate1: new Date(2028, 10, 1),
+          currentDate1: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()),
+          currentTime: '15:00',
+          checkData1: [],
+          checkData2: [],
+          data: {
+            yusuan: '',
+            name: '',
+            shouru: '',
+            birthday: '',
+            qingkang: '',
+            baozhang: '',
+            diqu: '',
+            mobile: '',
+            checkno: '',
+            question: '',
+            time: '',
+            time1: ''
+          },
+          inputAdd: true,
+          taglist: ['无'],
+          tag: '',
+          inputAdd1: true,
+          taglist1: ['无'],
+          tag1: '',
+          gender: '男',
+          familyArr: ['本人'],
+          insuredMember: [],
+          familyArr1: [],
+          hide: false,
+        }
+      },
+      methods: {
+        showMask(e) {
+          if (e == 1) {
+            this.visible1 = true;
+          } else if (e == 2) {
+            this.visible2 = true;
+          } else if (e == 3) {
+            this.visible3 = true;
+          } else if (e == 4) {
+            this.visible4 = true;
+          } else if (e == 5) {
+            this.visible5 = true;
+          } else if (e == 6) {
+            this.visible6 = true;
+          } else if (e == 7) {
+            this.visible7 = true;
+          } else if (e == 8) {
+            this.visible8 = true;
+          }
+          this.type = e;
+        },
+        onConfirm(value, index) {
+          if (this.type == 1) {
+            this.data.yusuan = value;
+          } else if (this.type == 2) {
+            this.data.shouru = value;
+          } else if (this.type == 3) {
+            this.data.birthday = value.getFullYear() + '-' + (value.getMonth() + 1) + '-' + value.getDate();
+          } else if (this.type == 4) {
+            this.data.diqu = value[0].name + '/' + value[1].name + '/' + value[2].name;
+          } else if (this.type == 5) {
+            this.data.time = value;
+          } else if (this.type == 6) {
+            this.data.taglist = value;
+          } else if (this.type == 7) {
+            this.data.taglist1 = value;
+          } else if (this.type == 8) {
+            this.data.time1 = value.getFullYear() + '-' + (value.getMonth() + 1) + '-' + value.getDate();
+          }
+          this.typeChange()
+        },
+        onCancel() {
+          this.typeChange()
+        },
+        onChange(value, index) {
+
+        },
+        checkClick(e) {
+          if (e == '无') {
+            this.checkData1 = ['无']
+          } else {
+            if (this.checkData1.indexOf('无') > -1) {
+              this.checkData1.splice(this.checkData1.indexOf('无'), 1)
+            }
+          }
+          this.data.taglist = this.checkData1.join(',')
+        },
+        checkClick1(e) {
+          if (e == '无') {
+            this.checkData2 = ['无']
+          } else {
+            if (this.checkData2.indexOf('无') > -1) {
+              this.checkData2.splice(this.checkData2.indexOf('无'), 1)
+            }
+          }
+          this.data.taglist1 = this.checkData2.join(',')
+        },
+        typeChange() {
+          if (this.type == 1) {
+            this.visible1 = false
+          } else if (this.type == 2) {
+            this.visible2 = false
+          } else if (this.type == 3) {
+            this.visible3 = false
+          } else if (this.type == 4) {
+            this.visible4 = false
+          } else if (this.type == 5) {
+            this.visible5 = false
+          } else if (this.type == 6) {
+            this.visible6 = false
+          } else if (this.type == 7) {
+            this.visible7 = false
+          } else if (this.type == 8) {
+            this.visible8 = false
+          }
+        },
+        setfamily(e) {
+          var arr = this.familyArr;
+          var arr1 = this.insuredMember;
+          var arr2 = this.familyArr1;
+          if (e == '本人') return;
+          if (arr.indexOf(e) > -1) {
+            arr.splice(arr.indexOf(e), 1)
+            this.familyArr = arr;
+          } else {
+            this.familyArr.push(e);
+          }
+          if (arr1.indexOf(e) > -1) {
+            arr1.splice(arr1.indexOf(e), 1)
+            this.insuredMember = arr1;
+          } else {
+            this.insuredMember.push(e);
+          }
+          if (arr2.indexOf(e) > -1) {
+            arr2.splice(arr2.indexOf(e), 1)
+            this.familyArr1 = arr2;
+          }
+        },
+        setMember(e) {
+          var arr = this.familyArr1;
+          if (arr.indexOf(e) > -1) {
+            arr.splice(arr.indexOf(e), 1)
+            this.familyArr1 = arr;
+          } else {
+            this.familyArr1.push(e);
+          }
+        },
+        addBlur() {
+          if (this.tag) {
+            this.taglist.push(this.tag);
+            this.tag = '';
+            this.inputAdd = true;
+          }
+        },
+        deltag(e) {
+          var arr = this.taglist;
+          arr.splice(arr.indexOf(e), 1)
+          this.taglist = arr
+        },
+        addBlur1() {
+          if (this.tag1) {
+            this.taglist1.push(this.tag1);
+            this.tag1 = '';
+            this.inputAdd1 = true;
+          }
+        },
+        deltag1(e) {
+          var arr = this.taglist1;
+          arr.splice(arr.indexOf(e), 1)
+          this.taglist1 = arr
+        },
+        hideMessage() {
+          this.hide = !this.hide;
+        },
+        // 点击发送验证码
+        send() {
+          if (this.checkTel(this.data.mobile)) {
+            var sendobj = {
+              mobilenumber: this.data.mobile
+            }
+            //   发送手机号码到后台
+            $.ajax({
+              url: "https://insure.meihualife.com/user/checkno.do?mobilenumber=" + this.data.mobile,
+              type: "get",
+              async: true,
+              beforeSend: function () { },
+              success: function (data) { },
+              error: function (data) { },
+              complete: function () { }
+            });
+
+            $(".send").attr("disabled", true);
+            var time = 60; //倒计时5秒 
+            var timer = setInterval(function () {
+              time--;
+              if (time >= 0) {
+                $('.send').addClass('send1')
+                $(".send").text(time + "s");
+              } else {
+                $(".send").text("重新发送");
+                $(".send").removeClass('send1')
+                $(".send").attr("disabled", false);
+                clearTimeout(timer); //清除定时器 
+                time = 5; //设置循环重新开始条件 
+              }
+            }, 1000); //设置定时器 
+          }
+        },
+        // 提交表单
+        fromSubmit() {
+          if (this.checkAll()) {
+            $(".from-submit").attr("disabled", "disabled")
+            var sendClickobj = this.data;
+            sendClickobj.sex = this.gender; //性别
+            sendClickobj.family = this.familyArr; // 家庭成员
+
+            var params = {};
+            params.sex = sendClickobj.sex;
+            params.name = sendClickobj.name;
+            params.birthday = sendClickobj.birthday;
+            params.mobile = sendClickobj.mobile;
+            params.checkno = sendClickobj.checkno;
+            params.datatype = "04";
+            params.remark = JSON.stringify({
+              "保险预算": sendClickobj.yusuan,
+              "家庭成员": this.familyArr.join(','),
+              "主要成员规划保险": this.familyArr1.join(','),
+              "成员规划保险": sendClickobj.familyArr1,
+              "年收入": sendClickobj.shouru,
+              "疾病情况": sendClickobj.taglist,
+              "现有保障": sendClickobj.taglist1,
+              "居住地": sendClickobj.diqu,
+              "咨询问题": sendClickobj.question,
+              "联系日期": sendClickobj.time1,
+              "联系时间": sendClickobj.time,
+            })
+            console.log(params)
+            $.ajax({
+              url: "https://insure.meihualife.com/life/activity/getChannelData.do",
+              type: "post",
+              async: true,
+              data: params,
+              beforeSend: function () {
+                // $(".loading").show();
+              },
+              success: function (data) {
+                console.log(data)
+                var data = JSON.parse(data)
+                if (data.code == 00 || data.code == 02) {
+                  vant.Toast({
+                    message: '提交成功',
+                    position: 'top',
+                  });
+                  $(".from-submit").removeAttr("disabled")
+                  window.location.href = './success.html'
+                } else {
+                  alert(data.message)
+                }
+              },
+              error: function (data) {
+              },
+              complete: function () {
+
+              }
+            });
+          } else {
+            vant.Toast({
+              message: '校验未通过',
+              position: 'top',
+            });
+            return
+          }
+        },
+        // 校验所有信息
+        checkAll() {
+          var flag = false;
+          // 预算
+          if (this.checkEmpty(this.data.yusuan)) {
+            $('.yusuan-tips').text('预算不能为空')
+            return false;
+          } else {
+            $('.yusuan-tips').text('')
+            flag = true;
+          }
+          if (this.familyArr1.length <= 0) {
+            $('.family-tips').text('请选择主要成员保险人')
+            return false;
+          } else {
+            $('.family-tips').text('')
+            flag = true;
+          }
+
+          // 姓名验证
+          if (this.checkEmpty(this.data.name)) {
+            $('.name-tips').text('姓名不能为空')
+            return false;
+          } else if (!Regex.noLessThanTwoChar.test(this.data.name.trim())) {
+            $('.name-tips').text('请输入汉字或者英文')
+            return false;
+          } else if (!Regex.onlyChineseOrOnlyEnglish.test(this.data.name.trim())) {
+            $('.name-tips').text('请输入汉字或者英文')
+            return false;
+          } else {
+            $('.name-tips').text('')
+            flag = true;
+          }
+          if (this.checkEmpty(this.data.shouru)) {
+            $('.shouru-tips').text('收入不能为空')
+            return false;
+          } else {
+            $('.shouru-tips').text('')
+            flag = true;
+          }
+          if (this.checkEmpty(this.data.birthday)) {
+            $('.shengri-tips').text('生日不能为空')
+            return false;
+          } else {
+            $('.shengri-tips').text('')
+            flag = true;
+          }
+          // 疾病情况
+          if (this.checkEmpty(this.data.taglist)) {
+            $('.qingkuang-tips').text('疾病情况不能为空')
+            return false;
+          } else {
+            $('.qingkuang-tips').text('')
+            flag = true;
+          }
+          if (this.checkEmpty(this.data.taglist1)) {
+            $('.baozhang-tips').text('保障情况不能为空')
+            return false;
+          } else {
+            $('.baozhang-tips').text('')
+            flag = true;
+          }
+          // 地区
+          if (this.checkEmpty(this.data.diqu)) {
+            $('.diqu-tips').text('地区不能为空')
+            return false;
+          } else {
+            $('.diqu-tips').text('')
+            flag = true;
+          }
+          // 手机号码验证
+          if (this.checkEmpty(this.data.mobile)) {
+            $('.phone-tips').text('手机号不能为空')
+            return false;
+          } else if (!Regex.mobile.test(this.data.mobile.trim())) {
+            $('.phone-tips').text('请输入有效的联系方式')
+            return false;
+          } else {
+            $('.phone-tips').text('')
+            flag = true;
+          }
+          // 验证码
+          if (this.checkEmpty(this.data.checkno)) {
+            $('.verification-tips').text('验证码不能为空')
+            return false;
+          } else if (!Regex.yanzhengma.test(this.data.checkno.trim())) {
+            $('.verification-tips').text('验证码格式不正确')
+            return false;
+          } else {
+            $('.verification-tips').text('')
+            flag = true;
+          }
+          // 时间
+          if (this.checkEmpty(this.data.time1)) {
+            $('.time1-tips').text('联系时间不能为空')
+            return false;
+          } else {
+            $('.time1-tips').text('')
+            flag = true;
+          }
+          // 时间
+          if (this.checkEmpty(this.data.time)) {
+            $('.time-tips').text('联系时间不能为空')
+            return false;
+          } else {
+            $('.time-tips').text('')
+            flag = true;
+          }
+          return flag
+        },
+
+        /**
+         * 手机号校验及错误信息提示函数
+         * @param telElm 该参数为Dom对象
+         * @returns {boolean}
+         */
+        // 手机号码验证
+        checkTel(telElm) {
+          if (this.checkEmpty(this.data.mobile)) {
+            $('.phone-tips').text('手机号不能为空')
+            return false;
+          } else if (!Regex.mobile.test(this.data.mobile.trim())) {
+            $('.phone-tips').text('请输入有效的联系方式')
+            return false;
+          } else {
+            $('.phone-tips').text('')
+            return true;
+          }
+        },
+        //空值判断
+        checkEmpty(obj) {
+          if (typeof (obj) == "undefined") {
+            return true;
+          } else if (obj == "") {
+            return true;
+          } else if (obj == null) {
+            return true;
+          } else {
+            var rs = obj.replace(/[ ]/g, "");
+            if (rs == "") {
+              return true;
+            }
+          }
+          return false;
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<%@ include file="/WEB-INF/common/include.jsp"%><head>
+<title></title>
+<link rel="stylesheet" href="../../../../css/inputbox/line6.css">
+<script>
+
+window.onload = function()
+{
+	policyDetailDlgInit();
+	
+	initDataGrid20($('#policyList'));
+	
+	initPolicyQuery('');
+	
+	$('#menudisplaydlg').dialog('close');
+	dlgUserInit();
+	init02Org();
+	policyUrlDlgInit();
+}
+
+function aftercodeselect(comboxid)
+{
+	qPolicyAftercodeselect(comboxid);
+}
+
+function selectone()
+{
+
+}
+
+function policytransfer()
+{
+	if($('#reuserid').val()==null||$('#reuserid').val()=="")
+	{
+		$.messager.alert('操作提示','新出单员不能为空！','error');
+		return;
+	}
+	
+	var rows = $('#policyList').datagrid('getSelections');
+	
+	if(rows.length <= 0)
+	{
+		$.messager.alert('操作提示','请选中要操作的数据！','error');
+		return;
+	}
+	
+	var orderStr = "";
+	
+	for(var i=0;i<rows.length;i++)
+	{
+		orderStr = orderStr + rows[i].orderid;
+		
+		if(i!=rows.length-1)
+		{
+			orderStr = orderStr + ",";
+		}
+	}
+	
+	var tparam = new Object();
+	
+	tparam.orderid = orderStr;
+	tparam.userid = $('#reuserid').val();
+	
+	ajaxdeal("policy/policytransfer.do",tparam,null,null,saveSuss);
+}
+
+function saveSuss()
+{
+	$('#policyList').datagrid('reload');
+	$('#reuserid').val("");
+}
+
+function queryPolicyInfo(val,row,index)
+{
+	return '<a href="#" onclick="openDlg('+index+')">查看详情</a>'; 
+}
+
+function openDlg(index)
+{
+	var rows=$('#policyList').datagrid('getRows');//获取所有当前加载的数据行
+	var row=rows[index];
+	
+	//alert(row.agentcom);
+	
+	dispolicyDetailDlg(row);
+}
+
+</script>
+
+</head>
+<body>
+<%@ include file="/WEB-INF/jsp/admin/policy/policyDetailDlg.jsp"%>
+<%@ include file="/WEB-INF/jsp/admin/policy/userDlg.jsp"%>
+<%@ include file="/WEB-INF/jsp/dilog/policyUrlDlg.jsp"%>
+<div style="margin-left:0%">
+	<%@ include file="/WEB-INF/common/query/policy/policyCommonQuery.jsp"%>
+	<br>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id = "articlequery" onclick = "policyquery()">查询</a>
+	<br>
+	<br>
+	<table id="policyList" class="easyui-datagrid" title="保单信息" style="width:auto;height:auto"
+		data-options="rownumbers:true,pagination:true,onClickRow: selectone" >
+		<%@ include file="/WEB-INF/jsp/admin/policy/include/policyCheckedList.jsp"%>
+	</table>
+	<br>
+	<table class = "common">
+		<tr>
+			<td class = "title">
+				出单业务员
+			</td>
+			<td class = "common">
+				<input class = "txt" name="reuserid" id="reuserid" notnull = "出单员"  readonly onclick = "disuUserDlg($('#reuserid'));">
+			</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+	<br>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id = "policytransfer" onclick = "policytransfer()">分配</a>
+</div>
+</body>
+</html>

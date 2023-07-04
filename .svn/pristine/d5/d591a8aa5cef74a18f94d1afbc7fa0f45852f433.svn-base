@@ -1,0 +1,156 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<link rel="stylesheet" type="text/css" href="./css/logon.css">
+<link rel="stylesheet" type="text/css" href="js/jquery/themes/default/easyui.css">
+<script type="text/javascript" src="js/jquery/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="js/jquery/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="js/jquery/md5.js"></script>
+
+<%	
+	Object obj = request.getSession().getAttribute("iamsuserinfo");
+	if(obj != null)
+	{
+		request.getRequestDispatcher("index_main.jsp").forward(request, response);
+	}
+%>
+
+<script>
+
+window.onload = function()
+{	
+	document.onkeydown = function(e)
+	{ 
+	    var ev = document.all ? window.event : e;
+	    if(ev.keyCode==13) 
+	    {
+	    	logon();
+	    }
+	}
+}
+
+function logon()
+{
+	if($('#UserCode').val()==null
+	 ||$('#UserCode').val()=="")
+	{
+		$.messager.alert('登录失败', "用户名不能为空" ,'error');
+		return;
+	}
+	else if($('#PassWord').val()==null
+		  ||$('#PassWord').val()=="")
+	{
+		$.messager.alert('登录失败', "登录密码不能为空" ,'error');
+		return;
+	}
+	else
+	{
+		var password = hex_md5($('#PassWord').val()).toUpperCase()
+		$('#PassWord').val(password)
+		
+		var params = new Object();
+		params.userCode = $('#UserCode').val();
+		params.passWord = $('#PassWord').val();
+		
+		$.ajax(
+		{
+			type:'post',
+	        async: true,
+			url:'./logon.do',
+			data:params,
+			success:function(data)
+			{
+				var obj = JSON.parse(data);
+				if(obj.code=='0')
+				{
+					window.location.href = "./index.jsp"
+				}
+				else
+				{
+					$.messager.alert('登录失败' ,obj.msg ,'error');	
+				}
+			}
+	    });
+	}
+}
+
+</script>
+
+<head>
+ <title>美华核心管理系统</title>
+</head>
+<body class = "userlogin_body">
+ <form action = "logon.do" name=fm>
+ 	
+ 	<table WIDTH=589 BORDER=0 CELLPADDING=0 CELLSPACING=0 align="center">
+ 		<tr>
+ 		</tr>
+ 		<tr>
+ 			<td class = "user_top_l">
+ 			</td>
+ 			<td class = "user_top_c">
+ 			</td>
+ 			<td class = "user_top_r">
+ 			</td>
+ 		</tr>
+ 		<tr>
+ 			<td class = "user_main_l">
+ 			</td>
+ 			<td class = "user_main_c" >
+ 				<table>
+ 					<tr>
+ 						<td class = "fontstyle">
+ 							用户名： 
+ 						</td>
+ 						<td>
+ 							<INPUT class=TxtUserNameCssClass maxLength=20 name='UserCode' id = 'UserCode' autocomplete="off">
+ 						</td>
+ 					</tr>
+ 					<tr HEIGHT=5px>
+ 					</tr>
+ 					<tr>
+ 						<td class = "fontstyle">
+ 							密   码： 
+ 						</td>
+ 						<td>
+ 							<INPUT class=TxtPasswordCssClass type=password name='PassWord' id = 'PassWord' autocomplete="off">
+ 						</td>
+ 					</tr>
+ 					<tr HEIGHT=35px>
+ 					</tr>
+ 				</table>
+ 			</td>
+ 			<td class = "user_main_r" >
+ 				<img class = "noborder" src = "images/logon/user_botton.gif"
+ 				onclick = "logon();">
+ 			</td>
+ 		</tr>
+ 		<tr>
+ 			<td>
+ 				<img class = "noborder" src = "images/logon/user_bottom_l.gif" 
+ 				WIDTH=129px HEIGHT=130px >
+ 			</td>
+ 			<td>
+ 				<img class = "noborder" src = "images/logon/user_bottom_c.gif" 
+ 				WIDTH=280px HEIGHT=130px >
+ 			</td>
+ 			<td>
+ 				 <img class = "noborder" src = "images/logon/user_bottom_r.gif" 
+ 				WIDTH=180px HEIGHT=130px >
+ 			</td>
+ 		</tr>
+ 		<!-- 
+ 		<tr HEIGHT=10px>
+ 			<td colspan="3" align=center>
+ 			
+ 			</td>
+ 		</tr>
+ 		<tr>
+ 			<td colspan="3" align=center>
+ 				<img class = "noborder" src = "images/logon/meihua_logon.png">
+ 			</td>
+ 		</tr>
+ 	 	 -->
+ 	</table>
+ </form>
+</body>
+</html>

@@ -1,0 +1,68 @@
+.survey-wrap{
+    padding:0 10px;
+    background:#fff;
+    padding-right: 0;
+}
+.survey-wrap .item{
+    border-bottom: 1px solid #ccc;
+    padding:4px 0;
+}
+.survey-wrap .item .title{
+    line-height: 1.6;
+    padding: 2px 0;
+    padding-right: 10px;
+    font-weight: bold;
+
+}
+.survey-wrap .item .content{
+    overflow: hidden;
+}
+.survey-wrap .item .content div span{
+    width: 70px;
+    display: inline-block;
+}
+.survey-wrap .item .content div input{
+    margin-left: 6px;
+}
+.survey-wrap .item .content div{
+    line-height: 30px;
+
+}
+.survey-wrap .item .content .l{
+    float: left;
+}
+.survey-wrap .item .content .r{
+    float: right;
+    margin-right: 10px;
+}
+.survey-wrap .item:last-child{
+    border: 0;
+}
+.survey-wrap .invaild-flex li{
+    height:34px;
+    border-bottom: 1px solid #ccc;
+    position:relative;
+}
+.survey-wrap .invaild-flex li:last-child{
+    border: 0;
+}
+.survey-wrap .invaild-flex li input{
+    float:left;
+   width:70%;
+    border: 0;
+    height: 100%;
+    outline: none;
+}
+.survey-wrap .invaild-flex li div:first-child{
+     float:left;
+   width:30%;
+   line-height:34px;
+}
+.survey-wrap .invaild-flex li div:last-child{
+     	position:absolute;
+	right:10px;
+	top:0;
+	bottom:0;
+	margin:auto;
+	line-height: 34px;
+}

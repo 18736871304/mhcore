@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>图标/大/icon_close_grey</title>
+    <g id="图标/大/icon_close_grey" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <polygon id="Background" fill-opacity="1.49011614e-09" fill="#FFFFFF" points="40 0 40 40 0 40 0 0"></polygon>
+        <path d="M20,2 C20.8284271,2 21.5,2.67157288 21.5,3.5 L21.5,18.499 L36.5,18.5 C37.3284271,18.5 38,19.1715729 38,20 C38,20.8284271 37.3284271,21.5 36.5,21.5 L21.5,21.499 L21.5,36.5 C21.5,37.3284271 20.8284271,38 20,38 C19.1715729,38 18.5,37.3284271 18.5,36.5 L18.5,21.499 L3.5,21.5 C2.67157288,21.5 2,20.8284271 2,20 C2,19.1715729 2.67157288,18.5 3.5,18.5 L18.5,18.499 L18.5,3.5 C18.5,2.67157288 19.1715729,2 20,2 Z" id="Combined-Shape" fill="#CCCCCC" transform="translate(20.000000, 20.000000) rotate(45.000000) translate(-20.000000, -20.000000) "></path>
+    </g>
+</svg>

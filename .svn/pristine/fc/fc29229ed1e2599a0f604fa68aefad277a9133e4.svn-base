@@ -1,0 +1,336 @@
+/**
+ * creater:duqian
+ * create time:2018/06/13
+ * describe：我的保单和保单详情css
+ **/
+
+
+/******************************我的保单****************************************/
+.policyBox header{
+	width: 100%;
+	height: 44px;
+	background: #DC220D;
+	text-align: center;
+	position: relative;
+}
+.policyBox header span{
+	font-size: 18px;
+	color: #fff;
+	line-height: 44px;
+}
+.policyBox header a{
+	font-size: 14px;
+	color: #fff;
+	opacity: 0.7;
+	line-height: 44px;
+    position: absolute;
+    right: 15px;
+}
+.policyBox .tabBox {
+	width: 100%;
+	display: inline-block;
+	background: #fff;
+	margin-bottom: 10px;
+}
+
+.policyBox .tabBox li {
+	width: 25%;
+	text-align: center;
+	font-size: 17px;
+	color: #0C0C0E;
+	line-height: 40px;
+	display: inline-block;
+	float: left;
+}
+
+.policyBox .tabBox li.cur {
+	color: #DC220D;
+}
+
+.policyBox .tabBox li a {
+	height: 40px;
+	display: inline-block;
+}
+
+.policyBox .tabBox li.cur a {
+	border-bottom: 1px solid #DC220D;
+}
+
+.policyBox .tabbody {
+	padding: 0 20px;
+}
+
+.policyBox .tabbody .tabCon {
+	width: 100%;
+	display: none;
+}
+
+.policyBox .tabbody .tabCon.cur {
+	display: inline-block;
+}
+
+.policyBox .tabbody .tabCon .row {
+	width: 100%;
+	margin-bottom: 15px;
+	background: #fff;
+	position: relative;
+	border-radius: 5px;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+}
+
+.policyBox .tabbody .tabCon .row:last-child {
+	margin-bottom: 0;
+}
+
+.policyBox .tabbody .tabCon .row a {
+	display: block;
+	padding: 20px 20px;
+	font-size: 0;
+}
+
+.policyBox .tabbody .tabCon .row .title {
+	font-size: 16px;
+	color: #0C0C0E;
+	line-height: 22px;
+	display: inline-block;
+	width: 100%;
+}
+
+.policyBox .tabbody .tabCon .row i {
+	height: 32px;
+	width: 65px;
+	display: inline-block;
+	background-size: 65px 32px;
+	background-repeat: no-repeat;
+	float: right;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+}
+
+.policyBox .tabbody .tabCon .row .protection {
+	background-image: url(../../images/mypolicy/icon_protection.png);
+}
+
+.policyBox .tabbody .tabCon .row .failure {
+	background-image: url(../../images/mypolicy/icon_failure.png);
+}
+
+.policyBox .tabbody .tabCon .row .pending {
+	background-image: url(../../images/mypolicy/icon_pending.png);
+}
+
+.policyBox .tabbody .tabCon .row .renewal {
+	background-image: url(../../images/mypolicy/icon_renewal.png);
+}
+
+.policyBox .tabbody .tabCon .row .name,
+.policyBox .tabbody .tabCon .row .time {
+	font-size: 14px;
+	color: #999;
+	line-height: 20px;
+	margin-top: 10px;
+}
+
+/******************************我的保单****************************************/
+
+
+/******************************保单详情（我的和父母）****************************************/
+
+.policyDetailBox .timeBox {
+	width: 100%;
+	/*height: 132px;*/
+	background: #fff;
+	padding: 20px 15px;
+	position: relative;
+	display: inline-block;
+}
+
+.policyDetailBox .timeBox .left {
+	display: inline-block;
+	font-size:0;
+}
+
+.policyDetailBox .timeBox .left p {
+	font-size: 16px;
+	color: #0c0c0e;
+	margin-bottom: 15px;
+	display: inline-block;
+	width: 100%;
+}
+.policyDetailBox .timeBox .left p:last-child{
+	margin-bottom: 0;
+}
+.policyDetailBox .timeBox .left p span {
+	color: #999;
+	width: 35%;
+	display: inline-block;
+	font-size: 16px;
+}
+
+.policyDetailBox .timeBox .right {
+	width: auto;
+	position: absolute;
+	top:50%;
+	right: 15px;
+	margin-top: -35px;
+}
+
+.policyDetailBox .timeBox .right i {
+	height: 70px;
+	width: 70px;
+	display: inline-block;
+	background-size: 70px 70px;
+	background-repeat: no-repeat;
+	transform: rotate(-35deg);
+	-ms-transform: rotate(-35deg);
+	/* IE 9 */
+	-moz-transform: rotate(-35deg);
+	/* Firefox */
+	-webkit-transform: rotate(0);
+	/* Safari 和 Chrome */
+	-o-transform: rotate(-35deg);
+}
+
+.policyDetailBox .timeBox .right .protection {
+	background-image: url(/images/mypolicy/policytrust/baozhangzhong.png?v=20191217);
+}
+
+.policyDetailBox .timeBox .right .failure {
+	background-image: url(/images/mypolicy/policytrust/yizhongzhi.png?v=20191217);
+}
+
+.policyDetailBox .timeBox .right .pending {
+	background-image: url(/images/mypolicy/policytrust/daichuli.png?v=20191217);
+}
+
+.policyDetailBox .timeBox .right .renewal {
+	background-image: url(/images/mypolicy/policytrust/yishixiao.png?v=20191217);
+}
+
+.policyDetailBox .policyHolderBox {
+	width: 100%;
+	font-size: 0;
+}
+
+.policyDetailBox .policyHolderBox .title {
+	width: 100%;
+	padding: 0 15px;
+	font-size: 0.8999rem;
+	color: #333;
+	line-height: 2.58rem;
+	border-bottom: 1px solid #d8d8d8;
+	background: #fff;
+}
+
+.policyDetailBox .policyHolderBox .box {
+	width: 100%;
+	padding: 0 15px;
+	background: #fff;
+}
+
+.policyDetailBox .policyHolderBox .box .line {
+	color: #0c0c0e;
+	border-bottom: 1px dashed #d8d8d8;
+	display: inline-block;
+	width: 100%;
+}
+
+.policyDetailBox .policyHolderBox .box .line:last-child {
+	border-bottom: none;
+}
+
+.policyDetailBox .policyHolderBox .box .line span {
+	color: #999;
+	display: block;
+	width: 35%;
+	float: left;
+	padding: 0.63rem  0;
+	font-size: 0.8rem;
+}
+
+.policyDetailBox .policyHolderBox .box .line p {
+	padding: 0.63rem 15px 0.63rem 0;
+	font-size: 0.85rem;
+	display: inline-block;
+	width: 65%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.policyDetailBox .termsBox {
+	width: 100%;
+	padding: 0 15px;
+	background: #fff;
+}
+
+.policyDetailBox .termsBox a {
+	font-size: 0.8999rem;
+	color: #333;
+	line-height: 2.58rem;
+	display: block;
+	position:relative;
+}
+
+.policyDetailBox .termsBox a .icon_right {
+	background: url(../../images/mypolicy/icon_right.png) center no-repeat;
+	background-size: auto 24px;
+	width: 32px;
+	height: 32px;
+	display: inline-block;
+	float: right;
+	vertical-align: middle;
+	position:absolute;
+	top:50%;
+	margin-top: -16px;
+	right:-10px;
+}
+
+
+/******************************保单详情（我的和父母）****************************************/
+/******************************保险条款****************************************/
+.clauseBox{
+	width: 100%;
+	font-size: 0;
+}
+.clauseBox .title {
+    width: 100%;
+    padding: 0 15px;
+    font-size: 0.8999rem;
+    color: #333;
+    line-height: 2.58rem;
+    border-bottom: 1px solid #d8d8d8;
+    background: #fff;
+}
+.clauseBox .box{
+    width: 100%;
+    padding: 0 15px;
+    background: #fff;
+    display: inline-block;
+}
+.clauseBox .line {
+    color: #0c0c0e;
+    border-bottom: 1px dashed #d8d8d8;
+    display: inline-block;
+    width: 100%;
+    color: #999;
+    float: left;
+    padding: 0.63rem 0;
+    font-size: 0.8rem;
+    position: relative;
+}
+.clauseBox .line .icon_right{
+	background: url(../../images/mypolicy/icon_right.png) center no-repeat;
+    background-size: auto 24px;
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    float: right;
+    vertical-align: middle;
+    position: absolute;
+    top: 50%;
+    margin-top: -16px;
+    right: -10px;
+}
+/******************************保险条款****************************************/

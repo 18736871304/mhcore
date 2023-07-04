@@ -1,0 +1,156 @@
+html, body {
+	font-size: 16px;
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+	font-family: PingFangSC-Regular, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+img {
+	width: 100%;
+}
+
+.main {
+	position: relative;
+	max-width: 750px;
+	min-height: 100vh;
+	margin: 0 auto;
+}
+
+.hide {
+	display: none !important;
+}
+
+.show {
+	display: block !important;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	list-style: none;
+}
+
+.opacity-title {
+	background-image: linear-gradient(to right, rgba(220, 34, 13, .5) , rgba(220, 34, 13, 1));
+}
+
+/*公共头部样式*/
+.header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 190px;
+}
+.header .header-title{
+	width: 210px;
+	height: 39px;
+	border-radius: 20px;
+	line-height: 39px;
+	text-align: center;
+	color: #ffffff;
+}
+
+.member-message-box {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.member-message-box .member-message-mask{
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.4);
+}
+.member-message-box .member-message-content{
+	background: #fff;
+	z-index: 10001;
+	width: 84%;
+}
+.member-message-box .member-message-content .member-message-title .close{
+	font-size: 32px;
+	position: absolute;
+	right: 15px;
+	top: -8px;
+	color: #282828;
+	display: block;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+.member-message-box .member-message-content .member-message-title .close:after{
+	content: "";
+	position: absolute;
+	left: -10px;
+	top: -10px;
+	right: -10px;
+	bottom: -10px;
+}
+.member-message-box .member-message-content .member-message-title{
+	position: relative;
+	padding: 9px 0;
+	font-size: 16px;
+	color: #282828;
+	text-align: center;
+	border-bottom: 1px solid #e5e5e5;
+}
+.member-message-box .member-message-content .member-message-msg{
+	font-size: 12px;
+	color: #686868;
+	padding: 30px 15px;
+	text-align: center;
+}
+
+.img-content {
+	padding-bottom: 69px;
+}
+
+.img-content img {
+	outline-width:0px;
+	vertical-align:top;
+}
+
+.contact-button {
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+}
+.contact-button button {
+	height: 49px;
+	line-height: 49px;
+	width: 100%;
+	background: #b71c0b;
+	color: #ffffff;
+	font-size: 16px;
+	text-align: center;
+	outline: none;
+	border: none;
+}
+.contact-button button:active {
+	background: #d01c0b;
+}
+
+.member-message-box .member-message-content .member-message-title .close{
+ font-size: 32px;
+ position: absolute;
+ right: 15px;
+ top: 50%;
+ color: #282828;
+ display: block;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ cursor: pointer;
+ width: 15px;
+ transform: translateY(-50%);
+}

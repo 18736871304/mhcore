@@ -1,0 +1,157 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<table class = "common">
+	<tr>
+		<td class = "reprot_title">
+			人员编号
+		</td>
+		<td class = "report_common">
+			<input class = "txt" name="qusercode" id="qusercode">
+		</td>
+		
+		<td class = "reprot_title">
+			人员姓名
+		</td>
+		<td class = "report_common">
+			<input class = "txt" name="qrealname" id="qrealname">
+		</td>
+		
+		<td class = "reprot_title">
+			性别
+		</td>
+		<td class = "report_common">
+			<select class = "easyui-combobox" panelHeight="auto" style="width:160%" name="qsex" id="qsex">
+			</select>
+		</td>
+		<td class = "reprot_title">
+			身份证
+		</td>
+		<td class = "report_common">
+			<input class = "txt" name="qcardno" id="qcardno">
+		</td>
+		
+		<td class = "reprot_title">
+			学历
+		</td>
+		<td class = "report_common">
+			<select class = "easyui-combobox" panelHeight="auto" style="width:160%" name="qdegree" id="qdegree">
+			</select>
+		</td>
+		
+		<td class = "reprot_title">
+			人员状态
+		</td>
+		<td class = "report_common">
+			<select class = "easyui-combobox" panelHeight="auto" style="width:160%" name="qusertype" id="qusertype">
+			</select>
+		</td>
+	</tr>
+		
+	<tr>
+		<td class = "reprot_title">
+			职能级别
+		</td>
+		<td class = "report_common">
+			<select class = "easyui-combobox" panelHeight="auto" style="width:160%" name="qusergrade" id="qusergrade">
+			</select>
+		</td>
+	
+		<td class = "reprot_title">
+			职岗
+		</td>
+		<td class = "report_common">
+			<select class = "easyui-combobox" panelHeight="auto" style="width:160%" name="qposition" id="qposition">
+			</select>
+		</td>
+		
+		<td class = "reprot_title">
+			司龄（月）
+		</td>
+		<td class = "report_common">
+			<select class = "easyui-combobox" panelHeight="auto" style="width:160%" name="qworkyears" id="qworkyears" data-options="multiple:true">
+			</select>
+		</td>
+		
+		<td class = "reprot_title">
+			合同类型
+		</td>
+		<td class = "report_common">
+			<select class = "easyui-combobox" panelHeight="auto" style="width:160%" name="qcontracttype" id="qcontracttype">
+			</select>
+		</td>
+	</tr>
+		
+	<%@ include file="/WEB-INF/jsp/admin/team/organAndTeamQuery.jsp"%>
+</table>
+<script>
+function initUserQuery(typeStr)
+{
+	var tturl = "user/getUsertype.do";
+	var tParam = new Object();
+	tParam.typeStr = typeStr;
+	displayCombox($('#qusertype'),tParam,tturl,"dd_key","dd_value");
+	disComBox($('#qsex'),"sex",null);
+	disComBox($('#qusergrade'),"usergrade",null);
+	disComBox($('#qworkyears'),"workyears",null);
+	disComBox($('#qcontracttype'),"contracttype",null);
+	disComBox($('#qdegree'),"degree",null);
+	disComBox($('#qposition'),"position",null);
+	$('#qusertype').combobox('setValue','02');
+	init02Org();
+}
+
+function getQueryParam()
+{
+	var tParam = new Object();
+
+	//tParam.userid = $('#quserid').val();
+	tParam.usercode = $('#qusercode').val();
+	tParam.realname = $('#qrealname').val();
+	tParam.mobilenumber = $('#qmobilenumber').val();
+	
+	tParam.cardno = $('#qcardno').val();
+	
+	tParam.usertype = $('#qusertype').combobox('getValue');
+	tParam.typeStr = "'00','01','0001','02','0201','03','04','05','09'";
+	
+	tParam.sex = $('#qsex').combobox('getValue');
+	
+	var workyears_codes = $('#qworkyears').combobox('getValues');
+	var workyears_Str = "";
+	
+	for(var i=0;i<workyears_codes.length;i++)
+    {
+		if (workyears_Str != "") 
+        {
+			workyears_Str += ",";
+        }
+		
+		workyears_Str = workyears_Str + workyears_codes[i];
+    }
+	
+	tParam.workyears = workyears_Str;
+	
+	
+	tParam.contracttype = $('#qcontracttype').combobox('getValue');
+	tParam.degree = $('#qdegree').combobox('getValue');
+	tParam.usergrade = $('#qusergrade').combobox('getValue');
+	tParam.position = $('#qposition').combobox('getValue');
+	
+	tParam.q02org = $('#q02org').combobox('getValue');
+	tParam.q03org = $('#q03org').combobox('getValue');
+	tParam.q04org = getOrgan04Code();
+	tParam.teamid = getQTeamId();
+	
+	return tParam;
+}
+
+function userListQuery()
+{
+	var tturl = "user/getUserList20.do";
+
+	var tParam = getQueryParam();
+	
+	displayDataGrid20($('#userList'), tParam, tturl);
+	
+	clearCarData();
+}
+</script>

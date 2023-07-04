@@ -1,0 +1,71 @@
+/*header*/
+.index-page .index-page-container .hosting-header{
+}
+.index-page .index-page-container .hosting-header .hosting-header-box{
+	background: url("/images/mypolicy/policytrust/header_bg.png") no-repeat center;
+	color: #ffffff;
+	border-radius: 5px;
+}
+
+.index-page .index-page-container .hosting-header .hosting-header-box .header-wrap {
+	display: flex;
+	flex-direction: column;
+	padding: 15px 10px;
+}
+.index-page .index-page-container .hosting-header .hosting-header-box .header-wrap .header-title{
+	display: flex;
+	justify-content: space-between;
+}
+.index-page .index-page-container .hosting-header .hosting-header-box .header-wrap .header-title i{
+	display: inline-block;
+	width: 12px;
+	height: 15px;
+}
+.index-page .index-page-container .hosting-header .hosting-header-box .header-wrap .header-title span {
+	font-size: 16px;
+	margin-left: 5px;
+}
+.index-page .index-page-container .hosting-header .hosting-header-box .header-wrap .header-content {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	/*padding: 15px 0;*/
+	margin-top: 8px;
+}
+.index-page .index-page-container .hosting-header .hosting-header-box .header-wrap .header-content .header-content-item{
+
+}
+.index-page .index-page-container .hosting-header .hosting-header-box .header-wrap .header-content .header-content-item .item-box{
+
+}
+.index-page .index-page-container .hosting-header .hosting-header-box .header-wrap .header-content .header-content-item .item-box .item-box-top{
+	height: 44px;
+	line-height: 44px;
+}
+.index-page .index-page-container .hosting-header .hosting-header-box .header-wrap .header-content .header-content-item .item-box .item-box-top .service-box{
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	overflow: hidden;
+}
+.index-page .index-page-container .hosting-header .hosting-header-box .header-wrap .header-content .header-content-item .item-box .item-box-top span{
+	display: inline-block;
+}
+.index-page .index-page-container .hosting-header .hosting-header-box .header-wrap .header-content .header-content-item .item-box .item-box-top span:first-child{
+	font-size: 32px;
+}
+.index-page .index-page-container .hosting-header .hosting-header-box .header-wrap .header-content .header-content-item .item-box .item-box-top span:last-child{
+	font-size: 12px;
+	font-weight: lighter;
+}
+.index-page .index-page-container .hosting-header .hosting-header-box .header-wrap .header-content .header-content-item .item-box .item-box-bottom{
+	margin-top: 2px;
+}
+.index-page .index-page-container .hosting-header .hosting-header-box .header-wrap .header-content .header-content-item .item-box .item-box-bottom span{
+	font-size: 12px;
+	font-weight: lighter;
+}
+
+.index-page .index-page-container .hosting-header .hosting-header-box .header-wrap .header-content .header-content-item .item-box .item-box-top .service-box img{
+ margin-top: -3px;
+}

@@ -1,0 +1,177 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<%@ include file="/WEB-INF/common/include.jsp"%><head>
+<title></title>
+<link rel="stylesheet" href="../../../../css/inputbox/line3.css?v_2022_05_16">
+<script>
+
+window.onload = function()
+{
+	initDataGrid20($('#policyList'));
+	
+	$('#qacceptStartDate').datebox('setValue',getLastMonthOneFormatDate());
+	$('#qacceptEndDate').datebox('setValue',getMonthOneFormatDate());
+	
+	init02Org();
+}
+
+function aftercodeselect(comboxid)
+{
+	organAfterSelect(comboxid);
+	teamAfterSelect(comboxid);
+}
+
+function selectone()
+{
+
+}
+
+function getQueryParam()
+{
+	var tParam = new Object();
+
+	tParam.state = '40';
+	tParam.agentflag = '02';
+	tParam.isxubao = 'NOTY';
+	
+	tParam.reusername = $('#qusername').val();
+	tParam.acceptStartDate = $('#qacceptStartDate').datebox("getValue");
+	tParam.acceptEndDate = $('#qacceptEndDate').datebox("getValue");
+	
+	tParam.q02org = $('#q02org').combobox('getValue');
+	tParam.q03org = $('#q03org').combobox('getValue');
+	tParam.q04org = getOrgan04Code();
+	
+	tParam.teamid = getQTeamId();
+	
+	tParam.orderby = " coefficientsumfyp20order desc ";
+	
+	return tParam;
+}
+
+function newPolicyQuery()
+{
+	if($('#qacceptStartDate').datebox("getValue")==null||$('#qacceptStartDate').datebox("getValue")=="")
+	{
+		$.messager.alert('操作提示','起始日期不能为空！','info');
+		return
+	}
+	
+	var tturl = "policy/getAgentFypList.do";
+
+	var tParam = getQueryParam();
+	
+	displayDataGrid20($('#policyList'), tParam, tturl);
+}
+
+function policyquerydownload() 
+{
+	if($('#qacceptStartDate').datebox("getValue")==null||$('#qacceptStartDate').datebox("getValue")=="")
+	{
+		$.messager.alert('操作提示','起始日期不能为空！','info');
+		return
+	}
+	
+	var tturl = "policy/agentFypListDownLoad.do";
+
+	var tParam = getQueryParam();
+  ajaxdeal(tturl, tParam, listdownloadreturn, null);
+}
+
+function listdownloadreturn(data) {
+	if (data.flag == "0") {
+		if (data.message == null || data.message == "") {
+			$.messager.alert('执行失败', '没有生成下载文件', 'error');
+		} else {
+			$.messager.alert('执行成功', "执行成功，请点击下载", 'info');
+			//判断id存在的代码
+			if ($("#xiazai").length > 0) {
+				$("#xiazai").remove();
+				$('#policyquerydownload').after("&nbsp&nbsp<a id = 'xiazai' href = 'download.do?filename=" + data.message + "'>点击下载</a>");
+			} else {
+				$('#policyquerydownload').after("&nbsp&nbsp<a id = 'xiazai' href = 'download.do?filename=" + data.message + "'>点击下载</a>");
+			}
+		}
+	} else {
+		if (data.message == null || data.message == "") {
+			$.messager.alert('执行失败', '操作失败', 'error');
+		} else {
+			$.messager.alert('执行失败', data.message, 'error');
+		}
+	}
+}
+
+</script>
+
+</head>
+<body>
+<div style="margin-left:0%">
+	<table class = "common">
+		<tr>
+			<td class = "title">
+				出单起期
+			</td>
+			<td class = "common">
+				<input class="easyui-datebox" style="width: 160%" id="qacceptStartDate" name="qacceptStartDate" notnull = "出单起期">
+			</td>
+			<td class = "title">
+				出单止期
+			</td>
+			<td class = "common">
+				<input class="easyui-datebox" style="width: 160%" id="qacceptEndDate" name="qacceptEndDate" notnull = "出单止期">
+				<!-- (算头不算尾) -->
+			</td>
+			
+			<td class = "title">
+				出单业务员
+			</td>
+			<td class = "common">
+				<input class = "txt" name="qusername" id="qusername">
+			</td>
+		</tr>
+		
+		<%@ include file="/WEB-INF/jsp/admin/organ/organQuery.jsp"%>
+		<%@ include file="/WEB-INF/jsp/admin/team/teamQuery.jsp"%>
+	</table>
+	<br>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id = "newPolicyQuery" onclick = "newPolicyQuery()">查询</a>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id="policyquerydownload" onclick="policyquerydownload()">下载</a>
+	<br>
+	<br>
+	<table id="policyList" class="easyui-datagrid" title="个人排名" style="width:auto;height:auto"
+		data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone" >
+		<thead>
+			<tr>
+				<th data-options="field:'organname',width:80">所属省公司</th>
+				<th data-options="field:'organ02name',width:80">所属分公司</th>
+				<th data-options="field:'agentcom',width:80">所属营业部</th>
+				<th data-options="field:'teamname',width:120">所属团队</th>
+				<th data-options="field:'reusername',width:90">人员姓名</th>
+				<th data-options="field:'degreename',width:70">学历</th>
+				
+				<th data-options="field:'usergradename',width:90">职能级别</th>
+				<th data-options="field:'entrydate',width:90">下团队日期</th>
+				
+				<th data-options="field:'policycount',width:90">单数</th>
+				<th data-options="field:'sumfyp20',width:90">标保</th>
+				<th data-options="field:'sumnianfyp20',width:90">年缴标保</th>
+				<th data-options="field:'coefficient_sumnianfyp20',width:120">折算后年缴标保</th>
+				<th data-options="field:'sumyuefyp20',width:90">月缴标保</th>
+				<th data-options="field:'coefficient_sumyuefyp20',width:120">折算后月缴标保</th>
+				<th data-options="field:'coefficientsumfyp20',width:160">折算后年缴标保+月缴标保</th>
+				<th data-options="field:'ylprem',width:90">医疗险保费</th>
+				
+				<th data-options="field:'jixiao',width:90">绩效</th>
+				<th data-options="field:'nianfypticheng',width:90">年缴提成</th>
+				<th data-options="field:'pushaward',width:90">推动奖励</th>
+				<th data-options="field:'yiliaoticheng',width:90">医疗险提成</th>
+				<th data-options="field:'buxianshi',width:90">不限时奖励</th>
+				<!-- 
+				<th data-options="field:'entrysalary',width:90,formatter:entrysalary_col">工龄工资</th>
+				 -->
+			</tr>
+		</thead>
+	</table>
+</div>
+</body>
+</html>

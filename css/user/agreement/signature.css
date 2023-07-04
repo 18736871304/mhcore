@@ -1,0 +1,120 @@
+.main {
+	background: #e8e8ea;
+}
+
+.main .content {
+	border-radius: 0;
+	background: none;
+	width: 92vw;
+	padding-top: 4vw;
+}
+
+.main .content .signature-top .signature-content-wraper .signature-header {
+	background: #ffffff;
+	padding: 25px 12px;
+}
+
+.main .content .signature-top .signature-content-wraper .signature-header-content {
+	background: #ffffff;
+}
+
+.main .content .signature-top .signature-content-wraper .signature-header-content p {
+	/*font-weight: 900;*/
+	margin: 0;
+	line-height: 30px;
+}
+
+.main .content .signature-top .signature-content-wraper .signature-wraper {
+}
+
+.main .content .signature-top .signature-content-wraper .signature-wraper h3 {
+	color: #3d3d3d;
+	font-weight: 400;
+}
+
+.main .content .signature-top .signature-content-wraper .signature-wraper .signature-content {
+	background: #ffffff;
+	height: 315px;
+}
+
+.main .content .signature-top .submit-success-wraper {
+	background: #fff;
+	width: 100vw;
+	margin: -4vw;
+	/*height: 100vh;*/
+}
+.main .content .signature-top .submit-success-wraper .header {
+	background: none;
+}
+
+.main .content .signature-top .submit-success-wraper .submit-success-content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20vw 0;
+}
+
+.main .content .signature-top .submit-success-wraper .submit-success-content .submit-success-content-img {
+	width: 40px;
+}
+
+.main .content .signature-top .submit-success-wraper .submit-success-content .submit-success-content-img img {
+}
+
+.main .content .signature-top .submit-success-wraper .submit-success-content .submit-success-content-text {
+	font-size: 22px;
+	padding-left: 15px;
+}
+
+.main .content .signature-bottom {
+	margin-top: 25px;
+}
+
+.main .content .signature-bottom .signature-button-submit-wraper {
+	display: flex;
+	justify-content: space-between;
+	color: #3d3d3d;
+}
+
+.main .content .signature-bottom .signature-button-submit-wraper .submit-button {
+	background: #cb2613;
+	color: #ffffff;
+}
+
+.main .content .signature-bottom .signature-button-submit-wraper .submit-button:disabled {
+	color: #c6c6c6;
+}
+
+.main .content .signature-bottom .signature-button-submit-wraper button {
+	width: 160px;
+	height: 47px;
+	background: #fff;
+	outline: none;
+	border: none;
+
+}
+
+.main .content .signature-bottom .signature-button-check-agreement {
+	/*position: fixed;*/
+	/*left: 0;*/
+	/*bottom: 0;*/
+	/*width: 100%;*/
+	text-align: center;
+	max-width: 540px;
+	width: 92vw;
+	height: 50px;
+	/*margin: 0 auto;*/
+	margin: -25px auto 10vw auto;
+	/*padding: 50px 4vw;*/
+}
+
+.main .content .signature-bottom .signature-button-check-agreement button {
+	width: 100%;
+	/*width: 80%;*/
+	/*height: 64px;*/
+	height: 50px;
+	background: #cb2613;
+	color: #ffffff;
+	outline: none;
+	border: none;
+}

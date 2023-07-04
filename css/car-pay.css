@@ -1,0 +1,95 @@
+.pay-top-wrap{
+	height:64px;
+	background:#fff;
+	padding:0 14px;
+	margin-top:20px;
+}
+.pay-type-wrap{
+	background:#fff;
+	padding:0 14px;
+	margin-top:10px;
+}
+.pay-type-wrap h2{
+	font-size:16px;
+	line-height:2.4
+}
+.pay-list li{
+	 display: box;
+    display: -webkit-box;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-box-align: center;
+    height:54px;
+   border-bottom: 1px solid #ccc;
+}
+.pay-list li:last-child{
+	border:0;
+}
+.pay-list li .pay-image{
+		width:95px;
+	height:36px;
+	background:url(../images/yl.jpg);
+	    background-size: 100% 100%;
+}
+.pay-list li+li .pay-image{
+	width:95px;
+	height:36px;
+	background:url(../images/kq.png);
+	    background-size: 100% 100%;
+}
+.pay-list li+li+li .pay-image{
+	width:95px;
+	height:36px;
+	background:url(../images/xx.jpg);
+	    background-size: 100% 100%;
+}
+.pay-type-wrap .flexFUll{
+	text-align:center
+}
+.pay-list .select{
+	display:block;
+	width:24px;
+	height:24px;
+	border:1px solid #ccc;
+	    border-radius: 50%;
+}
+.pay-list li.active .pay-image:after{
+	width:95px;
+	height:36px;
+	background:url(../images/payChoose.png);
+	    background-size: 100% 100%;
+	    display:block;
+	    content:''
+}
+.pay-list li.active .select{
+		background:url(../images/dui.png);
+		    background-size: 100% 100%;
+		    border:0
+}
+.pay-footer .total{
+	font-size:16px;
+	line-height:1
+}
+.pay-footer .total span{
+	font-weight:bold;
+	color:red
+}
+.pay-footer{
+	background:#fff;
+	padding:20px 14px;
+	position:fixed;
+	left:0;
+	bottom:0;
+	right:0
+}
+.pay-footer input{
+	display:block;
+	color:#fff;
+	background:red;
+	width:100%;
+	line-height:40px;
+	text-align:center;
+	border:none;
+	margin-top:10px;
+}

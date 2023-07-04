@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="cptk">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/contract/zhongan/AM98/cptk.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<%@ page contentType="text/html;charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<html  style="font-size: calc(100vw/ 18.75);">
+
+<head>
+    <meta charset="utf-8" />
+    <title>保险产品列表</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <link rel="stylesheet" href="../../css/user/staff/public.css?v=20180717" />
+    <link rel="stylesheet" href="../../css/user/staff/product_list.css?v=20180716" />
+    <link rel="stylesheet" type="text/css" href="../../css/user/staff/dropload.css" />
+    <link rel="stylesheet" href="../../css/hengqin/index.css?v=20180720_01"/>
+</head>
+
+<body>
+<div class="main d_footback proListBox">
+    
+	<div class="main_search">
+		<img class="logoIcon left logo" src="../images/life/mhLogo417.png" />
+		<img class="logoIcon left close-sW-wrap" src="../images/life/back.png?v=20180524" />
+		<input class="serchInput" id = "serchInput" type="text" placeholder="搜索产品"/> 
+		<a href="javascript:toStaffSearch();" class="serchBtn" id = "serchInfo">搜索</a>
+	</div>
+
+    <!--END     搜索-->
+    <!--START  选项卡-->
+    <ul class="tabBox d_boxSz js_live_tab" obj="js_live_tablist">
+        <li class="cur">
+            <a>意外</a>
+        </li>
+        <li>
+            <a>医疗</a>
+        </li>
+        <li>
+            <a>重疾</a>
+        </li>
+        <li>
+            <a>寿险</a>
+        </li>
+        <li>
+            <a>年金</a>
+        </li>
+        <li>
+            <a>其他</a>
+        </li>
+    </ul>
+    <!--END    选项卡-->
+    <!--START  选项卡内容-->
+    <div class="tabbody js_tabbody">
+        <!--START  意外-->
+        <div class="tabCon js_live_tablist cur">
+            <ul>
+                <!--<li class="row d_boxSz">
+                    <a class="d_boxSz" href="policy_self.html">
+                        <div class="title">优康保终身重大疾病</div>
+                        <p class="explain">保6次 赔6次 双豁免  身故还有保险金</p>
+                        <div class="pricebox"><p class="price"><span>305</span>元/年</p>起</div>
+                        <i class="icon_img"></i>
+                    </a>
+                </li>-->
+            </ul>
+        </div>
+        <!--END    意外-->
+        <!--START  医疗-->
+        <div class="tabCon js_live_tablist">
+            <ul></ul>
+        </div>
+        <!--END    医疗-->
+        <!--START  重疾-->
+        <div class="tabCon js_live_tablist">
+            <ul></ul>
+        </div>
+        <!--END    重疾-->
+        <!--START  寿险-->
+        <div class="tabCon js_live_tablist">
+            <ul></ul>
+        </div>
+        <!--END    寿险-->
+        <!--START  年金-->
+        <div class="tabCon js_live_tablist">
+            <ul></ul>
+        </div>
+        <!--END    年金-->
+        <!--START  其他-->
+        <div class="tabCon js_live_tablist">
+            <ul></ul>
+        </div>
+        <!--END    其他-->
+    </div>
+
+    <!--END    选项卡内容-->
+</div>
+
+</body>
+<script type="text/javascript" src="../js/jquery/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../js/common/staff/dropload.js"></script>
+<script type="text/javascript" src="../js/common/staff/public.js"></script>
+<script type="text/javascript" src="../js/common/staff/product_list.js?v=20200103"></script>
+<script>
+
+$(function () 
+{
+	$('.serchInput').focus(function()
+	{
+		$('.main_search').addClass('active');
+	})
+	
+	$('.close-sW-wrap').click(function(){
+		$('.main_search').removeClass('active')
+	})
+})
+
+
+function toStaffSearch(){
+    var keywords = $('#serchInput').val();
+    window.location.href = "../searchResult.do?keywords="+keywords+"&staff=01";
+}
+
+</script>
+</html>

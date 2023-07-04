@@ -1,0 +1,228 @@
+﻿@charset "utf-8";
+/* banner */
+input:focus{border-color: #0179ff;}
+html{
+	-webkit-appearance:none;
+}
+.c-banner{
+	width: 100%;
+	position: relative;
+}
+.c-banner img{
+	width: 100%;
+}
+.c-banner .banner ul{
+	list-style: none;
+	padding-left: 0px;
+	margin-bottom: 0px;
+}
+.c-banner .banner ul li{
+	position: absolute;
+	display: none;
+	opacity: 0;
+}
+.c-banner .banner ul li:nth-child(1){
+	opacity: 1;
+	display: block;
+}
+.c-banner .banner ul li img{
+	width: 100%;
+	position: absolute;
+	top: 0px;
+}
+.c-banner .banner ul li:first-child img{
+	position: relative;
+}
+.c-banner .nexImg,.c-banner .preImg{
+	padding: 2.5% 1% 2.5% 1%;
+	position: absolute;
+	top: 50%;
+	margin-top: -5.3%;
+	background: #000000;
+	opacity: 0.5;
+	border-radius: 0.5%;
+	z-index: 1%;
+	
+}
+.c-banner .nexImg:hover,.c-banner .preImg:hover{
+	opacity: 0.8;
+}
+.c-banner .nexImg{
+	right: 0%;
+}
+.c-banner .jumpBtn{
+	width: 100%;
+	position: absolute;
+	bottom: 2%;
+	text-align: center;
+}
+.c-banner .jumpBtn ul{
+	margin-bottom: 0%;
+	padding: 0%;
+}
+
+.c-banner .jumpBtn ul li{
+	width: 3%;
+	height: 3%;
+	border-radius: 50%;
+	display: inline-block;
+	background-color: white;
+	opacity: 0.9;
+	margin-left: 1%;
+}
+.c-banner .jumpBtn ul li:first-child{
+	margin-left: 0%;
+}
+@media screen and (max-width:76.8%) {
+	.c-banner{
+		width: 100%;
+		height: 34%;
+		overflow: hidden;
+	}
+	.c-banner .banner ul li img{
+		width: 76.8%;
+		height: 34.5%;
+		position: absolute;
+		left: 50%;
+		margin-left: -38.4%;
+	}
+}
+
+
+p{
+	color: red;
+}
+.name-box{ width:100; margin: 0 auto; }
+
+.name{
+	width: 95%;
+	height: 2.7em;
+	border-radius: 0.4em;
+	border: 1px solid gainsboro;
+	outline: none;
+	padding-left:5%;
+}
+
+.text{
+	font-size: 1em;
+	color: gray;
+	text-align:left;
+	padding-top: 2%;
+	margin-bottom:1%;
+	width: 100%;
+	clear:both;
+}
+.tel-box,.verify-box{ width: 100; margin: 0 auto; clear: both;}
+.age-box{ width: 100; margin: 0 auto; clear: both;}
+
+.form-box{ width:86%; margin:0.5em auto;}
+/* .<strong>radio</strong>1{
+	font-size: 1.2em;
+	color: gray;
+	margin-right: 20.5%; 
+} */
+.radio2{
+	font-size: 1.2em;
+	color: gray; 
+	margin-right: 20.5%; 
+}
+
+.radio3{
+	font-size: 1.2em;
+	color: gray; 
+	margin-right: 20.5%;
+}
+.nannv{display:block; clear:both; width: 100; margin: 0 auto;}
+.nan,.nv,.left,.right{
+	width: 47%;
+	height: 2.7em;
+	line-height: 2.7em;
+	border-radius: 0.4em;
+	border: 1px solid gainsboro;
+	outline: none;
+	text-align: center;
+	float:left;
+	background:#fff;
+	margin: 0;
+}
+.verify-input{
+	width: 59%;
+	height: 2.7em;
+	line-height: 2.7em;
+	border-radius: 0.4em;
+	border: 1px solid gainsboro;
+	outline: none;
+	
+	float:left;
+	background:#fff;
+	padding-left: 5%;
+	margin: 0;}
+
+.verify-button{
+	width: 30%;
+	height: 2.7em;
+	line-height: 2.7em;
+	border-radius: 0.4em;
+	background: none;
+	color: #0179ff;
+	outline: none;
+	border: 1px solid gainsboro;
+	text-align: center;
+	float:left;
+	margin: 0;
+
+}
+
+.nan.active,.nv.active,.left.active,.right.active{
+	border:1px solid #0179ff;
+	color: #0179ff;
+	text-align: center;
+}
+
+.nan,.left,.verify-input{float:left;}
+.nv,.right,.verify-button{float:right;}
+.left,.right{margin-bottom: 4%;}
+
+
+
+.tel{
+	width: 95%;
+	height: 2.7em;
+	border-radius: 0.4em;
+	border: 1px solid gainsboro;
+	outline: none;
+	padding-left: 5%;
+}
+.ljcs{
+	background: #0179ff;
+	width: 100%;
+	height: 36%;
+	color: white;
+	font-size: 1.3em; 
+	border: 1px solid gainsboro;
+	border-radius: 0.2em;
+	margin:0.2em auto 1em;
+	padding: 0.45em 0;
+}
+
+.hqbxfa{
+	position:fixed; 
+	bottom:0;
+	background: #0179ff;
+	height: 6%;
+	width: 100%;
+	color: white;
+	font-size: 1.3em;
+	text-align: center;
+	padding: 0.15em 0;
+}
+.zt{
+	background: none;
+			border: none;
+			text-align: center;
+			padding-top: 2%;
+	
+}
+.zt a{text-decoration: none; font-size: 1em; color: #fff; }
+.zt a.active{text-decoration: none; color: #fff;}
+.zt a:visited{text-decoration: none; color: #fff;}

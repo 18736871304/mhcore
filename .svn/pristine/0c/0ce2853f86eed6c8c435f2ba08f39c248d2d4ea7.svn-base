@@ -1,0 +1,313 @@
+@charset "utf-8";
+
+html {
+	font-size: calc(100vw/18.75/2);
+    font-family: Microsoft Yahei,Source Sans Pro,Helvetica Neue,Arial,sans-serif;
+    color: #333;
+    max-width:750px;
+}
+@media screen and (min-width:750px){
+	html {
+		font-size: 21px;
+	}
+}
+body,html{
+	width: 100%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+img{
+	border: none;
+}
+
+a{
+	text-decoration: none;
+}
+
+.left{
+	float: left;
+}
+
+.right{
+	float: right;
+}
+
+.product_list{
+	width: 100%;
+    height: 100%;
+    padding-bottom: 1.5rem;
+}
+
+.product_list_item{
+    display: block;
+    width: 100%;
+    padding-bottom: 1.2rem;
+    margin: 1.5rem auto;
+    background-color: #fff;
+    box-shadow: 0 0 1.5rem 0.2rem rgba(0,0,0,.16);
+    position: relative;
+}
+
+.product_list_item .product_img{
+	display: block;
+    width: 100%;
+    height: 16rem;
+}
+
+.product_list_item .product_info{
+ 	width: 33rem;
+    margin: 0 auto;
+}
+
+.product_info .product_name{
+    color: #333;
+    font-size: 1.6rem;
+    margin-top: 1.2rem;
+    overflow: hidden;
+}
+
+.product_name .product_price{
+    color: #ff5400;
+    font-size: 1.9rem;
+}
+
+.product_price .unit{
+    font-size: 1.2rem;
+}
+
+.product_price .price-start{
+    font-size: 1.2rem;
+    color: #999;
+}
+
+.product_list_item  .product_desc{
+    color: #666;
+    font-size: 1.2rem;
+    line-height: 2.2rem;
+}
+
+.product_name .left{
+    width: 55%;
+    height: 2.2rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.index-banner img{
+	width:100%;
+}
+.vux-tab {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    background-color: #fff;
+    position: relative;
+}
+.vux-tab .vux-tab-item {
+    display: block;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background: linear-gradient(180deg,#e5e5e5,#e5e5e5,hsla(0,0%,90%,0)) 0 100% no-repeat;
+    background-size: 100% 1px;
+    font-size: 14px;
+    text-align: center;
+    line-height: 44px;
+    color: #666;
+}
+.vux-tab.vux-tab-wrapper .tab-item-cell {
+    width: 5rem;
+    margin: 0 auto;
+    line-height: 3.6rem;
+}
+.vux-tab.vux-tab-wrapper .tab-item-cell>i{
+	    display: block;
+    height: 4.2rem;
+}
+.vux-tab.vux-tab-wrapper .vux-tab-item:first-child i {
+    background-image: url(../../images/life/tab-icon-1.png);
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: 2.5rem 2.5rem;
+    margin-bottom: -.1rem;
+}
+.vux-tab.vux-tab-wrapper .vux-tab-item:nth-child(2) i {
+    background-image: url(../../images/life/tab-icon-2.png);
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: 2.5rem 2.5rem;
+    margin-bottom: -.1rem;
+}
+.vux-tab.vux-tab-wrapper .vux-tab-item:nth-child(3) i {
+    background-image: url(../../images/life/tab-icon-3.png);
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: 2.5rem 2.5rem;
+    margin-bottom: -.1rem;
+}
+.vux-tab.vux-tab-wrapper .vux-tab-item:nth-child(4) i {
+    background-image: url(../../images/life/tab-icon-4.png);
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: 2.5rem 2.5rem;
+    margin-bottom: -.1rem;
+}
+.vux-tab.vux-tab-wrapper .vux-tab-item:nth-child(5) i {
+    background-image: url(../../images/life/tab-icon-5.png);
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: 2.5rem 2.5rem;
+    margin-bottom: -.1rem;
+}
+.vux-tab.vux-tab-wrapper .vux-tab-item.vux-tab-selected{
+	color:rgb(0, 177, 255)
+}
+.vux-tab.vux-tab-wrapper .vux-tab-item:first-child.vux-tab-selected i{
+	    background-image: url(../../images/life/tab-icon-1-active.png);
+}
+.vux-tab.vux-tab-wrapper .vux-tab-item:nth-child(2).vux-tab-selected i{
+	    background-image: url(../../images/life/tab-icon-2-active.png);
+}
+.vux-tab.vux-tab-wrapper .vux-tab-item:nth-child(3).vux-tab-selected i{
+	    background-image: url(../../images/life/tab-icon-3-active.png);
+}
+.vux-tab.vux-tab-wrapper .vux-tab-item:nth-child(4).vux-tab-selected i{
+	    background-image: url(../../images/life/tab-icon-4-active.png);
+}
+.vux-tab.vux-tab-wrapper .vux-tab-item:nth-child(5).vux-tab-selected i{
+	    background-image: url(../../images/life/tab-icon-5-active.png);
+}
+.hidden{
+	display:none
+}
+
+.success-wrap{
+	padding:0 0.75rem;
+}
+.textAlgin-center{
+	text-align:center;
+}
+.success-wrap .top-wrap img{
+	display:block;
+	width:3.5rem;
+	margin:1.25rem auto 1rem;
+}
+.success-wrap .top-wrap .txt-1{
+	    font-size: 1.1rem;
+    line-height: 1;
+    color:#0c0c0e;
+        font-weight: bold;
+}
+.success-wrap .top-wrap .txt-2{
+    color:#0c0c0e;
+    text-align:center;
+}
+.success-wrap .top-wrap .txt-2 p:first-child{
+	font-size:0.7rem;
+	line-height:1;
+	margin-top:1.25rem;
+}
+.success-wrap .top-wrap .txt-2 p:last-child{
+	font-size:0.6rem;
+	line-height:1.2rem;
+	margin-top:0.45rem;
+}
+
+/* .success-wrap .top-wrap .txt-3 p:first-child{
+	font-size:0.7rem;
+	line-height:1;
+	margin-top:1.25rem;
+} */
+.txt-3 p{
+	margin-top:0.25rem;
+}
+.txt-3 span{
+	color:#333333;
+	display:inline-block;
+	/* width:45%; */
+	margin-top:0.85rem;
+	font-size:0.7rem;
+	height:15px;
+}
+.txt-3 .tishi{
+	margin-left:1.85rem;
+}
+.success-wrap .top-wrap .txt-3{
+	font-size:0.6rem;
+	line-height:1.2rem;
+
+}
+
+.success-wrap .mid-wrap{
+	border-top:1px solid #D3D3D3;
+	border-bottom:1px solid #D3D3D3;
+	padding:1.125rem 0.5rem;
+	margin-top:0.95rem;
+}
+.success-wrap .mid2-wrap{
+	border-top:1px solid #D3D3D3;
+	padding:1.125rem 0.5rem;
+	margin-top:0.95rem;
+}
+.success-wrap .mid-wrap>div{
+	line-height:1;
+	font-size:0.7rem;
+	color:#0c0c0e
+}
+.success-wrap .mid-wrap>div:last-child{
+	    margin-top: 0.6rem;
+}
+.success-wrap .mid-wrap>div .detail-name{
+	color:#666666;
+	display:inline-block;
+	width:20%;
+}
+.success-wrap .bot-wrap{
+	margin-top:1.25rem;
+	line-height:1.2rem;
+	font-size:0.6rem;
+}
+.success-wrap .bot-wrap .txt-1{
+	font-size:0.7rem;
+	 margin-top: 0.8rem;
+}
+.success-wrap .bot-wrap .txt-2{
+	
+}
+.success-wrap .bot-wrap img{
+	display:block;
+	width:4.75rem;
+	margin:auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

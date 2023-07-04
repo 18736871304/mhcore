@@ -1,0 +1,260 @@
+$('.insureName .call ul li').click(function () {
+    $(this).addClass('insureSelect')
+    $(this).siblings().removeClass('insureSelect')
+})
+
+$('.sure').click(function () {
+    $('.success').css('display', 'none')
+    $('.dd').css('display', 'none')
+})
+
+
+// 点击发送验证码
+// $("#send").click(function () {
+//     if (checkTel($("#phone"))) {
+//         var phone = $("#phone").val()
+//         var sendobj = {
+//             mobilenumber: phone
+//         }
+//         //   发送手机号码到后台
+//         $.ajax({
+//             url: "https://insure.meihualife.com/user/checkno.do",
+//             type: "post",
+//             async: true,
+//             data: sendobj,
+//             beforeSend: function () {},
+//             success: function (data) {},
+//             error: function (data) {},
+//             complete: function () {}
+//         });
+
+//         $("#send").attr("disabled", true);
+//         var time = 60; //倒计时5秒 
+//         var timer = setInterval(function () {
+//             time--;
+//             if (time >= 0) {
+//                 $('.send').addClass('send1')
+//                 $("#send").text(time + "s");
+//             } else {
+//                 $("#send").text("重新发送");
+//                 $("#send").attr("disabled", false);
+//                 clearTimeout(timer); //清除定时器 
+//                 time = 5; //设置循环重新开始条件 
+//             }
+//         }, 1000); //设置定时器 
+
+//     }
+// })
+
+// 提交表单
+$(".phoneSubmit").click(function () {
+    var pageurl = window.location.href
+    if (checkAll()) {
+        console.log(checkAll())
+        var sex = $('.insureSelect').text()
+        $(".phoneSubmit").attr("disabled", "disabled")
+        var sendClickobj = {
+          "name": $('#user').val(),
+          "sex": sex,
+          "mobile": $('#phone').val(),
+          "checkno": "0000000000"
+        }
+        console.log(sendClickobj)
+        $.ajax({
+            url: "https://insure.meihualife.com/life/activity/getChannelData.do",
+            type: "post",
+            async: true,
+            data: sendClickobj,
+            beforeSend: function () {
+                // $(".loading").show();
+            },
+            success: function (data) {
+                console.log(data)
+                var data = JSON.parse(data)
+                if (data.code == 00 || data.code == 02) {
+                    $('#user').val(' ')
+                    $('#phone').val(' ')
+                    $('#code').val(' ')
+                    $('#age').val(' ')
+                    $('.success').css('display', 'block')
+                    $('.dd').css('display', 'block')
+                    $(".phoneSubmit").removeAttr("disabled")
+                }else{
+                    alert(data.message)
+                }
+            },
+            error: function (data) {
+                console.log(data)
+            },
+            complete: function () {
+
+            }
+        });
+
+    } else {
+        return
+    }
+})
+
+$(".success-image2").click(function () {
+  $(".success").css('display', 'none')
+})
+
+// 校验所有信息
+function checkAll() {
+    var flag = false;
+    if (checkName($("#user"))) {
+        flag = true
+    } else {
+        return
+    }
+    if (checkTel($("#phone"))) {
+        flag = true
+    } else {
+        return
+    }
+
+    return flag
+}
+
+
+/**
+ * 姓名校验及错误信息提示函数
+ * @param nameElm 该参数为Dom对象
+ * @returns {boolean}
+ */
+function checkName(nameElm) {
+    if (checkEmpty(nameElm.val())) {
+        $('.name-box').text('姓名不能为空')
+        return false;
+    } else if (!Regex.noLessThanTwoChar.test(nameElm.val().trim())) {
+        $('.name-box').text('请输入汉字或者英文')
+        return false;
+    } else if (!Regex.onlyChineseOrOnlyEnglish.test(nameElm.val().trim())) {
+        $('.name-box').text('请输入汉字或者英文')
+        return false;
+    } else {
+        $('.name-box').text('')
+        return true;
+    }
+}
+
+
+/**
+ * 手机号校验及错误信息提示函数
+ * @param telElm 该参数为Dom对象
+ * @returns {boolean}
+ */
+// 手机号码验证
+function checkTel(telElm) {
+    if (checkEmpty(telElm.val())) {
+      $('.call-box').text('手机号不能为空')
+      return false;
+    } else if (!Regex.mobile.test(telElm.val().trim())) {
+      $('.call-box').text('请输入正确手机号')
+      return false;
+    } else {
+      $('.call-box').text('')
+      return true;
+    }
+}
+
+
+/**
+ * 短信验证码校验及错误信息提示函数
+ * @param verificationCodeElm 该参数为Dom对象
+ * @returns {boolean}
+ */
+function checkVerificationCode(verificationCodeElm) {
+    if (checkEmpty(verificationCodeElm.val())) {
+        verificationCodeElm.css({
+            "border": "2px solid #c51616",
+            "color": "#c51616"
+        });
+        verificationCodeElm.siblings().addClass('invalid');
+        return false;
+    } else if (!Regex.yanzhengma.test(verificationCodeElm.val().trim())) {
+        verificationCodeElm.css({
+            "border": "2px solid #c51616",
+            "color": "#c51616"
+        });
+        verificationCodeElm.siblings().addClass('invalid');
+        return false;
+    } else {
+        verificationCodeElm.css({
+            "border": "2px solid  #0692f2",
+            "color": "#0692f2"
+        });
+        verificationCodeElm.siblings().removeClass('invalid');
+        return true;
+    }
+}
+
+
+
+//空值判断
+function checkEmpty(obj) {
+    if (typeof (obj) == "undefined") {
+        return true;
+    } else if (obj == "") {
+        return true;
+    } else if (obj == null) {
+        return true;
+    } else {
+        var rs = obj.replace(/[ ]/g, "");
+        if (rs == "") {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
+/**
+ * 校验常用正则表达式
+ */
+var Regex = {
+    yanzhengma: /^\d{2,4}$/, //验证码校验
+    chineseOrEnglish: /^[\u4E00-\u9FA5a-zA-Z]*$/, //汉字或英文
+    onlyChineseOrOnlyEnglish: /((^[\u4E00-\u9FA5\.\·]*$)|(^[a-zA-Z]+[\s\.\·]?([a-zA-Z]+[\s\.\·]?)*[a-zA-Z]$))/, //汉字或英文，汉子和英文不能混杂
+    chineseChar: /^[\u4E00-\u9FA5]*$/,
+    moreThanTwoChineseChar: /^[\u4E00-\u9FA5]{2,}$/,
+    noLessThanFiveChar: /^[\u4E00-\u9FA50-9a-zA-Z]{5,}$/,
+    noLessThanTwoChar: /^[\u4E00-\u9FA5a-zA-Z\.\·]{2,}$/,
+    integer: /^-?[1-9]\\d*$/, //整数
+    integer1: /^[1-9]*$/, //正整数
+    integer2: /^-[1-9]\\d*$/, //负整数
+    num: /^([+-]?)\\d*\\.?\\d+$/, //数字
+    num1: /^[1-9]\\d*|0$/, //正数（正整数 + 0）
+    num2: /^-[1-9]\\d*|0$/, //负数（负整数 + 0）
+    decmal: /^([+-]?)\\d*\\.\\d+$/, //浮点数
+    decmal1: /^[1-9]\d*.\d*|0.\d*[1-9]*$/, //正浮点数
+    decmal2: /^-([1-9]\\d*.\\d*|0.\\d*[1-9]\\d*)$/, //负浮点数
+    decmal3: /^-?([1-9]\\d*.\\d*|0.\\d*[1-9]\\d*|0?.0+|0)$/, //浮点数
+    decmal4: /^[1-9]\\d*.\\d*|0.\\d*[1-9]\\d*|0?.0+|0$/, //非负浮点数（正浮点数 + 0）
+    decmal5: /^(-([1-9]\\d*.\\d*|0.\\d*[1-9]\\d*))|0?.0+|0$/, //非正浮点数（负浮点数 + 0）
+    email: /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/, //邮件
+    color: /^[a-fA-F0-9]{6}$/, //颜色
+    //		url:/^http[s]?:\\/\\/([\\w-]+\\.)+[\\w-]+([\\w-./?%&=]*)?$/,	//url
+    //		chinese:/^[\\u4E00-\\u9FA5\\uF900-\\uFA2D]+$/,					//仅中文
+    ascii: /^[\\x00-\\xFF]+$/, //仅ACSII字符
+    postcode: /^\d{6}$/, //邮编
+    mobile: /^(13|14|15|16|17|18)[0-9]{9}$/, //手机
+    ip4: /^(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)$/, //ip地址
+    notempty: /^\\S+$/, //非空
+    picture: /(.*)\\.(jpg|bmp|gif|ico|pcx|jpeg|tif|png|raw|tga)$/, //图片
+    rar: /(.*)\\.(rar|zip|7zip|tgz)$/, //压缩文件
+    qq: /^[1-9]*[1-9][0-9]*$/, //QQ号码
+    phone: /^(([0\\+]\\d{2,3}-)?(0\\d{2,3})-)?(\\d{7,8})(-(\\d{3,}))?$/, //电话号码的函数(包括验证国内区号,国际区号,分机号)
+    username: /^\\w+$/, //用来用户注册。匹配由数字、26个英文字母或者下划线组成的字符串
+    letter: /^[A-Za-z]+$/, //字母
+    letter_u: /^[A-Z]+$/, //大写字母
+    letter_l: /^[a-z]+$/, //小写字母
+    idcard: /^[1-9]([0-9]{14}|[0-9]{17})$/, //身份证
+    date: /^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/, //短日期 形如 yyyy-mm-dd
+    time: /^(\d{1,2})(:)?(\d{1,2})\2(\d{1,2})$/, //短时间 形如  (13:04:06)
+    datetime: /^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$/, //长时间，形如 (2003-12-05 13:04:06)
+    address: /^\S*(\D+\d+)|(\d+\D)\S*$/,
+    leterOrNumber: /^[a-zA-Z0-9]+$/
+};

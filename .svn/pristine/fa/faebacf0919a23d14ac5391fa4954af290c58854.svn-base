@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+	<title>智能核保</title>
+	<link rel="stylesheet" href="css/lib/weui.min.css">
+	<link rel="stylesheet" href="css/lib/jquery-weui.min.css">
+	<link rel="stylesheet" href="css/common.css">
+	<link rel="stylesheet" href="font/iconfont/iconfont.css">
+	<link rel="stylesheet" href="css/common.css">
+	<link rel="stylesheet" href="css/questionfirm.css">
+</head>
+<body>
+<div class="smart-check" id="smartCheck">
+	<div class="question-answer">
+		<div class="question-answer-content">
+			<div class="question-box" id="questionBox"></div>
+		</div>
+		<div class="confirm-button">
+			<button class="meihua-button button-confirm" id="checkBtn">确认</button>
+		</div>
+	</div>
+	<div class="question-confirm hide">
+		<div class="question-confitm-content">
+			<div class="content-title">核保结论</div>
+			<div class="question-confirm-list" id="questionConfirmList">
+			</div>
+		</div>
+		<div class="confirm-button">
+			<button class="meihua-button button-confirm" id="confirmBtn">确认</button>
+		</div>
+	</div>
+</div>
+<script src="js/lib/jquery1.12.4.min.js"></script>
+<script src="js/lib/jquery-weui.min.js"></script>
+<script src="js/common.js"></script>
+<script src="js/page/questionconfirm.js"></script>
+</body>
+</html>

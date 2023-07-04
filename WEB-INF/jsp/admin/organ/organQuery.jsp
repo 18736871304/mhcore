@@ -1,0 +1,112 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<script>
+/*
+ * 添加机构查询，只需要4步
+ * 1、初始化02org
+ * 2、aftercodeselect中加入else的部分
+ * 3、查询条件中加入q02org,q03org,q04org
+ * 4、引入本jsp文件
+ * 注：后台也需要相关的支持才行，这里说的只是前端的修改
+ */
+
+function init02Org()
+{
+	var tturl = "policy/get02Org.do";
+	displayCombox($('#q02org'),null,tturl,"dd_key","dd_value");
+}
+ 
+function organAfterSelect(comboxid)
+{
+	if(comboxid.attr("id")=="q02org")
+	{
+		var tParam = new Object();
+		tParam.organcode = comboxid.combobox('getValue');
+		
+		var tturl1 = "policy/get03Org.do";
+		
+		displayCombox($('#q03org'),tParam,tturl1,"dd_key","dd_value");
+	}
+	else if(comboxid.attr("id")=="q03org")
+	{
+		var tParam = new Object();
+		tParam.organcode = comboxid.combobox('getValue');
+		
+		var tturl1 = "policy/get04Org.do";
+		
+		displayCombox($('#q04org'),tParam,tturl1,"dd_key","dd_value");
+	}
+}
+
+function getOrgan04Code()
+{
+	var q04org_codes = $('#q04org').combobox('getValues');
+    var q04orgStr = "";
+    for(var i=0;i<q04org_codes.length;i++)
+    {
+        if (q04orgStr != "") 
+        {
+        	q04orgStr += "','";
+        }
+        q04orgStr += q04org_codes[i];
+    }
+    
+    return q04orgStr;
+}
+
+function getQOrganCode()
+{
+	var team_sqlstr = "";
+	
+	if($('#q04org').combobox('getValues')!=null&&$('#q04org').combobox('getValues')!='')
+	{
+		var organ_codes = "";
+		organ_codes = $('#q04org').combobox('getValues');
+		
+		if(organ_codes!=null&&organ_codes!='')
+		{
+			for(var i=0;i<organ_codes.length;i++)
+	        {
+	            team_sqlstr += "'"+organ_codes[i]+"'";
+	            if(i!=organ_codes.length-1)
+	            {
+	            	team_sqlstr += ",";
+	            }
+			}
+		}
+	}
+	else if($('#q03org').combobox('getValue')!=null&&$('#q03org').combobox('getValue')!='')
+	{
+		team_sqlstr = "'"+$('#q03org').combobox('getValue')+"'";
+	}
+	else if($('#q02org').combobox('getValue')!=null&&$('#q02org').combobox('getValue')!='')
+	{
+		team_sqlstr = "'"+$('#q02org').combobox('getValue')+"'";
+	}
+	
+	return team_sqlstr;
+}
+
+</script>
+
+
+	<td class = "title">
+		省公司
+	</td>
+	<td class = "common">
+		<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="q02org" id="q02org">
+		</select>
+	</td>
+	<td class = "title">
+		分公司
+	</td>
+	<td class = "common">
+		<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="q03org" id="q03org">
+		</select>
+	</td>
+	<td class = "title">
+		营业部
+	</td>
+	<td class = "common">
+		<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="q04org" id="q04org" data-options="multiple:true">
+		</select>
+	</td>

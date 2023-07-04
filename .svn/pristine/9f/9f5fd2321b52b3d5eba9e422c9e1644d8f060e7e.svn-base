@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>足不出户 安心在线挑保险</title>
+    <link rel="icon" href="./favicon.ico">
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    <div class="template">
+        <div class="wrap">
+            <img src="./images/banner.png" alt="美华保险">
+        </div>
+
+        <div class="foot">
+            <p>美华保险销售有限公司</p>
+            <p>备案证书号:
+                <span> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011202013874"
+                        target="_bank">沪公网安备 31011202013874号</a> </span>
+            </p>
+            <p> <a href="https://beian.miit.gov.cn/#/Integrated/index">沪ICP备17036366号-3 </a></p>
+        </div>
+    </div>
+</body>
+
+</html>

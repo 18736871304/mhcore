@@ -1,0 +1,134 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<%@ include file="/WEB-INF/common/include.jsp"%><head>
+<title></title>
+<link rel="stylesheet" href="../../../../css/inputbox/line6.css">
+<script>
+
+var inputList;
+var checkList;
+
+window.onload = function()
+{
+	policyDetailDlgInit();
+	
+	initDataGrid20($('#policyList'));
+	
+	inputList = [
+		 			$('#insrevisitstate')
+		 	];
+		
+	checkList = [
+		 			$('#insrevisitstate')
+		 	];
+	
+	initPolicyQuery('riskchannel');
+	disComBox($('#insrevisitstate'),"insrevisitstate",null);
+	
+	init02Org();
+	policyUrlDlgInit();
+}
+
+function aftercodeselect(comboxid)
+{
+	qPolicyAftercodeselect(comboxid);
+}
+
+function selectone()
+{
+
+}
+
+function saveSuss()
+{
+	$('#policyList').datagrid('reload');
+}
+
+function policyUpdateState()
+{
+	var rows = $('#policyList').datagrid('getSelections');
+	
+	if(rows.length <= 0)
+	{
+		$.messager.alert('操作提示','请选中要操作的数据！','error');
+		return;
+	}
+	
+	var orderStr = "";
+	
+	for(var i=0;i<rows.length;i++)
+	{
+		orderStr = orderStr +"'"+ rows[i].orderid +"'";
+		
+		if(i!=rows.length-1)
+		{
+			orderStr = orderStr + ",";
+		}
+	}
+	
+	if(!checknotnull(checkList))
+	{
+		return;
+	}
+	
+	var tparam = prepareparam(inputList);
+	
+	tparam.orderStr = orderStr;
+	
+	ajaxdeal("policy/updateInsReVisitState.do",tparam,null,null,saveSuss);
+}
+
+function queryPolicyInfo(val,row,index)
+{
+	return '<a href="#" onclick="openDlg('+index+')">查看详情</a>'; 
+}
+
+function openDlg(index)
+{
+	var rows=$('#policyList').datagrid('getRows');//获取所有当前加载的数据行
+	var row=rows[index];
+	
+	//alert(row.agentcom);
+	
+	dispolicyDetailDlg(row);
+}
+
+</script>
+
+</head>
+<%@ include file="/WEB-INF/jsp/admin/policy/policyDetailDlg.jsp"%>
+<%@ include file="/WEB-INF/jsp/dilog/policyUrlDlg.jsp"%>
+<body>
+<div style="margin-left:0%">
+	<%@ include file="/WEB-INF/common/query/policy/policyModifyQuery.jsp"%>
+	<br>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id = "articlequery" onclick = "policyquery()">查询</a>
+	<br>
+	<br>
+	<table id="policyList" class="easyui-datagrid" title="保单信息" style="width:auto;height:auto"
+		data-options="rownumbers:true,pagination:true,onClickRow: selectone" >
+		<thead>
+			<tr>
+				<%@ include file="/WEB-INF/jsp/admin/policy/include/policyUpdateListItem.jsp"%>
+			</tr>
+		</thead>
+	</table>
+	<br>
+	<table class = "common">
+		<tr>
+			<td class = "title" style="width: 6%;">
+				回访状态
+			</td>
+			<td class = "common" style="width: 12%;">
+				<select class = "easyui-combobox" style="width:160%" panelHeight="auto" panelWidth="200" name="insrevisitstate" id="insrevisitstate" notnull = "回访状态">
+				</select>
+			</td>
+			<td></td><td></td>
+			<td></td><td></td>
+		</tr>		
+	</table>
+	<br>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" id = "policyUpdateState" onclick = "policyUpdateState()">修改</a>
+</div>
+</body>
+</html>

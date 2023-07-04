@@ -1,0 +1,280 @@
+function checkForm1() {
+  $(".body").css("overflow", 'hidden')
+  $(".success1,.success-content1").css('display', 'block')
+}
+
+//调整重加弹框居中结束
+function clikcNone1() {
+  $(".success1,.success-content1").css('display', 'none')
+  $(".body").css("overflow", 'auto')
+}
+
+//显示函数
+function clikcShow() {
+  $(".body").css("overflow", 'hidden')
+  $('#checkFormPopHtml').css("display", "block"); //显示总弹框父元素
+  $('#pop-contain').css("display", "block"); //然后显示弹框
+}
+//调整重加弹框居中结束
+function clikcNone() {
+  $('#checkFormPopHtml,#pop-contain').css('display', 'none');
+  $(".body").css("overflow", 'auto')
+}
+
+function checkForm() {
+  clikcShow();
+}
+
+// 投保人姓名校验
+$("#user").on("blur", function () {
+  console.log("姓名校验")
+  checkName($(this));
+});
+
+//投保人手机号码校验
+$("#phone").on("blur", function () {
+  checkTel($(this));
+});
+
+// 点击发送验证码
+$("#send").click(function () {
+  if (checkTel($("#phone"))) {
+    var phone = $("#phone").val()
+    var sendobj = {
+      mobilenumber: phone
+    }
+
+    // 发送手机号码到后台
+    $.ajax({
+      url: "/user/checkno.do",
+      type: "post",
+      async: true,
+      data: sendobj,
+      beforeSend: function () {
+        // $(".loading").show();
+      },
+      success: function (data) {
+        console.log(data)
+      },
+      error: function (data) {
+        console.log(data)
+      },
+      complete: function () {
+
+      }
+    });
+
+
+    $("#send").attr("disabled", true);
+    var time = 60; //倒计时5秒 
+    var timer = setInterval(function () {
+      time--;
+      if (time >= 0) {
+        $("#send").text("重新发送(" + time + ")");
+      } else {
+        $("#send").text("重新发送");
+        $("#send").attr("disabled", false);
+        clearTimeout(timer); //清除定时器 
+        time = 5; //设置循环重新开始条件 
+      }
+    }, 1000); //设置定时器 
+  }
+})
+
+// 提交表单
+$("#sendClick").click(function () {
+  if (checkAll()) {
+    console.log('预约成功')
+    var sendClickobj = {
+      "name": $('#user').val(),
+      "sex": "",
+      "mobile": $('#phone').val(),
+      "checkno": $("#code").val(),
+      "age": "",
+      "channelCode": "0002",
+      "pageType": "",
+      "planId": ""
+    }
+    // 发送用户信息到后台
+    $.ajax({
+      url: "/life/activity/getChannelData.do",
+      type: "post",
+      async: true,
+      data: sendClickobj,
+      beforeSend: function () {
+        // $(".loading").show();
+      },
+      success: function (data) {
+        var data = JSON.parse(data)
+        console.log(data)
+        if (data.code == 00 || data.code == 02) {
+          $('#checkFormPopHtml,#pop-contain').css('display', 'none');
+          $(".success,.success-content").css('display', 'block')
+        } else {
+
+          $(".phoneError").css("visibility", "visible")
+          $(".phoneError").text(data.message)
+        }
+
+      },
+      error: function (data) {
+        console.log(data)
+      },
+      complete: function () {
+
+      }
+    });
+
+  } else {
+    return
+  }
+
+})
+
+
+
+
+
+// 关闭成功按钮
+$("#success-close").click(function () {
+  $('.success,.success-content').css('display', 'none');
+  $(".body").css("overflow", 'auto')
+})
+
+
+
+// 校验所有信息
+function checkAll() {
+  var flag = false;
+  if (checkName($("#user")) && checkTel($("#phone")) && checkVerificationCode($("#code"))) {
+    flag = true
+  }
+
+  return flag
+}
+
+
+/**
+ * 姓名校验及错误信息提示函数
+ * @param nameElm 该参数为Dom对象
+ * @returns {boolean}
+ */
+function checkName(nameElm) {
+  if (checkEmpty(nameElm.val())) {
+    nameElm.parent().siblings(".userError").css("visibility", "visible").text("姓名不能为空！");
+    return false;
+  } else if (!Regex.noLessThanTwoChar.test(nameElm.val().trim())) {
+    nameElm.parent().siblings(".userError").css("visibility", "visible").text("姓名至少为2位且不能为数字！");
+    return false;
+  } else if (!Regex.onlyChineseOrOnlyEnglish.test(nameElm.val().trim())) {
+    nameElm.parent().siblings(".userError").css("visibility", "visible").text("请输入有效姓名！");
+    return false;
+  } else {
+    nameElm.parent().siblings(".userError").css("visibility", "hidden").text("");
+    return true;
+  }
+}
+
+
+/**
+ * 手机号校验及错误信息提示函数
+ * @param telElm 该参数为Dom对象
+ * @returns {boolean}
+ */
+// 手机号码验证
+function checkTel(telElm) {
+  if (checkEmpty(telElm.val())) {
+    telElm.parent().siblings(".errorMsg").css("visibility", "visible").text("手机号码不能为空！");
+    return false;
+  } else if (!Regex.mobile.test(telElm.val().trim())) {
+    telElm.parent().siblings(".errorMsg").css("visibility", "visible").text("请正确输入手机号码！");
+    return false;
+  } else {
+    telElm.parent().siblings(".errorMsg").css("visibility", "hidden").text("");
+    return true;
+  }
+}
+
+
+/**
+ * 短信验证码校验及错误信息提示函数
+ * @param verificationCodeElm 该参数为Dom对象
+ * @returns {boolean}
+ */
+function checkVerificationCode(verificationCodeElm) {
+  if (checkEmpty(verificationCodeElm.val())) {
+    verificationCodeElm.parent().siblings(".phoneError").css("visibility", "visible").text("请填写短信验证码！");
+    return false;
+  } else {
+    verificationCodeElm.parent().siblings(".phoneError").css("visibility", "hidden").text("");
+    return true;
+  }
+}
+
+
+
+//空值判断
+function checkEmpty(obj) {
+  if (typeof (obj) == "undefined") {
+    return true;
+  } else if (obj == "") {
+    return true;
+  } else if (obj == null) {
+    return true;
+  } else {
+    var rs = obj.replace(/[ ]/g, "");
+    if (rs == "") {
+      return true;
+    }
+  }
+  return false;
+}
+
+
+
+/**
+ * 校验常用正则表达式
+ */
+var Regex = {
+  chineseOrEnglish: /^[\u4E00-\u9FA5a-zA-Z]*$/, //汉字或英文
+  onlyChineseOrOnlyEnglish: /((^[\u4E00-\u9FA5\.\·]*$)|(^[a-zA-Z]+[\s\.\·]?([a-zA-Z]+[\s\.\·]?)*[a-zA-Z]$))/, //汉字或英文，汉子和英文不能混杂
+  chineseChar: /^[\u4E00-\u9FA5]*$/,
+  moreThanTwoChineseChar: /^[\u4E00-\u9FA5]{2,}$/,
+  noLessThanFiveChar: /^[\u4E00-\u9FA50-9a-zA-Z]{5,}$/,
+  noLessThanTwoChar: /^[\u4E00-\u9FA5a-zA-Z\.\·]{2,}$/,
+  integer: /^-?[1-9]\\d*$/, //整数
+  integer1: /^[1-9]*$/, //正整数
+  integer2: /^-[1-9]\\d*$/, //负整数
+  num: /^([+-]?)\\d*\\.?\\d+$/, //数字
+  num1: /^[1-9]\\d*|0$/, //正数（正整数 + 0）
+  num2: /^-[1-9]\\d*|0$/, //负数（负整数 + 0）
+  decmal: /^([+-]?)\\d*\\.\\d+$/, //浮点数
+  decmal1: /^[1-9]\d*.\d*|0.\d*[1-9]*$/, //正浮点数
+  decmal2: /^-([1-9]\\d*.\\d*|0.\\d*[1-9]\\d*)$/, //负浮点数
+  decmal3: /^-?([1-9]\\d*.\\d*|0.\\d*[1-9]\\d*|0?.0+|0)$/, //浮点数
+  decmal4: /^[1-9]\\d*.\\d*|0.\\d*[1-9]\\d*|0?.0+|0$/, //非负浮点数（正浮点数 + 0）
+  decmal5: /^(-([1-9]\\d*.\\d*|0.\\d*[1-9]\\d*))|0?.0+|0$/, //非正浮点数（负浮点数 + 0）
+  email: /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/, //邮件
+  color: /^[a-fA-F0-9]{6}$/, //颜色
+  //		url:/^http[s]?:\\/\\/([\\w-]+\\.)+[\\w-]+([\\w-./?%&=]*)?$/,	//url
+  //		chinese:/^[\\u4E00-\\u9FA5\\uF900-\\uFA2D]+$/,					//仅中文
+  ascii: /^[\\x00-\\xFF]+$/, //仅ACSII字符
+  postcode: /^\d{6}$/, //邮编
+  mobile: /^(13|14|15|16|17|18)[0-9]{9}$/, //手机
+  ip4: /^(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)$/, //ip地址
+  notempty: /^\\S+$/, //非空
+  picture: /(.*)\\.(jpg|bmp|gif|ico|pcx|jpeg|tif|png|raw|tga)$/, //图片
+  rar: /(.*)\\.(rar|zip|7zip|tgz)$/, //压缩文件
+  qq: /^[1-9]*[1-9][0-9]*$/, //QQ号码
+  phone: /^(([0\\+]\\d{2,3}-)?(0\\d{2,3})-)?(\\d{7,8})(-(\\d{3,}))?$/, //电话号码的函数(包括验证国内区号,国际区号,分机号)
+  username: /^\\w+$/, //用来用户注册。匹配由数字、26个英文字母或者下划线组成的字符串
+  letter: /^[A-Za-z]+$/, //字母
+  letter_u: /^[A-Z]+$/, //大写字母
+  letter_l: /^[a-z]+$/, //小写字母
+  idcard: /^[1-9]([0-9]{14}|[0-9]{17})$/, //身份证
+  date: /^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/, //短日期 形如 yyyy-mm-dd
+  time: /^(\d{1,2})(:)?(\d{1,2})\2(\d{1,2})$/, //短时间 形如  (13:04:06)
+  datetime: /^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$/, //长时间，形如 (2003-12-05 13:04:06)
+  address: /^\S*(\D+\d+)|(\d+\D)\S*$/,
+  leterOrNumber: /^[a-zA-Z0-9]+$/
+};

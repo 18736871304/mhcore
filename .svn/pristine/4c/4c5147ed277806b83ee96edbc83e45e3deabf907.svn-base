@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>家庭保障方案</title>
+  <!-- <link rel="shortcut icon" href="favicon.ico"> -->
+  <link rel="stylesheet" href="./css/mobile.css">
+  <script>
+    !(function () {
+      function a() {
+        var html = document.documentElement;
+        var w = html.getBoundingClientRect().width;
+        if (w > 750) {
+          w = 750;
+        }
+        var f = w / 7.5;
+        html.style.fontSize = f + "px";
+      }
+      a();
+      var timer;
+      window.onresize = function () {
+        clearTimeout(timer);
+        timer = setTimeout(a, 300);
+      }
+    })();
+  </script>
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="wrap">
+      <div class="banner">
+        <img src="" alt="美华保险">
+      </div>
+      <div class="infor">
+        <div class="title">
+          <img src="" alt="">
+        </div>
+        <div class="insureName">
+          <label class="text" for="">您想进一步了解？（<span>单选</span>）</label>
+          <div class="call">
+            <ul class="clearfix">
+              <li class="insureSelect">健康保障</li>
+              <li>理财规划</li>
+              <li>想系统性的了解一下</li>
+              <li>其他</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="insureName">
+          <label class="text" for="">请输入您的姓名（<span>已加密</span>）</label>
+          <div class="nameValue">
+            <input type="text" value="" placeholder="请输入" id="user">
+            <p class="name-box"></p>
+          </div>
+        </div>
+        <div class="insureName">
+          <label class="text" for="">请输入您的电话（<span>已加密</span>）</label>
+          <div class="nameValue">
+            <input type="text" value="" placeholder="请输入" id="phone">
+            <p class="call-box"></p>
+          </div>
+        </div>
+        <!-- <div class="agreement">
+          <p class="agreement-btn">
+          </p>
+          <p>自动输入历史手机号《个人信息授权与保护声明》</p>
+        </div> -->
+        <div class="phoneSubmit">
+          <img src="./images/1v1-btn.png" alt="">
+        </div>
+      </div>
+      <div class="bottom">
+        <img src="./images/bottom1.png" alt="美华保险">
+      </div>
+      <div class="bottom">
+        <img src="./images/bottom2.png" alt="美华保险">
+      </div>
+    </div>
+    <div class="success">
+      <div class="success-box">
+        <div class="success-image1">
+          <img src="./images/tijiao1.png" alt="">
+        </div>
+        <p style="font-weight: 500;color: #333;font-size: 0.34rem;margin-bottom: 0.2rem;;">资料提交成功</p>
+        <p style="font-weight: 500;color: #999;font-size: 0.3rem;margin-bottom: 0.1rem;">结果将在1-2工作日反馈</p>
+        <div class="success-image2">
+          <img src="./images/tijiao2.png" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    let URL = window.location.href;
+    function getUrlParams2(url) {
+      let urlStr = url.split('?')[1]
+      const urlSearchParams = new URLSearchParams(urlStr)
+      const result = Object.fromEntries(urlSearchParams.entries())
+      return result
+    }
+    let param = getUrlParams2(URL);
+    if(param && param.type == 1) {
+      $(".banner img").attr('src', "./images/beibei.jpg")
+    } else if (param && param.type == 2) {
+      $(".banner img").attr('src', "./images/kailun.jpg")
+    } else if (param && param.type == 3) {
+      $(".banner img").attr('src', "./images/lingling.jpg")
+    } else if (param && param.type == 4) {
+      $(".banner img").attr('src', "./images/niannian.jpg")
+    } else if (param && param.type == 5) {
+      $(".banner img").attr('src', "./images/dongdong.jpg")
+    }
+    
+    console.log(getUrlParams2(URL), URL)
+   
+  </script>
+  <script src="js/index.js"></script>
+</body>
+</html>

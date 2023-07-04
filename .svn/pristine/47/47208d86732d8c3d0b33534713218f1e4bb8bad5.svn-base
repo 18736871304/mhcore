@@ -1,0 +1,364 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<%@ include file="/WEB-INF/common/include.jsp"%>
+
+<head>
+	<title>机构管理</title>
+
+	<link rel="stylesheet" href="../../../css/inputbox/line3.css?v_2022_05_16">
+	<script>
+		var checklist;
+
+		var paramlist;
+
+		window.onload = function () {
+			remark.style.display = "none";
+			initDataGrid20($('#organlist'));
+			displayProvinceCombox();
+			displayOrgangradeCombox();
+			//displayCountyCombox();
+			hideinsColumn();
+
+			OrganInit();
+
+			checklist = [$('#organCode'),
+				$('#organName'),
+				$('#organGrade'),
+				$('#Province'),
+				$('#City'),
+				$('#County'),
+				$('#isstop')
+			];
+
+			paramlist = [$('#organCode'),
+				$('#organName'),
+				$('#organShortName'),
+				$('#organGrade'),
+				$('#upOrganCode'),
+				$('#Province'),
+				$('#City'),
+				$('#County'),
+				$('#isstop')
+			];
+
+			organshort_id.style.display = "none";
+
+			disComBox($('#qisstop'), "isstop", null);
+			disComBox($('#isstop'), "isstop", null);
+
+			$('#qisstop').combobox('setValue', "01");
+		}
+
+		function hideinsColumn() {
+
+		}
+
+		//必须要一个
+		function aftercodeselect(comboxid) {
+			if (comboxid.attr("id") == "Province") {
+				var tParam = new Object();
+				tParam.province = comboxid.combobox('getValue');
+
+				var tturl1 = "organ/cityCombox.do";
+
+				displayCombox($('#City'), tParam, tturl1, "placecode", "placename");
+			}
+			if (comboxid.attr("id") == "City") {
+				var tParam = new Object();
+				tParam.city = comboxid.combobox('getValue');
+
+				var tturl1 = "organ/countyCombox.do";
+
+				displayCombox($('#County'), tParam, tturl1, "placecode", "placename");
+			}
+		}
+
+		function displayProvinceCombox() {
+			var tturl = "organ/provinceCombox.do";
+
+			displayCombox($('#Province'), null, tturl, "placecode", "placename");
+		}
+
+		function displayOrgangradeCombox() {
+			disComBox($('#organGrade'), "organgrade", null);
+			disComBox($('#qorgangrade'), "organgrade", null);
+		}
+
+		function organsave() {
+			if (!checknotnull(checklist)) {
+				return;
+			}
+
+			if ($('#organGrade').combobox('getValue') != "01") {
+				checklist = [$('#upOrganCode')];
+				if (!checknotnull(checklist)) {
+					return;
+				}
+			}
+
+			var tparam = prepareparam(paramlist);
+
+			ajaxdeal("organ/organinsert.do", tparam, null, null, saveSuss);
+		}
+
+		function saveSuss() {
+			clearCarData();
+
+			$('#organlist').datagrid('reload');
+		}
+
+		function clearCarData() {
+			cleardata(paramlist);
+		}
+
+		function organquery() {
+			var tturl = "organ/organquery.do";
+
+			var tParam = new Object();
+
+			tParam.organName = $('#qorganname').val();
+			tParam.organGrade = $('#qorgangrade').combobox('getValue');
+			tParam.isstop = $('#qisstop').combobox('getValue');
+
+			displayDataGrid20($('#organlist'), tParam, tturl);
+			clearCarData();
+		}
+
+		function selectorgan() {
+			var row = $('#organlist').datagrid('getSelected');
+
+			$('#organCode').val(row.organCode);
+			$('#organName').val(row.organName);
+			$('#organShortName').val(row.organShortName);
+			$('#upOrganCode').val(row.upOrganCode);
+
+			$('#organGrade').combobox('setValue', row.organGrade);
+			$('#Province').combobox('setValue', row.province);
+
+			$('#City').combobox('setValue', row.city);
+			$('#County').combobox('setValue', row.county);
+
+			$('#City').combobox('setText', row.cityName);
+			$('#County').combobox('setText', row.countyName);
+
+			$('#isstop').combobox('setValue', row.isstop);
+		}
+
+		function organmodify() {
+			var row = $('#organlist').datagrid('getSelected');
+
+			if (row == null) {
+				$.messager.alert('操作提示', '请选中要删除的数据！', 'error');
+				return;
+			}
+
+			if (!checknotnull(checklist)) {
+				return;
+			}
+
+			if ($('#organGrade').combobox('getValue') != "01") {
+				checklist = [$('#upOrganCode')];
+				if (!checknotnull(checklist)) {
+					return;
+				}
+			}
+
+			var tparam = prepareparam(paramlist);
+
+			ajaxdeal("organ/organUpdate.do", tparam, null, null, saveSuss);
+		}
+
+		function organdelete() {
+			var row = $('#organlist').datagrid('getSelected');
+
+			if (row == null) {
+				$.messager.alert('操作提示', '请选中要删除的数据！', 'error');
+				return;
+			}
+
+			var tParam = new Object();
+			tParam.organCode = $('#organCode').val();
+			ajaxdeal("organ/organDelete.do", tParam, null, null, saveSuss());
+		}
+	</script>
+
+
+</head>
+
+<body>
+	<%@ include file="/WEB-INF/jsp/organ/OrganInfoDlg.jsp"%>
+	<div style="margin-left:0%">
+		<table>
+			<tr>
+				<td class="dstitle">
+					<img src="images/butCollapse.gif" onclick="showPage(this,remark);">
+					操作帮助
+				</td>
+			</tr>
+		</table>
+		<div id="remark" style="display:'none'">
+			<table style="display:'none'">
+				<tr>
+					<td class="dscontent">
+						机构编码含义：
+						<br>
+						机构编码包含9位
+						<br>
+						前3位代表：线上/线下
+						<br>
+						中3位代表：省公司
+						<br>
+						后3位代表：分公司
+						<br>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<table style="width: 50%;">
+			<tr>
+				<td class="title">
+					机构名称
+				</td>
+				<td class="common">
+					<input class="txt" name="qorganname" id="qorganname">
+				</td>
+
+				<td class="title">
+					机构级别
+				</td>
+				<td class="common">
+					<input class="easyui-combobox" name="qorgangrade" id="qorgangrade" style="width:160%">
+				</td>
+
+				<td class="title">
+					是否停止
+				</td>
+				<td class="common">
+					<input class="easyui-combobox" name="qisstop" id="qisstop" style="width:160%">
+				</td>
+			</tr>
+		</table>
+		<br>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id=organquery
+			onclick="organquery()">查询</a>
+		<br>
+		<br>
+
+		<table id="organlist" class="easyui-datagrid" title="机构信息" style="width:auto;height:auto"
+			data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectorgan">
+			<thead>
+				<tr>
+					<th data-options="field:'organCode',width:70">机构编码</th>
+					<th data-options="field:'organName',width:70">机构名称</th>
+					<th data-options="field:'organGradeName',width:60">机构级别</th>
+					<th data-options="field:'upOrganCodeName',width:70">上级机构</th>
+					<th data-options="field:'provinceName',width:60">所在省</th>
+					<th data-options="field:'cityName',width:60">所在市</th>
+					<th data-options="field:'countyName',width:60">所在区</th>
+					<th data-options="field:'isstopname',width:60">是否停止</th>
+				</tr>
+			</thead>
+		</table>
+		<br>
+		<table style="width: 98%;">
+			<tr>
+				<td class="title">
+					机构编码
+				</td>
+				<td class="common">
+					<input class="txt" name="organCode" id="organCode" notnull="机构编码">
+				</td>
+
+				<td class="title">
+					机构名称
+				</td>
+				<td class="common">
+					<input class="txt" name="organName" id="organName" notnull="机构名称">
+				</td>
+				<td class="title">
+					机构级别
+				</td>
+				<td class="common">
+					<input class="easyui-combobox" name="organGrade" id="organGrade" style="width:160%"
+						panelHeight="auto" notnull="机构级别">
+				</td>
+				<td class="title">
+					上级机构代码
+				</td>
+				<td class="common">
+					<input class="txt" name="upOrganCode" id="upOrganCode" notnull="上级机构代码" readonly
+						onclick="disorgan($('#upOrganCode'),$('#organGrade').combobox('getValue'));">
+				</td>
+			</tr>
+			<tr id='organshort_id'>
+				<td class="title">
+					机构简称
+				</td>
+				<td class="common">
+					<input class="txt" name="organShortName" id="organShortName" notnull="机构简称">
+				</td>
+			</tr>
+			<tr>
+				<!-- <td class="title">
+					机构级别
+				</td>
+				<td class="common">
+					<input class="easyui-combobox" name="organGrade" id="organGrade" style="width:160%"
+						panelHeight="auto" notnull="机构级别">
+				</td>
+				<td class="title">
+					上级机构代码
+				</td>
+				<td class="common">
+					<input class="txt" name="upOrganCode" id="upOrganCode" notnull="上级机构代码" readonly
+						onclick="disorgan($('#upOrganCode'),$('#organGrade').combobox('getValue'));">
+				</td> -->
+			</tr>
+			<tr>
+				<td class="title">
+					所在省
+				</td>
+				<td class="common">
+					<input class="easyui-combobox" name="Province" id="Province" style="width:160%" notnull="所在省">
+				</td>
+
+				<td class="title">
+					所在市
+				</td>
+				<td class="common">
+					<input class="easyui-combobox" name="City" id="City" style="width:160%" notnull="所在市">
+				</td>
+				<td class="title">
+					所在区
+				</td>
+				<td class="common">
+					<input class="easyui-combobox" name="County" id="County" style="width:160%" notnull="所在区">
+				</td>  
+				<td class="title">
+					是否停止
+				</td>
+				<td class="common">
+					<input class="easyui-combobox" name="isstop" id="isstop" style="width:160%" notnull="是否停止">
+				</td>
+			</tr>
+			<tr>
+				<!-- <td class="title">
+					是否停止
+				</td>
+				<td class="common">
+					<input class="easyui-combobox" name="isstop" id="isstop" style="width:160%" notnull="是否停止">
+				</td> -->
+			</tr>
+		</table>
+		<br>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id="organsave"
+			onclick="organsave()">机构新增</a>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" id="organmodify"
+			onclick="organmodify()">机构修改</a>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" id="organdelete"
+			onclick="organdelete()">机构删除</a>
+	</div>
+</body>
+
+</html>

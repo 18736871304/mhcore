@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<%@ page contentType="text/html;charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>免费对比_立即在线预约</title>
+  <script src="/js/activity/common/flexible.js"></script>
+  <script type="text/javascript" src="/js/20190824/jquery-1.7.1.min.js"></script>
+  <link rel="stylesheet" href="/css/activity/0009/toast.css">
+  <link rel="stylesheet" href="/css/activity/0009/init.css">
+  <link rel="stylesheet" href="/css/activity/0009/short.min.css">
+</head>
+<body>
+  <div class="content">
+    <div class="img_box_01">
+      <img src="/images/activity/0009/01_01.jpg" alt="" class="img_01">
+      <img src="/images/activity/0009/01_02.jpg?v=20191216" alt="" class="img_02">
+      <img src="/images/activity/0009/01_03.jpg" alt="" class="img_03">
+      <img src="/images/activity/0009/01_04.jpg" alt="" class="img_04">
+      <img src="/images/activity/0009/01_05.jpg" alt="" class="img_05">
+    </div>
+    <form class="form_box" id="topForm">
+    	<input type="hidden" style="display:none" class="channelCode" id="channelCode" value="${channelCode}">
+		<input type="hidden" style="display:none" class="pageType" id="pageType" value="${pageType}">
+		<input type="hidden" style="display:none" class="planId" id="planId" value="${planId}">
+      <div class="list">
+        <input type="text" placeholder="请输入姓名" name="name">
+      </div>
+
+      <div class="list">
+          <input type="text" placeholder="请输入手机号码" name="phone">
+      </div>
+
+      <div class="list flexbox get_code">
+        <input type="text" placeholder="请输入验证码" name="code">
+        <div class="btn">
+          获取验证码
+        </div>
+      </div>
+
+      <div class="list submit">
+        <div class="btn" id="topSub">
+          立即在线预约
+        </div>
+        <div class="text">*本人同意美华保险致电联系，提供保险相关服务</div>
+      </div>
+    </form>
+    <div class="img_box_02">
+      <img src="/images/activity/0009/2_01_01.jpg" alt="" class="img_01">
+      <img src="/images/activity/0009/2_01_02.jpg?v=20191211" alt="" class="img_02">
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+		(function (root) {
+		    var ksscript = document.createElement('script');
+		    ksscript.type = 'text/javascript';
+		    ksscript.src = 'https://static.yximgs.com/udata/pkg/ks-ad-trace-sdk/ks-trace.2.0.0.beta.js';
+		    var s = document.getElementsByTagName('script')[0];
+		    s.parentNode.insertBefore(ksscript, s);
+		})(window);
+</script>
+<script src="/js/activity/common/index.js"></script>
+<script src="/js/activity/common/form1.js?v=20191110"></script>
+<script src="/js/common/insuCommon.js"></script>
+</html>

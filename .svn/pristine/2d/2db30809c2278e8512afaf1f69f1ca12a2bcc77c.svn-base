@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>文章管理</title>
+	<link rel="stylesheet" href="./css/index.css">
+	<link rel="stylesheet" href="./css/article-manage.css?v=1">
+	<style>
+		[v-cloak] {
+			display: none;
+		}
+
+		.el-table--border th.gutter:last-of-type {
+			display: block !important;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container customerManagement" id="container" v-cloak>
+		<div class="contentBox">
+			<div class="header">
+				<div class="add-btn button-img" @click="createArticle">
+					+ 新建
+				</div>
+				<div class="box1 commonBox">
+					<div class="box1_div">
+						<div class="box1_div_l">文章名称</div>
+						<el-input v-model="title" size="mini" placeholder=""></el-input>
+					</div>
+					<div class="box1_div">
+						<div class="box1_div_l">渠道</div>
+						<el-select v-model="channel" size="mini" placeholder="">
+							<el-option v-for="(item,index) in channelList" :key="index" :label="item.dd_value"
+								:value="item.dd_key">
+							</el-option>
+						</el-select>
+					</div>
+					<div class="search btn button-img" @click="search">搜索</div>
+					<div class="search btn button-img" @click="reset">重置</div>
+				</div>
+			</div>
+			<div class="footer">
+				<div class="tableBox">
+					<el-table :data="tableData" border style="width: 100%">
+						<el-table-column align="center" prop="title" label="标题">
+						</el-table-column>
+						<el-table-column align="center" prop="channelname" label="渠道">
+						</el-table-column>
+						<el-table-column align="center" prop="updatetime" label="更新时间">
+						</el-table-column>
+						<el-table-column align="center" label="操作" width="250px">
+							<template slot-scope="scope">
+								<a class="edit option" target="_blank"
+									:href="'http://www.meihualife.com/clue/cw/index.html?uuid=' + scope.row.uuid">预览</a>
+								<a class="edit option" href="javascript:void(0);" @click="editItem(scope.row)">编辑</a>
+								<a class="delete option" href="javascript:void(0);"
+									@click="deleteItem(scope.row)">删除</a>
+							</template>
+						</el-table-column>
+					</el-table>
+				</div>
+				<div class="pageBox">
+					<el-pagination background layout="prev, pager, next" :total="pageTotal" :page-size="pageSize"
+						:current-page="pageNum" @current-change="pageClick">
+					</el-pagination>
+				</div>
+			</div>
+		</div>
+		<el-dialog :title="txt" :visible.sync="dialog" width="1300px" :destroy-on-close="true">
+			<div class="article-box">
+				<div class="content-section">
+					<div class="item-section">
+						<label>标题</label>
+						<div class="right-content">
+							<el-input v-model="articleTitle" size="mini" placeholder=""></el-input>
+						</div>
+					</div>
+					<div class="item-section">
+						<label>渠道</label>
+						<div class="right-content">
+							<el-select v-model="articleChannel" size="mini" placeholder="">
+								<el-option v-for="(item,index) in channelList" :key="index" :label="item.dd_value"
+									:value="item.dd_key">
+								</el-option>
+							</el-select>
+						</div>
+					</div>
+				</div>
+				<div class="page-container">
+					<div class="editor-box">
+						<div id="div1" class="toolbar"></div>
+						<div id="div2" class="text">
+						</div>
+					</div>
+				</div>
+				<div class="dialog-footer">
+					<div class="btn cancel" @click="dialog = false">取消</div>
+					<div class="btn next" @click="save">{{txt}}</div>
+				</div>
+			</div>
+		</el-dialog>
+	</div>
+</body>
+<script src="./js/jquery-2.0.0.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="./js/wangEditor.min.js?v=1"></script>
+<script src="./js/ajax.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/vue.js"></script>
+<script src="./js/element-ui.js"></script>
+
+<script>
+	Vue.config.productionTip = false;
+	let editor
+	var vm = new Vue({
+		el: '#container',
+		data() {
+			return {
+				title: '',
+				articleTitle: '',
+				channel: '',
+				currentArticleId: '',
+				articleChannel: '',
+				loading: false,
+				dialog: false,
+				pageTotal: 0,
+				pageSize: 10,
+				pageNum: 1,
+				tableData: [],
+				channelList: [],
+			}
+		},
+		computed: {
+			txt() {
+				return this.currentArticleId ? '保存' : '新建'
+			}
+		},
+		mounted: function () {
+			this.$nextTick(() => {
+				this.getArticleList()
+				let _this = this
+				getData('post', my_url + '/combox/disComBox.do?comboxType=source', function (data) {//标签 
+					_this.channelList = data;
+				}, {});
+			})
+		},
+		methods: {
+			beforeClose(done) {
+				done()
+			},
+			createArticle() {
+				let _this = this
+				this.currentArticleId = ''
+				this.dialog = true
+				_this.$nextTick(() => {
+					_this.newWangEditor('#div1', '#div2')
+					editor.txt.html('<div class="html-content"><div class="top-title">						3分钟带你读懂险种区别【重疾险、医 疗险、意外险、寿险】					</div> <div class="main-info"><span class="yc">原创</span> <span>美华君</span> <a href="javascript:;">美华保险服务</a> <span>一天前</span></div> <div class="click-tip"><span>点击上方</span> <span class="blue">蓝色字</span> <img src="./img/click-icon.png" alt=""> <span>1对1沟通</span></div><img src="./img/banner-pc.png" alt="" class="banner"> <div class="first-section"><p class="normal">							很多人第一次买保险，不知道买哪个险种，不同的险种之间有什么区别区分？今天美华君就给大家来详细的讲解一下这行些问题！						</p> <ul class="main-txt-list"><li>								重疾险VS医疗险？							</li> <li>								意外险VS寿险？							</li> <li>								2020年保障全面的险种评测							</li></ul></div> <div class="vs-section"><div class="h2">一、重疾险VS医疗险？</div> <p class="normal">重疾险和医疗险都是保障疾病的：重疾险（俗称大病险），属于给付型。医疗险（俗称住院险），属于补偿型。</p><div class="h2">二、重疾险VS医疗险？</div><p class="normal">记得编辑删除~~~~~~~</p><div class="h2">二、重疾险VS医疗险？</div><p class="normal">记得编辑删除~~~~~~~</p><div class="h2">二、重疾险VS医疗险？</div><p class="normal">记得编辑删除~~~~~~~</p><div class="yellow-bg">直接给大家举个例子：</div></div> <img src="./img/p-1-pc.png" alt="" class="p-img"> <img src="./img/p-2-pc.png" alt="" class="p-img"> <img src="./img/p-3-pc.png" alt="" class="p-img"> <div class="strengths-section"><h3>1、保障期限和续保上的差别</h3> <ul><li class="normal">重疾险通常都是长期险，买了可以保障几十年的那种，所以一般不用担心第二年还能不能再买。</li> <li class="normal">医疗险大部分都是一年期产品，不保证续保，在第二年可能面临提高保费、拒绝续保、产品停售等风险。</li></ul> <h3>2、疾病方面的差别：医疗险稍高一筹</h3> <ul><li class="normal">								重疾险保障疾病种类在合同里都会有约定，保监会规定至少包含25种重疾。这25种重疾就已经占到理赔率和发病率95%左右的比例。保险公司通常会再加一部分疾病上去，但也只是锦上添花。</li> <li class="normal">医疗险的确是不限疾病的，只看是否发生了合同规定的住院或者门诊。从这个角度来看，医疗险的确对疾病的限制更为宽松。</li></ul><img src="./img/white-mask-pc.png" alt="" class="wihte-mask"><img src="./img/arrow-green.png" alt="" class="arrow-green"> <a href="javascript:;" class="btn">点击阅读全文</a></div> <div class="bottom-container"><img src="./img/bottom-title-wap.png" alt="" class="bottom-title"> <h1>购买前</h1> <h3>梳理保险观念</h3> <ul><li><span>投保规划</span> <span class="line">|</span> <a href="javascript:;">不同年龄段如何规划保险？</a></li> <li><span>投保原则</span> <span class="line">|</span> <a href="javascript:;">必须知道的科学投保五大原则！</a></li> <li><span>投保原则</span> <span class="line">|</span> <a href="javascript:;">这样的投保原则才正确！</a></li> <li><span>保费返还</span> <span class="line">|</span> <a href="javascript:;">挑返还型还是消费型，哪个更好？</a></li> <li><span>服务对比</span> <span class="line">|</span> <a href="javascript:;">从保险公司投诉率，看服务好不好！</a></li> <li><span>产品匹配</span> <span class="line">|</span> <a href="javascript:;">买保险都在同一家公司好不好？</a></li> <li><span>购买渠道</span> <span class="line">|</span> <a href="javascript:;">线上购买和线下购买，哪个更放心？</a></li> <li><span>保险合同</span> <span class="line">|</span> <a href="javascript:;">教你辨别保险合同的那些坑！</a></li></ul> <h3>高性价比方案推荐</h3> <ul><li><span>保险方案</span> <span class="line">|</span> <a href="javascript:;">2020高性价比方案推荐</a></li></ul> <h1>购买中</h1> <h3>保险购买技巧</h3> <ul><li><span>缴费年限</span> <span class="line">|</span> <a href="javascript:;">缴费年限怎么选才不会亏？</a></li> <li><span>健康告知</span> <span class="line">|</span> <a href="javascript:;">投保时，健康告知有什么小技巧？</a></li> <li><span>保费豁免</span> <span class="line">|</span> <a href="javascript:;">保费豁免好不好，买保险的时候一 定要选吗？</a></li> <li><span>受益人 </span> <span class="line">|</span> <a href="javascript:;">如何指定保险受益人？</a></li> <li><span>保额规划</span> <span class="line">|</span> <a href="javascript:;">保额要买多少才合适？</a></li> <li><span>轻症选择</span> <span class="line">|</span> <a href="javascript:;">重疾险的轻症数量是不是越多越好？</a></li> <li><span>多次赔付</span> <span class="line">|</span> <a href="javascript:;">重大疾病险多次赔付比单次的更划 算吗？</a></li></ul> <h1>购买后</h1> <h3>买保险后的注意事项</h3> <ul><li><span>保险理赔</span> <span class="line">|</span> <a href="javascript:;">理赔案件发生后，应该如何去理赔？</a></li> <li><span>理赔资料</span> <span class="line">|</span> <a href="javascript:;">理赔资料一般有哪些，有什么要注 意的细节？</a></li> <li><span>保费豁免</span> <span class="line">|</span> <a href="javascript:;">保费豁免好不好，买保险的时候一 定要选吗？</a></li> <li><span>续保缴费</span> <span class="line">|</span> <a href="javascript:;">保费忘记交，保单状态会失效吗？</a></li> <li><span>保单管理</span> <span class="line">|</span> <a href="javascript:;">保单自已管理，理赔时，家人不知 道咋办？</a></li> <li><span>理赔纠纷</span> <span class="line">|</span> <a href="javascript:;">出现理赔纠纷的正确操作流程！</a></li> <li><span>保险退保</span> <span class="line">|</span> <a href="javascript:;">保险退保时要留意哪些细节？</a></li></ul> <div class="bashed-border"></div> <h1>还有实用小工具哦</h1> <img src="./img/bottom-imgs-pc.png" alt="" class="bottom-imgs"></div></div>')
+					_this.articleTitle = ''
+					_this.articleChannel = ''
+					_this.currentArticleId = ''
+				})
+			},
+			editItem(item) {
+				let body = {
+					uuid: item.uuid,
+				}
+				let _this = this
+				getData('post', my_url + '/activity/getOneArticle.do', res => {
+					if (res.code == 0) {
+						_this.dialog = true
+						_this.$nextTick(() => {
+							_this.newWangEditor('#div1', '#div2')
+							editor.txt.html(res.article.content)
+							_this.articleTitle = res.article.title
+							_this.articleChannel = res.article.channel
+							_this.currentArticleId = item.articleserialno
+						})
+					}
+				}, body);
+			},
+			save() {
+				if (!this.articleChannel) {
+					this.$message.error('请选择渠道')
+					return
+				}
+				let data = {
+					title: this.articleTitle,
+					channel: this.articleChannel,
+					content: editor.txt.html(),
+				}, method = '/activity/articleInsert.do'
+				if (this.currentArticleId) {
+					data.articleid = this.currentArticleId
+					method = '/activity/articleUpdate.do'
+				}
+				let _this = this
+				getData('post', my_url + method, function (res) {//标签 
+					if (res.code === '0') {
+						_this.dialog = false
+						_this.getArticleList()
+					}
+				}, data);
+			},
+			deleteItem(item) {
+				let body = {
+					articleid: item.articleid,
+				}
+				getData('post', my_url + '/activity/articleDelete.do', data => {
+					if (data.code == 0) {
+						this.getArticleList()
+					}
+				}, body);
+			},
+			search() {
+				this.pageNum = 1
+				this.getArticleList()
+			},
+			getArticleList() {
+				let body = {
+					title: this.title,
+					channel: this.channel,
+					pageNumber: this.pageNum,
+					pageSize: this.pageSize,
+					state: '01'
+				}
+				getData('post', my_url + '/activity/getArticleList.do', data => {
+					this.tableData = data.rows
+					this.pageTotal = data.total
+				}, body);
+			},
+			reset() {//重置
+				this.title = ''
+				this.channel = ''
+			},
+
+			pageClick(num) {
+				this.pageNum = num
+				this.getArticleList()
+			},
+			newWangEditor(el1, el2) {
+				var E = window.wangEditor
+				editor = new E(el1, el2) // 两个参数也可以传入 elem 对象，class 选择器
+				// 隐藏“网络图片”tab
+				editor.customConfig.showLinkImg = false
+				// 忽略粘贴内容中的图片
+				editor.customConfig.pasteIgnoreImg = true
+				// 使用 base64 保存图片
+				//editor.customConfig.uploadImgShowBase64 = true
+				editor.customConfig.menus = [
+					'head',  // 标题
+					'bold',  // 粗体
+					'fontSize',  // 字号
+					'fontName',  // 字体
+					'italic',  // 斜体
+					'underline',  // 下划线
+					'strikeThrough',  // 删除线
+					'foreColor',  // 文字颜色
+					'backColor',  // 背景颜色
+					'link',  // 插入链接
+					'list',  // 列表
+					'justify',  // 对齐方式
+					'quote',  // 引用
+					'emoticon',  // 表情
+					'image',  // 插入图片
+					'table',  // 表格
+					'video',  // 插入视频
+					'code',  // 插入代码
+					'undo',  // 撤销
+					'redo'  // 重复
+				]
+				// 上传图片到服务器
+				editor.customConfig.uploadFileName = 'myFile'; //设置文件上传的参数名称
+				editor.customConfig.uploadImgServer = my_url + '/impUpload.do'; //设置上传文件的服务器路径
+				editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024; // 将图片大小限制为 3M
+				//自定义上传图片事件
+				editor.customConfig.uploadImgHooks = {
+					before: function (xhr, editor, files) {
+
+					},
+					success: function (xhr, editor, result) {
+						console.log("上传成功");
+
+					},
+					fail: function (xhr, editor, result) {
+						console.log("上传失败,原因是" + result);
+					},
+					error: function (xhr, editor) {
+						console.log("上传出错");
+					},
+					timeout: function (xhr, editor) {
+						console.log("上传超时");
+					}
+				}
+				editor.create()
+			},
+		}
+	})
+</script>
+
+</html>

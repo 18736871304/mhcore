@@ -1,0 +1,42 @@
+
+
+
+/*organ/ OrganManage.jsp    team/teamMan.jsp*/
+tr .title {
+    width: 6%;
+}
+.common .reprot_title{
+    width: 6%;
+}
+tr .report_common {
+    width: 10%;
+}
+
+.combo {
+    width: 84% !important;
+}
+
+.combo .combo-text {
+    width: 80% !important;
+}
+
+.common .txt {
+    width: 85%;
+}
+.combo-p {
+    width: 12% !important;
+}
+
+.combo-panel {
+width: 90% !important;
+height: auto !important;
+}
+.combo-arrow{
+    float: right;
+}
+td.common {
+    width: 10%;
+}
+table.common {
+    width: 98%;
+}

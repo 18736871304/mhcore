@@ -1,0 +1,241 @@
+@charset "UTF-8";
+html, body {
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: PingFangSC-Regular, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+img {
+  width: 100%;
+}
+
+.main {
+  position: relative;
+  max-width: 750px;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
+.hide {
+  display: none !important;
+}
+
+.show {
+  display: block !important;
+}
+
+li {
+  list-style: none;
+}
+
+/*解决滑动穿透*/
+body.modal-open {
+  position: fixed;
+  width: 100%;
+}
+
+/*input的竖线颜色*/
+input, textarea {
+  caret-color: #dc220d;
+}
+
+/*重置弹框按钮颜色*/
+.weui-btn_primary {
+  background: #dc220d;
+}
+
+.weui-btn_primary:not(.weui-btn_disabled):active {
+  background: #ee6f60;
+}
+
+button.meihua-button {
+  min-width: 330px;
+  min-height: 49px;
+  border-radius: 4px;
+  margin: 0 auto 15px auto;
+  font-size: 16px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  outline: none;
+  border: none;
+}
+
+button.button-return {
+  background: #ffffff;
+  color: #b71c0b;
+  border: 1px solid #d8d8d8;
+}
+
+button.button-return:active {
+  background: #f7f7f7;
+}
+
+button.button-fail {
+  background: #ffffff;
+  color: #333333;
+  border: 1px solid #d8d8d8;
+}
+
+button.button-fail:active {
+  background: #f7f7f7;
+}
+
+button.button-confirm {
+  background: #b71c0b;
+  color: #ffffff;
+}
+
+button.button-confirm:active {
+  background: #E01E0B;
+}
+
+.button-radio {
+  color: #333333;
+}
+
+.button-radio.selected i {
+  color: #b71c0b !important;
+}
+
+.smart-check {
+  min-width: 100vw;
+  min-height: 100vh;
+  background: #f0efef;
+}
+.smart-check .question-answer .question-answer-content .question-box {
+  background: #f0efef;
+}
+.smart-check .question-answer .question-answer-content .question-box .question-list {
+  background: #ffffff;
+  margin-bottom: 15px;
+}
+.smart-check .question-answer .question-answer-content .question-box .question-list .question-detail {
+  padding: 15px 25px;
+  font-size: 14px;
+  border-bottom: 2px solid #d8d8d8;
+}
+.smart-check .question-answer .question-answer-content .question-box .question-list .question-radio {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 14px 0;
+}
+.smart-check .question-answer .question-answer-content .question-box .question-list .question-radio span {
+  font-size: 12px;
+  color: #333333;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.smart-check .question-answer .question-answer-content .question-box .question-list .question-radio span i {
+  color: #6a6a6a;
+  margin-right: 10px;
+}
+.smart-check .question-answer .question-answer-content .question-box .question-list .question-radio span:first-child {
+  margin-left: 50px;
+}
+.smart-check .question-answer .question-answer-content .question-box .question-list .question-radio span:last-child {
+  margin-left: 60px;
+}
+.smart-check .question-answer .confirm-button {
+  padding-top: 19px;
+}
+.smart-check .question-confirm .question-confitm-content .content-title {
+  background: #ffffff;
+  font-size: 15px;
+  color: #0c0c0e;
+  height: 49px;
+  line-height: 49px;
+  border-bottom: 1px solid #d8d8d8;
+  padding: 0 15px;
+}
+.smart-check .question-confirm .question-confitm-content .question-confirm-list .confirm-box {
+  background: #ffffff;
+  padding: 15px 20px;
+  margin-bottom: 5px;
+}
+.smart-check .question-confirm .question-confitm-content .question-confirm-list .confirm-box .confirm-question {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 12px;
+  color: #333333;
+  line-height: 30px;
+}
+.smart-check .question-confirm .question-confitm-content .question-confirm-list .confirm-box .confirm-question span i {
+  font-style: normal;
+  position: relative;
+  padding-left: 6px;
+}
+.smart-check .question-confirm .question-confitm-content .question-confirm-list .confirm-box .confirm-question span i:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: #b71c0b;
+  border-radius: 2px;
+}
+.smart-check .question-confirm .question-confitm-content .question-confirm-list .confirm-box .confirm-question span:first-child {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+.smart-check .question-confirm .question-confitm-content .question-confirm-list .confirm-box .confirm-question span:last-child {
+  -webkit-box-flex: 9;
+      -ms-flex: 9;
+          flex: 9;
+}
+.smart-check .question-confirm .question-confitm-content .question-confirm-list .confirm-box .confirm-answer {
+  margin-top: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 12px;
+  color: #333333;
+}
+.smart-check .question-confirm .question-confitm-content .question-confirm-list .confirm-box .confirm-answer span i {
+  font-style: normal;
+  position: relative;
+  padding-left: 6px;
+}
+.smart-check .question-confirm .question-confitm-content .question-confirm-list .confirm-box .confirm-answer span i:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: #b71c0b;
+  border-radius: 2px;
+}
+.smart-check .question-confirm .question-confitm-content .question-confirm-list .confirm-box .confirm-answer span:first-child {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+.smart-check .question-confirm .question-confitm-content .question-confirm-list .confirm-box .confirm-answer span:last-child {
+  -webkit-box-flex: 9;
+      -ms-flex: 9;
+          flex: 9;
+}
+.smart-check .question-confirm .confirm-button {
+  padding-top: 19px;
+}

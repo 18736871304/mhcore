@@ -1,0 +1,194 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<%@ include file="/WEB-INF/common/include.jsp"%><head>
+<title></title>
+<link rel="stylesheet" href="../../../../css/inputbox/line6.css?v=202004">
+<script>
+
+var inputList;
+var checkList;
+
+window.onload = function()
+{
+	initDataGrid20($('#userList'));
+	
+	inputList = [
+	 			$('#userid'),
+	 			$('#usercode'),
+	 			$('#modifyDate'),
+	 			$('#replaceuserid'),
+	 			$('#reason')
+	 			
+	 	];
+
+	 checkList = [
+	 			$('#usercode'),
+	 			$('#replaceuserid'),
+	 			$('#modifyDate')
+	 	];
+	 
+	 initUserQuery("('02')")
+	 userDetailDlgInit();
+	 dlgUserInit();
+	 
+	 $('#modifyDate').datebox({onSelect: function(date){datediff();}});
+	 $('#reason').val("");
+}
+
+function aftercodeselect(comboxid)
+{
+	organAfterSelect(comboxid);	
+}
+
+function selectone()
+{
+	var row = $('#userList').datagrid('getSelected');
+
+	$('#userid').val(row.userid);
+	$('#usercode').val(row.usercode);
+	$('#username').val(row.realname);
+	
+	$('#realname').val(row.realname);
+	$('#mobilenumber').val(row.mobilenumber);
+	$('#cardno').val(row.cardno);
+	$('#organcode').val(row.organcode);
+}
+
+function saveSuss()
+{
+	clearCarData();
+	$('#userList').datagrid('reload');
+}
+
+function clearCarData()
+{
+	cleardata(inputList);
+	$("#injobyears").val("");
+	$('#reason').val("");
+}
+//离职录入
+function userInsert()
+{
+	var row = $('#userList').datagrid('getSelected');
+	
+	if(row==null)
+	{
+		$.messager.alert('操作提示','请选中要录入的人员！','error');
+		return;
+	}
+	
+	if(!checknotnull(checkList))
+	{
+		return;
+	}
+
+	var tparam = prepareparam(inputList);
+	tparam.registertimeStr = $("#modifyDate").datebox('getValue');
+
+	ajaxdeal("user/userTurnOver.do",tparam,null,null,saveSuss);
+}
+
+function datediff()
+{
+	var row = $('#userList').datagrid('getSelected');
+	
+	if(row==null)
+	{
+		return;
+	}
+	
+	var minDate = row.entrydate;
+	var maxDate = $("#modifyDate").datebox('getValue');
+	
+	maxDate = maxDate.split('-');
+	minDate = minDate.split('-');
+	
+	var add = 0;
+	
+	if(parseInt(maxDate[2])<parseInt(minDate[2]))
+	{
+		add = add - 1;
+	}
+	
+	maxDate = parseInt(maxDate[0]) * 12 + parseInt(maxDate[1]);
+	minDate = parseInt(minDate[0]) * 12 + parseInt(minDate[1]);
+	
+	var m_diff = Math.abs(maxDate - minDate + add);
+	
+	$("#injobyears").val(m_diff);
+}
+
+</script>
+
+</head>
+<body>
+<%@ include file="/WEB-INF/jsp/admin/user/userDetailDlg.jsp"%>
+<%@ include file="/WEB-INF/jsp/admin/policy/userDlg.jsp"%>
+<div style="margin-left:0%">
+	<%@ include file="/WEB-INF/common/query/user/userCommonQuery.jsp"%>
+	<br>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id = "userListQuery" onclick = "userListQuery()">查询</a>
+	<br>
+	<br>
+	<table id="userList" class="easyui-datagrid" title="人员信息" style="width:auto;height:auto"
+		data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone" >
+		<thead>
+			<tr>
+				<%@ include file="/WEB-INF/common/column/organ/organList.jsp"%>
+				<%@ include file="/WEB-INF/common/column/user/userList.jsp"%>
+			</tr>
+		</thead>
+	</table>
+	<br>
+	<table class = "common">
+		<tr>
+			<td class = "reprot_title_4">
+				人员姓名
+			</td>
+			<td class = "report_common_4">
+				<input class = "txt" name="username" readonly="readonly" id="username" notnull = "人员编号">
+				<input class = "txt" name="usercode" readonly="readonly" id="usercode" notnull = "人员编号" hidden>
+			</td>
+			
+			<td class = "reprot_title_4">
+				离职时间
+			</td>
+			<td class = "report_common_4">
+				<input class = "easyui-datebox" style="width:160%" panelHeight="auto" name="modifyDate" id="modifyDate" notnull = "离职时间">
+				<input class = "txt" hidden name="userid" id="userid" notnull = "人员编码">
+			</td>
+
+			
+			<td class = "reprot_title_4">
+				在职时间（月）
+			</td>
+			<td class = "report_common_4">
+				<input class = "txt" name="injobyears" id="injobyears" readonly="readonly">
+			</td>
+			
+			<td class="title">
+					交接人员姓名
+			</td>
+			<td class="common">
+				<input class="txt" name="replaceusername" id="replaceusername" notnull="交接人员姓名" readonly
+					onclick="disuUserDlg($('#replaceusercode'),$('#replaceuserid'),$('#replaceusername'),'02');">
+				<input class="txt" hidden name="replaceusercode" id="replaceusercode" notnull="交接人员姓名">
+				<input class="txt" hidden name="replaceuserid" id="replaceuserid" notnull="交接人员姓名">
+			</td>
+		</tr>
+		
+		<tr>
+			<td class = "reprot_title_4">
+				离职原因
+			</td>
+			<td class="report_common_4"  colspan="5">
+				<textarea notnull = "离职原因" class="txt" style="width: 600px;height: auto;" id="reason" name="reason">
+				</textarea>
+			</td>
+		</tr>
+	</table>
+	<br>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id = "userInsert" onclick = "userInsert()">离职人员录入</a>
+</div>
+</body>
+</html>

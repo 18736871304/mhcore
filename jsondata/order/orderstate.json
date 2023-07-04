@@ -1,0 +1,16 @@
+[{
+	"dd_key":"20",
+	"dd_value":"待支付"
+},{
+	"dd_key":"31",
+	"dd_value":"支付失败"
+},{
+	"dd_key":"33",
+	"dd_value":"支付关闭"
+},{
+	"dd_key":"40",
+	"dd_value":"签单成功"
+},{
+	"dd_key":"70",
+	"dd_value":"已退款"
+}]

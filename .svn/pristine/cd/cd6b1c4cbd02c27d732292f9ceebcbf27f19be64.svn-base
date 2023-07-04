@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>icon_tips_red</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="产品类-pc" transform="translate(-1349.000000, -743.000000)">
+            <g id="测算保费" transform="translate(1328.000000, 598.000000)">
+                <g id="错误提示" transform="translate(21.000000, 144.000000)">
+                    <g id="icon_tips_red" transform="translate(0.000000, 1.000000)">
+                        <circle id="椭圆形" fill="#FF5157" cx="6" cy="6" r="6"></circle>
+                        <rect id="矩形" fill="#FFFFFF" x="2" y="5" width="8" height="1.5" rx="0.75"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

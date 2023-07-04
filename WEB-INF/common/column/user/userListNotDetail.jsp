@@ -1,0 +1,13 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<%@ include file="/WEB-INF/common/column/user/userInfo.jsp"%>
+<th data-options="field:'sexname',width:40">性别</th>
+<th data-options="field:'mobilenumber',width:90">手机号码</th>
+<th data-options="field:'cardno',width:130">身份证号码</th>
+<th data-options="field:'degreename',width:70">学历</th>
+<%@ include file="/WEB-INF/common/column/user/userType.jsp"%>
+<th data-options="field:'usergradename',width:80">职能级别</th>
+<th data-options="field:'positionname',width:70">职岗</th>
+<th data-options="field:'entrydate',width:80" sortable="true">下团队日期</th>
+<%@ include file="/WEB-INF/common/column/user/workYears.jsp"%>
+<th data-options="field:'contracttypename',width:70">合同类型</th>
+<th data-options="field:'contractenddate',width:80" sortable="true">合同到期日</th>

@@ -1,0 +1,10 @@
+.life-info-detail-container .flex-wrap li{
+    height:40px;
+    line-height:40px;
+}
+.flex-wrap li:last-child{
+    border: 0;
+}
+#xzmessage{
+ border-bottom: 1px solid #ccc;
+}

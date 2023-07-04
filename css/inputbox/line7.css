@@ -1,0 +1,40 @@
+table.common {
+    width: 100%;
+}
+
+td.reprot_title {
+    width: 4%;
+}
+
+.combo {
+    width: 95% !important;
+}
+
+.combo .combo-text {
+    width: 75% !important;
+}
+
+input.txt {
+    width: 95%;
+}
+
+.combo-p {
+    width: 13% !important;
+}
+
+.combo-panel {
+    width: 90% !important;
+    height: auto !important;
+}
+
+.combo-arrow {
+    float: right;
+}
+
+.combo {
+    width: 95% !important;
+}
+
+td.four_title {
+    width: 14%;
+}

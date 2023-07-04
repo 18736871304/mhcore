@@ -1,0 +1,51 @@
+/*order/orderPolicyQuery  policy/lifePolicyQuery  order/authPolicyQuery.jsp */
+table.common {
+    width: 100%;
+}
+
+.report_common .txt {
+    width: 97%;
+}
+
+.common .reprot_title {
+    width: 6%;
+}
+
+tr .report_common {
+    width: 10%;
+}
+
+.common .reprot_title_4 {
+    BACKGROUND-COLOR:rgb(224,235,255);
+	text-align: left;
+	width: 9%;
+ 	font-size:10pt;
+}
+
+tr .report_common_4 {
+    width: 15%;
+	height: 25px;
+}
+
+.combo {
+    width: 84% !important;
+}
+
+.combo .combo-text {
+    width: 80% !important;
+}
+
+.common .txt {
+    width: 85%;
+}
+.combo-p {
+    width: 12% !important;
+}
+
+.combo-panel {
+width: 90% !important;
+height: auto !important;
+}
+.combo-arrow{
+    float: right;
+}

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<%@ page contentType="text/html;charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+	<title>保单管家</title>
+	<link rel="stylesheet" href="/fonts/mypolicy/policytrust/iconfont.css">
+	<link rel="stylesheet" href="/css/mypolicy/policytrust/lib/jquery-weui.min.css">
+	<link rel="stylesheet" href="/css/mypolicy/policytrust/common.css">
+	<link rel="stylesheet" href="/css/mypolicy/policytrust/index.css">
+	<link rel="stylesheet" href="/css/mypolicy/policytrust/header.css?v=20191027">
+	<link rel="stylesheet" href="/css/mypolicy/policytrust/charts.css">
+	<link rel="stylesheet" href="/css/mypolicy/policytrust/list.css">
+</head>
+<body>
+<div class="index-page main">
+	<div class="index-page-loading" id="loading"><i class="weui-loading"></i></div>
+	<div class="index-page-container">
+		<div class="hosting-header" id="hostingHeader">
+			<div class="hosting-header-box">
+				<div class="header-wrap">
+					<div class="header-title">
+						<i><img src="/images/mypolicy/policytrust/icon_baozhang.png"></i>
+						<span>我的家庭保障</span>
+					</div>
+					<div class="header-content">
+						<div class="header-content-item">
+							<div class="item-box">
+								<div class="item-box-top">
+									<span id="effectiveNum">0</span>
+									<span>份</span>
+								</div>
+								<div class="item-box-bottom">
+									<span>有效保单</span>
+								</div>
+							</div>
+						</div>
+						<div class="header-content-item">
+							<div class="item-box">
+								<div class="item-box-top">
+									<span id="protectionNum">0</span>
+									<span>位</span>
+								</div>
+								<div class="item-box-bottom">
+									<span>保障家人</span>
+								</div>
+							</div>
+						</div>
+						<div class="header-content-item">
+							<div class="item-box">
+								<div class="item-box-top" style="text-align: center;">
+                       <span class="service-box">
+                           <img id="serviceImg" src="/images/mypolicy/policytrust/service_female.png">
+                       </span>
+								</div>
+								<div class="item-box-bottom">
+									<span>您的专属顾问</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="hosting-content">
+			<div class="hosting-tab-box">
+				<div class="hosting-tab-wrap">
+					<ul id="tabSelect">
+						<li class="active" data-type="all">全部</li>
+						<li data-type="self">本人</li>
+						<li data-type="couple">配偶</li>
+						<li data-type="parents">父母</li>
+						<li data-type="children">子女</li>
+					</ul>
+				</div>
+			</div>
+			<div class="hosting-data-box">
+				<!--                <div class="hosting-data-empty">-->
+				<!--                    <div class="hosting-data-empty-box">-->
+				<!--                        <div class="empty-img">-->
+				<!--                            <img src="./asset/images/empty.png">-->
+				<!--                        </div>-->
+				<!--                        <div class="empty-text">-->
+				<!--                            未找到相关内容-->
+				<!--                        </div>-->
+				<!--                    </div>-->
+				<!--                </div>-->
+				<div class="hosting-charts-box" id="hostingCharts">
+					<div class="hosting-charts-box">
+						<div class="hosting-charts-container">
+							<div class="charts-left">
+								<div class="echarts-box" id="echartsBox"></div>
+								<div class="echarts-title" id="protectStatus">保障齐全</div>
+							</div>
+							<div class="charts-right">
+								<div class="charts-right-wraper">
+									<div class="insurance-total insurance-total-fee">
+										<div><span id="totalFee">0</span>元</div>
+										<div><span>总保费</span></div>
+									</div>
+									<div class="insurance-total insurance-total-sum">
+										<div><span id="totalAmount">0</span>元</div>
+										<div><span>总保额</span></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="hosting-list-box" id="hostingList">
+					<div class="hosting-list-box">
+						<div class="hosting-list-wrap">
+							<div class="list-title">
+								<div class="list-title-tips">
+									<span>保障中</span>
+									（<span id="protectingNum">0</span>）
+								</div>
+								<div class="list-title-select-box">
+									<div class="list-select-wrap">
+										<div class="selected" id="selected">
+											<span id="selectedText">保障中</span>
+											<span class="triangle"></span>
+										</div>
+
+										<ul id="selectBoxs" class="select-boxs">
+											<li value="">保障中</li>
+											<li value="">待处理</li>
+											<li value="">已失效</li>
+											<li value="">已终止</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="list-box-container" id="listBoxContainer">
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="hosting-footer">
+		<div class="hosting-footer-wrap">
+			<img src="/images/mypolicy/policytrust/logo-di.png">
+		</div>
+	</div>
+</div>
+<script src="/js/mypolicy/policytrust/lib/jquery1.12.4.min.js"></script>
+<script src="/js/mypolicy/policytrust/lib/echarts.js"></script>
+<script src="/js/mypolicy/policytrust/lib/jquery-weui.min.js"></script>
+<script src="/js/mypolicy/policytrust/policytrust01.js?V=20191029_08"></script>
+<script>
+
+
+</script>
+</body>
+</html>

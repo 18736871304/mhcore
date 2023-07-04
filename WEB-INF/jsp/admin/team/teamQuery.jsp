@@ -1,0 +1,127 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<script>
+/*
+ * 添加机构查询，只需要3步
+ * 1、aftercodeselect中加入else的部分
+ * 2、查询条件中加入teamid
+ * 3、引入本jsp文件
+ * 注：后台也需要相关的支持才行，这里说的只是前端的修改
+ */
+
+function teamAfterSelect(comboxid)
+{
+	if(comboxid.attr("id")=="q04org")
+	{
+		var tParam = new Object();
+		var codes = comboxid.combobox('getValues');
+        var ic = "'";
+        for(var i=0;i<codes.length;i++){
+            if (ic != "") ic += "\',\'";
+			ic += codes[i];
+		}
+        ic += "'";
+        tParam.organcode = ic;
+        
+		var tturl1 = "team/getTeamListByOrgan.do";
+		
+		displayCombox($('#q01team'),tParam,tturl1,"dd_key","dd_value");
+	}
+	else if(comboxid.attr("id")=="q01team")
+	{
+		var tParam = new Object();
+		var codes = comboxid.combobox('getValues');
+        var ic = "";
+        for(var i=0;i<codes.length;i++)
+        {
+            ic += "'"+codes[i]+"'";
+            if(i!=codes.length-1)
+            {
+            	ic += ",";
+            }
+		}
+        tParam.upteamid = ic;
+        
+		var tturl1 = "team/getTeamListByUpTeamId.do";
+		
+		displayCombox($('#q02team'),tParam,tturl1,"dd_key","dd_value");
+	}
+	else if(comboxid.attr("id")=="q02team")
+	{
+		var tParam = new Object();
+		var codes = comboxid.combobox('getValues');
+		var ic = "";
+        for(var i=0;i<codes.length;i++)
+        {
+            ic += "'"+codes[i]+"'";
+            if(i!=codes.length-1)
+            {
+            	ic += ",";
+            }
+		}
+        tParam.upteamid = ic;
+        
+		var tturl1 = "team/getTeamListByUpTeamId.do";
+		
+		displayCombox($('#q03team'),tParam,tturl1,"dd_key","dd_value");
+	}
+}
+
+function getQTeamId()
+{
+	var team_codes = "";
+	if($('#q03team').combobox('getValues')!=null&&$('#q03team').combobox('getValues')!='')
+	{
+		team_codes = $('#q03team').combobox('getValues');
+	}
+	else if($('#q02team').combobox('getValues')!=null&&$('#q02team').combobox('getValues')!='')
+	{
+		team_codes = $('#q02team').combobox('getValues');
+	}
+	else if($('#q01team').combobox('getValues')!=null&&$('#q01team').combobox('getValues')!='')
+	{
+		team_codes = $('#q01team').combobox('getValues');
+	}
+	
+	var team_sqlstr = "";
+	
+	if(team_codes!=null&&team_codes!='')
+	{
+		for(var i=0;i<team_codes.length;i++)
+        {
+            team_sqlstr += "'"+team_codes[i]+"'";
+            if(i!=team_codes.length-1)
+            {
+            	team_sqlstr += ",";
+            }
+		}
+	}
+	
+	return team_sqlstr;
+}
+</script>
+
+<!-- <tr> -->
+	<td class = "title">
+		事业部
+	</td>
+	<td class = "common">
+		<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="q01team" id="q01team" data-options="multiple:true">
+		</select>
+	</td>
+	
+	<td class = "title">
+		团队
+	</td>
+	<td class = "common">
+		<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="q02team" id="q02team" data-options="multiple:true">
+		</select>
+	</td>
+	
+	<td class = "title">
+		组
+	</td>
+	<td class = "common">
+		<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="q03team" id="q03team" data-options="multiple:true">
+		</select>
+	</td>
+<!-- </tr> -->

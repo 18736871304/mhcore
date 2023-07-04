@@ -1,0 +1,207 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<%@ include file="/WEB-INF/common/include.jsp"%><head>
+<title></title>
+<link rel="stylesheet" href="../../../../css/inputbox/line6.css">
+<script>
+var inputList;
+var checkList;
+window.onload = function()
+{
+	policyDetailDlgInit();
+	
+	initDataGrid20($('#policyList'));
+	initDataGrid20($('#cont_seiviceRecordlist'));
+	
+	inputList = [
+		 			$('#orderid'),
+		 			$('#fromuser'),
+		 			$('#touser'),
+		 			//$('#rate'),
+		 			//$('#assigndate')
+		 			
+		 	];
+	
+	checkList = [
+	             	//$('#orderid'),
+		 			//$('#fromuser'),
+		 			$('#touser'),
+		 			//$('#rate')
+		 			//$('#assigndate')
+		 	];
+
+	initPolicyQuery('');
+
+    $('#menudisplaydlg').dialog('close');
+	
+	dlgUserInit();
+	init02Org();
+	policyUrlDlgInit();
+}
+
+function aftercodeselect(comboxid)
+{
+	qPolicyAftercodeselect(comboxid);
+}
+
+function selectone()
+{
+	var row = $('#policyList').datagrid('getSelected');
+	
+	var tturl = "policy/getPolicySeiviceRecordList.do";
+
+	var tParam = new Object();
+	tParam.orderid = row.orderid;
+
+	displayDataGrid($('#cont_seiviceRecordlist'), tParam, tturl);
+
+	var row = $('#policyList').datagrid('getSelected');
+
+	$('#orderid').val(row.orderid);
+	$('#fromuser').val(row.serusercode);
+}
+
+function clearCarData() 
+{
+	$('#touser').val("");
+	$('#assigndate').datebox('setValue',"");
+}
+
+function saveSuss()
+{
+	clearCarData();
+	$('#policyList').datagrid('reload');
+	$('#cont_seiviceRecordlist').datagrid('loadData', { total: 0, rows: [] });
+}
+
+function cont_seiviceRecordUpdate()
+{
+	var rows = $('#policyList').datagrid('getSelections');
+	
+	if(rows.length <= 0)
+	{
+		$.messager.alert('操作提示','请选中要操作的数据！','error');
+		return;
+	}
+	
+	var orderStr = "";
+	
+	for(var i=0;i<rows.length;i++)
+	{
+		orderStr = orderStr + rows[i].orderid;
+		
+		if(i!=rows.length-1)
+		{
+			orderStr = orderStr + ",";
+		}
+	}
+	
+	if(!checknotnull(checkList))
+	{
+		return;
+	}
+	
+	//修改了之后，有用的只有orderid和touser有用
+	var tparam = prepareparam(inputList);
+	tparam.rate = "1.00";
+	tparam.orderid = orderStr;
+	
+	$.messager.alert('操作提示','确定要分配保单吗？','question',function(){
+		ajaxdeal("policy/policySeiviceRecordInsert.do",tparam,null,null,saveSuss);
+	});
+
+}
+
+function queryPolicyInfo(val,row,index)
+{
+	return '<a href="#" onclick="openDlg('+index+')">查看详情</a>'; 
+}
+
+function openDlg(index)
+{
+	var rows=$('#policyList').datagrid('getRows');//获取所有当前加载的数据行
+	var row=rows[index];
+	
+	//alert(row.agentcom);
+	
+	dispolicyDetailDlg(row);
+}
+
+</script>
+
+</head>
+<%@ include file="/WEB-INF/jsp/admin/policy/policyDetailDlg.jsp"%>
+<%@ include file="/WEB-INF/jsp/admin/policy/userDlg.jsp"%>
+<%@ include file="/WEB-INF/jsp/dilog/policyUrlDlg.jsp"%>
+<body>
+<div style="margin-left:0%">
+	<%@ include file="/WEB-INF/common/query/policy/policyCommonQuery.jsp"%>
+	<br>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id = "articlequery" onclick = "policyquery()">查询</a>
+	<br>
+	<br>
+	<table id="policyList" class="easyui-datagrid" title="保单信息" style="width:auto;height:auto"
+		data-options="rownumbers:true,pagination:true,onClickRow: selectone" >
+		<%@ include file="/WEB-INF/jsp/admin/policy/include/policyCheckedList.jsp"%>
+	</table>
+	<br>
+	<table id="cont_seiviceRecordlist" class="easyui-datagrid" title="服务人员历史记录" style="width:auto;height:auto"
+		data-options="rownumbers:true,singleSelect:true,pagination:true" >
+		<thead>
+			<tr>
+				<!-- 
+				<th data-options="field:'fromuser',width:120">前服务人员</th>
+				 -->
+				<th data-options="field:'makedate',width:140">服务起期</th>
+				<th data-options="field:'assigndateStr',width:140">服务止期</th>
+				<th data-options="field:'fromusername',width:120">服务人员</th>
+				<!-- 
+				<th data-options="field:'touser',width:140">现服务人员</th>
+				 -->
+				<!-- 
+				<th data-options="field:'rate',width:120">佣金比例</th> 
+				-->
+			</tr>
+		</thead>
+	</table>
+	<br>
+	<br>
+	<table class = "common">
+		<tr>
+			
+			<td class = "title">
+				服务人员
+			</td>
+			<td class = "common">
+				<input class = "txt" readonly="readonly" name="touser" id="touser" notnull = "分配给业务员" onclick = "disuUserDlg($('#touser'));">
+			</td>
+			<td class = "title" hidden="">
+				分配时间
+			</td>
+			<td class = "common" hidden="">
+				<input class="easyui-datebox" style="width: 160%" id="assigndate" name="cvalidate" notnull = "分配时间">
+			</td>
+			<td></td><td></td>
+			<td></td><td></td>
+		</tr>
+		<tr>
+			<input class = "txt" hidden="" name="orderid" id="orderid"notnull = "订单号">
+			<td class = "title" style="display: none;">
+				所属业务员编码
+			</td>
+			<td class = "common" style="display: none;">
+				<input class = "txt"  readonly="readonly" name="fromuser" id="fromuser" notnull = "所属业务员编码">
+			</td>
+			<td class = "title" style="display: none;">
+				佣金比例
+			</td>
+			<td class = "common" style="display: none;">
+				<input class = "txt" name="rate" id="rate"notnull = "佣金比例">
+			</td>
+		</tr> 
+	</table>
+	<br>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id = "cont_seiviceRecordUpdate" onclick = "cont_seiviceRecordUpdate()">分配</a>
+</div>
+</body>
+</html>

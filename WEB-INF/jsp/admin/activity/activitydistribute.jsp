@@ -1,0 +1,466 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<%@ include file="/WEB-INF/common/include.jsp"%><head>
+	<title></title>
+	<link rel="stylesheet" href="../.././../../css/inputbox/line6.css?v=20221211">
+<script>
+
+var inputList;
+var checkList;
+
+window.onload = function()
+{
+	inputList = [
+		 			$('#userid')
+		 	];
+	
+	checkList = [
+	             	$('#userid')
+		 	];
+	
+	initDataGrid20($('#activitylist'));
+	
+	disComBox($('#qchannel'),"source",null);
+	disComBox($('#qfollowupstep'),"followupstep",null);
+	
+	disComBox($('#qissea'),"yesno",null);
+	disComBox($('#qcustype'),"custype",null);
+	
+	disComBox($('#qinitSourceLevel'),"hotline_sourcelevle",null);
+	disComBox($('#qSourceLevel'),"sourcelevle",null);
+	
+	dlgUserInit();
+	
+	$('#qstartdate').datebox('setValue',getCurrentDate());
+	
+	var tturl = "policy/get02Org.do";
+	displayCombox($('#q02org'),null,tturl,"dd_key","dd_value");
+	
+	init02Org();
+}
+
+function aftercodeselect(comboxid)
+{
+	if(comboxid.attr("id")=="qchannel")
+	{
+		var tParam = new Object();
+		tParam.comboxType = 'sourcedetail_'+comboxid.combobox('getValue');
+		
+		var tturl = "activity/getSourceDetail.do";
+		displayCombox($('#qappname'),tParam,tturl,"dd_key","dd_value");
+	}
+	else
+	{
+		organAfterSelect(comboxid);	
+	}
+}
+
+function selectone()
+{
+}
+
+function getQueryParam()
+{
+	var tParam = new Object();
+	
+	tParam.username = $('#qusername').val();
+	
+	tParam.userid = $('#quserid').val();
+	tParam.name = $('#qname').val();
+	
+	tParam.mobile = $('#qmobile').val();
+	
+	var channel = $('#qchannel').combobox('getValue');
+	if (channel.length == 4) {
+		tParam.channel = channel;
+	} else if (channel.length > 4) {
+		tParam.channeldetail = channel;
+	}
+	//tParam.channel = $('#qchannel').combobox('getValue');
+	
+	tParam.wxno = $('#qwxno').val();
+	tParam.accountid = $('#qaccountid').val();
+	tParam.planid = $('#qplanid').val();
+	tParam.clue_source = $('#qclue_source').val();
+	
+	tParam.appname = $('#qappname').combobox('getText');
+	
+	tParam.initSourceLevel = $('#qinitSourceLevel').combobox('getValue');
+	tParam.sourceLevel = $('#qSourceLevel').combobox('getValue');
+	
+	tParam.queryflag = '02';
+	
+	tParam.hotlineStartDate = $('#qstartdate').datebox("getValue");
+	tParam.hotlineEndDate = $('#qenddate').datebox("getValue");
+	
+	tParam.distributeStartDate = $('#qdistributeStartDate').datebox("getValue");
+	tParam.distributeEndDate = $('#qdistributeEndDate').datebox("getValue");
+	
+	tParam.followupstep = $('#qfollowupstep').combobox('getValue');
+	
+	tParam.q02org = $('#q02org').combobox('getValue');
+	tParam.q03org = $('#q03org').combobox('getValue');
+
+	tParam.q04org = getOrgan04Code();
+	
+	tParam.teamid = getQTeamId();
+	
+	tParam.issea = $('#qissea').combobox('getValue');
+	tParam.custype = $('#qcustype').combobox('getValue');
+	
+	return tParam;
+}
+
+function activityquery()
+{
+	var tturl = "activity/getActivityTransferList.do";
+
+	var tParam = getQueryParam();
+	
+	displayDataGrid20($('#activitylist'), tParam, tturl);
+}
+
+function activitydownload()
+{
+	var tturl = "activity/activityListDownLoad.do";
+	
+	var tParam = getQueryParam();
+	
+	ajaxdeal(tturl,tParam,listdownloadreturn,null);
+}
+
+function dispageurl(val,row,index)
+{
+	return '<a href="#" onclick="openpageurl(\''+row.channel+'\',\''+row.pagetype+'\',\''+row.planid+'\',\''+row.pageurl+'\')">'+row.pageurl+'</a>';
+}
+
+function openpageurl(channel,pagetype,planid,pageurl)
+{
+	if(pageurl!=null&&pageurl!='')
+	{
+		window.open(pageurl,
+				'_blank','width=400px,height=550px,left=400px,top=100px,menubar=no,toolbar=no,scrollbars=yes,location=no');
+	}
+	else if(channel=='0004'&&pagetype=='1yuango/0001')
+	{
+		window.open('http://insure.meihualife.com/life/activity/oneyuangodis.do',
+		'_blank','width=400px,height=550px,left=400px,top=100px,menubar=no,toolbar=no,scrollbars=yes,location=no');
+	}
+	else
+	{
+		window.open('http://insure.meihualife.com/life/activity/channelActivity.do?channelCode='+channel+'&pageType='+pagetype+'&planId='+planid,
+		'_blank','width=400px,height=550px,left=400px,top=100px,menubar=no,toolbar=no,scrollbars=yes,location=no');	
+	}
+}
+
+function disSourceLevel(val,row,index)
+{
+	if(val=='A+')
+	{
+		return 'A理财';	
+	}
+	else if(val=='A')
+	{
+		return 'A重疾';	
+	}
+	else if(val=='A-')
+	{
+		if(row.initSourceLevel=='A')
+		{
+			return 'A-重疾'
+		}
+		else if(row.initSourceLevel=='A+')
+		{
+			return 'A-理财'
+		}
+		else
+		{
+			return val;
+		}  
+	}
+	else
+	{
+		return val;
+	}
+}
+
+function activitydistribute()
+{
+	var rows = $('#activitylist').datagrid('getSelections');
+	
+	if(rows.length <= 0)
+	{
+		$.messager.alert('操作提示','请选中要操作的数据！','error');
+		return;
+	}
+	
+	var idStr = "";
+	var currentDateStr = getCurrentDate();
+	
+	for(var i=0;i<rows.length;i++)
+	{
+		var makedateStr = rows[i].makedate.substr(0,10);
+		
+		if(currentDateStr!=makedateStr)
+		{
+			$.messager.alert('操作提示','只能分配当天的线索！','error');
+			return;
+		}
+		
+		if(rows[i].followupstep=='07')
+		{
+			$.messager.alert('操作提示','【'+rows[i].name+'】已经成交，不能分配！','error');
+			return;
+		}
+		
+		idStr = idStr + rows[i].activityserialno
+		
+		if(i!=rows.length-1)
+		{
+			idStr = idStr + ",";
+		}
+	}
+	
+	if(!checknotnull(checkList))
+	{
+		return;
+	}
+	
+	var tparam = prepareparam(inputList);
+	tparam.activityserialno = idStr;
+	
+	ajaxdeal("activity/activitydistribute.do",tparam,null,null,saveSuss);
+}
+
+function saveSuss()
+{
+	$('#username').val("");
+	$('#userid').val("");
+	$('#usercode').val("");
+	
+	$('#activitylist').datagrid('reload');
+}
+
+</script>
+</head>
+<body>
+<%@ include file="/WEB-INF/jsp/admin/policy/userDlg.jsp"%>
+<div style="margin-left:0%">
+	<table class = "common">
+		<tr>
+			<td class = "reprot_title">
+				线索产生起期
+			</td>
+			<td class = "report_common">
+				<input class="easyui-datebox" style="width: 90%" id="qstartdate" name="qstartdate">
+			</td>
+			
+			<td class = "reprot_title">
+				线索产生止期
+			</td>
+			<td class = "report_common">
+				<input class="easyui-datebox" style="width: 90%" id="qenddate" name="qenddate">
+			</td>
+			
+			<td class = "reprot_title">
+				资源等级
+			</td>
+			<td class = "report_common">
+				<select class = "easyui-combobox" style="width: 90%" panelHeight="auto" name="qSourceLevel" id="qSourceLevel">
+				</select>
+			</td>
+			
+			<td class = "reprot_title">
+				初始资源等级
+			</td>
+			<td class = "report_common">
+				<select class = "easyui-combobox" style="width: 90%" panelHeight="auto" name="qinitSourceLevel" id="qinitSourceLevel">
+				</select>
+			</td>
+			
+			<td class = "reprot_title">
+				客户公海
+			</td>
+			<td class = "report_common">
+				<select class = "easyui-combobox" style="width: 90%" panelHeight="auto" name="qissea" id="qissea">
+				</select>
+			</td>
+			
+			<td class = "reprot_title">
+				业务员姓名
+			</td>
+			<td class = "report_common">
+				<input class = "txt" name="qusername" id="qusername">
+			</td>
+		</tr>
+		
+		<tr>
+			<td class = "reprot_title">
+				线索分配起期
+			</td>
+			<td class = "report_common">
+				<input class="easyui-datebox" style="width: 90%" id="qdistributeStartDate" name="qdistributeStartDate">
+			</td>
+			<td class = "reprot_title">
+				线索分配止期
+			</td>
+			<td class = "report_common">
+				<input class="easyui-datebox" style="width: 90%" id="qdistributeEndDate" name="qdistributeEndDate">
+			</td>
+			
+			<td class = "reprot_title">
+				渠道类型
+			</td>
+			<td class = "report_common">
+				<select class = "easyui-combobox" style="width: 90%" panelHeight="auto" name="qchannel" id="qchannel">
+				</select>
+			</td>
+			
+			<td class = "reprot_title">
+				流量来源
+			</td>
+			<td class = "report_common">
+				<select class = "easyui-combobox" style="width: 90%" panelHeight="auto" name="qappname" id="qappname">
+				</select>
+			</td>
+			
+			<td class = "reprot_title">
+				线索来源
+			</td>
+			<td class = "report_common">
+				<input class = "txt" name="qclue_source" id="qclue_source">
+			</td>
+			
+			<td class = "reprot_title">
+				客户类型
+			</td>
+			<td class = "report_common">
+				<select class = "easyui-combobox" style="width:90%" panelHeight="auto" name="qcustype" id="qcustype">
+				</select>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class = "reprot_title">
+				广告主ID
+			</td>
+			<td class = "report_common">
+				<input class = "txt" name="qaccountid" id="qaccountid">
+			</td>
+			
+			<td class = "reprot_title">
+				广告计划ID
+			</td>
+			<td class = "report_common">
+				<input class = "txt" name="qplanid" id="qplanid">
+			</td>
+		
+			<td class = "reprot_title">
+				客户姓名
+			</td>
+			<td class = "report_common">
+				<input class = "txt" name="qname" id="qname">
+			</td>
+			
+			<td class = "reprot_title">
+				电话号码
+			</td>
+			<td class = "report_common">
+				<input class = "txt" name="qmobile" id="qmobile">
+			</td>
+			
+			<td class = "reprot_title">
+				微信号
+			</td>
+			<td class = "report_common">
+				<input class = "txt" name="qwxno" id="qwxno">
+			</td>
+			
+			<td class = "reprot_title">
+				跟进步骤
+			</td>
+			<td class = "report_common">
+				<select class = "easyui-combobox" style="width:90%" panelHeight="auto" name="qfollowupstep" id="qfollowupstep">
+				</select>
+			</td>
+		</tr>
+		
+		<%@ include file="/WEB-INF/jsp/admin/team/organAndTeamQuery.jsp"%>
+	</table>
+	<br>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id = "userwxquery" onclick = "activityquery()">查询</a>
+	<br>
+	<br>
+	<table id="activitylist" class="easyui-datagrid" title="团队热线查询" style="width:auto;height:auto"
+		data-options="rownumbers:true,pagination:true,onClickRow: selectone" >
+		<thead>
+			<tr>
+				<th field="ck" checkbox="true"></th>
+				<th data-options="field:'accountid',width:115">广告主ID</th>
+				<th data-options="field:'accountname',width:150">广告主名称</th>
+				<th data-options="field:'planid',width:115">广告计划ID</th>
+				<th data-options="field:'planname',width:200">广告计划名称</th>
+				<th data-options="field:'makedate',width:125" sortable="true">线索产生时间</th>
+				<th data-options="field:'distributedate',width:125" sortable="true">线索分配时间</th>
+				<th data-options="field:'issea',width:60">客户公海</th>
+				
+				<th data-options="field:'agentcom',width:70">所属营业部</th>
+				<th data-options="field:'teamname',width:70">所属团队</th>
+				<th data-options="field:'usercode',width:70" sortable="true">业务员编号</th>
+				<th data-options="field:'username',width:70" sortable="true">业务员姓名</th>
+				
+				<th data-options="field:'name',width:70" sortable="true">客户姓名</th>
+				<th data-options="field:'mobile',width:85" sortable="true">电话号码</th>
+				<th data-options="field:'wxno',width:85" sortable="true">微信号</th>
+				<th data-options="field:'sourcelevel',width:60,formatter:disSourceLevel" sortable="true">资源等级</th>
+				<th data-options="field:'initSourceLevel',width:60,formatter:disSourceLevel" sortable="true">初始资源等级</th>
+				
+				<th data-options="field:'isconnect',width:60">是否接通</th>
+				
+				<th data-options="field:'followupstepname',width:60" sortable="true">跟进步骤</th>
+				
+				<th data-options="field:'callcount',width:85">累计拨打次数</th>
+				
+				<th data-options="field:'sex',width:40">性别</th>
+				<th data-options="field:'age',width:40">年龄</th>
+				<th data-options="field:'custypename',width:60">客户类型</th>
+				
+				<th data-options="field:'area',width:90">自动定位地址</th>
+				<th data-options="field:'channelname',width:60">渠道类型</th>
+				<th data-options="field:'clue_sourcename',width:60" sortable="true">线索来源</th>
+				<th data-options="field:'appname',width:60">流量来源</th>
+				
+				<th data-options="field:'clueid',width:135">线索ID</th>
+				
+				<th data-options="field:'module_id',width:115">组件ID</th>
+				<th data-options="field:'module_name',width:135">组件名称</th>
+				
+				<th data-options="field:'pageurl',width:150,formatter:dispageurl">推广页面</th>
+				<th data-options="field:'crm_remark',width:260">备注信息</th>
+				<th data-options="field:'remark',width:560">跟进记录</th>
+			</tr>
+		</thead>
+	</table>
+	<br>
+	<font color="red">只能手动分配当日产生线索</font>
+	<br><br>
+	<table class = "common">
+		<tr>
+			<td class = "reprot_title_4">
+				业务员姓名
+			</td>
+			<td class = "report_common_4">
+				<input class = "txt" name="username" id="username" readonly onclick = "disuUserDlg($('#uercode'),$('#userid'),$('#username'));" notnull = "业务员姓名">
+				<input class = "txt" type = 'hidden' name = 'userid' id = 'userid'>
+				<input class = "txt" type = 'hidden' name = 'usercode' id = 'usercode'>
+			</td>
+			<td></td><td></td>
+			<td></td><td></td>
+			<td></td><td></td>
+		</tr>
+	</table>
+	<br>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id = "activitydistribute" onclick = "activitydistribute()">分配</a>
+</div>
+</body>
+</html>

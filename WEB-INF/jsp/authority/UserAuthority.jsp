@@ -1,0 +1,253 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<%@ include file="/WEB-INF/common/include.jsp"%>
+<head>    
+   <title>用户管理</title>  
+   <link rel="stylesheet" href="../../../css/inputbox/line3.css?v_2022_05_16">
+<script>
+
+window.onload = function()
+{
+	$('#userAuthlist').datagrid({ onClickRow:
+        function () {
+            //单击行的时候，将单选按钮设置为选中
+			var row = $('#userAuthlist').datagrid('getSelected');
+            
+			$('#usercode').val(row.userCode);
+			$('#username').val(row.userName);
+			$('#menugrpcode').val(row.menuGroupCode);
+			$('#menugrpname').val(row.menuGroupName);
+        }
+    });
+	
+	dlgmenuGrpInit();
+	initDataGrid20($('#userAuthlist'));
+	
+	var tturl = "policy/get02Org.do";
+	displayCombox($('#q02org'),null,tturl,"dd_key","dd_value");
+}
+
+function aftercodeselect(comboxid)
+{
+	if(comboxid.attr("id")=="q02org")
+	{
+		var tParam = new Object();
+		tParam.organcode = comboxid.combobox('getValue');
+		
+		var tturl1 = "policy/get03Org.do";
+		
+		displayCombox($('#q03org'),tParam,tturl1,"dd_key","dd_value");
+	}
+	else if(comboxid.attr("id")=="q03org")
+	{
+		var tParam = new Object();
+		tParam.organcode = comboxid.combobox('getValue');
+		
+		var tturl1 = "policy/get04Org.do";
+		
+		displayCombox($('#q04org'),tParam,tturl1,"dd_key","dd_value");
+	}
+}
+
+function userAuthorQuery()
+{
+	var tturl = "authority/getUserAuthorList.do";
+	
+	var tParam = new Object();
+	
+	tParam.userName = $('#qusername').val();
+	//tParam.userCode = $('#qusercode').val();
+	tParam.menuGroupCode = $('#qmenugrpcode').val();
+	
+	tParam.q02org = $('#q02org').combobox('getValue');
+	tParam.q03org = $('#q03org').combobox('getValue');
+
+	var q04org_codes = $('#q04org').combobox('getValues');
+    var q04orgStr = "";
+    for(var i=0;i<q04org_codes.length;i++)
+    {
+        if (q04orgStr != "") 
+        {
+        	q04orgStr += "','";
+        }
+        q04orgStr += q04org_codes[i];
+    }
+	tParam.q04org = q04orgStr;
+	
+	displayDataGrid20($('#userAuthlist'),tParam,tturl);
+}
+
+function AuthorAdd()
+{
+	if($('#usercode').val()==null||$('#usercode').val()=="")
+	{
+		$.messager.alert('执行失败','请录入用户编码！','error');
+		return;
+	}
+	
+	if($('#menugrpcode').val()==null||$('#menugrpcode').val()=="")
+	{
+		$.messager.alert('执行失败','请录入菜单组编码！','error');
+		return;
+	}
+	
+	var tturl = "authority/UserAuthorAdd.do";
+	
+	var tParam = new Object();
+	tParam.userCode = $('#usercode').val();
+	tParam.menuGroupCode = $('#menugrpcode').val();
+	
+	ajaxdeal(tturl,tParam,null,null);
+	
+	$('#userAuthlist').datagrid('reload');
+}
+
+function AuthorDelete()
+{
+	if($('#usercode').val()==null||$('#usercode').val()=="")
+	{
+		$.messager.alert('执行失败','请录入用户编码！','error');
+		return;
+	}
+	
+	if($('#menugrpcode').val()==null||$('#menugrpcode').val()=="")
+	{
+		$.messager.alert('执行失败','请录入菜单组名称！','error');
+		return;
+	}
+	
+	var tturl = "authority/UserAuthorDel.do";
+	
+	var tParam = new Object();
+	tParam.userCode = $('#usercode').val();
+	tParam.menuGroupCode = $('#menugrpcode').val();
+	
+	ajaxdeal(tturl,tParam,null,null);
+	
+	$('#userAuthlist').datagrid('reload');
+}
+
+function AuthorUpdate()
+{
+	if($('#menugrpcode').val()==null||$('#menugrpcode').val()=="")
+	{
+		$.messager.alert('执行失败','请录入菜单组名称！','error');
+		return;
+	}
+	
+	var row = $('#userAuthlist').datagrid('getSelected');
+	
+	if(row==null)
+	{
+		$.messager.alert('操作提示','请选中要修改的数据！','error');
+		return;
+	}
+	
+	var tturl = "authority/UAUpdate.do";
+	
+	var tParam = new Object();
+	
+	tParam.userCode = row.userCode;
+	tParam.oldMenuGroupCode = row.menuGroupCode;
+	tParam.newMenuGroupCode = $('#menugrpcode').val();
+	
+	ajaxdeal(tturl,tParam,null,null);
+	
+	$('#userAuthlist').datagrid('reload');
+}
+
+</script>
+</head>
+<body>
+<%@ include file="/WEB-INF/jsp/authority/menuGrpDlg.jsp"%>
+<div style="margin-left:0%">
+	<table class = "common">
+		<tr>
+ 			<td class = "title">
+				用户姓名
+			</td>
+			<td class = "common">
+				<input class = "txt" name="qusername" id="qusername">
+			</td>
+			<td class = "title">
+				菜单组名称
+			</td>
+			<td class = "common">
+				<input class = "txt" name="qmenugrpcode" id="qmenugrpcode" onclick = "displayMg($('#qmenugrpcode'),$('#qmenugrpname'));" readonly>
+				<input class = "txt" name="qmenugrpname" id="qmenugrpname" hidden>
+			</td>
+ 
+			<td class = "title">
+				省公司
+			</td>
+			<td class = "common">
+				<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="q02org" id="q02org">
+				</select>
+			</td>
+			<td class = "title">
+				分公司
+			</td>
+			<td class = "common">
+				<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="q03org" id="q03org">
+				</select>
+			</td>
+			<td class = "title">
+				营业部
+			</td>
+			<td class = "common">
+				<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="q04org" id="q04org" data-options="multiple:true">
+				</select>
+			</td>
+		</tr>
+ 	</table>
+ 	<br>
+ 	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id = "userAuthorQuery" onclick = "userAuthorQuery()">查询</a>
+ 	<br>
+ 	<br>
+ 	
+ 	<table id="userAuthlist" class="easyui-datagrid" title="用户权限信息" style="width:auto;height:auto"
+		data-options="rownumbers:true,singleSelect:true,pagination:true" >
+		<thead>
+			<tr>
+				<th data-options="field:'organ02name',width:70">所属省公司</th>
+			    <th data-options="field:'organ03name',width:70">所属分公司</th>
+			    <th data-options="field:'organname',width:70">所属营业部</th>
+				<th data-options="field:'userCode',width:70">用户编码</th>
+				<th data-options="field:'userName',width:70">用户姓名</th>
+				<th data-options="field:'menuGroupName',width:105">菜单组名称</th>
+				<th data-options="field:'operator',width:50">创建人</th>
+				<th data-options="field:'modifyDate',width:130">最后一次操作时间</th>
+			</tr>
+		</thead>
+	</table>
+	<br>
+	
+	<table class = "common" style="width:24.5%">
+		<tr hidden>
+			<td class = "title">
+				用户姓名
+			</td>
+			<td class = "common">
+				<input class = "txt" name="username" id="username" readonly>
+				<input hidden name="usercode" id="usercode">
+				<input hidden name="userid" id="userid">
+			</td>
+		</tr>
+		<tr>
+			<td class = "title">
+				菜单组名称
+			</td>
+			<td class = "common">
+				<input class = "txt" name="menugrpname" id="menugrpname" onclick = "displayMg($('#menugrpcode'),$('#menugrpname'));" readonly>
+				<input class = "txt" hidden name="menugrpcode" id="menugrpcode" readonly>
+			</td>
+	
+ 		</tr>
+	</table>
+	<br>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id = "AuthorAdd" onclick = "AuthorAdd()">权限新增</a>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" id = "AuthorUpdate" onclick = "AuthorUpdate()">权限修改</a>
+ 	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" id = "AuthorDelete" onclick = "AuthorDelete()">权限删除</a>
+</div>
+</body>
+</html>

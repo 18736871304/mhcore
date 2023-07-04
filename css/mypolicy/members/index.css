@@ -1,0 +1,89 @@
+.index-page {
+  color: #000;
+  font-size: 14px;
+  position: relative;
+}
+
+.index-header {
+  padding: 20px 10px 0 10px;
+  background: url(/images/mypolicy/members/header_bg.png) no-repeat top;
+  background-size: cover;
+}
+.index-header .service-wrap{
+  position: relative;
+  height: 190px;
+  background: #fff url(/images/mypolicy/members/vip-bg.png) no-repeat bottom;
+  border-radius: 7px;
+  background-size: contain;
+}
+.index-header .service-wrap .service-box{
+  position: absolute;
+  top: 20px;
+  left: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.index-header .service-wrap .service-box .service-img{
+  width: 65px;
+  overflow: hidden;
+  border-radius: 50%;
+  box-sizing: border-box;
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #e6e6e6;
+}
+.index-header .service-wrap .service-box .service-name {
+  font-size: 12px;
+  margin-top: 2px;
+}
+.index-header .service-wrap .service-box .service-img img
+{
+	margin-top: 20px;
+}
+.index-header .service-wrap .vip-right-top-text{
+  position: absolute;
+  top: 20px;
+  right: 15px;
+  font-size: 16px;
+  color: #000000;
+}
+.index-header .service-wrap .vip-right-bottom-text{
+  font-size: 32px;
+  color: #ffffff;
+
+}
+
+.index-header .service-wrap .vip-right-bottom-text img{
+  position: absolute;
+  bottom: 25px;
+  right: 15px;
+  width: 76px;
+}
+
+.content {}
+.content .content-box-wrap{}
+.content .content-box-wrap .content-box{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 10px;
+}
+.content .content-box-wrap .content-box .content-list{
+  width: 33.3%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 55px;
+}
+.content .content-box-wrap .content-box .content-list span{
+}
+.content .content-box-wrap .content-box .content-list span:first-child{
+  display: inline-block;
+  width: 32px;
+}
+.content .content-box-wrap .content-box .content-list span:last-child{}
+.content .content-box-wrap .content-box .content-list span img{}

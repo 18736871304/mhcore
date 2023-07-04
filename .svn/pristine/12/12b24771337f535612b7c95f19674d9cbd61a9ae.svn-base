@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!-- saved from url=(0074)https://s3.cn-north-1.amazonaws.com.cn/uploadfiles/prompt/declaration.html -->
+<html lang="en" style="font-size: 42.6667px;">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>投保声明</title>
+    <style>
+		body {
+		    font-family: Helvetica, "Microsoft YaHei", Arial, sans-serif, "SimHei";
+		    background: #fff;
+		    font-size: 32px;
+		    -webkit-text-size-adjust: none;
+		}
+		.declaration{
+			padding: 0 0.3rem;
+		}
+		.declaration .declarationTitle{
+			font-weight: bold;
+			text-align: center;
+			padding: 0.3rem 0 0.2rem;
+		}
+		.declaration .declarationText{
+			text-indent: 0.6rem;
+			padding-bottom: 0.1rem;
+		}
+    </style>
+</head>
+<body>
+	<div class="declaration">
+		<p class="declarationTitle">投保声明</p>
+		<p class="declarationText">1、本人（投保人）已认真阅读了投保险种的人身保险投保提示、投保须知和所投保险种条款的各项内容，已完整阅读本产品投保须知 、详细条款，尤其是保障责任、免除责任、犹豫期、费用扣除、退保、保险单现金价值、投保人、被保险人义务等各重要事项。本人（投保人）特此同意接受该条款及投保须知全部内容。</p>
+		<p class="declarationText">2、本人（投保人）授权北京瑞和保险经纪有限公司作为本人（投保人）的保险经纪人，并委托北京瑞和保险经纪有限公司代为办理保险相关事宜。</p>
+		<p class="declarationText">3、本人（投保人）确认电子投保单各项内容均完整、真实、无误，如有隐瞒或告知不实，贵公司可依据《中华人民共和国保险法》的规定及保险合同的约定解除保险合同，并对保险合同解除前发生的保险事故不承担保险责任，并知道如果投保信息不真实，保险公司将有权拒赔，一切后果由本人（投保人）承担。</p>
+		<p class="declarationText">4、本人（投保人）谨此授权贵公司可以向任何知道或拥有本人（投保人）健康等情况的机构或人员查阅、复印和了解与投保人及被保险人情况有关的医疗记录、体检报告、病历资料以及其他有关证明文件。贵公司有权对本人（投保人）进行医疗评估、测试、体检及其它医疗检查，并作为审核本投保单及评估与本投保单内容有关的理赔申请依据。</p>
+		<p class="declarationText">5、本人（投保人）录入的银行账户所有人为投保人，账号等信息真实有效；本人（投保人）授权贵司从此账户中划转约定的各期保费，并保证有足够的金额支付应交保险费。本人（投保人）若办理退保或退费业务，同意贵司将应退金额转入该账户。本人（投保人）因故结清该账户，将及时通知贵司变更。</p>
+		<p class="declarationText">6、本人（投保人）同意保险合同自贵公司同意承保、收取首期保险费并签发保险单次日零时起保险单后开始生效。</p>
+		<p class="declarationText">7、本人（投保人）为未成年子女投保多份保险，本人（投保人）同意保险人按照保险合同生效日的先后顺序在国务院保险监督管理机构规定的限额内予以赔付。若多份保险合同同时生效，则保险人应按照各自保险金额与保险金额总和的比例在国务院保险监督管理机构规定的限额内予以赔付。</p>
+	</div>
+</body>
+</html>

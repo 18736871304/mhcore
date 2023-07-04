@@ -1,0 +1,105 @@
+@charset "UTF-8";
+html, body {
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: PingFangSC-Regular, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+img {
+  width: 100%;
+}
+
+.main {
+  position: relative;
+  max-width: 750px;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
+.hide {
+  display: none !important;
+}
+
+.show {
+  display: block !important;
+}
+
+li {
+  list-style: none;
+}
+
+/*解决滑动穿透*/
+body.modal-open {
+  position: fixed;
+  width: 100%;
+}
+
+/*input的竖线颜色*/
+input, textarea {
+  caret-color: #dc220d;
+}
+
+/*重置弹框按钮颜色*/
+.weui-btn_primary {
+  background: #dc220d;
+}
+
+.weui-btn_primary:not(.weui-btn_disabled):active {
+  background: #ee6f60;
+}
+
+button.meihua-button {
+  min-width: 330px;
+  min-height: 49px;
+  border-radius: 4px;
+  margin: 0 auto 15px auto;
+  font-size: 16px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  outline: none;
+  border: none;
+}
+
+button.button-return {
+  background: #ffffff;
+  color: #b71c0b;
+  border: 1px solid #d8d8d8;
+}
+
+button.button-return:active {
+  background: #f7f7f7;
+}
+
+button.button-fail {
+  background: #ffffff;
+  color: #333333;
+  border: 1px solid #d8d8d8;
+}
+
+button.button-fail:active {
+  background: #f7f7f7;
+}
+
+button.button-confirm {
+  background: #b71c0b;
+  color: #ffffff;
+}
+
+button.button-confirm:active {
+  background: #E01E0B;
+}
+
+.button-radio {
+  color: #333333;
+}
+
+.button-radio.selected i {
+  color: #b71c0b !important;
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!-- saved from url=(0076)https://www.dahuobaoxian.com/cms/wwwroot/dahuo/clause/clause_310101011.shtml -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>产品条款</title>
+    <link rel="stylesheet" href="../../../css/abzong/detail.css">
+	<style type="text/css">
+		body,html{
+			font-size: 1.5rem;
+			background:#fff;
+		}
+		.clauseText ul li{
+			border-bottom: 1px solid #e2e2e2;
+			padding: 0 0.4rem;
+		}
+		.clauseText ul li a{
+			display: inline-block;
+			padding: 0.25rem 0;
+			width: 100%;
+			color: #222222;
+		}
+	</style>
+	<script src=" ../../../js/abzong/jquery-1.7.2.min.js"></script>
+</head>
+<body>
+	<div class="clauseText">
+		<ul>
+			<li><a href="../sel/pro_clause_01.html">《产品条款》</a></li>
+			<li><a href="../sel/pro_clause_04.html">《产品说明书》</a></li>
+			<li><a href="../sel/pro_clause_07.html">《风险保费表》</a></li>
+		</ul>
+	</div>
+</body></html>
