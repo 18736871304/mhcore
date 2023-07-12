@@ -422,7 +422,7 @@ function riskdefinequery()
 	var tturl = "supplier/getRiskdefineList.do";
 
 	var tParam = queryParam()
-	console.log(tParam)
+
 	
 	displayDataGrid($('#riskdefinelist'), tParam, tturl);
 

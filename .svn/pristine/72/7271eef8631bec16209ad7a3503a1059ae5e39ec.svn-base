@@ -62,12 +62,9 @@ function displayDataGrid(gridid, param, turl, sfunName) {
 				if (data.total > 0) {
 					let dataList = data.rows
 					for (var i = 0; i < dataList.length; i++) {
-						if (dataList[i].salesarea) {
-							if (dataList[i].salesarea.indexOf(',') == 0) {
-								dataList[i].salesarea = dataList[i].salesarea.substring(1, dataList[i].salesarea.length)
-							}
+						if (dataList[i].salesarea.indexOf(',') == 0) {
+							dataList[i].salesarea = dataList[i].salesarea.substring(1, dataList[i].salesarea.length)
 						}
-
 					}
 				}
 				if (sfunName == null) {} else {
