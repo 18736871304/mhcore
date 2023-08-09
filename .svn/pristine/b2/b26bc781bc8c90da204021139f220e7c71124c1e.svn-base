@@ -196,8 +196,6 @@ function getMonthOneFormatDate()
 			</td>
 		</tr>
 	</table>
-	<br>
-	<font color="red">金额不包含续保以及折算系数为0的保单（例如万能险）</font>
 </div>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html>
 <%@ include file="/WEB-INF/common/include.jsp"%><head>
 <title></title>
-
+<link rel="stylesheet" href="../../../css/inputbox/line3.css?v_2022_05_16">
 <script>
 
 window.onload = function()
@@ -11,7 +11,6 @@ window.onload = function()
 	
 	init02Org();
 	
-	disComBox($('#qusergrade'),"usergrade",null);
 	$('#qacceptStartDate').datebox('setValue',getMonthOneFormatDate());
 	displayCombox($('#qriskType'),null,"/jsondata/policy/risktypestr.json","dd_key","dd_value");
 }
@@ -34,7 +33,7 @@ function fypquery(orderbystr)
 		return
 	}
 	
-	var tturl = "policy/getAgentFypList.do";
+	var tturl = "policy/getOrganFypList.do";
 
 	var tParam = new Object();
 
@@ -52,7 +51,6 @@ function fypquery(orderbystr)
 	
 	tParam.orderby = orderbystr + " desc ";
 	tParam.riskTypeStr = $('#qriskType').combobox('getValue');
-	tParam.usergrade = $('#qusergrade').combobox('getValue');
 	tParam.isxubao = 'NOTY';
 	tParam.has_coefficient = "N";
 	
@@ -100,7 +98,6 @@ function getMonthOneFormatDate()
 }
 
 </script>
-<link rel="stylesheet" href="../../../css/inputbox/line3.css?v_2022_05_16">
 </head>
 <body>
 <div style="margin-left:0%">
@@ -126,17 +123,6 @@ function getMonthOneFormatDate()
 				<select class = "easyui-combobox" style="width: 90%" panelHeight="auto" name="qriskType" id="qriskType">
 				</select>
 			</td>
-			
-			<td class = "reprot_title">
-				职能级别
-			</td>
-			<td class = "report_common">
-				<select class = "easyui-combobox" panelHeight="auto" style="width:160%" name="qusergrade" id="qusergrade">
-				</select>
-			</td>
-			
-			<td></td><td></td>
-			<td></td><td></td>
 		</tr>
 		<%@ include file="/WEB-INF/jsp/admin/team/organAndTeamQuery.jsp"%>
 	</table>
@@ -145,22 +131,18 @@ function getMonthOneFormatDate()
 	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id = "fypquery" onclick = "fypquery('sumfyp20order')">按标保排名</a>
 	<br>
 	<br>
-	<table id="policyList" class="easyui-datagrid" title="个人排名" style="width:auto;height:auto"
+	<table id="policyList" class="easyui-datagrid" title="团队排名" style="width:auto;height:auto"
 		data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone" >
 		<thead>
 			<tr>
-				<th data-options="field:'agentcom',width:70">所属营业部 </th>
+				<th data-options="field:'agentcom',width:70">所属营业部</th>
 				<th data-options="field:'teamname',width:100">所属团队</th>
-				
-				<th data-options="field:'usergradename',width:80">职能级别</th>
-				<th data-options="field:'reusername',width:70">出单业务员</th>
 				
 				<th data-options="field:'policycount',width:60">单数</th>
 				<th data-options="field:'sumprem',width:80">保费</th>
-				<th data-options="field:'sumfyp20',width:80">标保</th> 
+				<th data-options="field:'sumfyp20',width:80">标保</th>
 				<th data-options="field:'sumnianfyp20',width:80">年缴标保</th>
 				<th data-options="field:'sumyuefyp20',width:80">月缴标保</th>
-				<th data-options="field:'workyears',width:70">司龄（月）</th>
 			</tr>
 		</thead>
 	</table>
@@ -189,15 +171,13 @@ function getMonthOneFormatDate()
 		</tr>
 		<tr hidden = "">
 			<td class = "reprot_title">
-				FYP合计
+				10年FYP合计
 			</td>
 			<td class = "report_common">
 				<input class = "txt" id="sumfyp" name="sumfyp" readonly>
 			</td>
 		</tr>
 	</table>
-	<br>
-	<font color="red">金额不包含续保以及折算系数为0的保单（例如万能险）</font>
 </div>
 </body>
 </html>

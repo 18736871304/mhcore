@@ -159,13 +159,13 @@
 							<p>${mainrisk.inssexname}</p>
 						</div>
 						<div class="line"><span>身份证</span>
-							<p>${mainrisk.idno}</p>
+							<p>${mainrisk.insidno}</p>
 						</div>
 						<div class="line"><span>出生日期</span>
 							<p>${mainrisk.insbirthday}</p>
 						</div>
 						<div class="line"><span>手机号</span>
-							<p>${mainrisk.mobile}</p>
+							<p>${mainrisk.insphone}</p>
 						</div>
 						<div class="line"><span>地址</span>
 							<p>${mainrisk.insprovincename}${mainrisk.inscityname}${mainrisk.inscountryname}${mainrisk.insaddress}
