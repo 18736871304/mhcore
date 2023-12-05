@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="exploded-war" name="WebContent--核心系统:war exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/WebContent___war_exploded</output-path>
-    <root id="root">
-      <element id="javaee-facet-resources" facet="WebContent--核心系统/web/Web" />
-    </root>
-  </artifact>
-</component>
