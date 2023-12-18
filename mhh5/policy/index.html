@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: calc(100vw/18.75);">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>投保信息</title>
+    <link rel="stylesheet" href="./js/infos.css">
+    <link rel="stylesheet" href="./js/iosSelect.css">
+</head>
+
+<body class="body">
+    <header class="header w100 pl bgColor">
+        <span>美华保险</span>
+        <br />
+        <span>你出单的样子真帅</span>
+        <img src="./images/logo.png" />
+    </header>
+    <article class="info" style="margin-top: 4.7rem;">
+        <form id="formId" name="formName" method="post">
+            <input type="hidden" id="sumprem" value="">
+            <input type="hidden" id="uwid" value="${uwid}">
+
+
+            <!-- 保单信息 -->
+            <section class="infoList product">
+                <p class="ml" style="color:#222">保单信息</p>
+                <div class="infoSec pl pr bgColor borTop1 borBot1">
+
+
+
+                    <dl class="clearfix infoDl borBot1 dlSec" id="selectDate">
+                        <dt class="w35 l-float">出单日期</dt>
+                        <dd class="w65 l-float txtR hasArrow">
+                            <span id="showDate" style="padding-right: 0.25rem;" data-year='null'>请选择出单日期</span>
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </dd>
+                    </dl>
+
+
+
+
+                    <dl class="clearfix borBot1 dlSec">
+                        <dt class="w35 l-float">保单号</dt>
+                        <dd class="w65 l-float txtR hasArrow">
+                            <input type="text" class="textfield txtR personInfo" id="policyNo" value=""
+                                placeholder="请输入保单号">
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+
+                    <dl class="clearfix infoDl borBot1 dlSec">
+                        <dt class="w35 l-float">保险公司</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="tel" class="textfield txtR personInfo" id="insCompany" value=""
+                                placeholder="请输入保险公司">
+
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+
+                    <dl class="clearfix infoDl borBot1 dlSec">
+                        <dt class="w35 l-float">险种名称</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="tel" class="textfield txtR personInfo" id="insTypeName" value=""
+                                placeholder="请输入险种名称">
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+
+
+                    <dl class="clearfix infoDl borBot1 dlSec">
+                        <dt class="w35 l-float">保险金额</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="tel" class="textfield txtR personInfo" id="insAmount" value=""
+                                placeholder="请输入保险金额">
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+
+
+
+                    <dl class="clearfix infoDl borBot1 dlSec">
+                        <dt class="w35 l-float">缴费方式</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="tel" class="textfield txtR personInfo" id="payMethod" value=""
+                                placeholder="请输入缴费方式">
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+
+                    <dl class="clearfix infoDl borBot1 dlSec">
+                        <dt class="w35 l-float">缴费年期</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="tel" class="textfield txtR personInfo" id="payPeriod" value=""
+                                placeholder="请输入缴费年期">
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+
+                    <dl class="clearfix infoDl borBot1 dlSec">
+                        <dt class="w35 l-float">保障期限</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="tel" class="textfield txtR personInfo" id="qixian" value=""
+                                placeholder="请输入保障期限">
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+
+                    <dl class="clearfix infoDl borBot1 dlSec">
+                        <dt class="w35 l-float">保费</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="tel" class="textfield txtR personInfo" id="tel" value="" placeholder="请输入保费">
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+                    <dl class="clearfix infoDl borBot1 dlSec" id="selectDate1">
+                        <dt class="w35 l-float">生效日期</dt>
+                        <dd class="w65 l-float txtR hasArrow">
+                            <span id="showDate1" style="padding-right: 0.25rem;" data-year='null'>请选择生效日期</span>
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </dd>
+                    </dl>
+
+
+                </div>
+            </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- 投保人信息 -->
+            <section class="infoList product" style="margin-top:0.5rem">
+                <p class="ml" style="color:#222">投保人信息</p>
+                <div class="infoSec pl pr bgColor borTop1 borBot1">
+
+                    <dl class="clearfix borBot1 dlSec">
+                        <dt class="w35 l-float">姓名</dt>
+                        <dd class="w65 l-float txtR hasArrow">
+                            <input type="text" class="textfield txtR personInfo" id="policyName" value=""
+                                placeholder="请输入投保人姓名">
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+                    <dl class="clearfix infoDl borBot1 dlSec">
+                        <dt class="w35 l-float">手机号码</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="tel" class="textfield txtR personInfo" id="tel" value=""
+                                placeholder="用于接收投保信息">
+                            <!-- <input class="textfield txtR mySelf" readonly=""> -->
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+
+                    <dl class="clearfix infoDl borBot1 dlSec">
+                        <dt class="w35 l-float">证件类型</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="text" class="textfield txtR personInfo" readonly value="身份证">
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+
+                    <dl class="clearfix borBot1 dlSec">
+                        <dt class="w35 l-float">证件号码</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="text" class="textfield txtR personInfo idNo_compare" id="idNo" value=""
+                                placeholder="请输入证件号码" onchange=calPrice1()>
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+
+                    <dl class="clearfix borBot1 dlSec">
+                        <dt class="w35 l-float">投保人所在省</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="text" class="textfield txtR personInfo idNo_compare" id="idNo" value=""
+                                placeholder="请输入投保人所在省" onchange=calPrice1()>
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+                    <dl class="clearfix borBot1 dlSec">
+                        <dt class="w35 l-float">投保人所在市</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="text" class="textfield txtR personInfo idNo_compare" id="idNo" value=""
+                                placeholder="请输入投保人所在市" onchange=calPrice1()>
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+                    <dl class="clearfix borBot1 dlSec">
+                        <dt class="w35 l-float">投保人所在区</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="text" class="textfield txtR personInfo idNo_compare" id="idNo" value=""
+                                placeholder="请输入投保人所在区" onchange=calPrice1()>
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+                    <dl class="clearfix borBot1 dlSec">
+                        <dt class="w35 l-float">投保人详细地址</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="text" class="textfield txtR personInfo idNo_compare" id="idNo" value=""
+                                placeholder="请输入投保人详细地址" onchange=calPrice1()>
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+
+                    <!-- <dl class="clearfix infoDl borBot1 dlSec">
+                        <dt class="w35 l-float">电子邮箱</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="email" class="textfield txtR personInfo" id="email" value=""
+                                placeholder="用于接收电子保单">
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl> -->
+                </div>
+            </section>
+            <!-- 被保人信息 -->
+            <section class="infoList" id="scrollTop" style="margin-top:0.5rem">
+                <p class="ml" style="color:#222">被保人信息</p>
+                <div class="infoSec pl pr bgColor borTop1 borBot1">
+
+                    <dl class="clearfix borBot1 dlSec">
+                        <dt class="w35 l-float">姓名</dt>
+                        <dd class="w65 l-float txtR hasArrow">
+                            <input type="text" class="textfield txtR personInfo" id="policyName" value=""
+                                placeholder="请输入被保人姓名">
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+                    <dl class="clearfix infoDl borBot1 dlSec">
+                        <dt class="w35 l-float">手机号码</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="tel" class="textfield txtR personInfo" id="tel" value=""
+                                placeholder="请输入被保人手机号">
+                            <!-- <input class="textfield txtR mySelf" readonly=""> -->
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+
+                    <dl class="clearfix infoDl borBot1 dlSec">
+                        <dt class="w35 l-float">证件类型</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="text" class="textfield txtR personInfo" readonly value="身份证">
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+
+                    <dl class="clearfix borBot1 dlSec">
+                        <dt class="w35 l-float">证件号码</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="text" class="textfield txtR personInfo idNo_compare" id="idNo" value=""
+                                placeholder="请输入证件号码" onchange=calPrice1()>
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+
+                    <dl class="clearfix borBot1 dlSec">
+                        <dt class="w35 l-float">被保人所在省</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="text" class="textfield txtR personInfo idNo_compare" id="idNo" value=""
+                                placeholder="请输入被保人所在省" onchange=calPrice1()>
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+                    <dl class="clearfix borBot1 dlSec">
+                        <dt class="w35 l-float">被保人所在市</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="text" class="textfield txtR personInfo idNo_compare" id="idNo" value=""
+                                placeholder="请输入被保人所在市" onchange=calPrice1()>
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+                    <dl class="clearfix borBot1 dlSec">
+                        <dt class="w35 l-float">被保人所在区</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="text" class="textfield txtR personInfo idNo_compare" id="idNo" value=""
+                                placeholder="请输入被保人所在区" onchange=calPrice1()>
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+                    <dl class="clearfix borBot1 dlSec">
+                        <dt class="w35 l-float">被保人详细地址</dt>
+                        <dd class="w65 l-float txtR " style="box-sizing: border-box;">
+                            <input type="text" class="textfield txtR personInfo idNo_compare" id="idNo" value=""
+                                placeholder="请输入被保人详细地址" onchange=calPrice1()>
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+
+                
+                </div>
+            </section>
+
+
+
+            <section class="infoList product" style="margin-top:0.5rem">
+                <p class="ml" style="color:#222">资源来源</p>
+                <div class="infoSec pl pr bgColor borTop1 borBot1">
+                    <dl class="clearfix borBot1 dlSec">
+                        <dt class="w35 l-float">渠道类型</dt>
+                        <dd class="w65 l-float txtR hasArrow">
+                            <input type="text" class="textfield txtR personInfo" id="policyName" value=""
+                                placeholder="请选择渠道类型">
+                        </dd>
+                        <span class="errorMsg"></span>
+                    </dl>
+                </div>
+            </section>
+
+
+
+
+
+
+    
+
+        </form>
+ 
+
+    </article>
+    <!--加载动画-->
+    <div class="loading">
+        <div class="sk-circle">
+            <div class="sk-circle1 sk-child"></div>
+            <div class="sk-circle2 sk-child"></div>
+            <div class="sk-circle3 sk-child"></div>
+            <div class="sk-circle4 sk-child"></div>
+            <div class="sk-circle5 sk-child"></div>
+            <div class="sk-circle6 sk-child"></div>
+            <div class="sk-circle7 sk-child"></div>
+            <div class="sk-circle8 sk-child"></div>
+            <div class="sk-circle9 sk-child"></div>
+            <div class="sk-circle10 sk-child"></div>
+            <div class="sk-circle11 sk-child"></div>
+            <div class="sk-circle12 sk-child"></div>
+        </div>
+    </div>
+    <!--弹窗-->
+    <div class="mask">
+        <div class="pop repeat">
+            <span>失败提示</span>
+            <a class="pop-sure">确定</a>
+        </div>
+    </div>
+
+
+
+
+
+
+
+</body>
+<script src=" ./js/jquery-1.10.1.min.js"></script>
+<script src=" ./js/checkFn.js"></script>
+<script src="./js/iosSelect.js"></script>
+
+<script src="./arr.js"></script>
+<!-- <script src=" ./js/insuranceInformation1.js"></script> -->
+<script type="text/javascript">
+    var insplan = '${insplan}';
+    var isextend = '${isextend}';
+
+    $(function () {
+        $("select").each(function () {
+            $(this).scroller('destroy').scroller($.extend({
+                preset: 'select'
+            }, {
+                theme: "android-ics light",
+                lang: "zh",
+                display: 'bottom',
+                rtl: true,
+                inputClass: 'tmp',
+                onSelect: function () {
+                    if ($(this).find("option:selected").text() == "请选择") {
+                        $(this).siblings(".tmp").css("color", "#999999");
+                    } else {
+                        $(this).siblings(".tmp").css("color", "#222222");
+                    }
+                }
+            }));
+        });
+        $(".tmp").each(function () {
+            if ($(this).val() == "请选择") {
+                $(this).css("color", "#999999");
+            } else {
+                $(this).css("color", "#222222");
+            }
+        });
+
+        $('.pop-sure').click(function () {
+            $('.mask').css("display", "none");
+        });
+    })
+
+
+
+
+
+
+
+    // 日期
+
+    var selectDateDom = $('#selectDate');
+    var showDateDom = $('#showDate');
+
+    var selectDateDom1 = $('#selectDate1');
+    var showDateDom1 = $('#showDate1');
+
+    dataTime(selectDateDom, showDateDom) //出单日期
+    dataTime(selectDateDom1, showDateDom1) //生效日期
+
+
+    function dataTime(selectDateDom, showDateDom) {
+        // 初始化时间
+        var now = new Date();
+        var nowYear = now.getFullYear();
+        var nowMonth = now.getMonth() + 1;
+        var nowDate = now.getDate();
+        showDateDom.attr('data-year', nowYear);
+        showDateDom.attr('data-month', nowMonth);
+        showDateDom.attr('data-date', nowDate);
+        // 数据初始化
+        function formatYear(nowYear) {
+            var arr = [];
+            for (var i = nowYear - 5; i <= nowYear + 5; i++) {
+                arr.push({
+                    id: i + '',
+                    value: i + ''
+                });
+            }
+            return arr;
+        }
+
+        function formatMonth() {
+            var arr = [];
+            for (var i = 1; i <= 12; i++) {
+                arr.push({
+                    id: i + '',
+                    value: i + ''
+                });
+            }
+            return arr;
+        }
+
+        function formatDate(count) {
+            var arr = [];
+            for (var i = 1; i <= count; i++) {
+                arr.push({
+                    id: i + '',
+                    value: i + ''
+                });
+            }
+            return arr;
+        }
+        var yearData = function (callback) {
+            // settimeout只是模拟异步请求，真实情况可以去掉
+            // setTimeout(function() {
+            callback(formatYear(nowYear))
+            // }, 2000)
+        }
+        var monthData = function (year, callback) {
+            // settimeout只是模拟异步请求，真实情况可以去掉
+            // setTimeout(function() {
+            callback(formatMonth());
+            // }, 2000);
+        };
+        var dateData = function (year, month, callback) {
+            // settimeout只是模拟异步请求，真实情况可以去掉
+            // setTimeout(function() {
+            if (/^(1|3|5|7|8|10|12)$/.test(month)) {
+                callback(formatDate(31));
+            } else if (/^(4|6|9|11)$/.test(month)) {
+                callback(formatDate(30));
+            } else if (/^2$/.test(month)) {
+                if (year % 4 === 0 && year % 100 !== 0 || year % 400 === 0) {
+                    callback(formatDate(29));
+                } else {
+                    callback(formatDate(28));
+                }
+            } else {
+                throw new Error('month is illegal');
+            }
+            // }, 2000);
+            // ajax请求可以这样写
+            /*
+            $.ajax({
+                type: 'get',
+                url: '/example',
+                success: function(data) {
+                    callback(data);
+                }
+            });
+            */
+        };
+        selectDateDom.bind('click', function () {
+            var oneLevelId = showDateDom.attr('data-year');
+            var twoLevelId = showDateDom.attr('data-month');
+            var threeLevelId = showDateDom.attr('data-date');
+            var iosSelect = new IosSelect(3,
+                [yearData, monthData, dateData], {
+                    title: '地址选择',
+                    itemHeight: 35,
+                    oneLevelId: oneLevelId,
+                    twoLevelId: twoLevelId,
+                    threeLevelId: threeLevelId,
+                    showLoading: true,
+                    callback: function (selectOneObj, selectTwoObj, selectThreeObj) {
+                        showDateDom.attr('data-year', selectOneObj.id);
+                        showDateDom.attr('data-month', selectTwoObj.id);
+                        showDateDom.attr('data-date', selectThreeObj.id);
+                        showDateDom.html(selectOneObj.value + '-' + selectTwoObj.value + '-' +
+                            selectThreeObj.value);
+                    }
+                });
+        });
+    }
+
+
+
+
+    // 保险金额
+
+    changeIDValue(amountList, 'cc', 'dd')
+    changeIDValue(yearList, 'hh', 'ss')
+
+
+    var insCompany = document.querySelector('#insCompany');
+    var insTypeName = document.querySelector('#insTypeName');
+    var Amount = document.querySelector('#insAmount');
+    var payMethod = document.querySelector('#payMethod');
+    var payPeriod = document.querySelector('#payPeriod');
+    var qixian = document.querySelector('#qixian');
+
+    // Amount 展示的dom元素    amountList下拉列表所有选项  
+    selectValue(insCompany, insCompanylist, "保险公司选择")
+    selectValue(insTypeName, insTypeNameList, "险种名称选择")
+    selectValue(Amount, amountList, "保险金额选择")
+    selectValue(payMethod, yearList, "缴费方式选择")
+    selectValue(payPeriod, yearList, "缴费年期选择")
+    selectValue(qixian, yearList, "保障选择")
+
+
+
+    // 改变键值名字
+    function changeIDValue(list, aa, bb) {
+        list.forEach(person => {
+            person.id = person[aa];
+            delete person[aa];
+            person.value = person[bb];
+            delete person[bb];
+        });
+    }
+
+
+    // 选择器
+    var selectDom;
+
+    function selectValue(showDom, List, selectTitle) {
+        showDom.addEventListener('click', function () {
+            var bankId = showDom.dataset['id'];
+            var bankName = showDom.dataset['value'];
+            selectDom = new IosSelect(1, [List], {
+                container: '.container',
+                title: selectTitle,
+                itemHeight: 50,
+                itemShowCount: 3,
+                oneLevelId: bankId,
+                callback: function (selectOneObj) {
+                    showDom.value = selectOneObj.value;
+                    showDom.innerHTML = selectOneObj.value;
+                    showDom.dataset['id'] = selectOneObj.id;
+                    showDom.dataset['value'] = selectOneObj.value;
+                },
+                fallback: function (e) {
+                    console.log(e);
+                },
+                maskCallback: function (e) {
+                    console.log(e);
+                }
+            });
+        });
+
+    }
+
+
+    window.addEventListener('IosSelectCreated', function (e) {
+        console.log(e);
+        setTimeout(function () {
+            if (!selectDom) {
+                return;
+            }
+            selectDom.close();
+        }, 30000);
+    });
+    window.addEventListener('IosSelectDestroyed', function (e) {
+        console.log(e);
+
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // 保单号
+    $('#policyNo').click(function () {
+        // var transData = {
+        //     "jsonStr": getData()
+        // };
+        sendRequest("https://crm.meihualife.com/crm/auth/getToken.do", function (data) {
+            console.log(data)
+
+        }, function () {});
+
+    })
+
+
+
+    function sendRequest(url, data, success, error) {
+    $.ajax({
+        url: url,
+        type: "post",
+        async: true,
+        data: data ? data : {},
+        beforeSend: function () {
+
+            $(".loading").show();
+        },
+        success: function (data) {
+            if (success) {
+                success(data);
+            }
+        },
+        error: function (data) {
+            if (error) {
+                error(data);
+            }
+        },
+        complete: function () {
+            $(".loading").hide();
+        }
+    });
+}
+</script>
+
+</html>

@@ -514,7 +514,7 @@ function selectonefile()
 
 function signdownload(val,row,index)
 {
-	return '<a href="http://insure.meihualife.com/filedownload.do?fileid='+row.fileid+'">下载</a>';
+	return '<a href="https://insure.meihualife.com/filedownload.do?fileid='+row.fileid+'">下载</a>';
 }
 
 function fileDelete()

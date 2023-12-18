@@ -1,0 +1,211 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<%@ include file="/WEB-INF/common/include.jsp"%><head>
+	<title></title>
+<link rel="stylesheet" href="../../../../css/inputbox/line6.css">
+<script>
+
+var inputList;
+var checkList;
+var doubleList;
+
+window.onload = function()
+{
+	initDataGrid($('#trainlist'));
+
+	inputList = [
+		$('#classname'),
+		$('#trainduration'),
+		$('#trainuser'),
+	];
+
+	checkList = [
+		$('#classname'),
+		$('#trainduration'),
+		$('#trainuser'),
+	];
+	
+	$('#trainuser').val("");
+	$('#trainpicimg').attr('src', '');
+    $('#trainpicimg').css("display", "none")
+}
+
+function aftercodeselect(comboxid)
+{
+	
+}
+
+function selectone()
+{
+	var row = $('#trainlist').datagrid('getSelected');
+
+	$('#classname').val(row.classname);
+	$('#trainduration').val(row.trainduration);
+	$('#trainuser').val(row.trainuser);
+
+	$('#traintime').datebox('setValue', row.traintime);
+}
+
+function saveSuss()
+{
+	clearCarData();
+	$('#trainlist').datagrid('reload');
+}
+
+function clearCarData() 
+{
+	cleardata(inputList);
+}
+
+function trainquery()
+{
+	var tturl = "userMan/getUserTrainList.do";
+
+	var tParam = new Object();
+
+	tParam.classname = $('#qclassname').val();
+	
+	displayDataGrid20($('#trainlist'), tParam, tturl);
+
+	clearCarData();
+}
+
+function trainInsert()
+{
+	if($('#traintime').datebox("getValue")==null||$('#traintime').datebox("getValue")==""){
+		$.messager.alert('执行失败', "培训时间不能为空！", 'error');
+		return false;
+	}
+	
+	if(!checknotnull(checkList))
+	{
+		return;
+	}
+
+	var tparam = prepareparam(inputList);
+	tparam.traintime = $('#traintime').datebox("getValue")
+	
+	ajaxdeal("userMan/userTrainInsert.do",tparam,null,null,saveSuss);
+}
+
+function trainUpdate()
+{
+	var row = $('#trainlist').datagrid('getSelected');
+	
+	if(row==null)
+	{
+		$.messager.alert('操作提示','请选中要修改的数据！','error');
+		return;
+	}
+	
+	if($('#traintime').datebox("getValue")==null||$('#traintime').datebox("getValue")==""){
+		$.messager.alert('执行失败', "培训时间不能为空！", 'error');
+		return false;
+	}
+
+	if(!checknotnull(checkList))
+	{
+		return;
+	}
+
+	var tparam = prepareparam(inputList);
+	tparam.trainid = row.trainid;
+	tparam.traintime = $('#traintime').datebox("getValue")
+
+	ajaxdeal("userMan/userTrainUpdate.do", tparam, null, null, saveSuss);
+}
+
+function trainDelete()
+{
+	var row = $('#trainlist').datagrid('getSelected');
+	
+	if(row==null)
+	{
+		$.messager.alert('操作提示','请选中要修改的数据！','error');
+		return;
+	}
+
+	var tparam = new Object();
+	tparam.trainid = row.trainid;
+
+	ajaxdeal("userMan/userTrainDelete.do", tparam, null, null, saveSuss);
+}
+
+</script>
+
+</head>
+<body>
+<div style="margin-left:0%">
+	<table class = "common">
+		<tr>
+			<td class = "reprot_title">
+				培训课程名称
+			</td>
+			<td class = "report_common">
+				<input class = "txt" name="qclassname" id="qclassname">
+			</td>
+			<td style="width:6%"></td><td style="width:10%"></td>
+			<td style="width:6%"></td><td style="width:10%"></td>
+			<td style="width:6%"></td><td style="width:10%"></td>
+			<td style="width:6%"></td><td style="width:10%"></td>
+			<td style="width:6%"></td><td style="width:10%"></td>
+		</tr>
+	</table>
+	<br>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id = "trainquery" onclick = "trainquery()">培训查询</a>
+	<br>
+	<br>
+	<table id="trainlist" class="easyui-datagrid" title="培训信息" style="width:auto;height:auto"
+		data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone" >
+		<thead>
+			<tr>
+				<th data-options="field:'classname',width:120">培训课程名称</th>
+				<th data-options="field:'traintime',width:125">培训时间</th>
+				<th data-options="field:'trainduration',width:120">培训时长</th>
+				<th data-options="field:'trainuser',width:300">参培人员</th>
+			</tr>
+		</thead>
+	</table>
+	<br>
+	<table class = "common">
+		<tr>
+			<td class = "reprot_title_4">
+				培训课程名称
+			</td>
+			<td class = "report_common_4">
+				<input class = "txt" name="classname" id="classname" notnull = "培训课程名称">
+			</td>
+			<td class = "reprot_title_4">
+				培训时间
+			</td>
+			<td class = "report_common_4">
+				<input class="easyui-datetimebox" style="width: 160%" id="traintime" name="traintime" notnull = "培训时间">
+			</td>
+			<td class = "reprot_title_4">
+				培训时长
+			</td>
+			<td class = "report_common_4">
+				<input class = "txt" name="trainduration" id="trainduration" notnull = "培训时长">
+			</td>
+			<td></td><td></td>
+		</tr>
+	</table>
+	<table class = "common" style="width:41.4%">
+		<tr>
+			<td class = "title" >
+				参培人员
+			</td>
+			<td class="common"  colspan="5">
+				<textarea class="txt" style="width: 485px;height: auto;" id="trainuser" name="trainuser" notnull = "参培人员">
+				</textarea>
+			</td>
+		</tr>
+	</table>
+	<br>
+    <br><br>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id = "trainInsert" onclick = "trainInsert()">录入</a>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" id = "trainUpdate" onclick = "trainUpdate()">修改</a>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" id = "trainDelete" onclick = "trainDelete()">删除</a>
+</div>
+</body>
+</html>

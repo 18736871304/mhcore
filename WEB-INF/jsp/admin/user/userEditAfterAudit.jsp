@@ -214,9 +214,8 @@
 
 
 		window.onload = function () {
-
-
 			initDataGrid($('#userList'));
+			initDataGrid20($('#filelist'));
 
 			inputList = [
 				//$('#usercode'),
@@ -373,6 +372,8 @@
 
 			$('#dimissiondate').datebox('setValue', row.dimissiondate);
 			$('#reason').val(row.reason);
+			
+			disFileList();
 		}
 
 		function saveSuss() {
@@ -539,6 +540,69 @@
 				return $('#usercode_txt').val();
 			}
 		}
+		
+		function selectonefile()
+        {
+        	
+        }
+        
+        function signdownload(val,row,index)
+        {
+        	return '<a href="https://insure.meihualife.com/filedownload.do?fileid='+row.fileid+'">下载</a>';
+        }
+        
+        function fileDelete()
+        {
+        	var row = $('#filelist').datagrid('getSelected');
+        	if(row==null)
+        	{
+        		$.messager.alert('操作提示','请选中要操作的数据！','error');
+        		return;
+        	}
+        	
+        	var tparam = new Object();
+        	tparam.fileid = row.fileid;
+
+        	ajaxdeal("supplier/uwfileDelete.do",tparam,null,null,uploadsaveSuss);
+        }
+        
+        function FileUpload()
+        {
+        	var row = $('#userList').datagrid('getSelected');
+        	if(row==null)
+        	{
+        		$.messager.alert('操作提示','请选中要操作的数据！','error');
+        		return;
+        	}
+        	
+        	var tparam = new Object();
+        	tparam.buzid = row.userid;
+        	
+        	ajaxFileUpload('filename','/userMan/uploadFile.do',tparam,null,null,uploadsaveSuss);
+        	//上传完毕之后，把浏览框中的文本清除。
+        }
+
+        function uploadsaveSuss()
+        {
+        	$('#textfield').val("");
+        	$('#filelist').datagrid('reload');
+        }
+        
+        function disFileList()
+        {
+        	var row = $('#userList').datagrid('getSelected');
+        	if(row==null)
+        	{
+        		return;
+        	}
+        	
+        	var tturl = "userMan/getFileList.do";
+        	
+        	var tparam = new Object();
+        	tparam.buzid = row.userid;
+        	
+        	displayDataGrid($('#filelist'), tparam, tturl);
+        }
 	</script>
 	<style>
 		.img_photo {
@@ -921,6 +985,25 @@
 		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" id="useredit"
 			onclick="useredit()">人员修改</a>
 	</div>
+	
+	<br>
+	<div class="upload-box-uw dis_emali_uw">
+		<input type='text' name='textfield' id='textfield' class='upload-txt' />  
+	 	<button id = "file-view" class="smsbutton">浏览...</button> 	
+	 	<input type="file" name="myfiles" class="upload-file-uw" id="filename" size="28" onchange="document.getElementById('textfield').value=this.value.substr(12)" /> 	
+	 	<button id = "file-upload" class="smsbutton" onclick = "FileUpload()">上传</button>
+	 	<button id = "file-delete" class="smsbutton" onclick = "fileDelete()">删除</button>
+	</div>
+	<table id="filelist" class="easyui-datagrid" title="附件信息" style="width:560px;height:auto"
+		data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectonefile">
+		<thead>
+			<tr>
+				<th data-options="field:'filename',width:450">文件名称</th>
+				<th data-options="field:'_signdownload',width:60,formatter:signdownload">操作</th>
+			</tr>
+		</thead>
+	</table>
+	<br>
 </body>
 
 </html>

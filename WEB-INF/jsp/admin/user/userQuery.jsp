@@ -11,6 +11,7 @@ var checkList;
 window.onload = function()
 {
 	initDataGrid20($('#userList'));
+	initDataGrid20($('#filelist'));
 	
 	inputList = [
 	 	];
@@ -29,6 +30,33 @@ function aftercodeselect(comboxid)
 
 function selectone()
 {
+	disFileList();
+}
+
+function selectonefile()
+{
+	
+}
+
+function signdownload(val,row,index)
+{
+	return '<a href="https://insure.meihualife.com/filedownload.do?fileid='+row.fileid+'">下载</a>';
+}
+
+function disFileList()
+{
+	var row = $('#userList').datagrid('getSelected');
+	if(row==null)
+	{
+		return;
+	}
+	
+	var tturl = "userMan/getFileList.do";
+	
+	var tparam = new Object();
+	tparam.buzid = row.userid;
+	
+	displayDataGrid($('#filelist'), tparam, tturl);
 }
 
 function clearCarData()
@@ -54,6 +82,17 @@ function clearCarData()
 			</tr>
 		</thead>
 	</table>
+	<br>
+	<table id="filelist" class="easyui-datagrid" title="附件信息" style="width:560px;height:auto"
+		data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectonefile">
+		<thead>
+			<tr>
+				<th data-options="field:'filename',width:450">文件名称</th>
+				<th data-options="field:'_signdownload',width:60,formatter:signdownload">操作</th>
+			</tr>
+		</thead>
+	</table>
+	<br>
 </div>
 </body>
 </html>
