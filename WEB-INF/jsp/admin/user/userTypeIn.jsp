@@ -197,6 +197,7 @@
         var psd_checkList;
         window.onload = function () {
           initDataGrid($('#userList'));
+          initDataGrid20($('#filelist'));
           inputList = [
             //$('#usercode'),
             $('#realname'),
