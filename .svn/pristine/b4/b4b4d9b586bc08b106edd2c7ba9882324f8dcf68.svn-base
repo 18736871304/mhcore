@@ -1,0 +1,116 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<%@ include file="/WEB-INF/common/include.jsp"%>
+
+<head>
+<title></title>
+<link rel="stylesheet" href="../../../../css/inputbox/line6.css">
+<script>
+var inputList;
+var checkList;
+var doubleList;
+
+window.onload = function () 
+{
+	initDataGrid20($('#articleReportList'));
+	
+	inputList = [
+			];
+
+			checkList = [
+			];
+	
+	init02Org();
+	$('#qcluestartdate').datebox('setValue', getMonthOneFormatDate());
+}
+
+function aftercodeselect(comboxid) 
+{
+	organAfterSelect(comboxid);
+}
+
+function selectone() 
+{
+	
+}
+
+function saveSuss() 
+{
+}
+
+function clearInputData() 
+{
+	
+}
+
+function articleClueQuery()
+{
+	var tturl = "articleMan/getArticleClueReport.do";
+
+	var tParam = new Object();
+
+	tParam.cluestartdate = $('#qcluestartdate').datebox("getValue");
+	tParam.clueenddate = $('#qclueenddate').datebox("getValue");
+		
+	tParam.q02org = $('#q02org').combobox('getValue');
+	tParam.q03org = $('#q03org').combobox('getValue');
+	tParam.q04org = getOrgan04Code();
+
+	tParam.teamid = getQTeamId();
+	
+	displayDataGrid20($('#articleReportList'), tParam, tturl);
+}
+	
+</script>
+</head>
+<body>
+	<div style="margin-left:0%">
+		<table class="common">
+			<tr>
+				<td class="reprot_title">
+					线索产生起期
+				</td>
+				<td class="report_common">
+					<input class="easyui-datebox" style="width: 90%" id="qcluestartdate" name="qcluestartdate">
+				</td>
+				
+				<td class="reprot_title">
+					线索产生止期
+				</td>
+				<td class="report_common">
+					<input class="easyui-datebox" style="width: 90%" id="qclueenddate" name="qclueenddate">
+				</td>
+			
+				<td></td><td></td>
+				<td></td><td></td>
+				<td></td><td></td>
+				<td></td><td></td>
+			</tr>
+			<%@ include file="/WEB-INF/jsp/admin/team/organAndTeamQuery.jsp"%>
+		</table>
+		<br>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id="articleClueQuery" onclick="articleClueQuery()">查询</a>
+		<br>
+		<br>
+		<table id="articleReportList" class="easyui-datagrid" title="企微分配报表" style="width:auto;height:auto"
+			data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone">
+			<thead>
+				<tr>
+					<th data-options="field:'organ02name',width:70">所属省公司</th>
+					<th data-options="field:'organname',width:70">所属分公司</th>
+					<th data-options="field:'agentcom',width:70">所属营业部</th>
+					<th data-options="field:'teamname',width:100">所属团队</th>
+					<th data-options="field:'usercode',width:70">业务员编号</th>
+					<th data-options="field:'username',width:70">业务员姓名</th>
+					<th data-options="field:'notaddfriend',width:80">未添加好友数</th>
+					<th data-options="field:'addfriend',width:80">已添加好友数</th>
+					<th data-options="field:'cluecount',width:80">合计</th>
+					<th data-options="field:'addrate',width:80">通过率</th>
+				</tr>
+			</thead>
+		</table>
+		<br>
+	</div>
+</body>
+
+</html>
