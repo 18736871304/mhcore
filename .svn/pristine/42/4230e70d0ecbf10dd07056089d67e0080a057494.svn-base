@@ -1,0 +1,529 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<%@ include file="/WEB-INF/common/include.jsp"%>
+
+<head>
+	<title></title>
+	<link rel="stylesheet" href="../../../../css/inputbox/line6.css">
+
+	<link rel="stylesheet" href="../../../../js/usertypeIn/cropper.min.css" type="text/css" />
+	<link rel="stylesheet" href="../../../../js/usertypeIn/ImgCropping.css" type="text/css" />
+	<script src="../../../../js/usertypeIn/cropper.min.js"></script>
+
+	<style>
+		.img_photo {
+			background-color: rgb(224, 235, 255);
+			text-align: left;
+			width: 15%;
+			font-size: 10pt;
+			height: 1.85rem;
+			line-height: 1.8rem;
+		}
+
+		#photo_url01,
+		#photo_url02,
+		#photo_url03 {
+			display: none;
+		}
+
+		.tailoring-container .tailoring-content {
+			position: absolute;
+			width: 768px;
+			height: 560px;
+			background: #fff;
+			z-index: 1002;
+			left: 50%;
+			top: 50%;
+			margin-left: -384px;
+			margin-top: -280px;
+			border-radius: 10px;
+			box-shadow: 0 0 10px #000;
+			padding: 10px;
+		}
+
+		.upload-box {
+			width: 480px;
+		}
+	</style>
+	<script>
+		// 开始
+		//弹出图片裁剪框
+		function replaceImg(idName) {
+			$('#tailoringImg').cropper("destroy"); //销毁cropper
+			img = idName
+			$(".tailoring-container").toggle();
+			// if (idName == "photo_url01") {
+			$('#tailoringImg').cropper({
+				viewMode: 0, //限制裁切框不能超出图片的范围
+				aspectRatio: 475 / 300, //默认比例
+				preview: '.previewImg', //预览视图
+				guides: true, //裁剪框的虚线(九宫格)
+				autoCropArea: 1, //0-1之间的数值，定义自动剪裁区域的大小，默认0.8
+				// movable: false, //是否允许移动图片
+				dragCrop: false, //是否允许移除当前的剪裁框，并通过拖动来新建一个剪裁框区域
+				movable: false, //是否允许移动剪裁框
+				resizable: false, //是否允许改变裁剪框的大小
+				zoomable: false, //是否允许缩放图片大小
+				mouseWheelZoom: false, //是否允许通过鼠标滚轮来缩放图片
+				rotatable: true, //是否允许旋转图片
+				dragMode: "none", //仅拖动裁剪框
+				// fixedNumber: [7, 5],//截图框的宽高比例
+				crop: function (e) {}
+			});
+			// }
+		}
+		let img = '' //用来判断点击的哪个
+		//图像上传
+		function selectImg(file) {
+			if (!file.files || !file.files[0]) {
+				file.files[0] = {}
+				// return;
+			}
+			var reader = new FileReader();
+			reader.onload = function (evt) {
+				var replaceSrc = evt.target.result;
+				//更换cropper的图片
+				$('#tailoringImg').cropper('replace', replaceSrc, false); //默认false，适应高度，不失真
+			}
+			reader.readAsDataURL(file.files[0]);
+		}
+		//裁剪后的处理
+		function sureCut() {
+			if ($("#tailoringImg").attr("src") == null) {
+				return false;
+			} else {
+				var cas = $('#tailoringImg').cropper('getCroppedCanvas'); //获取被裁剪后的canvas
+				var base64url = cas.toDataURL('image/png'); //转换为base64地址形式
+				var file = base64toFile(base64url)
+				$('#tailoringImg').cropper("destroy");
+				imgUpload(file)
+				// //关闭裁剪框
+				closeTailor();
+			}
+		};
+		// 关闭裁剪框
+		function closeTailor() {
+			$(".tailoring-container").toggle();
+		}
+		// 旋转
+		function rotateBtn() {
+			$('#tailoringImg').cropper("rotate", 45);
+		}
+		//复位
+		function resetBtn() {
+			$('#tailoringImg').cropper("reset");
+		}
+		//换向
+		var flagX = true;
+
+		function resetBtn() {
+			if (flagX) {
+				$('#tailoringImg').cropper("scaleX", -1);
+				flagX = false;
+			} else {
+				$('#tailoringImg').cropper("scaleX", 1);
+				flagX = true;
+			}
+			flagX != flagX;
+		};
+
+		function base64toFile(dataurl) {
+			let arr = dataurl.split(',');
+			let mime = arr[0].match(/:(.*?);/)[1];
+			// suffix是该文件的后缀
+			let suffix = mime.split('/')[1];
+			console.log(suffix)
+			// atob 对经过 base-64 编码的字符串进行解码
+			let bstr = atob(arr[1]);
+			// n 是解码后的长度
+			let n = bstr.length;
+			// Uint8Array 数组类型表示一个 8 位无符号整型数组 初始值都是 数子0
+			let u8arr = new Uint8Array(n);
+			// charCodeAt() 方法可返回指定位置的字符的 Unicode 编码。这个返回值是 0 - 65535 之间的整数
+			while (n--) {
+				u8arr[n] = bstr.charCodeAt(n);
+			}
+			// new File返回File对象 第一个参数是 ArraryBuffer 或 Bolb 或Arrary 第二个参数是文件名
+			// 第三个参数是 要放到文件中的内容的 MIME 类型
+			return new File([u8arr], `1.png`, {
+				type: mime,
+			});
+		}
+
+		var imgUrl = {
+			trainpic: []
+		}
+		var imgUrlList = []
+
+		function imgUpload(fileData) {
+			var formData = new FormData();
+			formData.append("myFile", fileData);
+			$.ajax({
+				url: 'impUpload.do',
+				type: "post",
+				async: true,
+				data: formData,
+				contentType: false,
+				processData: false,
+				success: function (data) {
+					var obj = JSON.parse(data);
+					$('#' + img).attr("src", 'https://insure.meihualife.com' + obj.message)
+					$('#' + img).css('display', 'block')
+					if (img == 'photo_url01') {
+						imgUrlList[0] = obj.message
+					}
+					if (img == 'photo_url02') {
+						imgUrlList[1] = obj.message
+					}
+					if (img == 'photo_url03') {
+						imgUrlList[2] = obj.message
+					}
+					imgUrl.trainpic = imgUrlList
+
+				},
+				error: function (data) {},
+				beforeSend: function () {
+					showDiv();
+				},
+				complete: function () {
+					closeShow();
+				}
+			});
+		}
+
+		// 结束
+
+
+
+
+
+
+
+
+
+
+
+
+
+		var inputList;
+		var checkList;
+		var doubleList;
+
+		window.onload = function () {
+			initDataGrid($('#trainlist'));
+
+			inputList = [
+				$('#classname'),
+				$('#trainduration'),
+				$('#trainuser'),
+			];
+
+			checkList = [
+				$('#classname'),
+				$('#trainduration'),
+				$('#trainuser'),
+			];
+
+			$('#trainuser').val("");
+			$('#trainpicimg').attr('src', '');
+			$('#trainpicimg').css("display", "none")
+		}
+
+		function aftercodeselect(comboxid) {
+
+		}
+
+
+		function isJson(str) {
+			try {
+				JSON.parse(str); // 尝试将字符串转换成JSON对象
+				return true;
+			} catch (e) {
+				return false;
+			}
+		}
+
+		function selectone() {
+			imgUrl.trainpic=[]
+			$('#photo_url01').css('display', 'none');
+			$('#photo_url02').css('display', 'none');
+			$('#photo_url03').css('display', 'none');
+			var row = $('#trainlist').datagrid('getSelected');
+
+			$('#classname').val(row.classname);
+			$('#trainduration').val(row.trainduration);
+			$('#trainuser').val(row.trainuser);
+
+
+
+			if (isJson(row.trainpic)) {
+				imgUrl.trainpic = JSON.parse(row.trainpic);
+				if (imgUrl.trainpic.length == 1) {
+					$('#photo_url01').attr('src', imgUrl.trainpic[0]);
+					$('#photo_url01').css('display', 'block');
+				}
+				if (imgUrl.trainpic.length == 2) {
+					$('#photo_url01').attr('src', imgUrl.trainpic[0]);
+					$('#photo_url01').css('display', 'block');
+					$('#photo_url02').attr('src', imgUrl.trainpic[1]);
+					$('#photo_url02').css('display', 'block');
+				}
+				if (imgUrl.trainpic.length == 3) {
+					$('#photo_url01').attr('src', imgUrl.trainpic[0]);
+					$('#photo_url01').css('display', 'block');
+					$('#photo_url02').attr('src', imgUrl.trainpic[1]);
+					$('#photo_url02').css('display', 'block');
+					$('#photo_url03').attr('src', imgUrl.trainpic[2]);
+					$('#photo_url03').css('display', 'block');
+				}
+
+			} else {
+				$('#photo_url01').attr('src', row.trainpic);
+				$('#photo_url01').css('display', 'block');
+			}
+
+
+			$('#traintime').datebox('setValue', row.traintime);
+		}
+
+		function saveSuss() {
+			clearCarData();
+			$('#trainlist').datagrid('reload');
+		}
+
+		function clearCarData() {
+			cleardata(inputList);
+			imgUrl = {}
+			$('#photo_url01').css('display', 'none');
+			$('#photo_url02').css('display', 'none');
+			$('#photo_url03').css('display', 'none');
+		}
+
+		function trainquery() {
+			var tturl = "userMan/getUserTrainList.do";
+
+			var tParam = new Object();
+
+			tParam.classname = $('#qclassname').val();
+
+			displayDataGrid20($('#trainlist'), tParam, tturl);
+
+			clearCarData();
+		}
+
+		function trainInsert() {
+			if ($('#traintime').datebox("getValue") == null || $('#traintime').datebox("getValue") == "") {
+				$.messager.alert('执行失败', "培训时间不能为空！", 'error');
+				return false;
+			}
+
+			if (!checknotnull(checkList)) {
+				return;
+			}
+
+			var tparam = prepareparam(inputList);
+			tparam.traintime = $('#traintime').datebox("getValue")
+
+			tparam.trainpic = JSON.stringify(imgUrl.trainpic);
+
+
+
+
+			ajaxdeal("userMan/userTrainInsert.do", tparam, null, null, saveSuss);
+		}
+
+		function trainUpdate() {
+			var row = $('#trainlist').datagrid('getSelected');
+
+			if (row == null) {
+				$.messager.alert('操作提示', '请选中要修改的数据！', 'error');
+				return;
+			}
+
+			if ($('#traintime').datebox("getValue") == null || $('#traintime').datebox("getValue") == "") {
+				$.messager.alert('执行失败', "培训时间不能为空！", 'error');
+				return false;
+			}
+
+			if (!checknotnull(checkList)) {
+				return;
+			}
+
+			var tparam = prepareparam(inputList);
+			tparam.trainid = row.trainid;
+			tparam.traintime = $('#traintime').datebox("getValue")
+
+			tparam.trainpic = JSON.stringify(imgUrl.trainpic);
+
+			ajaxdeal("userMan/userTrainUpdate.do", tparam, null, null, saveSuss);
+		}
+
+		function trainDelete() {
+			var row = $('#trainlist').datagrid('getSelected');
+
+			if (row == null) {
+				$.messager.alert('操作提示', '请选中要修改的数据！', 'error');
+				return;
+			}
+
+			var tparam = new Object();
+			tparam.trainid = row.trainid;
+
+			ajaxdeal("userMan/userTrainDelete.do", tparam, null, null, saveSuss);
+		}
+	</script>
+
+</head>
+
+<body>
+	<div style="margin-left:0%">
+		<table class="common">
+			<tr>
+				<td class="reprot_title">
+					培训课程名称
+				</td>
+				<td class="report_common">
+					<input class="txt" name="qclassname" id="qclassname">
+				</td>
+				<td style="width:6%"></td>
+				<td style="width:10%"></td>
+				<td style="width:6%"></td>
+				<td style="width:10%"></td>
+				<td style="width:6%"></td>
+				<td style="width:10%"></td>
+				<td style="width:6%"></td>
+				<td style="width:10%"></td>
+				<td style="width:6%"></td>
+				<td style="width:10%"></td>
+			</tr>
+		</table>
+		<br>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id="trainquery"
+			onclick="trainquery()">培训查询</a>
+		<br>
+		<br>
+		<table id="trainlist" class="easyui-datagrid" title="培训信息" style="width:auto;height:auto"
+			data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone">
+			<thead>
+				<tr>
+					<th data-options="field:'classname',width:120">培训课程名称</th>
+					<th data-options="field:'traintime',width:125">培训时间</th>
+					<th data-options="field:'trainduration',width:120">培训时长</th>
+					<th data-options="field:'trainuser',width:300">参培人员</th>
+				</tr>
+			</thead>
+		</table>
+		<br>
+		<table class="common">
+			<tr>
+				<td class="reprot_title_4">
+					培训课程名称
+				</td>
+				<td class="report_common_4">
+					<input class="txt" name="classname" id="classname" notnull="培训课程名称">
+				</td>
+				<td class="reprot_title_4">
+					培训时间
+				</td>
+				<td class="report_common_4">
+					<input class="easyui-datetimebox" style="width: 160%" id="traintime" name="traintime"
+						notnull="培训时间">
+				</td>
+				<td class="reprot_title_4">
+					培训时长
+				</td>
+				<td class="report_common_4">
+					<input class="txt" name="trainduration" id="trainduration" notnull="培训时长">
+				</td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td class="title">
+					参培人员
+				</td>
+				<td class="common" colspan="5">
+					<textarea class="txt" style="width: 485px;height: auto;" id="trainuser" name="trainuser"
+						notnull="参培人员">
+				</textarea>
+				</td>
+			</tr>
+
+
+		</table>
+		<!-- <table class="common" style="width:41.4%">
+			<tr>
+				<td class="title">
+					参培人员
+				</td>
+				<td class="common" colspan="5">
+					<textarea class="txt" style="width: 485px;height: auto;" id="trainuser" name="trainuser"
+						notnull="参培人员">
+				</textarea>
+				</td>
+			</tr>
+		</table> -->
+		<!-- 开始 -->
+		<div style="margin-top:20px;display: flex;width: 80%;">
+			<div class="img_photo">培训凭证</div>
+			<div class="upload-box">
+				<input type='text' name='textfield' id='textfield01' class='upload-txt' />
+
+				<button id="file-view" onclick="replaceImg('photo_url01')" class="smsbutton">浏览1...</button>
+				<button id="file-view" onclick="replaceImg('photo_url02')" class="smsbutton">浏览2...</button>
+				<button id="file-view" onclick="replaceImg('photo_url03')" class="smsbutton">浏览3...</button>
+
+
+			</div>
+
+		</div>
+		<div style="display: flex; flex-wrap: wrap;justify-content: flex-start;">
+			<img src="" id='photo_url01' width="475" height="300" />
+			<img src="" id='photo_url02' width="475" height="300" />
+			<img src="" id='photo_url03' width="475" height="300" />
+		</div>
+
+
+		<!--图片裁剪框 start-->
+		<div style="display: none" class="tailoring-container">
+			<div class="black-cloth" onclick="closeTailor(this)"></div>
+			<div class="tailoring-content">
+				<div class="tailoring-content-one">
+					<label title="上传图片" for="chooseImg" class="al-btn choose-btn">
+						<input type="file" accept="image/jpg,image/jpeg,image/png" name="file" id="chooseImg"
+							class="hidden" onchange="selectImg(this)">
+						选择图片
+					</label>
+					<div class="close-tailoring" onclick="closeTailor(this)">×</div>
+				</div>
+				<div class="tailoring-content-two">
+					<div class="tailoring-box-parcel">
+						<img id="tailoringImg">
+					</div>
+
+				</div>
+				<div class="tailoring-content-three">
+					<button class="al-btn cropper-reset-btn" onclick="resetBtn()">复位</button>
+					<button class="al-btn cropper-rotate-btn" onclick="rotateBtn()">旋转</button>
+					<button class="al-btn cropper-scaleX-btn" onclick="resetBtn()">换向</button>
+					<button class="al-btn sureCut" onclick="sureCut()" id="sureCut">确定</button>
+				</div>
+			</div>
+		</div>
+		<!--图片裁剪框 end-->
+
+		<!-- 结束 -->
+
+
+		<br>
+		<br><br>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id="trainInsert"
+			onclick="trainInsert()">录入</a>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" id="trainUpdate"
+			onclick="trainUpdate()">修改</a>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" id="trainDelete"
+			onclick="trainDelete()">删除</a>
+	</div>
+</body>
+
+</html>
