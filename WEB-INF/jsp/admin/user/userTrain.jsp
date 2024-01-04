@@ -20,7 +20,9 @@
 			line-height: 1.8rem;
 		}
 
-		#photo_url01 {
+		#photo_url01,
+		#photo_url02,
+		#photo_url03 {
 			display: none;
 		}
 
@@ -38,6 +40,10 @@
 			box-shadow: 0 0 10px #000;
 			padding: 10px;
 		}
+
+		.upload-box {
+			width: 480px;
+		}
 	</style>
 	<script>
 		// 开始
@@ -46,25 +52,25 @@
 			$('#tailoringImg').cropper("destroy"); //销毁cropper
 			img = idName
 			$(".tailoring-container").toggle();
-			if (idName == "photo_url01") {
-				$('#tailoringImg').cropper({
-					viewMode: 0, //限制裁切框不能超出图片的范围
-					aspectRatio: 475 / 300,//默认比例
-					preview: '.previewImg', //预览视图
-					guides: true, //裁剪框的虚线(九宫格)
-					autoCropArea: 1, //0-1之间的数值，定义自动剪裁区域的大小，默认0.8
-					// movable: false, //是否允许移动图片
-					dragCrop: false, //是否允许移除当前的剪裁框，并通过拖动来新建一个剪裁框区域
-					movable: false, //是否允许移动剪裁框
-					resizable: false, //是否允许改变裁剪框的大小
-					zoomable: false, //是否允许缩放图片大小
-					mouseWheelZoom: false, //是否允许通过鼠标滚轮来缩放图片
-					rotatable: true, //是否允许旋转图片
-					dragMode: "none", //仅拖动裁剪框
-					// fixedNumber: [7, 5],//截图框的宽高比例
-					crop: function (e) {}
-				});
-			}
+			// if (idName == "photo_url01") {
+			$('#tailoringImg').cropper({
+				viewMode: 0, //限制裁切框不能超出图片的范围
+				aspectRatio: 475 / 300, //默认比例
+				preview: '.previewImg', //预览视图
+				guides: true, //裁剪框的虚线(九宫格)
+				autoCropArea: 1, //0-1之间的数值，定义自动剪裁区域的大小，默认0.8
+				// movable: false, //是否允许移动图片
+				dragCrop: false, //是否允许移除当前的剪裁框，并通过拖动来新建一个剪裁框区域
+				movable: false, //是否允许移动剪裁框
+				resizable: false, //是否允许改变裁剪框的大小
+				zoomable: false, //是否允许缩放图片大小
+				mouseWheelZoom: false, //是否允许通过鼠标滚轮来缩放图片
+				rotatable: true, //是否允许旋转图片
+				dragMode: "none", //仅拖动裁剪框
+				// fixedNumber: [7, 5],//截图框的宽高比例
+				crop: function (e) {}
+			});
+			// }
 		}
 		let img = '' //用来判断点击的哪个
 		//图像上传
@@ -144,7 +150,10 @@
 			});
 		}
 
-		var imgUrl = {}
+		var imgUrl = {
+			trainpic: []
+		}
+		var imgUrlList = []
 
 		function imgUpload(fileData) {
 			var formData = new FormData();
@@ -157,13 +166,19 @@
 				contentType: false,
 				processData: false,
 				success: function (data) {
-					console.log(data)
 					var obj = JSON.parse(data);
 					$('#' + img).attr("src", 'https://insure.meihualife.com' + obj.message)
 					$('#' + img).css('display', 'block')
 					if (img == 'photo_url01') {
-						imgUrl.trainpic = obj.message
+						imgUrlList[0] = obj.message
 					}
+					if (img == 'photo_url02') {
+						imgUrlList[1] = obj.message
+					}
+					if (img == 'photo_url03') {
+						imgUrlList[2] = obj.message
+					}
+					imgUrl.trainpic = imgUrlList
 
 				},
 				error: function (data) {},
@@ -218,19 +233,54 @@
 
 		}
 
+
+		function isJson(str) {
+			try {
+				JSON.parse(str); // 尝试将字符串转换成JSON对象
+				return true;
+			} catch (e) {
+				return false;
+			}
+		}
+
 		function selectone() {
+			imgUrl.trainpic=[]
+			$('#photo_url01').css('display', 'none');
+			$('#photo_url02').css('display', 'none');
+			$('#photo_url03').css('display', 'none');
 			var row = $('#trainlist').datagrid('getSelected');
 
 			$('#classname').val(row.classname);
 			$('#trainduration').val(row.trainduration);
 			$('#trainuser').val(row.trainuser);
 
-			imgUrl.trainpic = row.trainpic;
-			if (row.trainpic != null && row.trainpic != "") {
+
+
+			if (isJson(row.trainpic)) {
+				imgUrl.trainpic = JSON.parse(row.trainpic);
+				if (imgUrl.trainpic.length == 1) {
+					$('#photo_url01').attr('src', imgUrl.trainpic[0]);
+					$('#photo_url01').css('display', 'block');
+				}
+				if (imgUrl.trainpic.length == 2) {
+					$('#photo_url01').attr('src', imgUrl.trainpic[0]);
+					$('#photo_url01').css('display', 'block');
+					$('#photo_url02').attr('src', imgUrl.trainpic[1]);
+					$('#photo_url02').css('display', 'block');
+				}
+				if (imgUrl.trainpic.length == 3) {
+					$('#photo_url01').attr('src', imgUrl.trainpic[0]);
+					$('#photo_url01').css('display', 'block');
+					$('#photo_url02').attr('src', imgUrl.trainpic[1]);
+					$('#photo_url02').css('display', 'block');
+					$('#photo_url03').attr('src', imgUrl.trainpic[2]);
+					$('#photo_url03').css('display', 'block');
+				}
+
+			} else {
 				$('#photo_url01').attr('src', row.trainpic);
 				$('#photo_url01').css('display', 'block');
 			}
-
 
 
 			$('#traintime').datebox('setValue', row.traintime);
@@ -245,6 +295,8 @@
 			cleardata(inputList);
 			imgUrl = {}
 			$('#photo_url01').css('display', 'none');
+			$('#photo_url02').css('display', 'none');
+			$('#photo_url03').css('display', 'none');
 		}
 
 		function trainquery() {
@@ -272,9 +324,9 @@
 			var tparam = prepareparam(inputList);
 			tparam.traintime = $('#traintime').datebox("getValue")
 
-			tparam.trainpic = imgUrl.trainpic;
+			tparam.trainpic = JSON.stringify(imgUrl.trainpic);
 
-			console.log(tparam)
+
 
 
 			ajaxdeal("userMan/userTrainInsert.do", tparam, null, null, saveSuss);
@@ -300,7 +352,8 @@
 			var tparam = prepareparam(inputList);
 			tparam.trainid = row.trainid;
 			tparam.traintime = $('#traintime').datebox("getValue")
-			tparam.trainpic = imgUrl.trainpic;
+
+			tparam.trainpic = JSON.stringify(imgUrl.trainpic);
 
 			ajaxdeal("userMan/userTrainUpdate.do", tparam, null, null, saveSuss);
 		}
@@ -416,12 +469,20 @@
 			<div class="upload-box">
 				<input type='text' name='textfield' id='textfield01' class='upload-txt' />
 
-				<button id="file-view" onclick="replaceImg('photo_url01')" class="smsbutton">浏览...</button>
+				<button id="file-view" onclick="replaceImg('photo_url01')" class="smsbutton">浏览1...</button>
+				<button id="file-view" onclick="replaceImg('photo_url02')" class="smsbutton">浏览2...</button>
+				<button id="file-view" onclick="replaceImg('photo_url03')" class="smsbutton">浏览3...</button>
+
 
 			</div>
 
 		</div>
-		<img src="" id='photo_url01'  width="475" height="300" />
+		<div style="display: flex; flex-wrap: wrap;justify-content: flex-start;">
+			<img src="" id='photo_url01' width="475" height="300" />
+			<img src="" id='photo_url02' width="475" height="300" />
+			<img src="" id='photo_url03' width="475" height="300" />
+		</div>
+
 
 		<!--图片裁剪框 start-->
 		<div style="display: none" class="tailoring-container">
