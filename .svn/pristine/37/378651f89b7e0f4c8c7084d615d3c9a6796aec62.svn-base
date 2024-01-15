@@ -77,25 +77,7 @@ function articleClueQuery()
 	tParam.isaddfriend = $('#qisaddfriend').combobox('getValue');
 	tParam.customerremarkname = $('#qcustomerremarkname').val();
 	tParam.username = $('#qusername').val();
-	
-	var usergrade_codes = $('#qusergrade').combobox('getValues');
-	var usergrade_Str = "'";
-	
-	for(var i=0;i<usergrade_codes.length;i++)
-    {
-		if (usergrade_Str != "'") 
-        {
-			usergrade_Str += "','";
-        }
-		
-		usergrade_Str += usergrade_codes[i];
-    }
-	usergrade_Str += "'";
-	
-	if (usergrade_Str != "''") 
-    {
-		tParam.usergrade = usergrade_Str;	
-    }
+	tParam.usergrade = $('#qusergrade').combobox('getValue');
 	
 	tParam.q02org = $('#q02org').combobox('getValue');
 	tParam.q03org = $('#q03org').combobox('getValue');
@@ -196,7 +178,7 @@ function openArticleUrl(articleurl)
 					职能级别
 				</td>
 				<td class = "report_common">
-					<select class = "easyui-combobox" panelHeight="auto" style="width:160%" name="qusergrade" id="qusergrade" data-options="multiple:true">
+					<select class = "easyui-combobox" panelHeight="auto" style="width:160%" name="qusergrade" id="qusergrade">
 					</select>
 				</td>
 			</tr>
