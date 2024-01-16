@@ -292,6 +292,12 @@
             font-size: 16px;
         }
 
+        .staffTime {
+            text-align: center;
+            font-size: 14px;
+            margin: 35px 0;
+        }
+
         @keyframes anim-flash {
             0% {
                 opacity: 0;
@@ -313,6 +319,27 @@
         .playAudioVoice img {
             -webkit-animation: anim-flash 1s infinite;
             animation: anim-flash 1s infinite;
+        }
+
+        .window {
+            width: 98% !important;
+            height: 98% !important;
+            left: 0 !important;
+            top: 0 !important;
+        }
+
+        .window #chatRecord {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        .window-shadow {
+            left: 0 !important;
+            top: 0 !important;
+        }
+
+        html {
+            overflow: hidden;
         }
     </style>
 
@@ -388,8 +415,47 @@
 
                     for (let i = 0; i < recordList.length; i++) {
                         var aa = i;
+                        var upaa = i - 1
+                        if (upaa < 0 || upaa == 0) {
+                            upaa = 0
+                        }
+                        var firstTime = Date.parse(recordList[aa].msgtime)
+                        var upTime = Date.parse(recordList[upaa].msgtime)
+                        var nowTime = Date.parse(new Date())
+                        var timestampValue = Math.abs(firstTime - upTime)
+
+
+
+                        if (recordList.length < 20 && aa == 0) {
+                            console.log('长度小于20且aa=0  :', recordList.length, aa)
+                            template += `
+                                <div class='staffName staffTime' >${"${recordList[0].msgtime}"} </div>
+                             `
+                        }
+
+                        // 大于5分钟，小于1天
+                        if (86400 > timestampValue > 300) {
+                            template += `
+                                <div class='staffName staffTime'>${"${recordList[aa].msgtime}"} </div>
+                             `
+                        }
+                        // 大于1天，小于1周  星期+收发消息的时间
+                        if (604800 > timestampValue > 86400) {
+                            template += `
+                                <div class='staffName staffTime'>${"${recordList[aa].msgtime}"} </div>
+                             `
+                        }
+                        // 大于1周
+                        if (timestampValue > 604800) {
+                            template += `
+                                <div class='staffName staffTime'>${"${recordList[aa].msgtime}"} </div>
+                             `
+                        }
+
+
                         //  客户模板
                         if (recordList[aa].to == user2) { //条件
+
                             if (recordList[aa].msgtype == 'text') {
                                 template += `
 							 <div class='staffName'> 
@@ -465,7 +531,6 @@
 							 </div>
 								`;
                             }
-
                             if (recordList[aa].msgtype == 'voice') {
                                 var voiceData
                                 try {
@@ -480,7 +545,7 @@
 
                                     }
                                 }
-                                var playLength= format(voiceData.play_length)
+                                var playLength = format(voiceData.play_length)
                                 template += `
 							 <div class='staffName'> 
 								<div class="userbox_left">
@@ -516,8 +581,30 @@
 								`;
                             }
                         }
+
+
+
+
                         // 员工模板
                         if (recordList[aa].to == user1) {
+                            // 大于5分钟，小于1天
+                            // if (86400 > timestampValue > 300) {
+                            //     template += `
+                            //     <div class='staffName staffTime'>${"${recordList[aa].msgtime}"} </div>
+                            //  `
+                            // }
+                            // // 大于1天，小于1周  星期+收发消息的时间
+                            // if (604800 > timestampValue > 86400) {
+                            //     template += `
+                            //     <div class='staffName staffTime'>${"${recordList[aa].msgtime}"} </div>
+                            //  `
+                            // }
+                            // // 大于1周
+                            // if (timestampValue > 604800) {
+                            //     template += `
+                            //     <div class='staffName staffTime'>${"${recordList[aa].msgtime}"} </div>
+                            //  `
+                            // }
                             if (recordList[aa].msgtype == 'text') {
                                 template += `
 								<div class='staffName'> 
@@ -531,7 +618,6 @@
 							    </div>	
 								`;
                             }
-
                             if (recordList[aa].msgtype == 'image') {
                                 template += `
 								<div class='staffName'> 
@@ -558,7 +644,6 @@
 							    </div>	
 								`;
                             }
-
                             if (recordList[aa].msgtype == 'file') {
                                 // 1 MB(Megabyte)= 1048576 字节(Byte)
                                 var fileData
@@ -609,7 +694,7 @@
 
                                     }
                                 }
-                                var playLength= format(voiceData.play_length)
+                                var playLength = format(voiceData.play_length)
 
                                 template += `
 								<div class='staffName'> 
@@ -646,13 +731,11 @@
 								`;
                             }
                         }
+
                     }
 
                     // $(template).appendTo($('.recordMain'))
                     $(template).prependTo($('#recordContent')) //往最前面插入代码
-
-
-
 
                     $('.rowDigseq').val(recordList[0].seq)
                     var recordContent = document.getElementById('recordContent')
@@ -671,7 +754,31 @@
             }, function () {
                 alert('接口出错了')
             });
-        }
+        };
+        // 判断两次对话间隔的时间
+
+        // function intervalTime(timestampValue) {
+        //     // 大于5分钟，小于1天
+        //     if (86400 > timestampValue > 300) {
+        //         template += `
+        //                         <div class='staffName staffTime'>${"${recordList[aa].msgtime}"} </div>
+        //                      `
+        //     }
+        //     // 大于1天，小于1周  星期+收发消息的时间
+        //     if (604800 > timestampValue > 86400) {
+        //         template += `
+        //                         <div class='staffName staffTime'>${"${recordList[aa].msgtime}"} </div>
+        //                      `
+        //     }
+        //     // 大于1周
+        //     if (timestampValue > 604800) {
+        //         template += `
+        //                         <div class='staffName staffTime'>${"${recordList[aa].msgtime}"} </div>
+        //                      `
+        //     }
+        // };
+
+
         // 播放音频
         function playAudio(aa, event, allTime) {
             console.log(aa)
@@ -687,12 +794,14 @@
             }, allTime)
         }
         let gAudioContext = new AudioContext();
+
         function getAudioContext() {
             if (!gAudioContext) {
                 gAudioContext = new AudioContext();
             }
             return gAudioContext;
         }
+
         function fetchBlob(url, callback) {
             let xhr = new XMLHttpRequest();
             xhr.open('GET', url);
@@ -807,14 +916,23 @@
             $('#chatRecord').dialog('open');
 
         };
+        // 时间格式转化
+
+        function weekDay(time) {
+            let datelist = ['周日', '周一', '周二', '周三', '周四', '周五', '周六', ]
+            let dataTime = time.substring(time.length - 8);
+            return datelist[new Date(time).getDay()] + ' ' + dataTime;
+        }
+
+        // 时间格式8转化为00：08
         function format(seconds) {
-			let hour = Math.floor(seconds / 3600) >= 10 ? Math.floor(seconds / 3600) : '0' + Math.floor(seconds / 3600);
-			seconds -= 3600 * hour;
-			let min = Math.floor(seconds / 60) >= 10 ? Math.floor(seconds / 60) : '0' + Math.floor(seconds / 60);
-			seconds -= 60 * min;
-			let sec = seconds >= 10 ? seconds : '0' + seconds;
-			return  min + ':' + sec;
-		};
+            let hour = Math.floor(seconds / 3600) >= 10 ? Math.floor(seconds / 3600) : '0' + Math.floor(seconds / 3600);
+            seconds -= 3600 * hour;
+            let min = Math.floor(seconds / 60) >= 10 ? Math.floor(seconds / 60) : '0' + Math.floor(seconds / 60);
+            seconds -= 60 * min;
+            let sec = seconds >= 10 ? seconds : '0' + seconds;
+            return min + ':' + sec;
+        };
 
 
         function sendRequest(url, data, success, error) {
@@ -1027,29 +1145,19 @@
 
         <img src="" data-original="" alt="" id="hideImg" style="display: none;">
 
-        <div id="chatRecord" class="easyui-dialog" title="聊天记录" style="width:800px;height:760px;"
+        <div id="chatRecord" class="easyui-dialog" title="聊天记录" style="width:100%;height:100%;"
             data-options="iconCls:'icon-save',resizable:true,modal:true">
             <div class="bigbox">
-
                 <div class="headChat">
                     <div class="avtaor">
                         <img src="" alt="" id="kehuAvtar">
                         <p id="kehuName"></p>
                     </div>
                     <p id="kehuNotes" class="remarkName"></p>
-
                 </div>
                 <div class="recordMain" id="recordContent">
-
-
                 </div>
-
-
-
             </div>
-
-
-
         </div>
     </div>
     </div>
