@@ -1,0 +1,880 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+
+
+
+
+<style>
+    .bigbox {
+        width: 100%;
+        height: 100vh;
+        /* 很重要，如果设置成 100%，页面内容过多时不会固定 */
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+    }
+
+    .headChat {
+        padding: 10px 15px 5px;
+        border-bottom: 1px solid #e8e8e8;
+        height: 50px;
+    }
+
+    .avtaor {
+        height: 30px;
+        line-height: 30px;
+        display: flex;
+        align-items: center;
+        text-align: left;
+    }
+
+    .avtaor img {
+        width: 30px;
+        height: 30px;
+        margin-right: 15px;
+    }
+
+    .avtaor p {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .remarkName {
+        font-size: 12px;
+        margin: 2px 0;
+    }
+
+    .recordMain {
+        height: 80%;
+        overflow-y: scroll;
+        padding: 5px 15px;
+    }
+
+    .recordMain p {
+        height: 30px;
+        border: 1px solid red;
+    }
+
+    #chatRecord .panel .panel-body {
+        overflow: unset;
+    }
+
+    .staffName {
+        margin-top: 30px
+    }
+
+    .avatar {
+        width: 35px;
+        height: 35px;
+    }
+
+    .timeLeft {
+        width: 200px;
+        display: none;
+        position: absolute;
+        left: 0;
+        top: -15px;
+        font-size: 12px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: rgba(0, 0, 0, .45);
+        line-height: 18px;
+        text-align: left;
+    }
+
+    .timeRight {
+        width: 200px;
+        display: none;
+        position: absolute;
+        right: 0;
+        top: -15px;
+        font-size: 12px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: rgba(0, 0, 0, .45);
+        line-height: 18px;
+        text-align: right;
+    }
+
+    .userbox_left {
+        /* height: 100%; */
+        display: flex;
+        justify-content: left;
+        align-items: flex-start;
+    }
+
+    .userbox_right {
+        /* height: 100%; */
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: right;
+        align-items: flex-start;
+    }
+
+    .chat_left {
+        justify-content: flex-start;
+        width: auto;
+        height: auto;
+        color: #222;
+        /* white-space: pre-wrap; */
+        word-break: break-word;
+        max-width: 80%;
+        user-select: text;
+        margin-left: 6px;
+        position: relative;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .chat_right {
+        justify-content: flex-start;
+        width: auto;
+        height: auto;
+        color: #fff;
+        /* white-space: pre-wrap; */
+        word-break: break-word;
+        max-width: 80%;
+        user-select: text;
+        margin-right: 6px;
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .chat_left .chatContent {
+        width: auto;
+        height: auto;
+        padding: 5px;
+        border-radius: 5px;
+        background: #f2f2f2;
+        font-size: 14px !important;
+        border: 1px solid transparent;
+        cursor: pointer;
+        margin: 0 auto;
+        line-height: 24px;
+    }
+
+
+    .chat_right .chatContent {
+        width: auto;
+        height: auto;
+        padding: 5px;
+        border-radius: 5px;
+        background: #1992f9;
+        font-size: 14px !important;
+        border: 1px solid transparent;
+        cursor: pointer;
+        margin: 0 auto;
+        line-height: 24px;
+    }
+
+    .boxhover:hover .timeRight {
+        display: block;
+    }
+
+    .boxhover:hover .timeLeft {
+        display: block;
+    }
+
+    .abs {
+        width: 30%;
+        height: 30%;
+    }
+
+    .playVideo_left video,
+    .playVideo_right video {
+        width: 80%;
+        height: 80%;
+    }
+
+    .playVideo_left {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .playVideo_right {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+
+    .recordFile a {
+        display: block;
+        cursor: pointer;
+        border: 1px solid #e8e8e8;
+        padding: 10px;
+        width: 260px;
+        height: 50px;
+        font-size: 12px;
+        word-break: break-all;
+        color: #909090;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .recordFile .fileMain {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .FileTitle {
+        width: 210px;
+        text-align: center;
+        font-weight: bold;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .FileSizeLeft {
+        text-align: right;
+    }
+
+    .FileSizeright {
+        text-align: left;
+    }
+
+    .recordFile a img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .viewer-toolbar>ul>li::before {
+        margin-top: -3px;
+    }
+
+    .viewer-toolbar>ul>.viewer-large::before {
+        margin-top: 1px;
+    }
+
+    .chat_left .chatVoice {
+        height: 40px;
+        width: 100px;
+        line-height: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 10px;
+        padding-right: 15px;
+    }
+
+    .chat_right .chatVoice {
+        height: 40px;
+        width: 100px;
+        line-height: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 10px;
+        padding-right: 15px;
+
+    }
+
+    .chatVoiceImg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .chatVoice p {
+        border: 0;
+        font-size: 16px;
+    }
+
+    .staffTime {
+        text-align: center;
+        font-size: 14px;
+        margin: 35px 0;
+        color: #777;
+    }
+
+    @keyframes anim-flash {
+        0% {
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 0;
+        }
+
+        51% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .playAudioVoice img {
+        -webkit-animation: anim-flash 1s infinite;
+        animation: anim-flash 1s infinite;
+    }
+
+    .window {
+        width: 98% !important;
+        height: 98% !important;
+        left: 0 !important;
+        top: 0 !important;
+    }
+
+    .window #chatRecord {
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .window-shadow {
+        left: 0 !important;
+        top: 0 !important;
+    }
+
+    html {
+        overflow: hidden;
+    }
+</style>
+
+<input class="rowDigseq" type="text" value="" hidden>
+<input class="rowDigindex" type="text" value="" hidden>
+<input class="recordscrollHeight" type="text" value="" hidden>
+
+<img src="" data-original="" alt="" id="hideImg" style="display: none;">
+
+<div id="chatRecord" class="easyui-dialog" title="聊天记录" style="width:800px;height:760px;"
+    data-options="iconCls:'icon-save',resizable:true,modal:true">
+    <div class="bigbox">
+        <div class="headChat">
+            <div class="avtaor">
+                <img src="" alt="" id="kehuAvtar">
+                <p id="kehuName"></p>
+            </div>
+            <p id="kehuNotes" class="remarkName"></p>
+        </div>
+        <div class="recordMain" id="recordContent">
+        </div>
+    </div>
+</div>
+<script>
+    window.onload = function () {
+        var recordContent = document.getElementById('recordContent')
+        recordContent.addEventListener('scroll', (e) => {
+            //变量scrollTop是滚动条滚动时，距离顶部的距离
+            var scrollTop = e.target.scrollTop;
+            //变量windowHeight是可视区的高度
+            var windowHeight = e.target.clientHeight;
+            //变量scrollHeight是滚动条的总高度
+            var scrollHeight = e.target.scrollHeight;
+
+            if (scrollTop == 0) {
+                $('.recordscrollHeight').val(scrollHeight)
+                var rows = $('#articleClueList').datagrid('getRows'); //获取所有当前加载的数据行
+                var row = rows[$('.rowDigindex').val()];
+                getrecord(row.customerid, row.qwuserid, $('.rowDigseq').val(), row.customerphotourl, row
+                    .photourl)
+
+            }
+        }, true)
+    }
+
+    // function openChatRecord(val, row, index) {
+    //     return '<a href="#" style="cursor:pointer;"onclick="openChatDlg(' + index + ')">查看</a>';
+    // };
+
+    // 开始聊天记录
+    var template = ''
+
+    function getrecord(user1, user2, seq, customerphotourl, photourl) {
+        var transdata = {
+            user1: user1, //客户
+            user2: user2, //员工
+            seq: seq
+        }
+        if (seq == '') {
+            $('.recordMain').empty()
+        }
+        template = ''
+        sendRequest("./qwMan/getQwTalkData.do", transdata, function (data) {
+            var recordList = JSON.parse(data);
+            recordList.reverse()
+            console.log(recordList)
+            if (recordList.length > 0) {
+
+
+                for (let i = 0; i < recordList.length; i++) {
+                    var aa = i;
+                    var upaa = i - 1
+                    if (upaa < 0 || upaa == 0) {
+                        upaa = 0
+                    }
+                    var firstTime = Date.parse(recordList[aa].msgtime)
+                    var upTime = Date.parse(recordList[upaa].msgtime)
+                    var nowTime = Date.parse(new Date())
+                    var timestampValue = Math.abs(firstTime - upTime)
+
+                    if (recordList.length < 20 && aa == 0) {
+                        console.log('长度小于20且aa=0  :', recordList.length, aa)
+                        template += `
+                                <div class='staffName staffTime' >${"${recordList[0].msgtime}"} </div>
+                             `
+                    }
+
+                    // 大于5分钟小于1天   大于1天小于1周      大于1周
+                    if (86400 > timestampValue > 300 || 604800 > timestampValue > 86400 || timestampValue >
+                        604800) {
+                        template += `
+                                <div class='staffName staffTime'>${"${recordList[aa].msgtime}"} </div>
+                             `
+                    }
+
+                    //  客户模板
+                    if (recordList[aa].to == user2) { //条件
+                        if (recordList[aa].msgtype == 'text') {
+                            recordList[i].text = recordList[i].text.replace(/\n/g, "<br>");
+                            template += `
+					         <div class='staffName'> 
+						       <div class="userbox_left">
+							 <img src="${"${customerphotourl}"}" alt="" class="avatar" />
+						    	<div class="pBox boxhover chat_left">
+								<div class="timeLeft">${"${recordList[i].msgtime}"}</div>
+								<p class="chatContent">${"${recordList[i].text}"}   </p>
+							  </div>
+					     	 </div>
+					          </div>
+						     `;
+                        }
+                        if (recordList[aa].msgtype == 'image') {
+                            template += `
+					 <div class='staffName'> 
+						<div class="userbox_left">
+							<img src="${"${customerphotourl}"}" alt="" class="avatar" />
+							<div class="pBox boxhover chat_left">
+								<div class="timeLeft">${"${recordList[i].msgtime}"}</div>
+								<img src="https://talk.meihualife.com/${"${recordList[i].text}"}"     onclick="openbigImg('${"${recordList[i].text}"}')"  class='abs' alt="" />
+							</div>
+						</div>
+					 </div>
+						`;
+                        }
+                        if (recordList[aa].msgtype == 'emotion') {
+                            template += `
+					 <div class='staffName'> 
+						<div class="userbox_left">
+							<img src="${"${customerphotourl}"}" alt="" class="avatar" />
+							<div class="pBox boxhover chat_left">
+								<div class="timeLeft">${"${recordList[i].msgtime}"}</div>
+								<img src="https://talk.meihualife.com/${"${recordList[i].text}"}"    onclick="openbigImg('${"${recordList[i].text}"}')"  class='abs' alt="" />
+							</div>
+						</div>
+					 </div>
+						`;
+                        }
+                        if (recordList[aa].msgtype == 'file') {
+                            var fileData
+                            try {
+                                if (typeof JSON.parse(recordList[i].text) == "object") {
+                                    fileData = JSON.parse(recordList[i].text)
+                                }
+                            } catch (e) {
+                                fileData = {
+                                    filesize: '0',
+                                    filepath: recordList[i].text,
+                                    filename: '',
+                                    fileext: ''
+                                }
+                            }
+                            let fileSize = (fileData.filesize / 1048576).toFixed(2)
+                            template += `
+					 <div class='staffName'> 
+						<div class="userbox_left">
+							<img src="${"${customerphotourl}"}" alt="" class="avatar" />
+							<div class="pBox boxhover chat_left">
+								<div class="timeLeft">${"${recordList[i].msgtime}"}</div>
+								<div class="recordFile">
+									<a href="https://talk.meihualife.com/${"${fileData.filepath}"}"    alt="" target="_blank">
+										<div class="fileMain">
+									 <span class="FileTitle">${"${fileData.filename}"}</span>
+									 <span class="FileSize FileSizeleft">${"${fileSize}"}M</span>
+								  </div>
+								   <img src="https://insure.meihualife.com/images/activity/file.jpg" alt="">
+									</a>
+								 
+								</div>
+							</div>
+						</div>
+					 </div>
+						`;
+                        }
+
+                        if (recordList[aa].msgtype == 'voice') {
+                            var voiceData
+                            try {
+                                if (typeof JSON.parse(recordList[i].text) == "object") {
+                                    voiceData = JSON.parse(recordList[i].text)
+                                }
+                            } catch (e) {
+                                voiceData = {
+                                    play_length: '0',
+                                    filepath: recordList[i].text,
+                                    voice_size: '',
+
+                                }
+                            }
+                            var playLength = format(voiceData.play_length)
+                            template += `
+					 <div class='staffName'> 
+						<div class="userbox_left">
+							<img src="${"${customerphotourl}"}" alt="" class="avatar" />
+							<div class="pBox boxhover chat_left">
+								<div class="timeLeft">${"${recordList[i].msgtime}"}</div>
+								<div class="chatContent  chatVoice"  onclick="playAudio('${"${voiceData.filepath}"}',this,${"${voiceData.play_length}"})">
+								  <img src="https://insure.meihualife.com/images/activity/voice_left.png" alt="" class="chatVoiceImg">
+									 <p>${"${playLength}"}</p>
+								</div>
+
+							</div>
+						</div>
+					 </div>
+						`;
+                        }
+                        if (recordList[aa].msgtype == 'video') {
+                            template += `
+					 <div class='staffName'> 
+						<div class="userbox_left">
+							<img src="${"${customerphotourl}"}" alt="" class="avatar" />
+							<div class="pBox boxhover chat_left">
+								<div class="timeLeft">${"${recordList[i].msgtime}"}</div>
+								<div class='playVideo_left'>
+						   
+								<video id="myVideo${"${aa}"}" controls>
+								  <source src="https://talk.meihualife.com/${"${recordList[i].text}"}" type="video/mp4">
+								</video>
+							  </div>
+							</div>
+						</div>
+					 </div>
+						`;
+                        }
+                    }
+
+
+                    // 员工模板
+                    if (recordList[aa].to == user1) {
+                        if (recordList[aa].msgtype == 'text') {
+                            recordList[i].text = recordList[i].text.replace(/\n/g, "<br>");
+                            template += `
+						<div class='staffName'> 
+						<div class="userbox_right">
+							<img src="https://insure.meihualife.com/${"${photourl}"}" 	alt="" class="avatar" />
+							<div class="pBox boxhover chat_right">
+								<div class=" timeRight ">${"${recordList[i].msgtime}"}</div>
+									<p class="chatContent">${"${recordList[i].text}"} </p>
+							</div>
+						   </div>
+						</div>	
+						`;
+                        }
+
+                        if (recordList[aa].msgtype == 'image') {
+                            template += `
+						<div class='staffName'> 
+						<div class="userbox_right">
+							<img src="https://insure.meihualife.com/${"${photourl}"}" 	alt="" class="avatar" />
+							<div class="pBox boxhover chat_right">
+								<div class=" timeRight ">${"${recordList[i].msgtime}"}</div>
+								<img src="https://talk.meihualife.com/${"${recordList[i].text}"}"     onclick="openbigImg('${"${recordList[i].text}"}')"  class='abs' alt="" />
+							</div>
+						   </div>
+						</div>	
+						`;
+                        }
+                        if (recordList[aa].msgtype == 'emotion') {
+                            template += `
+						<div class='staffName'> 
+						<div class="userbox_right">
+							<img src="https://insure.meihualife.com/${"${photourl}"}" 	alt="" class="avatar" />
+							<div class="pBox boxhover chat_right">
+								<div class=" timeRight ">${"${recordList[i].msgtime}"}</div>
+								<img src="https://talk.meihualife.com/${"${recordList[i].text}"}"     onclick="openbigImg('${"${recordList[i].text}"}')"  class='abs' alt="" />
+							</div>
+						   </div>
+						</div>	
+						`;
+                        }
+
+                        if (recordList[aa].msgtype == 'file') {
+
+                            var fileData
+                            try {
+                                if (typeof JSON.parse(recordList[i].text) == "object") {
+                                    fileData = JSON.parse(recordList[i].text)
+                                }
+                            } catch (e) {
+                                fileData = {
+                                    filesize: '0',
+                                    filepath: recordList[i].text,
+                                    filename: '',
+                                    fileext: ''
+                                }
+                            }
+                            // 1 MB(Megabyte)= 1048576 字节(Byte)
+                            let fileSize = (fileData.filesize / 1048576).toFixed(2)
+                            template += `
+						<div class='staffName'> 
+						<div class="userbox_right">
+							<img src="https://insure.meihualife.com/${"${photourl}"}" 	alt="" class="avatar" />
+							<div class="pBox boxhover chat_right">
+								<div class=" timeRight ">${"${recordList[i].msgtime}"}</div>
+								<div class="recordFile">
+									<a href="https://talk.meihualife.com/${"${fileData.filepath}"}"    alt="" target="_blank">
+										<div class="fileMain">
+									 <span class="FileTitle">${"${fileData.filename}"}</span>
+									 <span class="FileSize FileSizeright">${"${fileSize}"}M</span>
+								  </div>
+								   <img src="https://insure.meihualife.com/images/activity/file.jpg" alt="">
+									</a>
+								</div>
+							</div>
+						   </div>
+						</div>	
+						`;
+                        }
+                        if (recordList[aa].msgtype == 'voice') {
+                            var voiceData
+                            try {
+                                if (typeof JSON.parse(recordList[i].text) == "object") {
+                                    voiceData = JSON.parse(recordList[i].text)
+                                }
+                            } catch (e) {
+                                voiceData = {
+                                    play_length: '0',
+                                    filepath: recordList[i].text,
+                                    voice_size: '',
+
+                                }
+                            }
+                            var playLength = format(voiceData.play_length)
+
+                            template += `
+						<div class='staffName'> 
+						<div class="userbox_right">
+							<img src="https://insure.meihualife.com/${"${photourl}"}" 	alt="" class="avatar" />
+							<div class="pBox boxhover chat_right">
+								<div class=" timeRight ">${"${recordList[i].msgtime}"}</div>
+								<div class="chatContent  chatVoice"  onclick="playAudio('${"${voiceData.filepath}"}',this,${"${voiceData.play_length}"})">
+								 <p>${"${playLength}"}</p>
+								 <img src="https://insure.meihualife.com/images/activity/voice_right.png" alt="" class="chatVoiceImg">
+								</div>
+							</div>
+						   </div>
+						</div>	
+						`;
+                        }
+                        if (recordList[aa].msgtype == 'video') {
+                            template += `
+						<div class='staffName'> 
+						<div class="userbox_right">
+							<img src="https://insure.meihualife.com/${"${photourl}"}" 	alt="" class="avatar" />
+							<div class="pBox boxhover chat_right">
+								<div class=" timeRight ">${"${recordList[i].msgtime}"}</div>
+							  
+								<div class='playVideo_right'>
+						  
+								<video id="myVideo${"${aa}"}" controls>
+								  <source src="https://talk.meihualife.com/${"${recordList[i].text}"}" type="video/mp4">
+								</video>
+							  </div>
+							</div>
+						   </div>
+						</div>	
+						`;
+                        }
+                    }
+                }
+
+                // $(template).appendTo($('.recordMain'))
+                $(template).prependTo($('#recordContent')) //往最前面插入代码
+                $('.rowDigseq').val(recordList[0].seq)
+                var recordContent = document.getElementById('recordContent')
+                if (seq == '') {
+                    recordContent.scrollTo(0, recordContent.scrollHeight)
+                } else {
+                    var nowScrollHeight = recordContent.scrollHeight - $('.recordscrollHeight').val()
+                    recordContent.scrollTo(0, nowScrollHeight)
+                }
+
+            } else {
+                console.log('已经没有记录了')
+            }
+        }, function () {
+            alert('接口出错了')
+        });
+    }
+    // 播放音频
+    function playAudio(aa, event, allTime) {
+        console.log(aa)
+        $('.chatVoice').removeClass("playAudioVoice");
+        $(event).addClass("playAudioVoice")
+        var dd = 'https://talk.meihualife.com/' + aa
+        fetchBlob(dd, function (blob) {
+            playAmrBlob(blob);
+        });
+        var allTime = allTime * 1000
+        setTimeout(() => {
+            $(event).removeClass("playAudioVoice")
+        }, allTime)
+    }
+    let gAudioContext = new AudioContext();
+
+    function getAudioContext() {
+        if (!gAudioContext) {
+            gAudioContext = new AudioContext();
+        }
+        return gAudioContext;
+    }
+
+    function fetchBlob(url, callback) {
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.responseType = 'blob';
+        xhr.onload = function () {
+            callback(this.response);
+        };
+        xhr.onerror = function () {
+            alert('Failed to fetch ' + url);
+        };
+        xhr.send();
+    }
+
+    function readBlob(blob, callback) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const data = new Uint8Array(e.target.result);
+            callback(data);
+        };
+        reader.readAsArrayBuffer(blob);
+    }
+
+    function playAmrBlob(blob, callback) {
+        readBlob(blob, function (data) {
+            playAmrArray(data);
+        });
+    }
+
+    function playAmrArray(array) {
+        const samples = AMR.decode(array);
+        if (!samples) {
+            alert('播放失败，请下载后播放!');
+            return;
+        }
+        playPcm(samples);
+    }
+    let preCtx = null;
+
+    function playPcm(samples) {
+        if (preCtx !== null) {
+            stopPlay();
+        }
+        const ctx = getAudioContext();
+        const src = ctx.createBufferSource();
+        const buffer = ctx.createBuffer(1, samples.length, 8000);
+        if (buffer.copyToChannel) {
+            buffer.copyToChannel(samples, 0, 0);
+        } else {
+            const channelBuffer = buffer.getChannelData(0);
+            channelBuffer.set(samples);
+        }
+        src.buffer = buffer;
+        src.connect(ctx.destination);
+        src.start();
+        preCtx = src;
+    }
+    //停止播放
+    function stopPlay() {
+        if (preCtx !== null) {
+            preCtx.stop();
+        }
+        preCtx = null;
+    }
+
+
+    function openbigImg(bb) {
+        console.log(bb)
+        document.getElementById('hideImg').src = 'https://talk.meihualife.com/' + bb
+        document.getElementById('hideImg').setAttribute("data-original", 'https://talk.meihualife.com/' + bb);
+        var itemId = document.getElementById('hideImg').getAttribute("data-original");
+
+        console.log(itemId)
+        var viewer = new Viewer(document.getElementById('hideImg'), {
+            url: 'data-original',
+            zIndex: '9999',
+            show: function () { // 动态加载图片后，更新实例
+                viewer.update();
+            },
+        });
+        document.getElementById('hideImg').click()
+    }
+
+    function openChatDlg(index) {
+
+        // 清空聊天记录和里面的标签
+        template = ''
+        $('.recordMain').empty()
+        // seq聊天记录编号清空
+        $('.rowDigseq').val(' ')
+
+
+        var rows = $('#articleClueList').datagrid('getRows'); //获取所有当前加载的数据行
+        var row = rows[index];
+
+        getrecord(row.customerid, row.qwuserid, '', row.customerphotourl, row.photourl)
+        console.log(row, index)
+        $('.rowDigindex').val(index)
+
+        // 设置顶部头像姓名备注名
+        $("#kehuAvtar").attr('src', row.customerphotourl)
+        $("#kehuName").text(row.customername)
+        $("#kehuNotes").text("备注名：" + row.customerremarkname)
+
+        $('#chatRecord').dialog('open');
+
+    };
+
+    // 时间格式8转化为00：08
+    function format(seconds) {
+        let hour = Math.floor(seconds / 3600) >= 10 ? Math.floor(seconds / 3600) : '0' + Math.floor(seconds / 3600);
+        seconds -= 3600 * hour;
+        let min = Math.floor(seconds / 60) >= 10 ? Math.floor(seconds / 60) : '0' + Math.floor(seconds / 60);
+        seconds -= 60 * min;
+        let sec = seconds >= 10 ? seconds : '0' + seconds;
+        return min + ':' + sec;
+    };
+
+
+    function sendRequest(url, data, success, error) {
+        $.ajax({
+            url: url,
+            type: "post",
+            async: true,
+            data: data ? data : {},
+            beforeSend: function () {
+                $(".loading").show();
+            },
+            success: function (data) {
+                if (success) {
+                    success(data);
+                }
+            },
+            error: function (data) {
+                if (error) {
+                    error(data);
+                }
+            },
+            complete: function () {
+                $(".loading").hide();
+            }
+        });
+    }
+    // 结束
+</script>

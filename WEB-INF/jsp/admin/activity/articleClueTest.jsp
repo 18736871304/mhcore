@@ -296,6 +296,7 @@
             text-align: center;
             font-size: 14px;
             margin: 35px 0;
+            color: #777;
         }
 
         @keyframes anim-flash {
@@ -322,19 +323,15 @@
         }
 
         .window {
-            width: 98% !important;
-            height: 98% !important;
-            left: 0 !important;
+            width: 788px;
+            left: 50% !important;
+            margin-left: -394px;
             top: 0 !important;
         }
-
-        .window #chatRecord {
-            width: 100% !important;
-            height: 100% !important;
-        }
-
         .window-shadow {
-            left: 0 !important;
+            width: 788px;
+            left: 50% !important;
+            margin-left: -394px;
             top: 0 !important;
         }
 
@@ -394,9 +391,6 @@
 
 
         function getrecord(user1, user2, seq, customerphotourl, photourl) {
-
-
-
             var transdata = {
                 user1: user1, //客户
                 user2: user2, //员工
@@ -457,6 +451,9 @@
                         if (recordList[aa].to == user2) { //条件
 
                             if (recordList[aa].msgtype == 'text') {
+
+                                recordList[i].text = recordList[i].text.replace(/\n/g, "<br>");
+
                                 template += `
 							 <div class='staffName'> 
 								<div class="userbox_left">
@@ -587,25 +584,11 @@
 
                         // 员工模板
                         if (recordList[aa].to == user1) {
-                            // 大于5分钟，小于1天
-                            // if (86400 > timestampValue > 300) {
-                            //     template += `
-                            //     <div class='staffName staffTime'>${"${recordList[aa].msgtime}"} </div>
-                            //  `
-                            // }
-                            // // 大于1天，小于1周  星期+收发消息的时间
-                            // if (604800 > timestampValue > 86400) {
-                            //     template += `
-                            //     <div class='staffName staffTime'>${"${recordList[aa].msgtime}"} </div>
-                            //  `
-                            // }
-                            // // 大于1周
-                            // if (timestampValue > 604800) {
-                            //     template += `
-                            //     <div class='staffName staffTime'>${"${recordList[aa].msgtime}"} </div>
-                            //  `
-                            // }
+
                             if (recordList[aa].msgtype == 'text') {
+
+                                recordList[i].text = recordList[i].text.replace(/\n/g, "<br>");
+
                                 template += `
 								<div class='staffName'> 
 								<div class="userbox_right">
@@ -755,28 +738,7 @@
                 alert('接口出错了')
             });
         };
-        // 判断两次对话间隔的时间
 
-        // function intervalTime(timestampValue) {
-        //     // 大于5分钟，小于1天
-        //     if (86400 > timestampValue > 300) {
-        //         template += `
-        //                         <div class='staffName staffTime'>${"${recordList[aa].msgtime}"} </div>
-        //                      `
-        //     }
-        //     // 大于1天，小于1周  星期+收发消息的时间
-        //     if (604800 > timestampValue > 86400) {
-        //         template += `
-        //                         <div class='staffName staffTime'>${"${recordList[aa].msgtime}"} </div>
-        //                      `
-        //     }
-        //     // 大于1周
-        //     if (timestampValue > 604800) {
-        //         template += `
-        //                         <div class='staffName staffTime'>${"${recordList[aa].msgtime}"} </div>
-        //                      `
-        //     }
-        // };
 
 
         // 播放音频
@@ -865,15 +827,6 @@
             }
             preCtx = null;
         }
-
-
-
-
-
-
-
-
-
 
         function openbigImg(bb) {
             console.log(bb)
@@ -1022,6 +975,7 @@
         function openChatRecord(val, row, index) {
             return '<a href="#" style="cursor:pointer;"onclick="openChatDlg(' + index + ')">测试聊天记录</a>';
         };
+  
     </script>
 </head>
 
@@ -1145,7 +1099,7 @@
 
         <img src="" data-original="" alt="" id="hideImg" style="display: none;">
 
-        <div id="chatRecord" class="easyui-dialog" title="聊天记录" style="width:100%;height:100%;"
+        <div id="chatRecord" class="easyui-dialog" title="聊天记录" style="width:800px;height:760px;"
             data-options="iconCls:'icon-save',resizable:true,modal:true">
             <div class="bigbox">
                 <div class="headChat">
