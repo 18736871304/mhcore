@@ -433,6 +433,7 @@
         sendRequest("./qwMan/getQwTalkData.do", transdata, function (data) {
             var recordList = JSON.parse(data);
             recordList.reverse()
+            console.log(recordList)
             if (recordList.length > 0) {
 
 
@@ -448,6 +449,7 @@
                     var timestampValue = Math.abs(firstTime - upTime)
 
                     if (recordList.length < 20 && aa == 0) {
+                        console.log('长度小于20且aa=0  :', recordList.length, aa)
                         template += `
                                 <div class='staffName staffTime' >${"${recordList[0].msgtime}"} </div>
                              `
@@ -530,7 +532,7 @@
 									 <span class="FileTitle">${"${fileData.filename}"}</span>
 									 <span class="FileSize FileSizeleft">${"${fileSize}"}M</span>
 								  </div>
-								   <img src="../../../../images/activity/file.jpg" alt="">
+								   <img src="https://insure.meihualife.com/images/activity/file.jpg" alt="">
 									</a>
 								 
 								</div>
@@ -562,7 +564,7 @@
 							<div class="pBox boxhover chat_left">
 								<div class="timeLeft">${"${recordList[i].msgtime}"}</div>
 								<div class="chatContent  chatVoice"  onclick="playAudio('${"${voiceData.filepath}"}',this,${"${voiceData.play_length}"})">
-								  <img src="../../../../images/activity/voice_left.png" alt="" class="chatVoiceImg">
+								  <img src="https://insure.meihualife.com/images/activity/voice_left.png" alt="" class="chatVoiceImg">
 									 <p>${"${playLength}"}</p>
 								</div>
 
@@ -599,7 +601,7 @@
                             template += `
 						<div class='staffName'> 
 						<div class="userbox_right">
-							<img src="${"${photourl}"}" 	alt="" class="avatar" />
+							<img src="https://insure.meihualife.com/${"${photourl}"}" 	alt="" class="avatar" />
 							<div class="pBox boxhover chat_right">
 								<div class=" timeRight ">${"${recordList[i].msgtime}"}</div>
 									<p class="chatContent">${"${recordList[i].text}"} </p>
@@ -613,7 +615,7 @@
                             template += `
 						<div class='staffName'> 
 						<div class="userbox_right">
-							<img src="${"${photourl}"}" 	alt="" class="avatar" />
+							<img src="https://insure.meihualife.com/${"${photourl}"}" 	alt="" class="avatar" />
 							<div class="pBox boxhover chat_right">
 								<div class=" timeRight ">${"${recordList[i].msgtime}"}</div>
 								<img src="https://talk.meihualife.com/${"${recordList[i].text}"}"     onclick="openbigImg('${"${recordList[i].text}"}')"  class='abs' alt="" />
@@ -626,7 +628,7 @@
                             template += `
 						<div class='staffName'> 
 						<div class="userbox_right">
-							<img src="${"${photourl}"}" 	alt="" class="avatar" />
+							<img src="https://insure.meihualife.com/${"${photourl}"}" 	alt="" class="avatar" />
 							<div class="pBox boxhover chat_right">
 								<div class=" timeRight ">${"${recordList[i].msgtime}"}</div>
 								<img src="https://talk.meihualife.com/${"${recordList[i].text}"}"     onclick="openbigImg('${"${recordList[i].text}"}')"  class='abs' alt="" />
@@ -656,7 +658,7 @@
                             template += `
 						<div class='staffName'> 
 						<div class="userbox_right">
-							<img src="${"${photourl}"}" 	alt="" class="avatar" />
+							<img src="https://insure.meihualife.com/${"${photourl}"}" 	alt="" class="avatar" />
 							<div class="pBox boxhover chat_right">
 								<div class=" timeRight ">${"${recordList[i].msgtime}"}</div>
 								<div class="recordFile">
@@ -665,7 +667,7 @@
 									 <span class="FileTitle">${"${fileData.filename}"}</span>
 									 <span class="FileSize FileSizeright">${"${fileSize}"}M</span>
 								  </div>
-								   <img src="../../../../images/activity/file.jpg" alt="">
+								   <img src="https://insure.meihualife.com/images/activity/file.jpg" alt="">
 									</a>
 								</div>
 							</div>
@@ -692,12 +694,12 @@
                             template += `
 						<div class='staffName'> 
 						<div class="userbox_right">
-							<img src="${"${photourl}"}" 	alt="" class="avatar" />
+							<img src="https://insure.meihualife.com/${"${photourl}"}" 	alt="" class="avatar" />
 							<div class="pBox boxhover chat_right">
 								<div class=" timeRight ">${"${recordList[i].msgtime}"}</div>
 								<div class="chatContent  chatVoice"  onclick="playAudio('${"${voiceData.filepath}"}',this,${"${voiceData.play_length}"})">
 								 <p>${"${playLength}"}</p>
-								 <img src="../../../../images/activity/voice_right.png" alt="" class="chatVoiceImg">
+								 <img src="https://insure.meihualife.com/images/activity/voice_right.png" alt="" class="chatVoiceImg">
 								</div>
 							</div>
 						   </div>
@@ -708,7 +710,7 @@
                             template += `
 						<div class='staffName'> 
 						<div class="userbox_right">
-							<img src="${"${photourl}"}" 	alt="" class="avatar" />
+							<img src="https://insure.meihualife.com/${"${photourl}"}" 	alt="" class="avatar" />
 							<div class="pBox boxhover chat_right">
 								<div class=" timeRight ">${"${recordList[i].msgtime}"}</div>
 							  
@@ -735,6 +737,7 @@
                     recordContent.scrollTo(0, nowScrollHeight)
                 }
             } else {
+
                 console.log('已经没有记录了')
             }
         }, function () {
@@ -743,7 +746,7 @@
     }
     // 播放音频
     function playAudio(aa, event, allTime) {
-     
+        console.log(aa)
         $('.chatVoice').removeClass("playAudioVoice");
         $(event).addClass("playAudioVoice")
         var dd = 'https://talk.meihualife.com/' + aa
@@ -830,10 +833,12 @@
 
 
     function openbigImg(bb) {
+        console.log(bb)
         document.getElementById('hideImg').src = 'https://talk.meihualife.com/' + bb
         document.getElementById('hideImg').setAttribute("data-original", 'https://talk.meihualife.com/' + bb);
         var itemId = document.getElementById('hideImg').getAttribute("data-original");
 
+        console.log(itemId)
         var viewer = new Viewer(document.getElementById('hideImg'), {
             url: 'data-original',
             zIndex: '9999',
@@ -845,6 +850,7 @@
     }
 
     function openChatDlg(index, rowId) {
+        console.log(index, rowId)
         // 清空聊天记录和里面的标签
         template = ''
         $('.recordMain').empty()
@@ -857,7 +863,7 @@
 
         if (typeof row.customerid === 'undefined' || typeof row.qwuserid === 'undefined') {
             openinfo(row).then((row) => {
-             
+                console.log(row)
                 getrecord(row.customerid, row.qwuserid, '', row.customerphotourl, row.photourl)
                 // 设置顶部头像姓名备注名
                 $("#kehuAvtar").attr('src', row.customerphotourl)
@@ -888,6 +894,7 @@
         var userName = row.name
         return new Promise((resolve, reject) => {
             sendRequest("./qwMan/getQwtalkInfoByMobile.do", transdata, function (data) {
+                console.log(data)
                 if (data == "null") {
 
                     $.messager.alert('执行失败', ' 请确定业务员是否添加了客户微信？', 'error');

@@ -196,6 +196,17 @@
             }
         }
 
+        function Isqwstate(val, row, index) {
+            if (val == '') {
+                return '';
+            } else if (val == 'add') {
+                return '已添加';
+            } else if (val == 'delete') {
+                return '已删除';
+            }
+        }
+
+    
 
         function openChatRecord(val, row, index) {
             return '<a href="#" style="cursor:pointer;"onclick="openChatDlg(' + index + ',' + "'activitylist'" +
@@ -405,7 +416,7 @@
             data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone">
             <thead>
                 <tr>
-                  
+
                     <th data-options="field:'accountid',width:115">广告主ID</th>
                     <th data-options="field:'accountname',width:150">广告主名称</th>
                     <th data-options="field:'planid',width:115">广告计划ID</th>
@@ -427,9 +438,9 @@
                     </th>
 
                     <th data-options="field:'isconnect',width:60">是否接通</th>
-                    <th data-options="field:'',width:60">是否添加好友</th>
-                    <th data-options="field:'',width:60">是否删除</th>
-                    <th data-options="field:'openChatRecord',width:60,formatter:openChatRecord">聊天记录</th>
+                    <th data-options="field:'qwstate',width:80,formatter:Isqwstate">是否添加好友</th>
+                    <!-- <th data-options="field:'qwstate',width:60,formatter:Isdelect">是否删除</th> -->
+                    <th data-options="field:'openChatRecord',width:80,formatter:openChatRecord">聊天记录</th>
 
                     <th data-options="field:'followupstepname',width:60" sortable="true">跟进步骤</th>
 

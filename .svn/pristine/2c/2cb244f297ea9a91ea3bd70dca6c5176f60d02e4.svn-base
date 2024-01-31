@@ -234,7 +234,7 @@
 					<th data-options="field:'username',width:70">业务员姓名</th>
 					<th data-options="field:'isdeletefirendname',width:70">是否删除</th>
 					<th data-options="field:'cbid',width:70">订单ID</th>
-					<th data-options="field:'openChatRecord',width:60,formatter:openChatRecord">聊天记录</th>
+					<th data-options="field:'openChatRecord',width:90,formatter:openChatRecord">聊天记录</th>
 				</tr>
 			</thead>
 		</table>

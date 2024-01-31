@@ -427,8 +427,8 @@
                     </th>
 
                     <th data-options="field:'isconnect',width:60">是否接通</th>
-                    <th data-options="field:'',width:60">是否添加好友</th>
-                    <th data-options="field:'',width:60">是否删除</th>
+                    <!-- <th data-options="field:'isconnect2',width:60">是否添加好友</th>
+                    <th data-options="field:'isconnect1',width:60">是否删除</th> -->
                     <th data-options="field:'openChatRecord',width:60,formatter:openChatRecord">聊天记录</th>
 
                     <th data-options="field:'followupstepname',width:60" sortable="true">跟进步骤</th>
