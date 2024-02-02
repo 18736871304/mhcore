@@ -16,6 +16,9 @@
             disComBox($('#qfollowupstep'), "followupstep", null);
 
             disComBox($('#qissea'), "yesno", null);
+            disComBox($('#addFriend'), "yesno", null);
+            disComBox($('#delFriend'), "yesno", null);
+
             disComBox($('#qcustype'), "custype", null);
 
             disComBox($('#qinitSourceLevel'), "hotline_sourcelevle", null);
@@ -90,6 +93,8 @@
             tParam.teamid = getQTeamId();
 
             tParam.issea = $('#qissea').combobox('getValue');
+            tParam.addFriend = $('#addFriend').combobox('getValue');
+            tParam.delFriend = $('#delFriend').combobox('getValue');
             tParam.custype = $('#qcustype').combobox('getValue');
 
             return tParam;
@@ -196,54 +201,24 @@
             }
         }
 
+        function Isqwstate(val, row, index) {
+            if (val == '') {
+                return '否';
+            } else if (val == 'add') {
+                return '是';
+            } else if (val == 'delete') {
+                row.Isdelect = '已删除'
+                return '是';
+            }
+        }
 
+    
         function openChatRecord(val, row, index) {
             return '<a href="#" style="cursor:pointer;"onclick="openChatDlg(' + index + ',' + "'activitylist'" +
                 ')">查看</a>';
         };
     </script>
-    <!-- <style>
-	table.common {
-		width: 100%;
-	}
-
-	td.reprot_title {
-		width: 4%;
-	}
-
-	.combo {
-		width: 95% !important;
-	}
-
-	.combo .combo-text {
-		width: 80% !important;
-	}
-
-	input.txt {
-		width: 95%;
-	}
-
-	.combo-p {
-		width: 13% !important;
-	}
-
-	.combo-panel {
-		width: 90% !important;
-		height: auto !important;
-	}
-
-	.combo-arrow {
-		float: right;
-	}
-
-	.combo {
-		width: 95% !important;
-	}
-
-	td.four_title {
-		width: 14%;
-	}
-</style> -->
+ 
 </head>
 
 <body>
@@ -348,17 +323,18 @@
 
             <tr>
                 <td class="reprot_title">
-                    广告主ID
+                    是否添加好友
                 </td>
                 <td class="report_common">
-                    <input class="txt" name="qaccountid" id="qaccountid">
+                    <select class="easyui-combobox" style="width: 90%" panelHeight="auto" name="addFriend" id="addFriend">
+                    </select>
                 </td>
-
                 <td class="reprot_title">
-                    广告计划ID
+                    是否删除
                 </td>
                 <td class="report_common">
-                    <input class="txt" name="qplanid" id="qplanid">
+                    <select class="easyui-combobox" style="width: 90%" panelHeight="auto" name="delFriend" id="delFriend">
+                    </select>
                 </td>
 
                 <td class="reprot_title">
@@ -405,7 +381,7 @@
             data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone">
             <thead>
                 <tr>
-                  
+
                     <th data-options="field:'accountid',width:115">广告主ID</th>
                     <th data-options="field:'accountname',width:150">广告主名称</th>
                     <th data-options="field:'planid',width:115">广告计划ID</th>
@@ -427,19 +403,19 @@
                     </th>
 
                     <th data-options="field:'isconnect',width:60">是否接通</th>
-                    <th data-options="field:'',width:60">是否添加好友</th>
-                    <th data-options="field:'',width:60">是否删除</th>
+                    <th data-options="field:'qwstate',width:80,formatter:Isqwstate">是否添加好友</th>
+                    <th data-options="field:'Isdelect',width:60">是否删除</th>
                     <th data-options="field:'openChatRecord',width:60,formatter:openChatRecord">聊天记录</th>
 
                     <th data-options="field:'followupstepname',width:60" sortable="true">跟进步骤</th>
 
-                    <th data-options="field:'callcount',width:85">累计拨打次数</th>
+                    <th data-options="field:'callcount',width:80">累计拨打次数</th>
 
                     <th data-options="field:'sex',width:40">性别</th>
                     <th data-options="field:'age',width:40">年龄</th>
                     <th data-options="field:'custypename',width:60">客户类型</th>
 
-                    <th data-options="field:'area',width:90">自动定位地址</th>
+                    <th data-options="field:'area',width:80">自动定位地址</th>
                     <th data-options="field:'channelname',width:60">渠道类型</th>
                     <th data-options="field:'clue_sourcename',width:60" sortable="true">线索来源</th>
                     <th data-options="field:'appname',width:60">流量来源</th>

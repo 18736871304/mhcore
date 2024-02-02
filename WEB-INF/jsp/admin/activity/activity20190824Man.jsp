@@ -318,14 +318,14 @@
 
             <tr>
                 <td class="reprot_title">
-                    广告主ID
+                    是否添加好友
                 </td>
                 <td class="report_common">
                     <input class="txt" name="qaccountid" id="qaccountid">
                 </td>
 
                 <td class="reprot_title">
-                    广告计划ID
+                    是否添加好友
                 </td>
                 <td class="report_common">
                     <input class="txt" name="qplanid" id="qplanid">
