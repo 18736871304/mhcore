@@ -361,7 +361,7 @@
     }
 
     html {
-        overflow: auto;
+        overflow: hidden;
     }
 </style>
 

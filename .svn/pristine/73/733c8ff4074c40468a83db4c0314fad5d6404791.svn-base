@@ -211,7 +211,7 @@
 
 
         function openChatRecord(val, row, index) {
-           
+            console.log(row)
             if (row.qwstate != '') {
                 return '<a href="#" style="cursor:pointer;"onclick="openChatDlg(' + index + ',' + "'activitylist'" +
                     ')">查看</a>';
