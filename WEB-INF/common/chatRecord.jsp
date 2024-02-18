@@ -1,10 +1,10 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 
 
-<link rel="stylesheet" href="../../../../js/viewer.css">
-<script src="../../../../js/amrnb.js"></script>
-<script src="../../../../js/amrplayer.js"></script>
-<script src="../../../../js/viewer.js"></script>
+<link rel="stylesheet" href="../../../../js/chatRecord/viewer.css">
+<script src="../../../../js/chatRecord/amrnb.js"></script>
+<script src="../../../../js/chatRecord/amrplayer.js"></script>
+<script src="../../../../js/chatRecord/viewer.js"></script>
 
 <style>
     .bigbox {
@@ -544,7 +544,7 @@
 									 <span class="FileTitle">${"${fileData.filename}"}</span>
 									 <span class="FileSize FileSizeleft">${"${fileSize}"}M</span>
 								  </div>
-								   <img src="../../../../images/activity/file.jpg" alt="">
+								   <img src="../../../../images/activity/chatRecord/file.jpg" alt="">
 									</a>
 								 
 								</div>
@@ -576,7 +576,7 @@
 							<div class="pBox boxhover chat_left">
 								<div class="timeLeft">${"${recordList[i].msgtime}"}</div>
 								<div class="chatContent  chatVoice"  onclick="playAudio('${"${voiceData.filepath}"}',this,${"${voiceData.play_length}"})">
-								  <img src="../../../../images/activity/voice_left.png" alt="" class="chatVoiceImg">
+								  <img src="../../../../images/activity/chatRecord/voice_left.png" alt="" class="chatVoiceImg">
 									 <p>${"${playLength}"}</p>
 								</div>
 
@@ -620,7 +620,7 @@
                                 }
                             }
                             if (linkData.image_url == '') {
-                                linkData.image_url = '../../../../images/activity/file.jpg'
+                                linkData.image_url = '../../../../images/activity/chatRecord/file.jpg'
                             }
                             template += `
 					 <div class='staffName'> 
@@ -722,7 +722,7 @@
 									 <span class="FileTitle">${"${fileData.filename}"}</span>
 									 <span class="FileSize FileSizeright">${"${fileSize}"}M</span>
 								  </div>
-								   <img src="../../../../images/activity/file.jpg" alt="">
+								   <img src="../../../../images/activity/chatRecord/file.jpg" alt="">
 									</a>
 								</div>
 							</div>
@@ -754,7 +754,7 @@
 								<div class=" timeRight ">${"${recordList[i].msgtime}"}</div>
 								<div class="chatContent  chatVoice"  onclick="playAudio('${"${voiceData.filepath}"}',this,${"${voiceData.play_length}"})">
 								 <p>${"${playLength}"}</p>
-								 <img src="../../../../images/activity/voice_right.png" alt="" class="chatVoiceImg">
+								 <img src="../../../../images/activity/chatRecord/voice_right.png" alt="" class="chatVoiceImg">
 								</div>
 							</div>
 						   </div>
@@ -797,7 +797,7 @@
                                 }
                             }
                             if (linkData.image_url == '') {
-                                linkData.image_url = '../../../../images/activity/file.jpg'
+                                linkData.image_url = '../../../../images/activity/chatRecord/file.jpg'
                             }
                             template += `
                             <div class='staffName'> 
