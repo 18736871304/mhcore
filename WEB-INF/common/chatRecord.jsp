@@ -341,7 +341,7 @@
         width: 788px;
         left: 50% !important;
         margin-left: -394px;
-        /* top: 0 !important; */
+        top: 0 !important;
     }
 
     .window-shadow {

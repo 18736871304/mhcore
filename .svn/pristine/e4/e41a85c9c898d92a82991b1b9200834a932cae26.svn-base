@@ -5,7 +5,6 @@
 <head>
     <title></title>
     <link rel="stylesheet" href="../.././../../css/inputbox/line7.css">
-    <link rel="stylesheet" href="../../../../css/inputbox/line6.css">
     <style>
         #audio {
             position: fixed;
@@ -15,7 +14,7 @@
         }
 
         .play-btn {
-
+         
             cursor: pointer;
         }
 
@@ -121,14 +120,6 @@
             var tParam = getQueryParam();
 
             displayDataGrid20($('#activitylist'), tParam, tturl);
-
-            // 合计
-            tParam.yearMonth = $('#qdistributeStartDate').datebox("getValue");
-            tParam.yearMonth = tParam.yearMonth.substring(0, 7);	
-            tParam.addqw = 'Y';
-            console.log(tParam)
-            var sumurl = "activity/getactivityCount.do";
-            ajaxdeal(sumurl, tParam, displaysumdata, null);
         }
 
         function activitydownload() {
@@ -277,22 +268,6 @@
         function play(url) {
             $('#audio').attr('src', url);
         }
-
-        function displaysumdata(data) {
-            if (data == null || data == "") {
-                $('#activityCount').val("");
-                $('#qwcountsum').val("");
-                $('#qwratesum').val("");
-                $('#connectcountsum').val("");
-                $('connectratesum').val("");
-            } else {
-                $('#activityCount').val(data.activityCount);
-                $('#qwcountsum').val(data.qwcount);
-                $('#qwratesum').val(data.qwrate);
-                $('#connectcountsum').val(data.connectcount);
-                $('#connectratesum').val(data.connectrate);
-            }
-        }
     </script>
 
 </head>
@@ -399,7 +374,7 @@
             </tr>
 
             <tr>
-                <td class="reprot_title">
+            	<td class="reprot_title">
                     是否接通
                 </td>
                 <td class="report_common">
@@ -407,7 +382,7 @@
                         id="qisconnect">
                     </select>
                 </td>
-
+            
                 <td class="reprot_title">
                     是否添加好友
                 </td>
@@ -514,58 +489,6 @@
             </thead>
         </table>
         <br>
-
-
-        <table class="common">
-            <tr>
-                <td class="reprot_title_4">
-                    合计
-                </td>
-                <td class="report_common_4">
-                    <input class="txt" id="activityCount" name="activityCount" readonly>
-                </td>
-
-                <td class="reprot_title_4">
-                    接通数量合计
-                </td>
-                <td class="report_common_4">
-                    <input class="txt" id="connectcountsum" name="connectcountsum" readonly>
-                </td>
-
-                <td class="reprot_title_4">
-                    接通率
-                </td>
-                <td class="report_common_4">
-                    <input class="txt" id="connectratesum" name="connectratesum" readonly>
-                </td>
-
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td class="reprot_title_4">
-                    企微数量合计
-                </td>
-                <td class="report_common_4">
-                    <input class="txt" id="qwcountsum" name="qwcountsum" readonly>
-                </td>
-
-                <td class="reprot_title_4">
-                    通过率
-                </td>
-                <td class="report_common_4">
-                    <input class="txt" id="qwratesum" name="qwratesum" readonly>
-                </td>
-            </tr>
-        </table>
-        <br>
-
-
-
         <%@ include file="/WEB-INF/common/chatRecord.jsp"%>
 
 
