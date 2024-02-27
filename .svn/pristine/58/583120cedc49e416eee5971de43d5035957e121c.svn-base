@@ -899,7 +899,7 @@
 						     `;
                         }
 
-                        if (recordList[aa].msgtype == 'voiptext') {
+                        if (recordList[aa].msgtype == 'voice') {
                             var voiceData
                             try {
                                 if (typeof JSON.parse(recordList[i].text) == "object") {
