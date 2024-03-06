@@ -17,6 +17,7 @@
 
 		window.onload = function () {
 			$('#chatRecord').dialog('close');
+			$('#chatRecordee').dialog('close');
 			initDataGrid20($('#articleClueList'));
 
 			inputList = [];
