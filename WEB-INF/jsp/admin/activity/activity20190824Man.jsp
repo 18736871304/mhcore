@@ -27,6 +27,7 @@
     <script>
         window.onload = function () {
             $('#chatRecord').dialog('close');
+            $('#chatRecordee').dialog('close');
             $('#callList_dialo').dialog('close');
             initDataGrid20($('#activitylist'));
 
@@ -587,7 +588,7 @@
                             <th data-options="field:'timeduration',width:70">时长</th>
                             <th data-options="field:'opencall',width:70,formatter:opencall">录音</th>
                             <th data-options="field:'callText',width:70,formatter:callText">通话转文字</th>
-                            <th data-options="field:'callDownload',width:65,formatter:callDownload">下载</th>
+                            <th data-options="field:'callDownload',width:70,formatter:callDownload">下载</th>
 
                         </tr>
                     </thead>
