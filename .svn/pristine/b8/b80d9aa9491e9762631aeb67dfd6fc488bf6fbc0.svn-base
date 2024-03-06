@@ -1,0 +1,606 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<%@ include file="/WEB-INF/common/include.jsp"%>
+
+<head>
+    <title></title>
+    <link rel="stylesheet" href="../.././../../css/inputbox/line7.css">
+    <link rel="stylesheet" href="../../../../css/inputbox/line6.css">
+    <style>
+        #audio {
+            position: fixed;
+            top: 0px;
+            right: 20px;
+            z-index: 3000;
+        }
+
+        .play-btn {
+
+            cursor: pointer;
+        }
+
+        .play-btn:hover {
+            color: #95B8E7;
+        }
+    </style>
+
+    <script>
+        window.onload = function () {
+            $('#chatRecord').dialog('close');
+            $('#chatRecordee').dialog('close');
+            $('#callList_dialo').dialog('close');
+            initDataGrid20($('#activitylist'));
+
+            disComBox($('#qchannel'), "source", null);
+            disComBox($('#qfollowupstep'), "followupstep", null);
+
+            disComBox($('#qissea'), "yesno", null);
+            disComBox($('#qisaddqw'), "yesno", null);
+            disComBox($('#qisconnect'), "yesno", null);
+            disComBox($('#qcustype'), "custype", null);
+
+            disComBox($('#qinitSourceLevel'), "hotline_sourcelevle", null);
+            disComBox($('#qSourceLevel'), "sourcelevle", null);
+
+            dlgUserInit();
+
+            $('#qdistributeStartDate').datebox('setValue', getMonthOneFormatDate());
+
+            init02Org();
+
+            onScroll('activitylist')
+
+        }
+
+
+
+
+
+
+
+        function aftercodeselect(comboxid) {
+            if (comboxid.attr("id") == "qchannel") {
+                var tParam = new Object();
+                tParam.comboxType = 'sourcedetail_' + comboxid.combobox('getValue');
+
+                var tturl = "activity/getSourceDetail.do";
+                displayCombox($('#qappname'), tParam, tturl, "dd_key", "dd_value");
+            } else {
+                organAfterSelect(comboxid);
+            }
+        }
+
+        function selectone() {}
+
+        function getQueryParam() {
+            var tParam = new Object();
+
+            tParam.username = $('#qusername').val();
+
+            tParam.userid = $('#quserid').val();
+            tParam.name = $('#qname').val();
+
+            tParam.mobile = $('#qmobile').val();
+
+            tParam.channel = $('#qchannel').combobox('getValue');
+            tParam.appname = $('#qappname').combobox('getText');
+
+            tParam.wxno = $('#qwxno').val();
+            tParam.isaddqw = $('#qisaddqw').combobox('getValue');
+            tParam.isconnect = $('#qisconnect').combobox('getValue');
+            tParam.crm_remark = $('#qcrm_remark').val();
+
+            tParam.initSourceLevel = $('#qinitSourceLevel').combobox('getValue');
+            tParam.sourceLevel = $('#qSourceLevel').combobox('getValue');
+
+            tParam.queryflag = '02';
+
+            tParam.hotlineStartDate = $('#qstartdate').datebox("getValue");
+            tParam.hotlineEndDate = $('#qenddate').datebox("getValue");
+
+            tParam.distributeStartDate = $('#qdistributeStartDate').datebox("getValue");
+            tParam.distributeEndDate = $('#qdistributeEndDate').datebox("getValue");
+
+            tParam.followupstep = $('#qfollowupstep').combobox('getValue');
+
+            tParam.q02org = $('#q02org').combobox('getValue');
+            tParam.q03org = $('#q03org').combobox('getValue');
+
+            tParam.q04org = getOrgan04Code();
+
+            tParam.teamid = getQTeamId();
+
+            tParam.issea = $('#qissea').combobox('getValue');
+            tParam.custype = $('#qcustype').combobox('getValue');
+
+            return tParam;
+        }
+
+        function activityquery() {
+            var tturl = "activity/getActivityTransferList.do";
+
+            var tParam = getQueryParam();
+
+            displayDataGrid20($('#activitylist'), tParam, tturl);
+
+            // 合计
+            tParam.yearMonth = $('#qdistributeStartDate').datebox("getValue");
+            tParam.yearMonth = tParam.yearMonth.substring(0, 7);
+            tParam.addqw = 'Y';
+            var sumurl = "activity/getactivityCount.do";
+            ajaxdeal(sumurl, tParam, displaysumdata, null);
+        }
+
+        function activitydownload() {
+            var tturl = "activity/activityListDownLoad.do";
+
+            var tParam = getQueryParam();
+
+            ajaxdeal(tturl, tParam, listdownloadreturn, null);
+        }
+
+        function listdownloadreturn(data) {
+            if (data.flag == "0") {
+                if (data.message == null || data.message == "") {
+                    $.messager.alert('执行失败', '没有生成下载文件', 'error');
+                } else {
+                    $.messager.alert('执行成功', "执行成功，请点击下载", 'info');
+                    //判断id存在的代码
+                    if ($("#xiazai").length > 0) {
+                        $("#xiazai").remove();
+                        $('#activitydownload').after("&nbsp&nbsp<a id = 'xiazai' href = 'download.do?filename=" + data
+                            .message + "'>点击下载</a>");
+                    } else {
+                        $('#activitydownload').after("&nbsp&nbsp<a id = 'xiazai' href = 'download.do?filename=" + data
+                            .message + "'>点击下载</a>");
+                    }
+                }
+            } else {
+                if (data.message == null || data.message == "") {
+                    $.messager.alert('执行失败', '操作失败', 'error');
+                } else {
+                    $.messager.alert('执行失败', data.message, 'error');
+                }
+            }
+        }
+
+        function getMonthOneFormatDate() {
+            var date = new Date();
+
+            var seperator1 = "-";
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var strDate = date.getDate();
+            if (month >= 1 && month <= 9) {
+                month = "0" + month;
+            }
+            if (strDate >= 0 && strDate <= 9) {
+                strDate = "0" + strDate;
+            }
+            var currentdate = year + seperator1 + month + seperator1 + "01";
+            return currentdate;
+        }
+
+        function dispageurl(val, row, index) {
+            return '<a href="#" onclick="openpageurl(\'' + row.channel + '\',\'' + row.pagetype + '\',\'' + row.planid +
+                '\',\'' + row.pageurl + '\')">' + row.pageurl + '</a>';
+        }
+
+        function openpageurl(channel, pagetype, planid, pageurl) {
+            if (pageurl != null && pageurl != '') {
+                window.open(pageurl,
+                    '_blank',
+                    'width=400px,height=550px,left=400px,top=100px,menubar=no,toolbar=no,scrollbars=yes,location=no'
+                );
+            } else if (channel == '0004' && pagetype == '1yuango/0001') {
+                window.open('http://insure.meihualife.com/life/activity/oneyuangodis.do',
+                    '_blank',
+                    'width=400px,height=550px,left=400px,top=100px,menubar=no,toolbar=no,scrollbars=yes,location=no'
+                );
+            } else {
+                window.open('http://insure.meihualife.com/life/activity/channelActivity.do?channelCode=' + channel +
+                    '&pageType=' + pagetype + '&planId=' + planid,
+                    '_blank',
+                    'width=400px,height=550px,left=400px,top=100px,menubar=no,toolbar=no,scrollbars=yes,location=no'
+                );
+            }
+        }
+
+        function disSourceLevel(val, row, index) {
+            if (val == 'A+') {
+                return 'A理财';
+            } else if (val == 'A') {
+                return 'A重疾';
+            } else if (val == 'A-') {
+                if (row.initSourceLevel == 'A') {
+                    return 'A-重疾'
+                } else if (row.initSourceLevel == 'A+') {
+                    return 'A-理财'
+                } else {
+                    return val;
+                }
+            } else {
+                return val;
+            }
+        }
+
+        function Isqwstate(val, row, index) {
+            if (val == '') {
+                return '否';
+            } else if (val == 'add') {
+                return '是';
+            } else if (val == 'delete') {
+                row.Isdelect = '已删除'
+                return '是';
+            }
+        }
+
+
+        function openChatRecord(val, row, index) {
+
+            if (row.qwstate != '') {
+                return '<a href="#" style="cursor:pointer;"onclick="openChatDlg(' + index + ',' + "'activitylist'" +
+                    ')">查看</a>';
+            }
+        };
+
+        function callList(val, row, index) {
+            var rows = $("#activitylist").datagrid('getRows'); //获取所有当前加载的数据行
+            var row = rows[index];
+            if (row.isconnect == '是') {
+                return '<a href="#" style="cursor:pointer;"onclick="opencallList(' + row.mobilestr + ')">查看</a>';
+            }
+
+        }
+
+        function opencallList(mobilestr) {
+            $('#callList_dialo').dialog('open');
+            var tturl = "activity/getCallList.do";
+            var tParam = {};
+            tParam.mobile = mobilestr
+            displayDataGrid20($('#callList'), tParam, tturl);
+        }
+
+        function opencall(val, row, index) {
+            if (row.isconnect == '接通') {
+                return '<span onclick=play("' + row.recordurl + '") class="play-btn">播放</span>'
+            }
+        }
+
+        function callDownload(val, row, index) {
+            if (row.isconnect == '接通') {
+                return '<a   style="cursor:pointer;"   href="' + row.recordurl + '">下载</a> '
+            }
+        }
+
+        function play(url) {
+            $('#audio').attr('src', url);
+        }
+
+        function displaysumdata(data) {
+            if (data == null || data == "") {
+                $('#activityCount').val("");
+                $('#qwcountsum').val("");
+                $('#qwratesum').val("");
+                $('#connectcountsum').val("");
+                $('connectratesum').val("");
+            } else {
+                $('#activityCount').val(data.activityCount);
+                $('#qwcountsum').val(data.qwcount);
+                $('#qwratesum').val(data.qwrate);
+                $('#connectcountsum').val(data.connectcount);
+                $('#connectratesum').val(data.connectrate);
+            }
+        }
+
+
+        function callText(val, row, index) {
+
+        }
+    </script>
+
+</head>
+
+<body>
+    <%@ include file="/WEB-INF/jsp/admin/policy/userDlg.jsp"%>
+    <div style="margin-left:0%">
+        <table class="common">
+            <tr>
+                <td class="reprot_title">
+                    线索产生起期
+
+                </td>
+                <td class="report_common">
+                    <input class="easyui-datebox" style="width: 90%" id="qstartdate" name="qstartdate">
+                </td>
+
+                <td class="reprot_title">
+                    线索产生止期
+                </td>
+                <td class="report_common">
+                    <input class="easyui-datebox" style="width: 90%" id="qenddate" name="qenddate">
+                </td>
+
+                <td class="reprot_title">
+                    资源等级
+                </td>
+                <td class="report_common">
+                    <select class="easyui-combobox" style="width: 90%" panelHeight="auto" name="qSourceLevel"
+                        id="qSourceLevel">
+                    </select>
+                </td>
+
+                <td class="reprot_title">
+                    初始资源等级
+                </td>
+                <td class="report_common">
+                    <select class="easyui-combobox" style="width: 90%" panelHeight="auto" name="qinitSourceLevel"
+                        id="qinitSourceLevel">
+                    </select>
+                </td>
+
+                <td class="reprot_title">
+                    客户公海
+                </td>
+                <td class="report_common">
+                    <select class="easyui-combobox" style="width: 90%" panelHeight="auto" name="qissea" id="qissea">
+                    </select>
+                </td>
+
+                <td class="reprot_title">
+                    业务员姓名
+                </td>
+                <td class="report_common">
+                    <input class="txt" name="qusername" id="qusername">
+                </td>
+            </tr>
+
+            <tr>
+                <td class="reprot_title">
+                    线索分配起期
+                </td>
+                <td class="report_common">
+                    <input class="easyui-datebox" style="width: 90%" id="qdistributeStartDate"
+                        name="qdistributeStartDate">
+                </td>
+                <td class="reprot_title">
+                    线索分配止期
+                </td>
+                <td class="report_common">
+                    <input class="easyui-datebox" style="width: 90%" id="qdistributeEndDate" name="qdistributeEndDate">
+                </td>
+
+                <td class="reprot_title">
+                    渠道类型
+                </td>
+                <td class="report_common">
+                    <select class="easyui-combobox" style="width: 90%" panelHeight="auto" name="qchannel" id="qchannel">
+                    </select>
+                </td>
+
+                <td class="reprot_title">
+                    流量来源
+                </td>
+                <td class="report_common">
+                    <select class="easyui-combobox" style="width: 90%" panelHeight="auto" name="qappname" id="qappname">
+                    </select>
+                </td>
+
+                <td class="reprot_title">
+                    备注信息
+                </td>
+                <td class="report_common">
+                    <input class="txt" name="qcrm_remark" id="qcrm_remark">
+                </td>
+
+                <td class="reprot_title">
+                    客户类型
+                </td>
+                <td class="report_common">
+                    <select class="easyui-combobox" style="width:90%" panelHeight="auto" name="qcustype" id="qcustype">
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="reprot_title">
+                    是否接通
+                </td>
+                <td class="report_common">
+                    <select class="easyui-combobox" style="width:90%" panelHeight="auto" name="qisconnect"
+                        id="qisconnect">
+                    </select>
+                </td>
+
+                <td class="reprot_title">
+                    是否添加好友
+                </td>
+                <td class="report_common">
+                    <select class="easyui-combobox" style="width:90%" panelHeight="auto" name="qisaddqw" id="qisaddqw">
+                    </select>
+                </td>
+
+                <td class="reprot_title">
+                    客户姓名
+                </td>
+                <td class="report_common">
+                    <input class="txt" name="qname" id="qname">
+                </td>
+
+                <td class="reprot_title">
+                    电话号码
+                </td>
+                <td class="report_common">
+                    <input class="txt" name="qmobile" id="qmobile">
+                </td>
+
+                <td class="reprot_title">
+                    微信号
+                </td>
+                <td class="report_common">
+                    <input class="txt" name="qwxno" id="qwxno">
+                </td>
+
+                <td class="reprot_title">
+                    跟进步骤
+                </td>
+                <td class="report_common">
+                    <select class="easyui-combobox" style="width:90%" panelHeight="auto" name="qfollowupstep"
+                        id="qfollowupstep">
+                    </select>
+                </td>
+            </tr>
+
+            <%@ include file="/WEB-INF/jsp/admin/team/organAndTeamQuery.jsp"%>
+        </table>
+        <br>
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id="userwxquery"
+            onclick="activityquery()">查询</a>
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id="activitydownload"
+            onclick="activitydownload()">下载</a>
+        <br>
+        <br>
+        <table id="activitylist" class="easyui-datagrid" title="团队热线查询" style="width:auto;height:auto"
+            data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone">
+            <thead>
+                <tr>
+
+                    <th data-options="field:'accountid',width:115">广告主ID</th>
+                    <th data-options="field:'accountname',width:150">广告主名称</th>
+                    <th data-options="field:'planid',width:115">广告计划ID</th>
+                    <th data-options="field:'planname',width:200">广告计划名称</th>
+                    <th data-options="field:'makedate',width:125" sortable="true">线索产生时间</th>
+                    <th data-options="field:'distributedate',width:125" sortable="true">线索分配时间</th>
+                    <th data-options="field:'issea',width:60">客户公海</th>
+
+                    <th data-options="field:'agentcom',width:70">所属营业部</th>
+                    <th data-options="field:'teamname',width:70">所属团队</th>
+                    <th data-options="field:'usercode',width:70" sortable="true">业务员编号</th>
+                    <th data-options="field:'username',width:70" sortable="true">业务员姓名</th>
+
+                    <th data-options="field:'name',width:70" sortable="true">客户姓名</th>
+                    <th data-options="field:'mobile',width:85" sortable="true">电话号码</th>
+                    <th data-options="field:'wxno',width:85" sortable="true">微信号</th>
+                    <th data-options="field:'sourcelevel',width:60,formatter:disSourceLevel" sortable="true">资源等级</th>
+                    <th data-options="field:'initSourceLevel',width:60,formatter:disSourceLevel" sortable="true">初始资源等级
+                    </th>
+
+                    <th data-options="field:'isconnect',width:60">是否接通</th>
+                    <th data-options="field:'callList',width:60,formatter:callList">通话记录</th>
+
+                    <th data-options="field:'qwstate',width:80,formatter:Isqwstate">是否添加好友</th>
+                    <th data-options="field:'Isdelect',width:60">是否删除</th>
+                    <th data-options="field:'openChatRecord',width:60,formatter:openChatRecord">聊天记录</th>
+
+                    <th data-options="field:'followupstepname',width:60" sortable="true">跟进步骤</th>
+
+                    <th data-options="field:'callcount',width:80">累计拨打次数</th>
+
+                    <th data-options="field:'sex',width:40">性别</th>
+                    <th data-options="field:'age',width:40">年龄</th>
+                    <th data-options="field:'custypename',width:60">客户类型</th>
+
+                    <th data-options="field:'area',width:80">自动定位地址</th>
+                    <th data-options="field:'channelname',width:60">渠道类型</th>
+                    <th data-options="field:'clue_sourcename',width:60" sortable="true">线索来源</th>
+                    <th data-options="field:'appname',width:60">流量来源</th>
+
+                    <th data-options="field:'clueid',width:135">线索ID</th>
+
+                    <th data-options="field:'module_id',width:115">组件ID</th>
+                    <th data-options="field:'module_name',width:135">组件名称</th>
+
+                    <th data-options="field:'pageurl',width:150,formatter:dispageurl">推广页面</th>
+                    <th data-options="field:'crm_remark',width:260">备注信息</th>
+                    <th data-options="field:'remark',width:560">跟进记录</th>
+
+                </tr>
+            </thead>
+        </table>
+        <br>
+
+
+        <table class="common">
+            <tr>
+                <td class="reprot_title_4">
+                    合计
+                </td>
+                <td class="report_common_4">
+                    <input class="txt" id="activityCount" name="activityCount" readonly>
+                </td>
+
+                <td class="reprot_title_4">
+                    接通数量合计
+                </td>
+                <td class="report_common_4">
+                    <input class="txt" id="connectcountsum" name="connectcountsum" readonly>
+                </td>
+
+                <td class="reprot_title_4">
+                    接通率
+                </td>
+                <td class="report_common_4">
+                    <input class="txt" id="connectratesum" name="connectratesum" readonly>
+                </td>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td class="reprot_title_4">
+                    企微数量合计
+                </td>
+                <td class="report_common_4">
+                    <input class="txt" id="qwcountsum" name="qwcountsum" readonly>
+                </td>
+
+                <td class="reprot_title_4">
+                    通过率
+                </td>
+                <td class="report_common_4">
+                    <input class="txt" id="qwratesum" name="qwratesum" readonly>
+                </td>
+            </tr>
+        </table>
+        <br>
+
+
+
+        <%@ include file="/WEB-INF/common/chatRecord.jsp"%>
+
+
+        <!-- style="width:800px;height:760px;" -->
+
+        <div id="callList_dialo" class="easyui-dialog" title="通话记录" style="width:600px;height:auto;"
+            data-options="iconCls:'icon-save',resizable:true,modal:true,">
+            <div class="bigbox" style="height: auto;">
+                <table id="callList" class="easyui-datagrid" title="通话记录" style="width:auto;height:auto"
+                    data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone">
+                    <thead>
+                        <tr>
+                            <th data-options="field:'calltime',width:140">拨打时间</th>
+                            <th data-options="field:'username',width:70">拨打业务员</th>
+                            <th data-options="field:'isconnect',width:70">是否接通</th>
+                            <th data-options="field:'timeduration',width:70">时长</th>
+                            <th data-options="field:'opencall',width:70,formatter:opencall">录音</th>
+                            <th data-options="field:'callText',width:70,formatter:callText">通话转文字</th>
+                            <th data-options="field:'callDownload',width:70,formatter:callDownload">下载</th>
+
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <audio src="" ref="audio" id="audio" controls="controls" autoplay="autoplay"></audio>
+        </div>
+
+
+
+
+    </div>
+</body>
+
+</html>

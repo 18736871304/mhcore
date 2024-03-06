@@ -1,0 +1,412 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<%@ include file="/WEB-INF/common/include.jsp"%>
+
+<head>
+	<title></title>
+	<link rel="stylesheet" href="../../../../css/inputbox/line6.css">
+	<script>
+		window.onload = function () {
+			// initDataGrid20($('#newMedium'));
+			newMediumList()
+		}
+
+		function aftercodeselect(comboxid) {
+
+		}
+
+		function selectone() {
+
+		}
+
+		function saveSuss() {}
+
+		function clearInputData() {
+
+		}
+
+
+
+
+		function newMediumList() {
+			$('#newMedium').datagrid({
+				title: '',
+				collapsible: true,
+				singleSelect: true,
+				nowrap: true,
+				loadMsg: "数据加载中......",
+				onLoadSuccess: function (data) {
+					$(this).datagrid("autoMergeCells");
+				}
+			})
+			var p = $('#newMedium').datagrid('getPager');
+			$(p).pagination({
+				pagesize: 30, //每页显示的记录条数，默认为10
+				pageList: [30], //可以设置每页记录条数的列表
+				beforePageText: "第", //页数文本框前显示的汉字
+				afterPageText: '页 共{pages}页',
+				displayMsg: '当前显示{from}-{to}条记录 共{total} 条',
+				ishowPageList: false,
+				showRefresh: false,
+				// onSelectPage: function (pageNumber, pageSize) {
+				// 	param.totalRecord = gridid.datagrid('getData')['total'];
+				// 	param.pageNumber = pageNumber;
+				// 	param.pageSize = pageSize;
+				// 	gridid.datagrid('reload', param);
+				// }
+			})
+
+
+
+			var newMediumList = [{
+					"newMedia": "知乎",
+					"accountName": "三文读财",
+					"resourceType": "重疾",
+					"channelCode": "8d93ef45d6e011ee927700163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde0b4391a2966f?customer_channel=8d93ef45d6e011ee927700163e123e09",
+					"channelQRCode": '',
+					"linkRemark": '做插件链接后面加&cb=__CALLBACK__，私聊发链接不用',
+				},
+				{
+					"newMedia": "知乎",
+					"accountName": "三文读财",
+					"resourceType": "理财",
+					"channelCode": "4e40e865d6e111ee927700163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde06bd4de53abf?customer_channel=4e40e865d6e111ee927700163e123e09",
+					"channelQRCode": '',
+					"linkRemark": '做插件链接后面加&cb=__CALLBACK__，私聊发链接不用',
+				},
+				{
+					"newMedia": "知乎",
+					"accountName": "三文读保",
+					"resourceType": "重疾",
+					"channelCode": "63e0bee0d6e111ee927700163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde0b4391a2966f?customer_channel=63e0bee0d6e111ee927700163e123e09",
+					"channelQRCode": '',
+					"linkRemark": '做插件链接后面加&cb=__CALLBACK__，私聊发链接不用',
+				},
+				{
+					"newMedia": "知乎",
+					"accountName": "三文读保",
+					"resourceType": "理财",
+					"channelCode": "6143e59fd6e111ee927700163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde06bd4de53abf?customer_channel=6143e59fd6e111ee927700163e123e09",
+					"channelQRCode": '',
+					"linkRemark": '做插件链接后面加&cb=__CALLBACK__，私聊发链接不用',
+				},
+				{
+					"newMedia": "知乎",
+					"accountName": "三文说保险",
+					"resourceType": "重疾",
+					"channelCode": "a2310197d6e111ee927700163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde0b4391a2966f?customer_channel=a2310197d6e111ee927700163e123e09",
+					"channelQRCode": '',
+					"linkRemark": '做插件链接后面加&cb=__CALLBACK__，私聊发链接不用',
+				},
+				{
+					"newMedia": "知乎",
+					"accountName": "三文说保险",
+					"resourceType": "理财",
+					"channelCode": "a63c166dd6e111ee927700163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde06bd4de53abf?customer_channel=a63c166dd6e111ee927700163e123e09",
+					"channelQRCode": '',
+					"linkRemark": '做插件链接后面加&cb=__CALLBACK__，私聊发链接不用',
+				},
+				{
+					"newMedia": "知乎",
+					"accountName": "三文探险",
+					"resourceType": "重疾",
+					"channelCode": "c612e370d6e111ee927700163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde0b4391a2966f?customer_channel=c612e370d6e111ee927700163e123e09",
+					"channelQRCode": '',
+					"linkRemark": '做插件链接后面加&cb=__CALLBACK__，私聊发链接不用',
+				},
+				{
+					"newMedia": "知乎",
+					"accountName": "三文探险",
+					"resourceType": "理财",
+					"channelCode": "c87285ddd6e111ee927700163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde06bd4de53abf?customer_channel=c87285ddd6e111ee927700163e123e09",
+					"channelQRCode": '',
+					"linkRemark": '做插件链接后面加&cb=__CALLBACK__，私聊发链接不用',
+				},
+				{
+					"newMedia": "公众号",
+					"accountName": "天眼保",
+					"resourceType": "重疾",
+					"channelCode": "07e1e1f4d6e211ee927700163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde0b4391a2966f?customer_channel=07e1e1f4d6e211ee927700163e123e09",
+					"channelQRCode": 'gzh_tyb01.zip',
+					"linkRemark": '',
+				},
+				{
+					"newMedia": "公众号",
+					"accountName": "天眼保",
+					"resourceType": "理财",
+					"channelCode": "0aae126cd6e211ee927700163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde06bd4de53abf?customer_channel=0aae126cd6e211ee927700163e123e09",
+					"channelQRCode": 'gzh_tyb02.zip',
+					"linkRemark": '',
+				},
+				{
+					"newMedia": "公众号",
+					"accountName": "读财小生",
+					"resourceType": "重疾",
+					"channelCode": "67f49b66d6e211ee927700163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde0b4391a2966f?customer_channel=67f49b66d6e211ee927700163e123e09",
+					"channelQRCode": 'gzh_dcxs01.zip',
+					"linkRemark": 'https://mp.weixin.qq.com/s/JjrhG9g7rLktv_s4JySOVA',
+				},
+				{
+					"newMedia": "公众号",
+					"accountName": "读财小生",
+					"resourceType": "理财",
+					"channelCode": "6a3bb91cd6e211ee927700163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde06bd4de53abf?customer_channel=6a3bb91cd6e211ee927700163e123e09",
+					"channelQRCode": 'gzh_dcxs02.zip',
+					"linkRemark": 'https://mp.weixin.qq.com/s/tQTLgoKMj32lkEKFXzOvrQ',
+				},
+				{
+					"newMedia": "公众号",
+					"accountName": "拾柒探险",
+					"resourceType": "重疾",
+					"channelCode": "8956cd7dd6e211ee927700163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde0b4391a2966f?customer_channel=8956cd7dd6e211ee927700163e123e09",
+					"channelQRCode": 'gzh_sqtx01.zip',
+					"linkRemark": 'https://mp.weixin.qq.com/s/lNNlTGcni0qYKd140LAP0A',
+				},
+				{
+					"newMedia": "公众号",
+					"accountName": "拾柒探险",
+					"resourceType": "理财",
+					"channelCode": "8b9433ccd6e211ee927700163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde06bd4de53abf?customer_channel=8b9433ccd6e211ee927700163e123e09",
+					"channelQRCode": 'gzh_sqtx02.zip',
+					"linkRemark": 'https://mp.weixin.qq.com/s/jBJLBNW95qU-bH8nxRaEJw',
+				},
+				{
+					"newMedia": "公众号",
+					"accountName": "天眼保测评",
+					"resourceType": "重疾",
+					"channelCode": "a3ba1463d6e211ee927700163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde0b4391a2966f?customer_channel=a3ba1463d6e211ee927700163e123e09",
+					"channelQRCode": 'gzh_tybcp01.zip',
+					"linkRemark": 'https://mp.weixin.qq.com/s/lpvWMxXRKMy0U3Yz0Lny7g',
+				},
+				{
+					"newMedia": "公众号",
+					"accountName": "天眼保测评",
+					"resourceType": "理财",
+					"channelCode": "a68040b7d6e211ee927700163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde06bd4de53abf?customer_channel=a68040b7d6e211ee927700163e123e09",
+					"channelQRCode": 'gzh_tybcp02.zip',
+					"linkRemark": 'https://mp.weixin.qq.com/s/DJlgI-jZ0DNKIx1S8MWpjA',
+				},
+				{
+					"newMedia": "小红书",
+					"accountName": "美华保险服务",
+					"resourceType": "重疾",
+					"channelCode": "70ff1b07d6e311ee927700163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde0b4391a2966f?customer_channel=70ff1b07d6e311ee927700163e123e09",
+					"channelQRCode": 'redBook_meihua01.zip',
+					"linkRemark": '',
+				},
+				{
+					"newMedia": "小红书",
+					"accountName": "美华保险服务",
+					"resourceType": "理财",
+					"channelCode": "73ba17a7d6e311ee927700163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde06bd4de53abf?customer_channel=73ba17a7d6e311ee927700163e123e09",
+					"channelQRCode": 'redBook_meihua02.zip',
+					"linkRemark": '',
+				},
+				{
+					"newMedia": "小红书",
+					"accountName": "三文 | 美华保险服务",
+					"resourceType": "重疾",
+					"channelCode": "a173df63d6e311ee927700163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde0b4391a2966f?customer_channel=a173df63d6e311ee927700163e123e09",
+					"channelQRCode": 'redBook_sanwen01.zip',
+					"linkRemark": '',
+				},
+				{
+					"newMedia": "小红书",
+					"accountName": "三文 | 美华保险服务",
+					"resourceType": "理财",
+					"channelCode": "a3bbec25d6e311ee927700163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde06bd4de53abf?customer_channel=a3bbec25d6e311ee927700163e123e09",
+					"channelQRCode": 'redBook_sanwen02.zip',
+					"linkRemark": '',
+				},
+				{
+					"newMedia": "小红书",
+					"accountName": "贝贝老师丨美华保险",
+					"resourceType": "重疾",
+					"channelCode": "e09f7738d6e311ee927700163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde0b4391a2966f?customer_channel=e09f7738d6e311ee927700163e123e09",
+					"channelQRCode": 'redBook_beibei01.zip',
+					"linkRemark": '',
+				},
+				{
+					"newMedia": "小红书",
+					"accountName": "贝贝老师丨美华保险",
+					"resourceType": "理财",
+					"channelCode": "e2dd0648d6e311ee927700163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde06bd4de53abf?customer_channel=e2dd0648d6e311ee927700163e123e09",
+					"channelQRCode": 'redBook_beibei02.zip',
+					"linkRemark": '',
+				},
+				{
+					"newMedia": "腾讯",
+					"accountName": "信息流广告",
+					"resourceType": "重疾",
+					"channelCode": "75a2edb8dace11eeaf0f00163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde2eba44d28030?customer_channel=75a2edb8dace11eeaf0f00163e123e09",
+					"channelQRCode": '',
+					"linkRemark": '',
+				},
+				{
+					"newMedia": "腾讯",
+					"accountName": "信息流广告",
+					"resourceType": "理财",
+					"channelCode": "783c1712dace11eeaf0f00163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde5911e3677943?customer_channel=783c1712dace11eeaf0f00163e123e09",
+					"channelQRCode": '',
+					"linkRemark": '',
+				},
+				{
+					"newMedia": "腾讯",
+					"accountName": "搜索广告",
+					"resourceType": "重疾",
+					"channelCode": "7aecb3b1dace11eeaf0f00163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde2eba44d28030?customer_channel=7aecb3b1dace11eeaf0f00163e123e09",
+					"channelQRCode": '',
+					"linkRemark": '',
+				},
+				{
+					"newMedia": "腾讯",
+					"accountName": "搜索广告",
+					"resourceType": "理财",
+					"channelCode": "7e239e34dace11eeaf0f00163e123e09",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde5911e3677943?customer_channel=7e239e34dace11eeaf0f00163e123e09",
+					"channelQRCode": '',
+					"linkRemark": '',
+				},
+
+
+
+
+
+			]
+			$('#newMedium').datagrid('loadData', newMediumList); //将数据绑定到datagrid
+		}
+
+
+
+		function QRCodeDown(val, row, index) {
+			if (row.channelQRCode != '') {
+				return '<a  href="/upload/mediaLinkCode/' + row.channelQRCode + '" >点击下载' + row.channelQRCode + ' </a>';
+			}
+
+		}
+		//合并单元格
+		$.extend($.fn.datagrid.methods, {
+			autoMergeCells: function (jq, fields) {
+				return jq.each(function () {
+					var target = $(this);
+					if (!fields) {
+						fields = target.datagrid("getColumnFields");
+					}
+					var rows = target.datagrid("getRows");
+					var i = 0,
+						j = 0,
+						temp = {};
+					for (i; i < rows.length; i++) {
+						var row = rows[i];
+						j = 0;
+						for (j; j < fields.length; j++) {
+							var field = fields[j];
+							var tf = temp[field];
+							if (!tf) {
+								tf = temp[field] = {};
+								tf[row[field]] = [i];
+							} else {
+								var tfv = tf[row[field]];
+								if (tfv) {
+									tfv.push(i);
+								} else {
+									tfv = tf[row[field]] = [i];
+								}
+							}
+						}
+					}
+					$.each(temp,
+						function (field, colunm) {
+							$.each(colunm,
+								function () {
+									var group = this;
+
+									if (group.length > 1) {
+										var before, after, megerIndex = group[0];
+										for (var i = 0; i < group.length; i++) {
+											before = group[i];
+											after = group[i + 1];
+											if (after && (after - before) == 1) {
+												continue;
+											}
+											var rowspan = before - megerIndex + 1;
+											if (rowspan > 1) {
+												target.datagrid('mergeCells', {
+													index: megerIndex,
+													field: field,
+													rowspan: rowspan
+												});
+											}
+											if (after && (after - before) != 1) {
+												megerIndex = after;
+											}
+										}
+									}
+								});
+						});
+				});
+			}
+		});
+	</script>
+</head>
+
+<body>
+	<div style="margin-left:0%">
+		<table id="newMedium" class="easyui-datagrid" title="新媒体" style="width:auto;height:auto"
+			data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone">
+			<thead>
+				<tr>
+					<th data-options="field:'newMedia',width:60">新媒体</th>
+					<th data-options="field:'accountName',width:120">账户</th>
+					<th data-options="field:'resourceType',width:60">资源类型</th>
+
+					<th data-options="field:'channelCode',width:230">渠道码</th>
+					<th data-options="field:'channelLink',width:630">渠道链接</th>
+					<!-- <th data-options="field:'channelQRCode',width:100">二维码下载</th> -->
+					<th data-options="field:'channelQRCode',width:180,formatter:QRCodeDown">二维码下载</th>
+					<th data-options="field:'linkRemark'">备注</th>
+
+				</tr>
+			</thead>
+		</table>
+
+
+
+
+
+
+
+		<br>
+	</div>
+</body>
+
+
+
+
+
+</html>
