@@ -21,11 +21,11 @@ $(function () {
 				imgPath: '/images/mypolicy/members/jiankangjiangzuo.png',
 				pageType: 'jk'
 			},
-			{
-				name: '家庭医生',
-				imgPath: '/images/mypolicy/members/jiatingyisheng.png',
-				pageType: 'jt'
-			},
+			// {
+			// 	name: '家庭医生',
+			// 	imgPath: '/images/mypolicy/members/jiatingyisheng.png',
+			// 	pageType: 'jt'
+			// },
 			{
 				name: '体检筛查',
 				imgPath: '/images/mypolicy/members/tijianshaicha.png',
