@@ -15,9 +15,7 @@
 
 		}
 
-		function selectone() {
-
-		}
+		function selectone() {}
 
 		function saveSuss() {}
 
@@ -59,6 +57,8 @@
 
 
 			var newMediumList = [{
+
+					"activityCode": "自营知乎&公众号全量",
 					"newMedia": "知乎",
 					"accountName": "三文读财",
 					"resourceType": "重疾",
@@ -68,6 +68,7 @@
 					"linkRemark": '',
 				},
 				{
+					"activityCode": "自营知乎&公众号全量",
 					"newMedia": "知乎",
 					"accountName": "三文读财",
 					"resourceType": "理财",
@@ -77,6 +78,7 @@
 					"linkRemark": '',
 				},
 				{
+					"activityCode": "自营知乎&公众号全量",
 					"newMedia": "知乎",
 					"accountName": "三文读保",
 					"resourceType": "重疾",
@@ -86,6 +88,7 @@
 					"linkRemark": '',
 				},
 				{
+					"activityCode": "自营知乎&公众号全量",
 					"newMedia": "知乎",
 					"accountName": "三文读保",
 					"resourceType": "理财",
@@ -95,6 +98,7 @@
 					"linkRemark": '',
 				},
 				{
+					"activityCode": "自营知乎&公众号全量",
 					"newMedia": "知乎",
 					"accountName": "三文说保险",
 					"resourceType": "重疾",
@@ -104,6 +108,7 @@
 					"linkRemark": '',
 				},
 				{
+					"activityCode": "自营知乎&公众号全量",
 					"newMedia": "知乎",
 					"accountName": "三文说保险",
 					"resourceType": "理财",
@@ -113,6 +118,7 @@
 					"linkRemark": '',
 				},
 				{
+					"activityCode": "自营知乎&公众号全量",
 					"newMedia": "知乎",
 					"accountName": "三文探险",
 					"resourceType": "重疾",
@@ -122,6 +128,7 @@
 					"linkRemark": '',
 				},
 				{
+					"activityCode": "自营知乎&公众号全量",
 					"newMedia": "知乎",
 					"accountName": "三文探险",
 					"resourceType": "理财",
@@ -131,6 +138,7 @@
 					"linkRemark": '',
 				},
 				{
+					"activityCode": "自营知乎&公众号全量",
 					"newMedia": "公众号",
 					"accountName": "天眼保",
 					"resourceType": "重疾",
@@ -140,6 +148,7 @@
 					"linkRemark": '',
 				},
 				{
+					"activityCode": "自营知乎&公众号全量",
 					"newMedia": "公众号",
 					"accountName": "天眼保",
 					"resourceType": "理财",
@@ -149,6 +158,7 @@
 					"linkRemark": '',
 				},
 				{
+					"activityCode": "自营知乎&公众号全量",
 					"newMedia": "公众号",
 					"accountName": "读财小生",
 					"resourceType": "重疾",
@@ -158,6 +168,7 @@
 					"linkRemark": 'https://mp.weixin.qq.com/s/JjrhG9g7rLktv_s4JySOVA',
 				},
 				{
+					"activityCode": "自营知乎&公众号全量",
 					"newMedia": "公众号",
 					"accountName": "读财小生",
 					"resourceType": "理财",
@@ -167,6 +178,7 @@
 					"linkRemark": 'https://mp.weixin.qq.com/s/tQTLgoKMj32lkEKFXzOvrQ',
 				},
 				{
+					"activityCode": "自营知乎&公众号全量",
 					"newMedia": "公众号",
 					"accountName": "拾柒探险",
 					"resourceType": "重疾",
@@ -176,6 +188,7 @@
 					"linkRemark": 'https://mp.weixin.qq.com/s/lNNlTGcni0qYKd140LAP0A',
 				},
 				{
+					"activityCode": "自营知乎&公众号全量",
 					"newMedia": "公众号",
 					"accountName": "拾柒探险",
 					"resourceType": "理财",
@@ -185,6 +198,7 @@
 					"linkRemark": 'https://mp.weixin.qq.com/s/jBJLBNW95qU-bH8nxRaEJw',
 				},
 				{
+					"activityCode": "自营知乎&公众号全量",
 					"newMedia": "公众号",
 					"accountName": "天眼保测评",
 					"resourceType": "重疾",
@@ -194,6 +208,7 @@
 					"linkRemark": 'https://mp.weixin.qq.com/s/lpvWMxXRKMy0U3Yz0Lny7g',
 				},
 				{
+					"activityCode": "自营知乎&公众号全量",
 					"newMedia": "公众号",
 					"accountName": "天眼保测评",
 					"resourceType": "理财",
@@ -203,6 +218,7 @@
 					"linkRemark": 'https://mp.weixin.qq.com/s/DJlgI-jZ0DNKIx1S8MWpjA',
 				},
 				{
+					"activityCode": "自营小红书全量",
 					"newMedia": "小红书",
 					"accountName": "美华保险服务",
 					"resourceType": "重疾",
@@ -212,6 +228,7 @@
 					"linkRemark": '',
 				},
 				{
+					"activityCode": "自营小红书全量",
 					"newMedia": "小红书",
 					"accountName": "美华保险服务",
 					"resourceType": "理财",
@@ -221,6 +238,7 @@
 					"linkRemark": '',
 				},
 				{
+					"activityCode": "自营小红书全量",
 					"newMedia": "小红书",
 					"accountName": "三文 | 美华保险服务",
 					"resourceType": "重疾",
@@ -230,6 +248,7 @@
 					"linkRemark": '',
 				},
 				{
+					"activityCode": "自营小红书全量",
 					"newMedia": "小红书",
 					"accountName": "三文 | 美华保险服务",
 					"resourceType": "理财",
@@ -239,6 +258,7 @@
 					"linkRemark": '',
 				},
 				{
+					"activityCode": "自营小红书全量",
 					"newMedia": "小红书",
 					"accountName": "贝贝老师丨美华保险服务",
 					"resourceType": "重疾",
@@ -248,6 +268,7 @@
 					"linkRemark": '',
 				},
 				{
+					"activityCode": "自营小红书全量",
 					"newMedia": "小红书",
 					"accountName": "贝贝老师丨美华保险服务",
 					"resourceType": "理财",
@@ -257,6 +278,7 @@
 					"linkRemark": '',
 				},
 				{
+					"activityCode": "自营腾讯全量",
 					"newMedia": "腾讯",
 					"accountName": "信息流广告",
 					"resourceType": "重疾",
@@ -266,6 +288,7 @@
 					"linkRemark": '',
 				},
 				{
+					"activityCode": "自营腾讯全量",
 					"newMedia": "腾讯",
 					"accountName": "信息流广告",
 					"resourceType": "理财",
@@ -275,6 +298,7 @@
 					"linkRemark": '',
 				},
 				{
+					"activityCode": "自营腾讯全量",
 					"newMedia": "腾讯",
 					"accountName": "搜索广告",
 					"resourceType": "重疾",
@@ -284,6 +308,7 @@
 					"linkRemark": '',
 				},
 				{
+					"activityCode": "自营腾讯全量",
 					"newMedia": "腾讯",
 					"accountName": "搜索广告",
 					"resourceType": "理财",
@@ -381,26 +406,18 @@
 			data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone">
 			<thead>
 				<tr>
+					<th data-options="field:'activityCode',width:120">渠道活码</th>
 					<th data-options="field:'newMedia',width:60">渠道类型</th>
 					<th data-options="field:'accountName',width:120">流量来源</th>
 					<th data-options="field:'resourceType',width:60">资源类型</th>
-
 					<th data-options="field:'channelCode',width:230">渠道码</th>
-					<th data-options="field:'channelLink',width:1130">渠道链接</th>
-					<!-- <th data-options="field:'channelQRCode',width:100">二维码下载</th> -->
+					<th data-options="field:'channelLink',width:980">渠道链接</th>
 					<th data-options="field:'channelQRCode',width:180,formatter:QRCodeDown">二维码下载</th>
 					<th data-options="field:'linkRemark'">备注</th>
 
 				</tr>
 			</thead>
 		</table>
-
-
-
-
-
-
-
 		<br>
 	</div>
 </body>
