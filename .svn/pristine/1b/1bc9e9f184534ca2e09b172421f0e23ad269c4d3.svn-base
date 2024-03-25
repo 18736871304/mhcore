@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="../../../../js/chatRecord/viewer.css">
 	<script src="../../../../js/usertypeIn/cropper.min.js"></script>
 	<script src="../../../../js/chatRecord/viewer.js"></script>
-
+	
 
 	<style>
 		.img_photo {
@@ -25,8 +25,7 @@
 
 		#photo_url01,
 		#photo_url02,
-		#photo_url03 ,
-		#photo_url04 {
+		#photo_url03 {
 			display: none;
 		}
 
@@ -46,7 +45,7 @@
 		}
 
 		.upload-box {
-			width: 710px;
+			width: 480px;
 		}
 	</style>
 	<script>
@@ -182,9 +181,6 @@
 					if (img == 'photo_url03') {
 						imgUrlList[2] = obj.message
 					}
-					if (img == 'photo_url04') {
-						imgUrlList[3] = obj.message
-					}
 					imgUrl.trainpic = imgUrlList
 
 				},
@@ -271,7 +267,6 @@
 			$('#photo_url01').css('display', 'none');
 			$('#photo_url02').css('display', 'none');
 			$('#photo_url03').css('display', 'none');
-			$('#photo_url04').css('display', 'none');
 			var row = $('#trainlist').datagrid('getSelected');
 
 			$('#classname').val(row.classname);
@@ -300,16 +295,7 @@
 					$('#photo_url03').attr('src', imgUrl.trainpic[2]);
 					$('#photo_url03').css('display', 'block');
 				}
-				if (imgUrl.trainpic.length == 4) {
-					$('#photo_url01').attr('src', imgUrl.trainpic[0]);
-					$('#photo_url01').css('display', 'block');
-					$('#photo_url02').attr('src', imgUrl.trainpic[1]);
-					$('#photo_url02').css('display', 'block');
-					$('#photo_url03').attr('src', imgUrl.trainpic[2]);
-					$('#photo_url03').css('display', 'block');
-					$('#photo_url04').attr('src', imgUrl.trainpic[3]);
-					$('#photo_url04').css('display', 'block');
-				}
+
 			} else {
 				$('#photo_url01').attr('src', row.trainpic);
 				$('#photo_url01').css('display', 'block');
@@ -330,7 +316,6 @@
 			$('#photo_url01').css('display', 'none');
 			$('#photo_url02').css('display', 'none');
 			$('#photo_url03').css('display', 'none');
-			$('#photo_url04').css('display', 'none');
 		}
 
 		function trainquery() {
@@ -405,7 +390,6 @@
 
 			ajaxdeal("userMan/userTrainDelete.do", tparam, null, null, saveSuss);
 		}
-
 	</script>
 
 </head>
@@ -507,16 +491,15 @@
 				<button id="file-view" onclick="replaceImg('photo_url01')" class="smsbutton">浏览1...</button>
 				<button id="file-view" onclick="replaceImg('photo_url02')" class="smsbutton">浏览2...</button>
 				<button id="file-view" onclick="replaceImg('photo_url03')" class="smsbutton">浏览3...</button>
-				<button id="file-view" onclick="replaceImg('photo_url04')" class="smsbutton">浏览4...</button>
+
 
 			</div>
 
 		</div>
 		<div style="display: flex; flex-wrap: wrap;justify-content: flex-start;">
-			<img src="" id='photo_url01' width="190" height="120" onclick="openbigImg('photo_url01')" />
-			<img src="" id='photo_url02' width="190" height="120" onclick="openbigImg('photo_url02')" />
-			<img src="" id='photo_url03' width="190" height="120" onclick="openbigImg('photo_url03')" />
-			<img src="" id='photo_url04' width="190" height="120" onclick="openbigImg('photo_url04')" />
+			<img src="" id='photo_url01' width="475" height="300" onclick="openbigImg('photo_url01')" />
+			<img src="" id='photo_url02' width="475" height="300" onclick="openbigImg('photo_url02')" />
+			<img src="" id='photo_url03' width="475" height="300" onclick="openbigImg('photo_url03')" />
 		</div>
 
 
