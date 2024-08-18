@@ -17,7 +17,9 @@ window.onload = function()
 	inputList = [
 		 			$('#coefficient'),
 		 			$('#startdate'),
-		 			$('#enddate')
+		 			$('#enddate'),
+		 			$('#payendyear'),
+		 			$('#payendyearflag'),
 		 	];
 		
 	checkList = [
@@ -33,6 +35,7 @@ window.onload = function()
 	disComBox($('#qchannel'),"channel",null);
 	disComBox($('#qisseal'),"isseal",null);
 	disComBox($('#qjointype'),"jointype",null);
+	disComBox($('#payendyearflag'),"payendyearflag",null);
 	
 	$('#qisseal').combobox('setValue','01');
 	$('#qismain').combobox('setValue','Y');
@@ -66,6 +69,9 @@ function selectcoefficientone()
 	$('#startdate').datebox('setValue',row.startdate);
 	$('#enddate').datebox('setValue',row.enddate);
 	$('#coefficient').val(row.coefficient);
+	
+	$('#payendyear').val(row.payendyear);
+	$('#payendyearflag').combobox('setValue',row.payendyearflag);
 }
 
 function saveSuss()
@@ -287,7 +293,7 @@ function deletecoefficient()
 				<th data-options="field:'freelookperiod',width:100">犹豫期天数</th>
 				<th data-options="field:'startdate',width:80">起始日期</th>
 				<th data-options="field:'enddate',width:80">终止日期</th>
-				<th data-options="field:'coefficient',width:80">产品系数</th>
+				<th data-options="field:'coefficient',width:80">产品系数1</th>
 			</tr>
 		</thead>
 	</table>
@@ -296,6 +302,8 @@ function deletecoefficient()
 		data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectcoefficientone" >
 		<thead>
 			<tr>
+				<th data-options="field:'payendyear',width:120">缴费年期</th>
+				<th data-options="field:'payendyearname',width:120">缴费年期单位</th>
 				<th data-options="field:'startdate',width:140">起始日期</th>
 				<th data-options="field:'enddate',width:140">终止日期</th>
 				<th data-options="field:'coefficient',width:80">产品系数</th>
@@ -305,6 +313,22 @@ function deletecoefficient()
 	<br>
 	
 	<table class = "common">
+		<tr>
+			<td class = "reprot_title_4">
+				缴费年期
+			</td>
+			<td class = "report_common_4">
+				<input class = "txt" name="payendyear" id="payendyear" notnull = "缴费年期">
+			</td>
+			
+			<td class = "reprot_title_4">
+				缴费年期单位
+			</td>
+			<td class = "report_common_4">
+				<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="payendyearflag" id="payendyearflag" notnull = "缴费年期单位">
+				</select>
+			</td>
+		</tr>
 		<tr>
 			<td class = "reprot_title_4">
 				起始日期
@@ -328,7 +352,7 @@ function deletecoefficient()
 			</td>
 			<td></td><td></td>
 			<td></td><td></td>
-		</tr>		
+		</tr>
 	</table>
 	<br>
 	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id = "addcoefficient" onclick = "addcoefficient()">增加</a>
