@@ -17,9 +17,7 @@ window.onload = function()
 	inputList = [
 		 			$('#coefficient'),
 		 			$('#startdate'),
-		 			$('#enddate'),
-		 			$('#payendyear'),
-		 			$('#payendyearflag'),
+		 			$('#enddate')
 		 	];
 		
 	checkList = [
@@ -35,7 +33,6 @@ window.onload = function()
 	disComBox($('#qchannel'),"channel",null);
 	disComBox($('#qisseal'),"isseal",null);
 	disComBox($('#qjointype'),"jointype",null);
-	disComBox($('#payendyearflag'),"payendyearflag",null);
 	
 	$('#qisseal').combobox('setValue','01');
 	$('#qismain').combobox('setValue','Y');
@@ -58,6 +55,9 @@ function selectone()
 	tParam.mainriskcode = row.mainriskcode;
 	
 	displayDataGrid($('#riskdefinecoefficientlist'), tParam, tturl);
+	
+	var tturl1 = "supplier/getPayendyear.do";
+	displayCombox($('#payendyear'),tParam,tturl1,"dd_key","dd_value");
 
 	clearCarData();
 }
@@ -69,9 +69,7 @@ function selectcoefficientone()
 	$('#startdate').datebox('setValue',row.startdate);
 	$('#enddate').datebox('setValue',row.enddate);
 	$('#coefficient').val(row.coefficient);
-	
-	$('#payendyear').val(row.payendyear);
-	$('#payendyearflag').combobox('setValue',row.payendyearflag);
+	$('#payendyear').combobox('setValue', row.payendyear+row.payendyearflag);	
 }
 
 function saveSuss()
@@ -83,6 +81,7 @@ function saveSuss()
 function clearCarData() 
 {
 	cleardata(inputList);
+	$('#payendyear').combobox('setValue', "");
 }
 
 function riskdefinequery()
@@ -107,7 +106,7 @@ function riskdefinequery()
 }
 
 function addcoefficient()
-{
+{	
 	var row = $('#riskdefinelist').datagrid('getSelected');
 	
 	if(row==null)
@@ -147,6 +146,8 @@ function addcoefficient()
 	tparam.mainriskcode = row.mainriskcode;
 	tparam.startdate = $('#startdate').datebox("getValue")
 	tparam.enddate = $('#enddate').datebox("getValue")
+	tparam.payendyearstr = $('#payendyear').combobox('getValue');
+	tparam.payendyearvalue = $('#payendyear').combobox('getText');
 	
 	ajaxdeal("supplier/riskdefineCoefficientInsert.do",tparam,null,null,saveSuss);
 }
@@ -193,6 +194,8 @@ function editcoefficient()
 	tparam.mainriskcode = row.mainriskcode;
 	tparam.startdate = $('#startdate').datebox("getValue")
 	tparam.enddate = $('#enddate').datebox("getValue")
+	tparam.payendyearstr = $('#payendyear').combobox('getValue');
+	tparam.payendyearvalue = $('#payendyear').combobox('getText');
 	
 	ajaxdeal("supplier/riskdefineCoefficientUpdate.do",tparam,null,null,saveSuss);
 }
@@ -291,9 +294,7 @@ function deletecoefficient()
 				<th data-options="field:'jointypename',width:80">产品属性</th>
 				<th data-options="field:'issealname',width:80">是否在售</th>
 				<th data-options="field:'freelookperiod',width:100">犹豫期天数</th>
-				<th data-options="field:'startdate',width:80">起始日期</th>
-				<th data-options="field:'enddate',width:80">终止日期</th>
-				<th data-options="field:'coefficient',width:80">产品系数1</th>
+				<th data-options="field:'coefficient',width:300">产品系数</th>
 			</tr>
 		</thead>
 	</table>
@@ -302,8 +303,7 @@ function deletecoefficient()
 		data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectcoefficientone" >
 		<thead>
 			<tr>
-				<th data-options="field:'payendyear',width:120">缴费年期</th>
-				<th data-options="field:'payendyearname',width:120">缴费年期单位</th>
+				<th data-options="field:'payendyearvalue',width:60">缴费年期</th>
 				<th data-options="field:'startdate',width:140">起始日期</th>
 				<th data-options="field:'enddate',width:140">终止日期</th>
 				<th data-options="field:'coefficient',width:80">产品系数</th>
@@ -318,18 +318,10 @@ function deletecoefficient()
 				缴费年期
 			</td>
 			<td class = "report_common_4">
-				<input class = "txt" name="payendyear" id="payendyear" notnull = "缴费年期">
-			</td>
-			
-			<td class = "reprot_title_4">
-				缴费年期单位
-			</td>
-			<td class = "report_common_4">
-				<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="payendyearflag" id="payendyearflag" notnull = "缴费年期单位">
+				<select editable="false" class = "easyui-combobox" style="width:160%" panelHeight="auto" panelWidth="200" name="payendyear" id="payendyear" notnull="缴费年期">
 				</select>
 			</td>
-		</tr>
-		<tr>
+			
 			<td class = "reprot_title_4">
 				起始日期
 			</td>
@@ -350,8 +342,6 @@ function deletecoefficient()
 			<td class = "report_common_4">
 				<input class = "txt" name="coefficient" id="coefficient" notnull = "产品系数">
 			</td>
-			<td></td><td></td>
-			<td></td><td></td>
 		</tr>
 	</table>
 	<br>
