@@ -96,11 +96,11 @@
         var file = base64toFile(base64url)
         $('#tailoringImg').cropper("destroy");
         var fileSize = (file.size / 1024).toFixed(2)
-				if (fileSize <= 10240) {
-					imgUpload(file)
-				}else{
-					$.messager.alert('执行失败', "上传的图片太大了", 'error');
-				}
+        if (fileSize <= 10240) {
+          imgUpload(file)
+        } else {
+          $.messager.alert('执行失败', "上传的图片太大了", 'error');
+        }
         // //关闭裁剪框
         closeTailor();
       }
@@ -222,6 +222,7 @@
 
         $('#rgtaddress'),
         $('#nowaddress'),
+        $('#qwuserid'),
 
         $('#nationality'),
         $('#marriage'),
@@ -252,6 +253,7 @@
 
         $('#rgtaddress'),
         $('#nowaddress'),
+        $('#qwuserid'),
 
         $('#nationality'),
         $('#marriage'),
@@ -305,7 +307,7 @@
 
     function selectone() {
       var row = $('#userList').datagrid('getSelected');
-
+      console.log(row)
       $('#userid').val(row.userid);
       //$('#usercode').val(row.usercode);
       $('#realname').val(row.realname);
@@ -329,6 +331,7 @@
 
       $('#rgtaddress').val(row.rgtaddress);
       $('#nowaddress').val(row.nowaddress);
+      $('#qwuserid').val(row.qwuserid);
 
       $('#nationality').combobox('setValue', row.nationality);
       $('#marriage').combobox('setValue', row.marriage);
@@ -354,26 +357,42 @@
       if (row.photourl != null && row.photourl != "") {
         $('#photo_url01').attr('src', row.photourl);
         $('#photo_url01').css('display', 'block');
+      } else {
+        $('#photo_url01').attr('src', row.photourl);
+        $('#photo_url01').css('display', 'none');
       }
+
 
       if (row.idcardfronturl != null && row.idcardfronturl != "") {
         $('#photo_url02').attr('src', row.idcardfronturl);
         $('#photo_url02').css('display', 'block');
+      } else {
+        $('#photo_url02').attr('src', row.idcardfronturl);
+        $('#photo_url02').css('display', 'none');
       }
 
       if (row.idcardbankurl != null && row.idcardbankurl != "") {
         $('#photo_url03').attr('src', row.idcardbankurl);
         $('#photo_url03').css('display', 'block');
+      } else {
+        $('#photo_url03').attr('src', row.idcardbankurl);
+        $('#photo_url03').css('display', 'none');
       }
 
       if (row.degreeurl != null && row.degreeurl != "") {
         $('#photo_url04').attr('src', row.degreeurl);
         $('#photo_url04').css('display', 'block');
+      } else {
+        $('#photo_url04').attr('src', row.degreeurl);
+        $('#photo_url04').css('display', 'none');
       }
 
       if (row.othercertifyurl != null && row.othercertifyurl != "") {
         $('#photo_url05').attr('src', row.othercertifyurl);
         $('#photo_url05').css('display', 'block');
+      } else {
+        $('#photo_url05').attr('src', row.othercertifyurl);
+        $('#photo_url05').css('display', 'none');
       }
 
       disFileList();
@@ -461,6 +480,8 @@
       //删除前后空格
       tparam.mobilenumber = tparam.mobilenumber.trim()
       tparam.familylinkphone = tparam.familylinkphone.trim()
+      tparam.qwuserid = tparam.qwuserid.trim()
+
       ajaxdeal("user/userInsert.do", tparam, null, null, saveSuss);
     }
 
@@ -505,6 +526,7 @@
 
       tparam.oldusercode = row.usercode;
       tparam.oldorgancode = row.organcode;
+      tparam.oldqwuserid = row.qwuserid;
       tparam.usertype = row.typecode;
 
       tparam.entrydate = $('#entrydate').datebox("getValue");
@@ -608,22 +630,23 @@
         return $('#usercode_txt').val();
       }
     }
+
     function selectonefile() {
-			var row = $('#filelist').datagrid('getSelected');
-			console.log(row)
-			var url = encodeURIComponent('https://insure.meihualife.com/filedownload.do?fileid=')
-			var pdfSrc = 'https://insure.meihualife.com/js/pdf/web/viewer.html?file=' + url + row.fileid;
-			console.log(pdfSrc)
-			$("#imgSrc").attr("src", pdfSrc);
-			$('#pdfDig').dialog('open');
-		}
+      var row = $('#filelist').datagrid('getSelected');
+      console.log(row)
+      var url = encodeURIComponent('https://insure.meihualife.com/filedownload.do?fileid=')
+      var pdfSrc = 'https://insure.meihualife.com/js/pdf/web/viewer.html?file=' + url + row.fileid;
+      console.log(pdfSrc)
+      $("#imgSrc").attr("src", pdfSrc);
+      $('#pdfDig').dialog('open');
+    }
 
-		function signdownload(val, row, index) {
-			console.log(val, row, index)
-			return '<a href="#" >预览</a>';
-			// return '<a href="#" onclick="openPDFDlg(' + row.fileid + ')">预览</a>';
+    function signdownload(val, row, index) {
+      console.log(val, row, index)
+      return '<a href="#" >预览</a>';
+      // return '<a href="#" onclick="openPDFDlg(' + row.fileid + ')">预览</a>';
 
-		}
+    }
 
 
 
@@ -776,6 +799,13 @@
         <td class="common">
           <select class="easyui-combobox" style="width:160%" name="nationality" id="nationality" notnull="民族">
           </select>
+        </td>
+
+        <td class="title">
+          企业微信ID
+        </td>
+        <td class="common">
+          <input class="txt" name="qwuserid" id="qwuserid" notnull="企业微信ID">
         </td>
       </tr>
 

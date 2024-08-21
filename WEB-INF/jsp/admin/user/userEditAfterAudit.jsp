@@ -124,10 +124,10 @@
 				var fileSize = (file.size / 1024).toFixed(2)
 				if (fileSize <= 10240) {
 					imgUpload(file)
-				}else{
+				} else {
 					$.messager.alert('执行失败', "上传的图片太大了", 'error');
 				}
-			
+
 				// //关闭裁剪框
 				closeTailor();
 			}
@@ -251,6 +251,7 @@
 
 				$('#rgtaddress'),
 				$('#nowaddress'),
+				$('#qwuserid'),
 
 				$('#nationality'),
 				$('#marriage'),
@@ -336,6 +337,7 @@
 
 			$('#rgtaddress').val(row.rgtaddress);
 			$('#nowaddress').val(row.nowaddress);
+			$('#qwuserid').val(row.qwuserid);
 
 			$('#nationality').combobox('setValue', row.nationality);
 			$('#marriage').combobox('setValue', row.marriage);
@@ -364,26 +366,42 @@
 			if (row.photourl != null && row.photourl != "") {
 				$('#photo_url01').attr('src', row.photourl);
 				$('#photo_url01').css('display', 'block');
+			} else {
+				$('#photo_url01').attr('src', row.photourl);
+				$('#photo_url01').css('display', 'none');
 			}
+
 
 			if (row.idcardfronturl != null && row.idcardfronturl != "") {
 				$('#photo_url02').attr('src', row.idcardfronturl);
 				$('#photo_url02').css('display', 'block');
+			} else {
+				$('#photo_url02').attr('src', row.idcardfronturl);
+				$('#photo_url02').css('display', 'none');
 			}
 
 			if (row.idcardbankurl != null && row.idcardbankurl != "") {
 				$('#photo_url03').attr('src', row.idcardbankurl);
 				$('#photo_url03').css('display', 'block');
+			} else {
+				$('#photo_url03').attr('src', row.idcardbankurl);
+				$('#photo_url03').css('display', 'none');
 			}
 
 			if (row.degreeurl != null && row.degreeurl != "") {
 				$('#photo_url04').attr('src', row.degreeurl);
 				$('#photo_url04').css('display', 'block');
+			} else {
+				$('#photo_url04').attr('src', row.degreeurl);
+				$('#photo_url04').css('display', 'none');
 			}
 
 			if (row.othercertifyurl != null && row.othercertifyurl != "") {
 				$('#photo_url05').attr('src', row.othercertifyurl);
 				$('#photo_url05').css('display', 'block');
+			} else {
+				$('#photo_url05').attr('src', row.othercertifyurl);
+				$('#photo_url05').css('display', 'none');
 			}
 
 			$('#dimissiondate').datebox('setValue', row.dimissiondate);
@@ -472,7 +490,8 @@
 			tparam.oldusercode = row.usercode;
 			tparam.oldorgancode = row.organcode;
 			tparam.oldmobile = row.mobilenumber;
-			
+			tparam.oldqwuserid = row.qwuserid;
+
 			tparam.usertype = row.typecode;
 
 			tparam.entrydate = $('#entrydate').datebox("getValue");
@@ -480,6 +499,7 @@
 
 			tparam.userid = row.userid;
 			tparam.toserialno = row.toserialno;
+			tparam.qwuserid = tparam.qwuserid.trim()
 
 			ajaxdeal("user/userUpdate.do", tparam, null, null, saveSuss);
 			//userquery();
@@ -714,6 +734,12 @@
 				<td class="report_common_4">
 					<select class="easyui-combobox" style="width:160%" name="nationality" id="nationality" notnull="民族">
 					</select>
+				</td>
+				<td class="reprot_title_4">
+					企业微信ID
+				</td>
+				<td class="report_common_4">
+					<input class="txt" name="qwuserid" id="qwuserid" notnull="手机号码">
 				</td>
 			</tr>
 
