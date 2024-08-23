@@ -24,9 +24,8 @@
 		.policyNumBox p span {
 			font-size: 0.7rem;
 		}
-
-		.policyNumBox p {
-			margin-top: 8px;
+		.policyNumBox p{
+			 margin-top: 8px;
 		}
 
 		.member-message-box .member-message-content .member-message-msg {
@@ -151,9 +150,8 @@
 		.policyNumBox h1 {
 			width: 88%;
 		}
-
-		.policyDetailBox .policyHolderBox .title {
-			font-size: 0.75rem;
+		.policyDetailBox .policyHolderBox .title{
+			 font-size: 0.75rem;
 		}
 	</style>
 </head>
@@ -423,25 +421,13 @@
 	});
 	$('#openPolicyurl').on('click', function () {
 		var attributeValue = $(this).attr('url');
-		var fileType = attributeValue.substring(attributeValue.length - 3)
 		if (attributeValue == '') {
 			alert('此产品无电子保单')
-		} else if (fileType == 'pdf' || fileType == 'PDF') {
-			location.href = '../../../../js/pdf/web/viewer.html?file=' + attributeValue
 		} else {
-			copyToClipboard(attributeValue);
+			location.href = '../../../../js/pdf/web/viewer.html?file=' + attributeValue
 		}
-	});
 
-	// 复制字符串到剪贴板的函数
-	function copyToClipboard(text) {
-		try {
-			navigator.clipboard.writeText(text);
-			alert('复制文件地址成功，请到浏览器中打开');
-		} catch (err) {
-			alert('打开失败', err);
-		}
-	}
+	});
 
 	function messageAlert(msg, avtar) {
 		console.log('dom')
