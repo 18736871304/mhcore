@@ -385,7 +385,6 @@
 					<img src="/images/mypolicy/policytrust/intpolicy.png" alt="">
 					<span>电子保单</span>
 				</div>
-				<a href="">下载</a>
 				<div class="fuwuList" id="clservice">
 					<img src="/images/mypolicy/policytrust/lipei.png" alt="">
 					<span>理赔服务</span>
@@ -414,18 +413,7 @@
 
 </body>
 <script src="/js/mypolicy/policytrust/lib/jquery1.12.4.min.js"></script>
-<script src="/js/mypolicy/policytrust/lib/jquery-weui.min.js"></script>
 <script>
-	// function queryURLParams(URL) {
-	// 	let url = URL.split("?")[1];
-	// 	const urlSearchParams = new URLSearchParams(url);
-	// 	const params = Object.fromEntries(urlSearchParams.entries());
-	// 	return params
-	// }
-	const urlParams = new URLSearchParams(window.location.search);
-	const orderid = urlParams.get('orderid');
-	console.log(orderid)
-
 	$('body').on('click', '#clservice', function () {
 		messageAlert('/images/mypolicy/policytrust/kefu.png', "/images/mypolicy/policytrust/service_female.png");
 	})
@@ -434,38 +422,22 @@
 		window.location.href = 'tel://' + attributeValue
 	});
 	$('#openPolicyurl').on('click', function () {
-		var attributeValue = $(this).attr('url');	
+		var attributeValue = $(this).attr('url');
 		var fileType = attributeValue.substring(attributeValue.length - 3)
-
-		var insuranceProtectUrl = '/life/common/policyDownLoad.do'
-		var transdata = {
-			orderid: orderid
+		if (attributeValue == '') {
+			alert('此产品无电子保单')
+		} else if (fileType == 'pdf' || fileType == 'PDF') {
+			location.href = '../../../../js/pdf/web/viewer.html?file=' + attributeValue
+		} else {
+			copyToClipboard(attributeValue);
 		}
-		httpRequest(insuranceProtectUrl, 'get', transdata, {
-			success: function (res) {
-				console.log(res)
-				if (res.code == '0' && res.policyUrl && res.policyUrl != '') {
-					location.href = res.policyUrl
-				} else {
-					if (attributeValue == '') {
-						alert('此产品无电子保单')
-					} else if (fileType == 'pdf' || fileType == 'PDF') {
-						location.href = '../../../../js/pdf/web/viewer.html?file=' + attributeValue
-					} else {
-						location.href = attributeValue
-						// copyToClipboard(attributeValue);
-					}
-				}
-			}
-		})
-
 	});
 
 	// 复制字符串到剪贴板的函数
 	function copyToClipboard(text) {
 		try {
 			navigator.clipboard.writeText(text);
-			alert('复制文件地址成功，请到浏览器中下载');
+			alert('复制文件地址成功，请到浏览器中打开');
 		} catch (err) {
 			alert('打开失败', err);
 		}
@@ -502,46 +474,6 @@
 			$('#messageBox').fadeOut(200, function () {
 				$('#messageBox').remove()
 			})
-		})
-	}
-
-
-
-	function httpRequest(url, method, data, fnObj) {
-		$.ajax({
-			url: url,
-			type: method,
-			data: data,
-			dataType: 'json',
-			timeout: 15000,
-			beforeSend: function () {
-				$.showLoading("加载中...")
-				if (fnObj.beforeSend) {
-					fnObj.beforeSend()
-				}
-			},
-			complete: function (xhr, status) {
-				$.hideLoading()
-				if (status === 'timeout') {
-					console.log('api time out')
-				}
-				if (fnObj.complete) {
-					fnObj.complete(status)
-				}
-			},
-			success: function (res) {
-				$.hideLoading()
-				if (fnObj.success) {
-					fnObj.success(res)
-				}
-			},
-			error: function (error) {
-				$.hideLoading()
-				console.log(error)
-				if (fnObj.error) {
-					fnObj.error(error)
-				}
-			}
 		})
 	}
 </script>
