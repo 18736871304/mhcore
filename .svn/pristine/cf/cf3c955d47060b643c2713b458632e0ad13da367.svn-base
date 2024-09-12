@@ -385,14 +385,11 @@
 					<img src="/images/mypolicy/policytrust/intpolicy.png" alt="">
 					<span>电子保单</span>
 				</div>
-				<!-- <a href="">下载</a> -->
-				 <div id="depart" style="width: 25%;">
-					<div class="fuwuList" id="clservice"  style="width: 100%;">
+				<a href="">下载</a>
+				<div class="fuwuList" id="clservice">
 					<img src="/images/mypolicy/policytrust/lipei.png" alt="">
 					<span>理赔服务</span>
 				</div>
-				 </div>
-				
 			</div>
 		</div>
 
@@ -427,33 +424,6 @@
 	// }
 	const urlParams = new URLSearchParams(window.location.search);
 	const orderid = urlParams.get('orderid');
-
-
-
-	httpRequest('/rights/getServiceCom.do', 'get', '', {
-		success: function (res) {
-			console.log(res)
-			console.log(res.managecom)
-			if (res.managecom == 'benbu') {
-				$('#depart').css("display", 'block')
-			}else{
-				$('#depart').css("display", 'none')
-			}
-			// if (res.code == 0 && res.qwurl != '') {
-			// 	var avtar = $('#serviceImg').attr("src")
-			// 	var avtarName = $('#serviceName').text().slice(5)
-			// 	messageAlert(res.qwurl, avtar, avtarName);
-			// } else {
-			// 	var avtar = $('#serviceImg').attr("src")
-			// 	var avtarName = $('#serviceName').text().slice(5)
-			// 	messageAlert('https://insure.meihualife.com//images/mypolicy/policytrust/kefu.png', avtar,
-			// 		avtarName);
-			// }
-		}
-	})
-
-
-
 
 
 	$('body').on('click', '#clservice', function () {
