@@ -37,16 +37,13 @@
 
 		function selectonefile() {
 			var row = $('#filelist').datagrid('getSelected');
-			console.log(row)
 			var url = encodeURIComponent('https://insure.meihualife.com/filedownload.do?fileid=')
 			var pdfSrc = 'https://insure.meihualife.com/js/pdf/web/viewer.html?file=' + url + row.fileid;
-			console.log(pdfSrc)
 			$("#imgSrc").attr("src", pdfSrc);
 			$('#pdfDig').dialog('open');
 		}
 
 		function signdownload(val, row, index) {
-			console.log(val, row, index)
 			return '<a href="#" >预览</a>';
 			// return '<a href="#" onclick="openPDFDlg(' + row.fileid + ')">预览</a>';
 

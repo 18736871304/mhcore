@@ -59,7 +59,6 @@ function displayDataGrid(gridid, param, turl, sfunName) {
 			loadMsg: '数据加载中请稍后……',
 			queryParams: param,
 			onLoadSuccess: function (data) {
-				console.log(data)
 				if (data.total > 0) {
 					let dataList = data.rows
 					for (var i = 0; i < dataList.length; i++) {
@@ -71,7 +70,6 @@ function displayDataGrid(gridid, param, turl, sfunName) {
 
 					}
 				}
-				console.log(data)
 				if (sfunName == null) {} else {
 					func = function () {};
 					func = eval(sfunName);
