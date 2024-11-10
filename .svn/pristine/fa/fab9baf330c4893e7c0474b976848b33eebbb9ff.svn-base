@@ -94,7 +94,7 @@
 			</tr>
 			<tr>
 				<td class="regittitle">
-					人员编号
+					人员编码
 				</td>
 				<td class="common">
 					<input class="txt" readonly name="dlg_usercode" id="dlg_usercode">
