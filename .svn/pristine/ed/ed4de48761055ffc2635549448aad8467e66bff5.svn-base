@@ -11,8 +11,8 @@ var checkList;
 window.onload = function()
 {
 	initDataGrid20($('#userList'));
-	// $(".dis_replace_id").hide();
-	// $(".un_dis_replace_id").show();
+	$(".dis_replace_id").hide();
+	$(".un_dis_replace_id").show();
 	
 	inputList = [
 	 			$('#userid'),
@@ -55,13 +55,13 @@ function selectone()
 	$('#cardno').val(row.cardno);
 	$('#organcode').val(row.organcode);
 	
-	// if(!row.organcode.startsWith('1001')){
-	// 	$(".dis_replace_id").show();
-	// 	$(".un_dis_replace_id").hide();
-	// }else{
-	// 	$(".dis_replace_id").hide();
-	// 	$(".un_dis_replace_id").show();
-	// }
+	if(!row.organcode.startsWith('1001')){
+		$(".dis_replace_id").show();
+		$(".un_dis_replace_id").hide();
+	}else{
+		$(".dis_replace_id").hide();
+		$(".un_dis_replace_id").show();
+	}
 }
 
 function saveSuss()
@@ -182,10 +182,10 @@ function datediff()
 			<td class="report_common_4 dis_replace_id">
 				<input class="txt" name="replaceusername" id="replaceusername" notnull="交接人员姓名" readonly
 					onclick="disuUserDlg($('#replaceusercode'),$('#replaceuserid'),$('#replaceusername'),'02');">
-				<input class="txt"  hidden name="replaceusercode" id="replaceusercode" notnull="交接人员姓名">
-				<input class="txt" hidden  name="replaceuserid" id="replaceuserid" notnull="交接人员姓名">
+				<input class="txt" hidden name="replaceusercode" id="replaceusercode" notnull="交接人员姓名">
+				<input class="txt" hidden name="replaceuserid" id="replaceuserid" notnull="交接人员姓名">
 			</td>
-			<!-- <td class="un_dis_replace_id" style="width:9%"></td><td class="un_dis_replace_id" style="width:15%"></td> -->
+			<td class="un_dis_replace_id" style="width:9%"></td><td class="un_dis_replace_id" style="width:15%"></td>
 		</tr>
 		
 		<tr>
