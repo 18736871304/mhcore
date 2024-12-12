@@ -14161,7 +14161,7 @@ function _download(blobUrl, filename) {
   a.target = '_parent';
 
   if ('download' in a) {
-    a.download = filename;
+    a.download = decodeURIComponent(filename);
   }
 
   (document.body || document.documentElement).appendChild(a);
