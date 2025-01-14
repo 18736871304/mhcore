@@ -1,0 +1,364 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<%@ include file="/WEB-INF/common/include.jsp"%><head>
+	<title></title>
+	<link rel="stylesheet" href="../../../../css/inputbox/line6.css">
+<script>
+
+var inputList;
+var checkList;
+var doubleList;
+
+window.onload = function()
+{
+	initDataGrid20($('#protocollist'));
+	initDataGrid20($('#filelist'));
+
+	inputList = [
+			$('#protocoltype'),
+			$('#insorgancode'),
+			$('#protocolname'),
+			$('#startdate'),
+			$('#enddate'),
+			$('#linkman'),
+			$('#linkmobile'),
+			$('#invoiceinfo'),
+	];
+
+	checkList = [
+			$('#insorgancode'),
+			$('#protocolname'),
+			$('#startdate'),
+			$('#enddate'),
+			$('#linkman'),
+			$('#linkmobile'),
+			$('#invoiceinfo'),
+	];
+	
+	disComBox($('#qinsorgancode'),"partner_organization",null);
+	disComBox($('#insorgancode'),"partner_organization",null);
+	
+	//disComBox($('#qprotocoltype'),"protocoltype",null);
+	//disComBox($('#qprotocolstate'),"protocolstate",null);
+	
+	disComBox($('#protocoltype'),"protocoltype",null);
+	$('#protocoltype').combobox('setValue','01');
+	$('#invoiceinfo').val("");
+}
+
+function aftercodeselect(comboxid)
+{
+}
+
+function selectone()
+{
+	var row = $('#protocollist').datagrid('getSelected');
+
+	$('#protocoltype').combobox('setValue',row.protocoltype);
+	$('#insorgancode').combobox('setValue',row.insorgancode);
+	
+	$('#protocolname').val(row.protocolname);
+	$('#startdate').datebox('setValue',row.startdate);
+	$('#enddate').datebox('setValue',row.enddate);
+	$('#linkman').val(row.linkman);
+	$('#linkmobile').val(row.linkmobile);
+	$('#invoiceinfo').val(row.invoiceinfo);
+	
+	disFileList();
+}
+
+function saveSuss()
+{
+	clearCarData();
+	$('#protocollist').datagrid('reload');
+}
+
+function clearCarData() 
+{
+	cleardata(inputList);
+}
+
+function protocolInsert()
+{
+	if(!checknotnull(checkList))
+	{
+		return;
+	}
+
+	var tparam = prepareparam(inputList);
+
+	ajaxdeal("supplier/protocolInsert.do",tparam,null,null,saveSuss);
+}
+
+function protocolUpdate()
+{
+	var row = $('#protocollist').datagrid('getSelected');
+	if(row==null)
+	{
+		$.messager.alert('操作提示','请选中要修改的数据！','error');
+		return;
+	}
+	
+	if(!checknotnull(checkList))
+	{
+		return;
+	}
+
+	var tparam = prepareparam(inputList);
+	tparam.protocolserialno = row.protocolserialno;
+
+	ajaxdeal("supplier/protocolUpdate.do",tparam,null,null,saveSuss);
+}
+
+function protocolDelete()
+{
+	var row = $('#protocollist').datagrid('getSelected');
+	if(row==null)
+	{
+		$.messager.alert('操作提示','请选中要删除的数据！','error');
+		return;
+	}
+	
+	var tparam = new Object();
+	tparam.protocolserialno = row.protocolserialno;
+
+	ajaxdeal("supplier/protocolDelete.do",tparam,null,null,saveSuss);
+}
+
+function protocolquery()
+{
+	var tturl = "supplier/getProtocolList.do";
+
+	var tParam = new Object();
+
+	tParam.insorgancode = $('#qinsorgancode').combobox('getValue');
+	tParam.protocoltype = $('#qprotocoltype').combobox('getValue');
+	
+	tParam.protocolstate = $('#qprotocolstate').val();
+
+	displayDataGrid($('#protocollist'), tParam, tturl);
+
+	clearCarData();
+}
+
+function selectonefile()
+{
+	
+}
+
+function signdownload(val,row,index)
+{
+	return '<a href="https://insure.meihualife.com/filedownload.do?fileid='+row.fileid+'">下载</a>';
+}
+
+function disFileList()
+{
+	var row = $('#protocollist').datagrid('getSelected');
+	if(row==null)
+	{
+		return;
+	}
+	
+	var tturl = "/getCommonFileList.do";
+	
+	var tparam = new Object();
+	tparam.buzid = row.protocolserialno;
+	tparam.buztype = '0202';
+	
+	displayDataGrid($('#filelist'), tparam, tturl);
+}
+
+function FileUpload()
+{
+	var row = $('#protocollist').datagrid('getSelected');
+	if(row==null)
+	{
+		$.messager.alert('操作提示','请选中要操作的数据！','error');
+		return;
+	}
+	
+	if($('#textfield').val()==null||$('#textfield').val()=='')
+	{
+		$.messager.alert('操作提示','请选中要上传的数据！','error');
+		return;
+	}
+	
+	var tparam = new Object();
+	tparam.buzid = row.protocolserialno;
+	
+	ajaxFileUpload('filename','supplier/protocolUpLoad.do',tparam,null,null,uploadsaveSuss);
+	//上传完毕之后，把浏览框中的文本清除。
+}
+
+function fileDelete()
+{
+	var row = $('#filelist').datagrid('getSelected');
+	if(row==null)
+	{
+		$.messager.alert('操作提示','请选中要操作的数据！','error');
+		return;
+	}
+	
+	var tparam = new Object();
+	tparam.fileid = row.fileid;
+
+	ajaxdeal("supplier/uwfileDelete.do",tparam,null,null,uploadsaveSuss);
+}
+
+function uploadsaveSuss()
+{
+	$('#textfield').val("");
+	$('#filelist').datagrid('reload');
+}
+
+</script>
+
+</head>
+<body>
+<div style="margin-left:0%">
+	<table class = "common">
+		<tr>
+			<td class = "reprot_title">
+				合作机构
+			</td>
+			<td class = "reprot_common">
+				<select class = "easyui-combobox" style="width:160%" name="qinsorgancode" id="qinsorgancode">
+				</select>
+			</td>
+			<td style="width:6%"></td><td style="width:10%"></td>
+			<td style="width:6%"></td><td style="width:10%"></td>
+			<td style="width:6%"></td><td style="width:10%"></td>
+			<td style="width:6%"></td><td style="width:10%"></td>
+			<td style="width:6%"></td><td style="width:10%"></td>				
+		</tr>
+		<tr hidden>
+			<td class = "reprot_title">
+				协议分类
+			</td>
+			<td class = "reprot_common">
+				<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="qprotocoltype" id="qprotocoltype">
+				</select>
+			</td>
+			<td class = "reprot_title">
+				协议状态
+			</td>
+			<td class = "reprot_common">
+				<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="qprotocolstate" id="qprotocolstate">
+				</select>
+			</td>
+		</tr>
+	</table>
+	<br>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id = "protocolquery" onclick = "protocolquery()">查询</a>
+	<br>
+	<br>
+	<table id="protocollist" class="easyui-datagrid" title="协议信息" style="width:auto;height:auto"
+		data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone" >
+		<thead>
+			<tr>
+				
+				<th data-options="field:'insorganname',width:80">合作机构</th>
+				<th data-options="field:'protocolname',width:80">协议名称</th>
+				<!--<th data-options="field:'protocoltypename',width:80">协议分类</th> -->
+				<th data-options="field:'startdate',width:80">协议起期</th>
+				<th data-options="field:'enddate',width:80">协议止期</th>
+				<!--<th data-options="field:'protocolstatename',width:80">协议状态</th> -->
+				<th data-options="field:'linkman',width:80">对接人</th>
+				<th data-options="field:'linkmobile',width:80">联系电话</th>
+				<th data-options="field:'invoiceinfo',width:200">开票信息</th>
+				
+			</tr>
+		</thead>
+	</table>
+	<br>
+	<table class = "common">
+		<tr>
+			<td class = "reprot_title_4" hidden>
+				协议分类
+			</td>
+			<td class = "reprot_common_4" hidden>
+				<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="protocoltype" id="protocoltype" notnull = "协议分类">
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class = "reprot_title_4">
+				合作机构
+			</td>
+			<td class = "reprot_common_4">
+				<select class = "easyui-combobox" style="width:160%" name="insorgancode" id="insorgancode" notnull = "合作机构">
+				</select>
+			</td>
+			<td class = "reprot_title_4">
+				协议名称
+			</td>
+			<td class = "reprot_common_4">
+				<input class = "txt" name="protocolname" id="protocolname" notnull = "协议名称">
+			</td>
+			<td class = "reprot_title_4">
+				协议起期
+			</td>
+			<td class = "reprot_common_4">
+				<input class="easyui-datebox" style="width:160%" name="startdate" id="startdate" notnull = "协议起期">
+			</td>
+			<td class = "reprot_title_4">
+				协议止期
+			</td>
+			<td class = "reprot_common_4">
+				<input class="easyui-datebox" style="width:160%" name="enddate" id="enddate" notnull = "协议止期">
+			</td>
+		</tr>
+		<tr>
+			<td class = "reprot_title_4">
+				对接人
+			</td>
+			<td class = "reprot_common_4">
+				<input class = "txt" name="linkman" id="linkman"notnull = "对接人">
+			</td>
+			<td class = "reprot_title_4">
+				联系电话
+			</td>
+			<td class = "reprot_common_4">
+				<input class = "txt" name="linkmobile" id="linkmobile"notnull = "联系电话">
+			</td>
+		</tr>
+	</table>
+	<table class = "common">
+		<tr>
+			<td class = "reprot_title_4">
+				开票信息
+			</td>
+			<td style="width:50%">
+				<textarea notnull = "开票信息" class="txt" style="width: 600px;height: auto;" id="invoiceinfo" name="invoiceinfo">
+				</textarea>
+			</td>
+			<td style="width:9%"></td><td style="width:15%"></td>
+			<td style="width:9%"></td><td style="width:15%"></td>
+		</tr>
+	</table>
+	<br>
+	<div class="upload-box-uw">
+		<input type='text' name='textfield' id='textfield' class='upload-txt' />  
+	 	<button id = "file-view" class="smsbutton">浏览...</button> 	
+	 	<input type="file" name="myfiles" class="upload-file-uw" id="filename" size="28" onchange="document.getElementById('textfield').value=this.value.substr(12)" /> 	
+	 	<button id = "file-upload" class="smsbutton" onclick = "FileUpload()">上传</button>
+	 	<button id = "file-delete" class="smsbutton" onclick = "fileDelete()">删除</button>
+	</div>
+	<div>
+	<table id="filelist" class="easyui-datagrid" title="附件信息" style="width:560px;height:auto"
+		data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectonefile">
+		<thead>
+			<tr>
+				<th data-options="field:'filename',width:450">文件名称</th>
+				<th data-options="field:'_signdownload',width:60,formatter:signdownload">操作</th>
+			</tr>
+		</thead>
+	</table>
+	</div>
+	<br>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id = "protocolInsert" onclick = "protocolInsert()">协议录入</a>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" id = "protocolUpdate" onclick = "protocolUpdate()">协议修改</a>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" id = "protocolDelete" onclick = "protocolDelete()">协议删除</a>
+</div>
+</body>
+</html>
