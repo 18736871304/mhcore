@@ -44,24 +44,6 @@
           disComBox($("#protocoltype"), "protocoltype", null);
           $("#protocoltype").combobox("setValue", "01");
           $("#invoiceinfo").val("");
-
-
-
-
-
-          // let files = [];
-          // const fileInput = document.getElementById('filename');
-          // fileInput.addEventListener('change', (event) => {
-          //   console.log('1231241')
-          //   const selectedFiles = event.target.files;
-          //   Array.from(selectedFiles).forEach(file => {
-          //     console.log(file)
-          //     files.push(file);
-          //   })
-
-
-          // })
-
         };
 
         function aftercodeselect(comboxid) { }
@@ -193,16 +175,19 @@
         }
 
 
-
         function updateTextValue() {
           const fileInput = document.getElementById('filename');
           const textfield = document.getElementById('textfield');
           const files = fileInput.files;
           const fileNames = [];
+
           for (let i = 0; i < files.length; i++) {
-            fileNames.unshift(files[i].name);
+            fileNames.push(files[i].name);
           }
+
           textfield.value = fileNames.join(', ');
+          console.log(fileNames)
+          console.log(textfield.value)
         }
 
 
@@ -226,7 +211,7 @@
           tparam.buzid = row.protocolserialno;
 
           console.log(tparam)
-
+          
 
           ajaxFileUpload("filename", "supplier/protocolUpLoad.do", tparam, null, null, uploadsaveSuss);
           //上传完毕之后，把浏览框中的文本清除。

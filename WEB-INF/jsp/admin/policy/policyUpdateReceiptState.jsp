@@ -57,7 +57,7 @@ function policyUpdateState()
 	var orderStr = "";
 	
      const namesArray = rows.map(obj => obj.orderid);
-        orderStr = namesArray.join(', ');
+        orderStr = namesArray.join(',');
 		
 
 	// for(var i=0;i<rows.length;i++)
