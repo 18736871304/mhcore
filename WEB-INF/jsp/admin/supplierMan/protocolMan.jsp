@@ -522,7 +522,7 @@
           <tr>
             <td class="reprot_title_4">账号</td>
             <td style="width: 50%">
-              <textarea notnull="账号" class="txt" style="width: 600px; height: 60px" id="accountno" name="accountno">
+              <textarea notnull="账号" class="txt" style="width: 600px; height: 118px" id="accountno" name="accountno">
             </textarea>
             </td>
             <td style="width: 9%"></td>
@@ -535,8 +535,8 @@
           <tr>
             <td class="reprot_title_4">备注</td>
             <td style="width: 50%">
-              <textarea notnull="备注" class="txt" style="width: 600px; height: auto" id="remark"
-                name="remark">
+                <input class="txt" name="remark" style="width: 600px; height: auto" id="remark"
+                notnull="备注" />
             </textarea>
             </td>
             <td style="width: 9%"></td>
