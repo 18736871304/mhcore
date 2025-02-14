@@ -389,12 +389,12 @@
 					"newMedia": "其他",
 					"accountName": "全量",
 					"resourceType": "重疾",
-					"channelCode": "",
-					"channelLink": "https://work.weixin.qq.com/ca/cawcde6e55919351da",
+					"channelCode": "c81f37c9d21c11ef8aaf00163e1ccaeb",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde6e55919351da?customer_channel=c81f37c9d21c11ef8aaf00163e1ccaeb",
 					"channelQRCode": '',
 					"linkRemark": '',
 				},
-
+				
 				{
 					"activityCode": "自营上海移交",
 					"newMedia": "其他",
