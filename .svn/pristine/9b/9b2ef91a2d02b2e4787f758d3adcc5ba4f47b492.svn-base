@@ -1,0 +1,22 @@
+[{
+	"dd_key":"01",
+	"dd_value":"意外险"
+},{
+	"dd_key":"02",
+	"dd_value":"医疗险"
+},{
+	"dd_key":"03",
+	"dd_value":"重疾险"
+},{
+	"dd_key":"04",
+	"dd_value":"人寿险"
+},{
+	"dd_key":"05",
+	"dd_value":"理财险"
+},{
+	"dd_key":"06",
+	"dd_value":"车险"
+},{
+	"dd_key":"07",
+	"dd_value":"其他"
+}]

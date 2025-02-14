@@ -360,6 +360,100 @@
 				},
 
 
+				{
+					"activityCode": "自营梅园移交",
+					"newMedia": "其他",
+					"accountName": "全量",
+					"resourceType": "重疾",
+					"channelCode": "688bc051d22a11ef8aaf00163e1ccaeb",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde575b9fbfca54?customer_channel=688bc051d22a11ef8aaf00163e1ccaeb",
+					"channelQRCode": '',
+					"linkRemark": '',
+				},
+				{
+					"activityCode": "自营梅园移交",
+					"newMedia": "其他",
+					"accountName": "全量",
+					"resourceType": "理财",
+					"channelCode": " ",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde20d8f0b4f864",
+					"channelQRCode": '',
+					"linkRemark": '',
+				},
+
+
+
+
+				{
+				"activityCode": "自营上海移交",
+					"newMedia": "其他",
+					"accountName": "全量",
+					"resourceType": "重疾",
+					"channelCode": "",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde6e55919351da",
+					"channelQRCode": '',
+					"linkRemark": '',
+				},
+
+				{
+					"activityCode": "自营上海移交",
+					"newMedia": "其他",
+					"accountName": "全量",
+					"resourceType": "理财",
+					"channelCode": " ",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcdef0f4181228bc",
+					"channelQRCode": '',
+					"linkRemark": '',
+				},
+
+
+				{
+					"activityCode": "自营官网",
+					"newMedia": "官网",
+					"accountName": "百度  ",
+					"resourceType": "重疾",
+					"channelCode": "e09182ece47e11ef8aaf00163e1ccaeb",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde0b4391a2966f?customer_channel=e09182ece47e11ef8aaf00163e1ccaeb",
+					"channelQRCode": '',
+					"linkRemark": '',
+				},
+				{
+					"activityCode": "自营官网",
+					"newMedia": "官网",
+					"accountName": "百度  ",
+					"resourceType": "理财",
+					"channelCode": "e8f9c1d3e47e11ef8aaf00163e1ccaeb",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde06bd4de53abf?customer_channel=e8f9c1d3e47e11ef8aaf00163e1ccaeb",
+					"channelQRCode": '',
+					"linkRemark": '',
+				},
+
+
+				{
+					"activityCode": "自营线下广告",
+					"newMedia": "其他",
+					"accountName": "小雨伞大黄蜂  ",
+					"resourceType": "重疾",
+					"channelCode": "ec609922e9b811ef8aaf00163e1ccaeb",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde64a057debad1?customer_channel=ec609922e9b811ef8aaf00163e1ccaeb",
+					"channelQRCode": '',
+					"linkRemark": '',
+				},
+				{
+					"activityCode": "自营线下广告",
+					"newMedia": "其他",
+					"accountName": "小雨伞大黄蜂  ",
+					"resourceType": "理财",
+					"channelCode": "f8310af2e9b811ef8aaf00163e1ccaeb",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcdea6ba8e9a841d?customer_channel=f8310af2e9b811ef8aaf00163e1ccaeb",
+					"channelQRCode": '',
+					"linkRemark": '',
+				},
+
+			
+
+
+
 
 
 
