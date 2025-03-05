@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<%@ page contentType="text/html;charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<!-- <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> -->
+<html style="font-size: calc(100vw/ 18.75);">
+
+<head>
+	<meta charset="utf-8" />
+	<title>保单详情</title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="full-screen" content="yes">
+	<meta name="x5-fullscreen" content="true">
+	<meta name="format-detection" content="telephone=yes" />
+
+	<link rel="stylesheet" href="../../css/mypolicy/public.css?v=20180703_01" />
+	<link rel="stylesheet" href="../../css/mypolicy/policy.css?v=20191218_01" />
+	<link rel="stylesheet" href="/css/mypolicy/members/common.css">
+	<style>
+		.policyNumBox p,
+		.policyNumBox p span {
+			font-size: 0.7rem;
+		}
+
+		.policyNumBox p {
+			margin-top: 8px;
+		}
+
+		.member-message-box .member-message-content .member-message-msg {
+			padding: 15px;
+		}
+
+		#downPdf {
+			color: #0c0c0e
+		}
+
+		.policyDetailBox .policyHolderBox .box .line span,
+		.policyDetailBox .policyHolderBox .box .line p {
+			font-size: 0.75rem;
+		}
+
+		.policyDetailBox .timeBox .left {
+			font-size: 0.75rem;
+		}
+
+		/* .policyNumBox h1 {
+		
+		} */
+
+		.policyDetailBox .policyHolderBox .fuwuBox {
+			display: flex;
+			padding: 0.63rem 0;
+		}
+
+		.fuwuBox .fuwuList {
+
+			width: 25%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.fuwuList img {
+			width: 1.5rem;
+			height: 1.5rem;
+			margin-bottom: 0.6rem;
+		}
+
+		.fuwuList span {
+			font-size: 0.75rem;
+		}
+
+		.policyDetailBox .timeBox .left p {
+			font-size: 0.75rem;
+		}
+
+		.policyDetailBox .timeBox .left p span {
+			font-size: 0.75rem;
+		}
+
+		.policyNumBox img {
+			width: 80px;
+			height: 16px;
+		}
+
+		.member-message-box .member-message-content .member-message-title {
+			padding: 25px 25px 0;
+		}
+
+		.member-message-box .member-message-content .member-message-title {
+			border-bottom: 0px solid #e5e5e5;
+		}
+
+		.tan_header {
+			display: flex;
+		}
+
+		.tan_header img {
+			/* width: 3rem;
+			height: 3rem;
+			border-radius: 0.3rem; */
+			margin-top: -3px;
+		}
+
+		.ssdf {
+			/* width: 3rem;
+			height: 3rem;
+			border-radius: 20%;
+			overflow: hidden; */
+
+			width: 44px;
+			height: 44px;
+			border-radius: 20%;
+			overflow: hidden;
+		}
+
+		.tanBigbox p {
+			margin: 0 0.6rem;
+			text-align: left;
+			/* margin-bottom: 5px; */
+		}
+
+		.member-message-box .member-message-content .member-message-title .close {
+			position: absolute;
+			top: 25%;
+		}
+
+		.tanBigbox {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+		}
+
+		.tanTeach {
+			font-weight: bold;
+		}
+
+		.tanBigbox p:last-child {
+			font-size: 0.63rem;
+		}
+
+		.member-message-msg p {
+			margin-top: 1em;
+			margin-bottom: 1em;
+		}
+
+		.policyNumBox h1 {
+			width: 88%;
+		}
+
+		.policyDetailBox .policyHolderBox .title {
+			font-size: 0.75rem;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="main d_footback policyDetailBox">
+		<!--START  标题-->
+
+		<div class="policyNumBox d_boxSz d_mb15">
+			<!-- ${typeinlogo} -->
+			<!-- <img src="${typeinlogo}" /> -->
+			<h1 style="	font-size: 0.8999rem;">${mainrisk.riskname}</h1>
+			<br />
+			<p>保单号：<span>${mainrisk.contno}</span></p>
+		</div>
+
+		<!--END    标题-->
+		<!--START  日期-->
+		<div class="timeBox d_boxSz d_mb15">
+			<div class="left">
+				<p><span>生效日期</span>${mainrisk.cvalidate}</p>
+				<p><span>缴费方式</span>${mainrisk.payintvvalue}</p>
+				<p><span>缴费年期</span>${mainrisk.payendyearvalue}</p>
+				<!-- <p><span>电子保单</span> <span id="downPdf" >下载</span> </p> -->
+			</div>
+			<div class="right d_table">
+				<div class="d_cell img">
+					<c:if test="${mainrisk.state==40}">
+						<i class="protection"></i>
+					</c:if>
+					<c:if test="${mainrisk.state==74}">
+						<i class="renewal"></i>
+					</c:if>
+					<c:if test="${mainrisk.state==70||mainrisk.state==72||mainrisk.state==73||mainrisk.state==75}">
+						<i class="failure"></i>
+					</c:if>
+					<!--
+							protection：保障中
+							failure：失效
+							pending：待处理
+							renewal：可续保
+						-->
+				</div>
+			</div>
+		</div>
+		<!--END    日期-->
+		<!--START  投保人-->
+		<div class="policyHolderBox d_boxSz d_mb15">
+			<h1 class="title d_boxSz">投保人信息</h1>
+			<div class="box d_boxSz">
+				<div class="line"><span>姓名</span>
+					<p>${mainrisk.appname}</p>
+				</div>
+				<div class="line"><span>性别</span>
+					<p>${mainrisk.appsexname}</p>
+				</div>
+				<div class="line"><span>身份证</span>
+					<p>${mainrisk.appidno}</p>
+				</div>
+				<div class="line"><span>出生日期</span>
+					<p>${mainrisk.appbirthday}</p>
+				</div>
+				<div class="line"><span>手机号</span>
+					<p>${mainrisk.appphone}</p>
+				</div>
+				<div class="line"><span>地址</span>
+					<p>${mainrisk.appprovincename}${mainrisk.appcityname}${mainrisk.appcountryname}${mainrisk.appaddress}
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<!--END    投保人-->
+		<!--START  被保险人-->
+		<c:if test="${multi_Insured=='N'}">
+			<div class="policyHolderBox d_boxSz d_mb15">
+				<h1 class="title d_boxSz">被保人信息</h1>
+				<div class="box d_boxSz">
+					<div class="line"><span>投被保人关系</span>
+						<p>${mainrisk.relaname}</p>
+					</div>
+					<div class="line"><span>姓名</span>
+						<p>${mainrisk.insname}</p>
+					</div>
+					<div class="line"><span>性别</span>
+						<p>${mainrisk.inssexname}</p>
+					</div>
+					<div class="line"><span>身份证</span>
+						<p>${mainrisk.insidno}</p>
+					</div>
+					<div class="line"><span>出生日期</span>
+						<p>${mainrisk.insbirthday}</p>
+					</div>
+					<div class="line"><span>手机号</span>
+						<p>${mainrisk.insphone}</p>
+					</div>
+					<div class="line"><span>地址</span>
+						<p>${mainrisk.insprovincename}${mainrisk.inscityname}${mainrisk.inscountryname}${mainrisk.insaddress}
+						</p>
+					</div>
+				</div>
+			</div>
+		</c:if>
+
+		<c:if test="${multi_Insured=='Y'}">
+			<c:forEach items="${insuredList}" var="mainrisk" varStatus="state">
+				<div class="policyHolderBox d_boxSz d_mb15">
+					<h1 class="title d_boxSz">被保人信息
+						<c:if test="${state.count=='1'}">
+							<span>【一】</span>
+						</c:if>
+						<c:if test="${state.count=='2'}">
+							<span>【二】</span>
+						</c:if>
+						<c:if test="${state.count=='3'}">
+							<span>【三】</span>
+						</c:if>
+						<c:if test="${state.count=='4'}">
+							<span>【四】</span>
+						</c:if>
+						<c:if test="${state.count=='5'}">
+							<span>【五】</span>
+						</c:if>
+						<c:if test="${state.count=='6'}">
+							<span>【六】</span>
+						</c:if>
+						<c:if test="${state.count=='7'}">
+							<span>【七】</span>
+						</c:if>
+						<c:if test="${state.count=='8'}">
+							<span>【八】</span>
+						</c:if>
+						<c:if test="${state.count=='9'}">
+							<span>【九】</span>
+						</c:if>
+					</h1>
+					<div class="box d_boxSz">
+						<div class="line"><span>投被保人关系</span>
+							<p>${mainrisk.relaname}</p>
+						</div>
+						<div class="line"><span>姓名</span>
+							<p>${mainrisk.insname}</p>
+						</div>
+						<div class="line"><span>性别</span>
+							<p>${mainrisk.inssexname}</p>
+						</div>
+						<div class="line"><span>身份证</span>
+							<p>${mainrisk.idno}</p>
+						</div>
+						<div class="line"><span>出生日期</span>
+							<p>${mainrisk.insbirthday}</p>
+						</div>
+						<div class="line"><span>手机号</span>
+							<p>${mainrisk.mobile}</p>
+						</div>
+						<div class="line"><span>地址</span>
+							<p>${mainrisk.insprovincename}${mainrisk.inscityname}${mainrisk.inscountryname}${mainrisk.insaddress}
+							</p>
+						</div>
+					</div>
+				</div>
+			</c:forEach>
+		</c:if>
+
+
+
+
+		<div class="policyHolderBox d_boxSz d_mb15">
+			<h1 class="title d_boxSz">主险信息</h1>
+			<div class="box d_boxSz">
+				<div class="line"><span>险种名称</span>
+					<p>${mainrisk.riskname}</p>
+				</div>
+				<div class="line"><span>保险金额</span>
+					<p>${mainrisk.amnt}</p>
+				</div>
+				<div class="line"><span>保障期限</span>
+					<p>${mainrisk.insuyearvalue}</p>
+				</div>
+				<div class="line"><span>保费</span>
+					<p>${mainrisk.prem}</p>
+				</div>
+				<div class="line"><span>缴费方式</span>
+					<p>${mainrisk.payintvvalue}</p>
+				</div>
+				<div class="line"><span>缴费年期</span>
+					<p>${mainrisk.payendyearvalue}</p>
+				</div>
+			</div>
+		</div>
+
+		<c:forEach items="${subrisklist}" var="subrisk" varStatus="status">
+			<div class="policyHolderBox d_boxSz d_mb15">
+				<h1 class="title d_boxSz">附加险信息</h1>
+				<!--  <h1 class="title d_boxSz">附加险信息 ${status.count}</h1> -->
+				<div class="box d_boxSz">
+					<div class="line"><span>险种名称</span>
+						<p>${subrisk.riskname}</p>
+					</div>
+					<div class="line"><span>保险金额</span>
+						<p>${subrisk.amnt}</p>
+					</div>
+					<div class="line"><span>保障期限</span>
+						<p>${subrisk.insuyearvalue}</p>
+					</div>
+					<div class="line"><span>保费</span>
+						<p>${subrisk.prem}</p>
+					</div>
+					<div class="line"><span>缴费方式</span>
+						<p>${subrisk.payintvvalue}</p>
+					</div>
+					<div class="line"><span>缴费年期</span>
+						<p>${subrisk.payendyearvalue}</p>
+					</div>
+				</div>
+			</div>
+		</c:forEach>
+
+		<div class="policyHolderBox d_boxSz d_mb15">
+			<h1 class="title d_boxSz">保单服务</h1>
+
+			<div class="box d_boxSz fuwuBox">
+				<div class="fuwuList" id="telPhone" phone="${linkmobile}">
+					<img src="/images/mypolicy/policytrust/phone.png" alt="">
+					<span>保司电话</span>
+				</div>
+				<!-- onclick="location.href='../../../../js/pdf/web/viewer.html?file=${mainrisk.policyurl}';" -->
+				<div class="fuwuList" id="openPolicyurl" url="${mainrisk.policyurl}">
+					<img src="/images/mypolicy/policytrust/intpolicy.png" alt="">
+					<span>电子保单</span>
+				</div>
+				<!-- <a href="">下载</a> -->
+				 <div id="depart" style="width: 25%;">
+					<div class="fuwuList" id="clservice"  style="width: 100%;">
+					<img src="/images/mypolicy/policytrust/lipei.png" alt="">
+					<span>理赔服务</span>
+				</div>
+				 </div>
+				
+			</div>
+		</div>
+
+		<!--END    被保险人-->
+		<!--START  保险条款-->
+		<!-- 
+			<c:if test="${empty policyurl}">
+				<div class="termsBox d_boxSz d_mb15">  
+					<a href="./policy_contract.do?orderid=${orderid}">保险条款<i class="icon_right"></i></a>
+				</div>
+			</c:if>
+			
+			<c:if test="${!empty policyurl}">
+				<div class="termsBox d_boxSz d_mb15">
+					<a href="${policyurl}">保单下载<i class="icon_right"></i></a>
+				</div>
+			</c:if>
+			 -->
+		<!--END    保险条款-->
+	</div>
+
+
+</body>
+<script src="/js/mypolicy/policytrust/lib/jquery1.12.4.min.js"></script>
+<script src="/js/mypolicy/policytrust/lib/jquery-weui.min.js"></script>
+<script>
+	// function queryURLParams(URL) {
+	// 	let url = URL.split("?")[1];
+	// 	const urlSearchParams = new URLSearchParams(url);
+	// 	const params = Object.fromEntries(urlSearchParams.entries());
+	// 	return params
+	// }
+	const urlParams = new URLSearchParams(window.location.search);
+	const orderid = urlParams.get('orderid');
+	const contno = urlParams.get('contno');
+
+
+
+	httpRequest('/rights/getServiceCom.do', 'get', '', {
+		success: function (res) {
+			console.log(res)
+			console.log(res.managecom)
+			if (res.managecom == 'benbu') {
+				$('#depart').css("display", 'block')
+			}else{
+				$('#depart').css("display", 'none')
+			}
+			// if (res.code == 0 && res.qwurl != '') {
+			// 	var avtar = $('#serviceImg').attr("src")
+			// 	var avtarName = $('#serviceName').text().slice(5)
+			// 	messageAlert(res.qwurl, avtar, avtarName);
+			// } else {
+			// 	var avtar = $('#serviceImg').attr("src")
+			// 	var avtarName = $('#serviceName').text().slice(5)
+			// 	messageAlert('https://insure.meihualife.com//images/mypolicy/policytrust/kefu.png', avtar,
+			// 		avtarName);
+			// }
+		}
+	})
+
+
+
+
+
+	$('body').on('click', '#clservice', function () {
+		messageAlert('/images/mypolicy/policytrust/kefu.png', "/images/mypolicy/policytrust/service_female.png");
+	})
+	$('#telPhone').on('click', function () {
+		var attributeValue = $(this).attr('phone');
+		window.location.href = 'tel://' + attributeValue
+	});
+	$('#openPolicyurl').on('click', function () {
+
+		var attributeValue = $(this).attr('url');
+		var fileType = attributeValue.substring(attributeValue.length - 3)
+		var ludan = orderid.substring(0, 2)
+
+		// 录得单子
+		if (ludan == 'LT') {
+			if (attributeValue == '') {
+				alert('此产品无电子保单')
+			} else if (fileType == 'pdf' || fileType == 'PDF') {
+				location.href = '../../../../js/pdf/web/viewer.html?file=' + attributeValue
+			} else {
+				location.href = attributeValue
+				// copyToClipboard(attributeValue);
+			}
+		} else {
+			var insuranceProtectUrl = '/life/common/policyDownLoad.do'
+			var transdata = {
+				orderid: orderid,
+				contno:contno
+			}
+			httpRequest(insuranceProtectUrl, 'get', transdata, {
+				success: function (res) {
+					console.log(res)
+					if (res.code == '0' && res.policyUrl && res.policyUrl != '') {
+						location.href = res.policyUrl
+					} else {
+						if (attributeValue == '') {
+							alert('此产品无电子保单')
+						}
+						//  else if (fileType == 'pdf' || fileType == 'PDF') {
+						// 	location.href = '../../../../js/pdf/web/viewer.html?file=' + attributeValue
+						// } 
+						else {
+							location.href = attributeValue
+							// copyToClipboard(attributeValue);
+						}
+					}
+				}
+			})
+
+		}
+	});
+
+	// 复制字符串到剪贴板的函数
+	function copyToClipboard(text) {
+		try {
+			navigator.clipboard.writeText(text);
+			alert('复制文件地址成功，请到浏览器中下载');
+		} catch (err) {
+			alert('打开失败', err);
+		}
+	}
+
+	function messageAlert(msg, avtar) {
+		console.log('dom')
+		var dom = '<div class="member-message-box hide" id="messageBox">' +
+			'    <div class="member-message-mask"></div>' +
+			'    <div class="member-message-content">' +
+			'        <div class="member-message-title">' +
+
+			'             <div class="tan_header">' +
+			'<div class="ssdf">' +
+			'               <img src="' + avtar + '" alt="">' +
+			'</div>' +
+			'                <div class="tanBigbox">' +
+			'                  <p class="tanTeach">客服老师</p>' +
+			'                  <p>免费咨询客服老师</p>' +
+			'                </div>' +
+			'              </div>' +
+			'            <span class="close" id="close">×</span>' +
+			'        </div>' +
+			'        <div class="member-message-msg"><img   src="' + msg + '"><p>长按识别上方二维码添加企业微信</p></div>' +
+			'    </div>' +
+			'</div>'
+
+		$('body').append(dom)
+		$('.member-message-content').hide()
+		$('#messageBox').removeClass('hide')
+		$('.member-message-content').hide().fadeIn(200)
+
+		$('body').on('click', '#close', function () {
+			$('#messageBox').fadeOut(200, function () {
+				$('#messageBox').remove()
+			})
+		})
+	}
+
+
+
+	function httpRequest(url, method, data, fnObj) {
+		$.ajax({
+			url: url,
+			type: method,
+			data: data,
+			dataType: 'json',
+			timeout: 15000,
+			beforeSend: function () {
+				$.showLoading("加载中...")
+				if (fnObj.beforeSend) {
+					fnObj.beforeSend()
+				}
+			},
+			complete: function (xhr, status) {
+				$.hideLoading()
+				if (status === 'timeout') {
+					console.log('api time out')
+				}
+				if (fnObj.complete) {
+					fnObj.complete(status)
+				}
+			},
+			success: function (res) {
+				$.hideLoading()
+				if (fnObj.success) {
+					fnObj.success(res)
+				}
+			},
+			error: function (error) {
+				$.hideLoading()
+				console.log(error)
+				if (fnObj.error) {
+					fnObj.error(error)
+				}
+			}
+		})
+	}
+</script>
+
+</html>
