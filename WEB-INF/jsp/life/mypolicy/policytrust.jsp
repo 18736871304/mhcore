@@ -101,7 +101,7 @@
 						<div class="header-title">
 							<div>
 								<i><img src="/images/mypolicy/policytrust/icon_baozhang.png"></i>
-								<span>我的家庭保障123</span>
+								<span>我的家庭保障</span>
 							</div>
 							<div id="quit" style="font-size: 12px;color: #d8d8d8;">
 								退出

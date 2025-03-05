@@ -494,9 +494,11 @@
 					} else {
 						if (attributeValue == '') {
 							alert('此产品无电子保单')
-						} else if (fileType == 'pdf' || fileType == 'PDF') {
-							location.href = '../../../../js/pdf/web/viewer.html?file=' + attributeValue
-						} else {
+						}
+						//  else if (fileType == 'pdf' || fileType == 'PDF') {
+						// 	location.href = '../../../../js/pdf/web/viewer.html?file=' + attributeValue
+						// } 
+						else {
 							location.href = attributeValue
 							// copyToClipboard(attributeValue);
 						}
