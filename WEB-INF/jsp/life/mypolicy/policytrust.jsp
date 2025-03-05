@@ -101,7 +101,7 @@
 						<div class="header-title">
 							<div>
 								<i><img src="/images/mypolicy/policytrust/icon_baozhang.png"></i>
-								<span>我的家庭保障</span>
+								<span>我的家庭保障123</span>
 							</div>
 							<div id="quit" style="font-size: 12px;color: #d8d8d8;">
 								退出
@@ -241,11 +241,18 @@
 	<script src="/js/mypolicy/policytrust/lib/jquery1.12.4.min.js"></script>
 	<script src="/js/mypolicy/policytrust/lib/echarts.js"></script>
 	<script src="/js/mypolicy/policytrust/lib/jquery-weui.min.js"></script>
-	<script src="/js/mypolicy/policytrust/policytrust.js?v=20240831_7"></script>
+	<script src="/js/mypolicy/policytrust/policytrust.js?v=202503_25"></script>
 	<script>
 
 
 	</script>
+
+	<style>
+
+/* .member-message-box .member-message-content{
+	 background: url(/images/mypolicy/policytrust/QRCode.png);
+} */
+	</style>
 </body>
 
 </html>

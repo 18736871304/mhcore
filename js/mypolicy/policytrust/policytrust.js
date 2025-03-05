@@ -298,14 +298,14 @@ var indexFunc = {
 		$('#effectiveNum').text(data.effectiveNum)
 		$('#protectionNum').text(data.protectionNum)
 
-		if (data.photourl == null || data.photourl == '') {
+		// if (data.photourl == null || data.photourl == '') {
 			var maleImg = '/images/mypolicy/policytrust/service_male.png'
 			var femaleImg = '/images/mypolicy/policytrust/service_female.png'
 			var serviceImg = data.gender === '0' ? maleImg : femaleImg;
 			$('#serviceImg').attr('src', serviceImg)
-		} else {
-			$('#serviceImg').attr('src', 'http://insure.meihualife.com' + data.photourl);
-		}
+		// } else {
+		// 	$('#serviceImg').attr('src', 'http://insure.meihualife.com' + data.photourl);
+		// }
 
 		if (data.realname == null || data.realname == '') {
 			$('#serviceName').text('我的管家：');
