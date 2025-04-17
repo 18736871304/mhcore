@@ -325,7 +325,7 @@
 					$('#teamname').val(row.teamname);
 
 					dealorgan(row);
-					$('#phoneno').val(row.phoneno);
+					$('#phoneno').val(row.mobilenumber);
 					// $('#phoneno').val(row.phoneno);
 					// $('#usercode_combox').combobox('setValue', row.usercode);
 					$('#usercode_txt').val(row.usercode);

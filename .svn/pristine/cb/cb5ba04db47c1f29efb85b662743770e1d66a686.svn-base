@@ -547,7 +547,7 @@
                                     sortable="true">初始资源等级
                                 </th>
 
-                                <th data-options="field:'customer_intention',width:100,formatter:customerIntention">客户需求
+                                <th data-options="field:'customer_intention',width:220,formatter:customerIntention">客户需求
                                 </th>
 
 
