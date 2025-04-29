@@ -14,8 +14,8 @@
 					$('#chatRecord').dialog('close');
 					$('#chatRecordee').dialog('close');
 					initDataGrid20($('#aiqaList'));
-					init02Org();
-					
+					// initDataGrid20($('#aiqaContentList'));
+
 					inputList = [
 					];
 
@@ -24,7 +24,7 @@
 				}
 
 				function aftercodeselect(comboxid) {
-					organAfterSelect(comboxid);
+
 				}
 
 				// function selectone() {
@@ -57,11 +57,7 @@
 
 					tParam.startdate = $('#qstartdate').datebox("getValue");
 					tParam.enddate = $('#qenddate').datebox("getValue");
-					tParam.q02org = $('#q02org').combobox('getValue');
-					tParam.q03org = $('#q03org').combobox('getValue');
-					tParam.q04org = getOrgan04Code();
-					tParam.teamid = getQTeamId();
-					
+
 					displayDataGrid20($('#aiqaList'), tParam, tturl);
 				}
 
@@ -113,7 +109,6 @@
 						<td></td>
 						<td></td>
 					</tr>
-					<%@ include file="/WEB-INF/jsp/admin/team/organAndTeamQuery.jsp"%>
 				</table>
 				<br>
 				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id="aiqaQuery"
@@ -125,7 +120,6 @@
 					<thead>
 						<tr>
 							<th data-options="field:'makedate',width:125">问答时间</th>
-							<%@ include file="/WEB-INF/common/column/organ/organList.jsp"%>
 							<th data-options="field:'username',width:60">姓名</th>
 							<th data-options="field:'title',width:500">第一条问题</th>
 							<th data-options="field:'openAIRecord',width:60,formatter:openAIRecord">操作</th>

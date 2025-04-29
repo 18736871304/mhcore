@@ -1,0 +1,850 @@
+<%@ page contentType="text/html;charset=utf-8" %>
+
+
+    <link rel="stylesheet" href="../../../../js/chatRecord/viewer.css">
+    <!-- <script src="../../../../js/chatRecord/amrnb.js"></script>
+    <script src="../../../../js/chatRecord/amrplayer.js"></script> -->
+    <script src="../../../../js/chatRecord/viewer.js"></script>
+
+    <style>
+        .bigbox {
+            width: 100%;
+            height: 100vh;
+            /* 很重要，如果设置成 100%，页面内容过多时不会固定 */
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        .headChat {
+            padding: 10px 15px 5px;
+            border-bottom: 1px solid #e8e8e8;
+            height: 50px;
+        }
+
+        .headChatee {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .headChatee div {
+            font-size: 22px;
+        }
+
+        .avtaor {
+            height: 30px;
+            line-height: 30px;
+            display: flex;
+            align-items: center;
+            text-align: left;
+        }
+
+        .avtaor img {
+            width: 30px;
+            height: 30px;
+            margin-right: 15px;
+        }
+
+        .avtaor p {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .remarkName {
+            font-size: 12px;
+            margin: 2px 0;
+        }
+
+        .recordMain,
+        .recordMainee {
+            height: 80%;
+            overflow-y: scroll;
+            padding: 5px 15px;
+        }
+
+        .recordMain p {
+            height: 30px;
+            border: 1px solid red;
+        }
+
+        #chatRecord .panel .panel-body {
+            overflow: unset;
+        }
+
+        .staffName {
+            margin-top: 30px
+        }
+
+        .staffName:last-child {
+            margin-bottom: 30px
+        }
+
+        .avatar {
+            width: 35px;
+            height: 35px;
+        }
+
+        .timeLeft {
+            width: 200px;
+            /* display: none; */
+            position: absolute;
+            left: 0;
+            top: -15px;
+            font-size: 12px;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: rgba(0, 0, 0, .45);
+            line-height: 18px;
+            text-align: left;
+        }
+
+        .timeRight {
+            width: 200px;
+            /* display: none; */
+            position: absolute;
+            right: 0;
+            top: -15px;
+            font-size: 12px;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: rgba(0, 0, 0, .45);
+            line-height: 18px;
+            text-align: right;
+        }
+
+        .userbox_left {
+
+            display: flex;
+            justify-content: left;
+            align-items: flex-start;
+        }
+
+        .userbox_right {
+
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: right;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        .chat_left {
+            justify-content: flex-start;
+            width: auto;
+            height: auto;
+            color: #222;
+            /* white-space: pre-wrap; */
+            word-break: break-word;
+            max-width: 80%;
+            user-select: text;
+            margin-left: 6px;
+            position: relative;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .chat_right {
+            justify-content: flex-start;
+            width: auto;
+            height: auto;
+            color: #fff;
+            /* white-space: pre-wrap; */
+            word-break: break-word;
+            max-width: 80%;
+            user-select: text;
+            margin-right: 6px;
+            position: relative;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .chat_left .chatContent {
+            width: auto;
+            height: auto;
+            padding: 5px;
+            border-radius: 5px;
+            background: #f2f2f2;
+            font-size: 14px !important;
+            border: 1px solid transparent;
+            cursor: pointer;
+            margin: 6px auto;
+            line-height: 24px;
+        }
+
+
+        .chat_right .chatContent {
+            width: auto;
+            height: auto;
+            padding: 5px;
+            border-radius: 5px;
+            background: #1992f9;
+            font-size: 14px !important;
+            border: 1px solid transparent;
+            cursor: pointer;
+            margin: 6px auto;
+            line-height: 24px;
+        }
+
+        .boxhover:hover .timeRight {
+            display: block;
+        }
+
+        .boxhover:hover .timeLeft {
+            display: block;
+        }
+
+        .abs {
+            width: 30%;
+            height: 30%;
+        }
+
+        .playVideo_left video,
+        .playVideo_right video {
+            width: 80%;
+            height: 80%;
+        }
+
+        .playVideo_left {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .playVideo_right {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+
+        .recordFile a {
+            display: block;
+            cursor: pointer;
+            border: 1px solid #e8e8e8;
+            padding: 10px;
+            width: 260px;
+            height: 90px;
+            font-size: 12px;
+            word-break: break-all;
+            color: #909090;
+            display: flex;
+            justify-content: space-between;
+            box-sizing: border-box;
+            text-decoration: none
+        }
+
+        .recordFile a :hover {
+            text-decoration: underline
+        }
+
+        .recordFile .fileMain {
+            width: 188px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .FileTitle {
+            width: 210px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+        }
+
+        .FileSizeLeft {
+            text-align: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .FileSizeright {
+            text-align: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            line-height: 20px;
+        }
+
+        .recordFile a img {
+            width: 46px;
+            height: 46px;
+            margin-top: 20px;
+            margin-left: 6px;
+            -o-object-fit: cover;
+            object-fit: cover;
+        }
+
+        .viewer-toolbar>ul>li::before {
+            margin-top: -3px;
+        }
+
+        .viewer-toolbar>ul>.viewer-large::before {
+            margin-top: 1px;
+        }
+
+        .chat_left .chatVoice {
+            height: 40px;
+            /* width: 100px; */
+            width: auto;
+            line-height: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            padding: 10px;
+            padding-right: 15px;
+        }
+
+        .chat_right .chatVoice {
+            height: 40px;
+            /* width: 100px; */
+            width: auto;
+            line-height: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            padding: 10px;
+            padding-right: 15px;
+
+        }
+
+        .chatVoiceImg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .chatVoice p {
+            border: 0;
+            font-size: 16px;
+        }
+
+        .staffTime {
+            text-align: center;
+            font-size: 14px;
+            margin: 35px 0;
+            color: #777;
+        }
+
+        @keyframes anim-flash {
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 0;
+            }
+
+            51% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .playAudioVoice img {
+            -webkit-animation: anim-flash 1s infinite;
+            animation: anim-flash 1s infinite;
+        }
+
+        .window {
+            width: 788px;
+            left: 50% !important;
+            margin-left: -394px;
+            top: 0 !important;
+        }
+
+        .window-shadow {
+            display: none !important;
+            width: 788px;
+            left: 50% !important;
+            margin-left: -394px;
+            top: 0 !important;
+        }
+
+        .messager-window {
+            margin: 0 auto;
+            top: 50% !important;
+            left: 50% !important;
+            margin-top: -80px;
+            margin-left: -150px;
+        }
+
+        html {
+            overflow: auto;
+        }
+
+
+
+        /* 员工 */
+
+        .userbox_right .userRevoke,
+        .userbox_left .userRevoke {
+            /* <p class="userRevoke">已撤回 </p> */
+            text-align: left;
+            height: auto;
+            margin-top: 0;
+            margin-bottom: 0;
+            margin-right: 8px;
+            background: #e6f7ff;
+            align-self: flex-end;
+            border: 0;
+            padding: 2px;
+            box-sizing: border-box;
+        }
+
+        .userbox_left .userRevoke {
+            margin-left: 8px;
+        }
+
+        .userbox_right .userRevokeImg {
+            position: absolute;
+            right: 30.5%;
+            bottom: 0;
+        }
+
+        .userbox_left .userRevokeImg {
+            position: absolute;
+            left: 30.5%;
+            bottom: 0;
+        }
+
+        .noUserRevoke {
+            display: none;
+        }
+
+
+
+
+        .chat_right .chatContent_right,
+        .chat_left .chatContent_left {
+            width: 260px;
+            border: 1px solid #e8e8e8;
+            border-radius: 0 4px 4px 8px;
+            padding: 8px 0px 0px 8px;
+            background: #fff;
+        }
+
+
+        .chatContent_right .chatRecord_title,
+        .chatContent_left .chatRecord_title {
+            text-align: left;
+            border: 0;
+            margin: 0;
+            color: #909090;
+            height: auto;
+            font-size: 13px;
+        }
+
+        .chatRecord_title:first-child {
+            color: #222;
+            font-size: 14px;
+
+        }
+
+        .chatRecord_title:nth-child(2) {
+            border-bottom: 1px solid #e8e8e8;
+            padding-bottom: 3px;
+            padding-top: 1px;
+        }
+
+
+
+
+
+        /* loading动画 */
+        .loading {
+            /* height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.2); */
+            z-index: 99999;
+            display: none;
+
+            position: fixed;
+            top: 100px;
+            left: 50%;
+        }
+
+        .loading .sk-circle {
+            margin: 0px auto;
+            width: 3.5rem;
+            height: 3.5rem;
+            position: relative;
+            top: 35%;
+        }
+
+        .loading .sk-circle .sk-child {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .loading .sk-circle .sk-child:before {
+            content: '';
+            display: block;
+            margin: 0 auto;
+            width: 15%;
+            height: 15%;
+            background-color: #d43333;
+            border-radius: 100%;
+            -webkit-animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
+            animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
+        }
+
+        .loading .sk-circle .sk-circle2 {
+            -webkit-transform: rotate(30deg);
+            -ms-transform: rotate(30deg);
+            transform: rotate(30deg);
+        }
+
+        .loading .sk-circle .sk-circle3 {
+            -webkit-transform: rotate(60deg);
+            -ms-transform: rotate(60deg);
+            transform: rotate(60deg);
+        }
+
+        .loading .sk-circle .sk-circle4 {
+            -webkit-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+
+        .loading .sk-circle .sk-circle5 {
+            -webkit-transform: rotate(120deg);
+            -ms-transform: rotate(120deg);
+            transform: rotate(120deg);
+        }
+
+        .loading .sk-circle .sk-circle6 {
+            -webkit-transform: rotate(150deg);
+            -ms-transform: rotate(150deg);
+            transform: rotate(150deg);
+        }
+
+        .loading .sk-circle .sk-circle7 {
+            -webkit-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+
+        .loading .sk-circle .sk-circle8 {
+            -webkit-transform: rotate(210deg);
+            -ms-transform: rotate(210deg);
+            transform: rotate(210deg);
+        }
+
+        .loading .sk-circle .sk-circle9 {
+            -webkit-transform: rotate(240deg);
+            -ms-transform: rotate(240deg);
+            transform: rotate(240deg);
+        }
+
+        .loading .sk-circle .sk-circle10 {
+            -webkit-transform: rotate(270deg);
+            -ms-transform: rotate(270deg);
+            transform: rotate(270deg);
+        }
+
+        .loading .sk-circle .sk-circle11 {
+            -webkit-transform: rotate(300deg);
+            -ms-transform: rotate(300deg);
+            transform: rotate(300deg);
+        }
+
+        .loading .sk-circle .sk-circle12 {
+            -webkit-transform: rotate(330deg);
+            -ms-transform: rotate(330deg);
+            transform: rotate(330deg);
+        }
+
+        .loading .sk-circle .sk-circle2:before {
+            -webkit-animation-delay: -1.1s;
+            animation-delay: -1.1s;
+        }
+
+        .loading .sk-circle .sk-circle3:before {
+            -webkit-animation-delay: -1s;
+            animation-delay: -1s;
+        }
+
+        .loading .sk-circle .sk-circle4:before {
+            -webkit-animation-delay: -0.9s;
+            animation-delay: -0.9s;
+        }
+
+        .loading .sk-circle .sk-circle5:before {
+            -webkit-animation-delay: -0.8s;
+            animation-delay: -0.8s;
+        }
+
+        .loading .sk-circle .sk-circle6:before {
+            -webkit-animation-delay: -0.7s;
+            animation-delay: -0.7s;
+        }
+
+        .loading .sk-circle .sk-circle7:before {
+            -webkit-animation-delay: -0.6s;
+            animation-delay: -0.6s;
+        }
+
+        .loading .sk-circle .sk-circle8:before {
+            -webkit-animation-delay: -0.5s;
+            animation-delay: -0.5s;
+        }
+
+        .loading .sk-circle .sk-circle9:before {
+            -webkit-animation-delay: -0.4s;
+            animation-delay: -0.4s;
+        }
+
+        .loading .sk-circle .sk-circle10:before {
+            -webkit-animation-delay: -0.3s;
+            animation-delay: -0.3s;
+        }
+
+        .loading .sk-circle .sk-circle11:before {
+            -webkit-animation-delay: -0.2s;
+            animation-delay: -0.2s;
+        }
+
+        .loading .sk-circle .sk-circle12:before {
+            -webkit-animation-delay: -0.1s;
+            animation-delay: -0.1s;
+        }
+
+        @-webkit-keyframes sk-circleBounceDelay {
+
+            0%,
+            80%,
+            100% {
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+
+            40% {
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+
+        @keyframes sk-circleBounceDelay {
+
+            0%,
+            80%,
+            100% {
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+
+            40% {
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+    </style>
+
+    <!-- 记录数据有多少条 -->
+    <input class="dataLength" type="text" value="" hidden>
+    <!-- 记录什么是偶不能请求 -->
+    <input class="dataask" type="text" value="" hidden>
+    <!-- 获取聊天记录的seq -->
+    <input class="rowDigseq" type="text" value="" hidden>
+    <!-- 获取第几行的数据 -->
+    <input class="rowDigindex" type="text" value="" hidden>
+    <!-- 储存滚动条的高度 -->
+    <input class="recordscrollHeight" type="text" value="" hidden>
+
+    <!-- 储存群聊ID -->
+    <input class="qunTalkID" type="text" value="" hidden>
+
+    <img src="" data-original="" alt="" id="hideImg" style="display: none;">
+
+    <div id="chatRecord" class="easyui-dialog" title="聊天记录" style="width:800px;height:760px;"
+        data-options="iconCls:'icon-save',resizable:true,modal:true,">
+        <div class="bigbox">
+            <!-- <div class="headChat">
+                <div class="avtaor">
+                    <img src="" alt="" id="kehuAvtar">
+                    <p id="kehuName"></p>
+                </div>
+                <p id="kehuNotes" class="remarkName"></p>
+            </div> -->
+
+
+            <div class="loading">
+                <div class="sk-circle">
+                    <div class="sk-circle1 sk-child"></div>
+                    <div class="sk-circle2 sk-child"></div>
+                    <div class="sk-circle3 sk-child"></div>
+                    <div class="sk-circle4 sk-child"></div>
+                    <div class="sk-circle5 sk-child"></div>
+                    <div class="sk-circle6 sk-child"></div>
+                    <div class="sk-circle7 sk-child"></div>
+                    <div class="sk-circle8 sk-child"></div>
+                    <div class="sk-circle9 sk-child"></div>
+                    <div class="sk-circle10 sk-child"></div>
+                    <div class="sk-circle11 sk-child"></div>
+                    <div class="sk-circle12 sk-child"></div>
+                </div>
+            </div>
+            <div class="recordMain" id="recordContent">
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="chatRecordee" class="easyui-dialog" title="引用的聊天记录"
+        style="width:800px;height:760px;    overflow-y: hidden;"
+        data-options="iconCls:'icon-save',resizable:true,modal:true,">
+        <div class="bigbox">
+            <div class="headChat  headChatee">
+                <div id="headTitle">聊天记录</div>
+            </div>
+
+            <div class="recordMainee" id="recordContentee">
+                <div>你好，这些是聊天记录</div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--加载动画-->
+
+
+
+    <script>
+
+
+        function openChatDlg(rowid) {
+            $('.recordMain').empty()
+            console.log(rowid)
+
+            $('#chatRecord').dialog('open');
+
+            var transdata = {
+                sessionid: rowid
+            }
+
+            sendRequest("./qa/getQaContentList.do", transdata, function (data) {
+ 
+                if (data == "null") {
+                    $.messager.alert('执行失败', ' 请确定该业务员是否使用了AI？', 'error');
+                    return
+                } else {
+                    var recordData = JSON.parse(data).rows;
+                    console.log(recordData)
+
+                    if (recordData.length == '0') {
+                        $.messager.alert('执行失败', '没有记录', 'error');
+                        $('.recordMain').empty()
+                        return
+                    }
+                    var template = ''
+                    var customerphotourl = "../../../../images/AI/AIrobot.png"
+                    var photourl = "../../../../images/AI/user.png"
+                    for (let i = 0; i < recordData.length; i++) {
+
+                        recordData[i].content = recordData[i].content.replace(/\r\n/g, '<br>').replace(/\n/g, '<br>');
+
+
+
+                        if (recordData[i].role == "user") {
+                            template += `
+                 <div class='staffName'> 
+                    <div class="userbox_left">
+                        <img src="${"${photourl}"}" alt="" class="avatar" />
+                        <div class="pBox boxhover chat_left">
+                            <div class="timeLeft">${"${recordData[i].makedate}"}</div>
+                            <p class="chatContent">${"${recordData[i].content}"}   </p>
+                        </div>
+                    </div>
+                 </div>
+                `;
+
+                        } else {
+                            template += `
+                 <div class='staffName'> 
+                    <div class="userbox_right">
+                         <img src="${"${customerphotourl}"}" alt="" class="avatar" />
+                         <div class="pBox boxhover chat_right">
+                             <div class=" timeRight ">${"${recordData[i].makedate}"}</div>
+                             <p class="chatContent">${"${recordData[i].content}"} </p>
+                         </div>
+                
+                    </div>
+                 </div>	
+                 `;
+                        }
+                    }
+
+                    console.log(template)
+
+                    $(template).prependTo($('#recordContent')) //往最前面插入代码
+
+
+
+                }
+            })
+
+
+        };
+
+
+
+
+
+
+
+
+ 
+       
+        var request;
+
+        function sendRequest(url, data, success, error) {
+            if (request) {
+                request.abort();
+            }
+            request = $.ajax({
+                url: url,
+                type: "post",
+                async: true,
+                data: data ? data : {},
+                beforeSend: function () {
+                    // $(".loading").show();
+                },
+                success: function (data) {
+                    // $(".loading").hide();
+                    if (success) {
+                        success(data);
+                    }
+                },
+                error: function (data) {
+                    if (error) {
+                        error(data);
+                    }
+                },
+                complete: function () {
+                    // $(".loading").hide();
+                }
+            });
+        }
+
+
+
+        // 结束
+    </script>
