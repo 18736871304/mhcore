@@ -767,7 +767,7 @@
                             template += `
                  <div class='staffName'> 
                     <div class="userbox_left">
-                        <img src="${"${customerphotourl}"}" alt="" class="avatar" />
+                        <img src="${"${photourl}"}" alt="" class="avatar" />
                         <div class="pBox boxhover chat_left">
                             <div class="timeLeft">${"${recordData[i].makedate}"}</div>
                             <p class="chatContent">${"${recordData[i].content}"}   </p>
@@ -780,7 +780,7 @@
                             template += `
                  <div class='staffName'> 
                     <div class="userbox_right">
-                         <img src="${"${photourl}"}" alt="" class="avatar" />
+                         <img src="${"${customerphotourl}"}" alt="" class="avatar" />
                          <div class="pBox boxhover chat_right">
                              <div class=" timeRight ">${"${recordData[i].makedate}"}</div>
                              <p class="chatContent">${"${recordData[i].content}"} </p>
