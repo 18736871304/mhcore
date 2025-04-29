@@ -15,12 +15,13 @@
 					$('#chatRecordee').dialog('close');
 					initDataGrid20($('#aiqaList'));
 					init02Org();
-					
+
 					inputList = [
 					];
 
 					checkList = [
 					];
+					$("#qstartdate").datebox("setValue", getMonthOneFormatDate());
 				}
 
 				function aftercodeselect(comboxid) {
@@ -61,7 +62,7 @@
 					tParam.q03org = $('#q03org').combobox('getValue');
 					tParam.q04org = getOrgan04Code();
 					tParam.teamid = getQTeamId();
-					
+
 					displayDataGrid20($('#aiqaList'), tParam, tturl);
 				}
 
@@ -80,6 +81,22 @@
 					// 如果 sessionid 是字符串，需加引号
 					return '<a href="#" style="cursor:pointer;" onclick="openChatDlg(\'' + sessionid + '\')">查看</a>';
 				};
+				function getMonthOneFormatDate() {
+					var date = new Date();
+
+					var seperator1 = "-";
+					var year = date.getFullYear();
+					var month = date.getMonth() + 1;
+					var strDate = date.getDate();
+					if (month >= 1 && month <= 9) {
+						month = "0" + month;
+					}
+					if (strDate >= 0 && strDate <= 9) {
+						strDate = "0" + strDate;
+					}
+					var currentdate = year + seperator1 + month + seperator1 + "01";
+					return currentdate;
+				}
 
 
 
@@ -113,7 +130,7 @@
 						<td></td>
 						<td></td>
 					</tr>
-					<%@ include file="/WEB-INF/jsp/admin/team/organAndTeamQuery.jsp"%>
+					<%@ include file="/WEB-INF/jsp/admin/team/organAndTeamQuery.jsp" %>
 				</table>
 				<br>
 				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id="aiqaQuery"
@@ -125,10 +142,10 @@
 					<thead>
 						<tr>
 							<th data-options="field:'makedate',width:125">问答时间</th>
-							<%@ include file="/WEB-INF/common/column/organ/organList.jsp"%>
-							<th data-options="field:'username',width:60">姓名</th>
-							<th data-options="field:'title',width:500">第一条问题</th>
-							<th data-options="field:'openAIRecord',width:60,formatter:openAIRecord">操作</th>
+							<%@ include file="/WEB-INF/common/column/organ/organList.jsp" %>
+								<th data-options="field:'username',width:60">人员姓名</th>
+								<th data-options="field:'title',width:500">首个问题</th>
+								<th data-options="field:'openAIRecord',width:60,formatter:openAIRecord">问答内容</th>
 
 						</tr>
 					</thead>
@@ -136,7 +153,7 @@
 				<br>
 
 				<%@ include file="/WEB-INF/common/AIRecord.jsp" %>
-			
+
 
 
 			</div>
