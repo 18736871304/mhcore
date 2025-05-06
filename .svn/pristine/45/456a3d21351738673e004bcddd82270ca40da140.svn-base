@@ -5,7 +5,6 @@
 		<head>
 			<title></title>
 			<link rel="stylesheet" href="../../../../css/inputbox/line6.css">
-	
 			<script>
 				var inputList;
 				var checkList;
