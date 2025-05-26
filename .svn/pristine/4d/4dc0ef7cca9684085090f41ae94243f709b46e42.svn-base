@@ -55,7 +55,7 @@
 						$('#isseal'),
 						$('#jointype'),
 						$('#freelookperiod'),
-
+						 
 					];
 
 					checkList_main = [
@@ -63,7 +63,7 @@
 						$('#price'),
 						//$('#orderby'),
 						$('#url'),
-
+					
 					];
 
 					disComBox($('#qinsorgancode'), "insorgancode", null);
@@ -295,16 +295,14 @@
 							return;
 						}
 					}
-				
 
 					tparam.outriskcode = $('#outriskcode').val();
 					tparam.salesarea = $('#salesarea').combobox('getValues') + "";
-					if (tparam.salesarea == '') {
-						$.messager.alert('操作提示', '销售区域不能为空！', 'error');
-						return;
-					}
+
 					var addUrl = getLink()
 					tparam.addurl = addUrl
+
+					console.log(tparam)
 
 					ajaxdeal("supplier/riskdefineInsert.do", tparam, null, null, saveSuss);
 				}
@@ -374,16 +372,8 @@
 						}
 					}
 
-				
-
 					tparam.outriskcode = $('#outriskcode').val();
 					tparam.salesarea = $('#salesarea').combobox('getValues') + "";
-					console.log(tparam)
-					console.log(tparam.salesarea == '')
-					if (tparam.salesarea == '') {
-						$.messager.alert('操作提示', '销售区域不能为空！', 'error');
-						return;
-					}
 
 					var addUrl = getLink()
 					tparam.addurl = addUrl
@@ -631,19 +621,18 @@
 
 					// 假设两组input数量相同且对应顺序一致
 					for (let i = 0; i < urlInputs.length; i++) {
-
-						if (urlInputs[i].value == '' && remarkInputs[i].value == '') {
-
-						} else {
-							results.push({
-								url: urlInputs[i].value.trim(),
-								remark: remarkInputs[i] ? remarkInputs[i].value.trim() : ''
-							});
-						}
-
+						results.push({
+							url: urlInputs[i].value.trim(),
+							remark: remarkInputs[i] ? remarkInputs[i].value.trim() : ''
+						});
 					}
+
+
 					var addUrl = JSON.stringify(results)
+
 					return addUrl
+
+
 				}
 
 				// 回显数据 
@@ -1010,6 +999,7 @@
 							<textarea notnull="人工核保详情" class="txt" style="line-height: 1.5;width: 600px;height: 200px;"
 								id="emailuw_remark" name="emailuw_remark">
 				</textarea>
+<<<<<<< .mine
 						</td>
 					</tr>
 
@@ -1053,4 +1043,69 @@
 
 
 
-	</html>
+	</html>||||||| .r7536
+			</td>
+		</tr>
+		
+	</table>
+	<br>
+	<div class="upload-box-uw dis_emali_uw" hidden>
+		<input type='text' name='textfield' id='textfield' class='upload-txt' />  
+	 	<button id = "file-view" class="smsbutton">浏览...</button> 	
+	 	<input type="file" name="myfiles" class="upload-file-uw" id="filename" size="28" onchange="document.getElementById('textfield').value=this.value.substr(12)" /> 	
+	 	<button id = "file-upload" class="smsbutton" onclick = "FileUpload()">上传</button>
+	 	<button id = "file-delete" class="smsbutton" onclick = "fileDelete()">删除</button>
+	</div>
+	<div class = "dis_emali_uw" hidden>
+	<table id="filelist" class="easyui-datagrid" title="附件信息" style="width:560px;height:auto"
+		data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectonefile">
+		<thead>
+			<tr>
+				<th data-options="field:'filename',width:450">文件名称</th>
+				<th data-options="field:'_signdownload',width:60,formatter:signdownload">操作</th>
+			</tr>
+		</thead>
+	</table>
+	<br>
+	</div>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id = "riskdefineInsert" onclick = "riskdefineInsert()">险种录入</a>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" id = "riskdefineUpdate" onclick = "riskdefineUpdate()">险种修改</a>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" id = "riskdefineDelete" onclick = "riskdefineDelete()">险种删除</a>
+</div>
+</body>
+</html>
+=======
+			</td>
+		</tr>
+		
+	</table>
+	<br>
+	<div class="upload-box-uw dis_emali_uw" hidden>
+		<input type='text' name='textfield' id='textfield' class='upload-txt' />  
+	 	<button id = "file-view" class="smsbutton">浏览...</button> 	
+	 	<input type="file" name="myfiles" class="upload-file-uw" id="filename" size="28" onchange="document.getElementById('textfield').value=this.value.substr(12)" /> 	
+	 	<button id = "file-upload" class="smsbutton" onclick = "FileUpload()">上传</button>
+	 	<button id = "file-delete" class="smsbutton" onclick = "fileDelete()">删除</button>
+	</div>
+	<div class = "dis_emali_uw" hidden>
+	<table id="filelist" class="easyui-datagrid" title="附件信息" style="width:560px;height:auto"
+		data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectonefile">
+		<thead>
+			<tr>
+				<th data-options="field:'filename',width:450">文件名称</th>
+				<th data-options="field:'_signdownload',width:60,formatter:signdownload">操作</th>
+			</tr>
+		</thead>
+	</table>
+	<br>
+	</div>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id = "riskdefineInsert" onclick = "riskdefineInsert()">险种录入</a>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" id = "riskdefineUpdate" onclick = "riskdefineUpdate()">险种修改</a>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" id = "riskdefineDelete" onclick = "riskdefineDelete()">险种删除</a>
+	<br>
+	<br>
+	<font color="red">保险产品编码规则：渠道+险种类型+保险公司+保险产品</font>
+</div>
+</body>
+</html>
+>>>>>>> .r7555

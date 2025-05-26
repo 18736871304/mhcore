@@ -55,7 +55,7 @@
 						$('#isseal'),
 						$('#jointype'),
 						$('#freelookperiod'),
-
+						 
 					];
 
 					checkList_main = [
@@ -63,7 +63,7 @@
 						$('#price'),
 						//$('#orderby'),
 						$('#url'),
-
+					
 					];
 
 					disComBox($('#qinsorgancode'), "insorgancode", null);
@@ -295,16 +295,14 @@
 							return;
 						}
 					}
-				
 
 					tparam.outriskcode = $('#outriskcode').val();
 					tparam.salesarea = $('#salesarea').combobox('getValues') + "";
-					if (tparam.salesarea == '') {
-						$.messager.alert('操作提示', '销售区域不能为空！', 'error');
-						return;
-					}
+
 					var addUrl = getLink()
 					tparam.addurl = addUrl
+
+					console.log(tparam)
 
 					ajaxdeal("supplier/riskdefineInsert.do", tparam, null, null, saveSuss);
 				}
@@ -374,16 +372,8 @@
 						}
 					}
 
-				
-
 					tparam.outriskcode = $('#outriskcode').val();
 					tparam.salesarea = $('#salesarea').combobox('getValues') + "";
-					console.log(tparam)
-					console.log(tparam.salesarea == '')
-					if (tparam.salesarea == '') {
-						$.messager.alert('操作提示', '销售区域不能为空！', 'error');
-						return;
-					}
 
 					var addUrl = getLink()
 					tparam.addurl = addUrl
@@ -631,19 +621,18 @@
 
 					// 假设两组input数量相同且对应顺序一致
 					for (let i = 0; i < urlInputs.length; i++) {
-
-						if (urlInputs[i].value == '' && remarkInputs[i].value == '') {
-
-						} else {
-							results.push({
-								url: urlInputs[i].value.trim(),
-								remark: remarkInputs[i] ? remarkInputs[i].value.trim() : ''
-							});
-						}
-
+						results.push({
+							url: urlInputs[i].value.trim(),
+							remark: remarkInputs[i] ? remarkInputs[i].value.trim() : ''
+						});
 					}
+
+
 					var addUrl = JSON.stringify(results)
+
 					return addUrl
+
+
 				}
 
 				// 回显数据 
