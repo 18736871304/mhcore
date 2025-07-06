@@ -1,0 +1,115 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<%@ include file="/WEB-INF/common/include.jsp"%>
+
+<head>
+<title></title>
+<link rel="stylesheet" href="../../../../css/inputbox/line6.css">
+<script>
+var inputList;
+var checkList;
+var doubleList;
+
+window.onload = function () 
+{
+	initDataGrid20($('#uploadList'));
+	
+	inputList = [
+			];
+
+	checkList = [
+			];
+	
+	displayCombox(
+	        $("#qbuztype"),
+	        null,
+	        "/jsondata/policy/jsuploadtype.json",
+	        "dd_key",
+	        "dd_value"
+	      );
+}
+
+function aftercodeselect(comboxid) 
+{
+	
+}
+
+function selectone(){
+	
+}
+
+function uploadQuery() 
+{
+	var tturl = "/policy/getJSFileUploadList.do";
+
+	var tParam = new Object();
+
+	tParam.uploadStartDate = $('#qstartdate').datebox("getValue");
+	tParam.uploadEndDate = $('#qenddate').datebox("getValue");
+	tParam.buztype = $('#qbuztype').combobox('getValue');
+
+	displayDataGrid20($('#uploadList'), tParam, tturl);
+}
+
+function saveSuss() 
+{
+}
+
+function clearInputData() 
+{
+	
+}	
+</script>
+</head>
+<body>
+	<div style="margin-left:0%">
+		<table class="common">
+			<tr>
+				<td class="reprot_title">
+					上传起期
+				</td>
+				<td class="report_common">
+					<input class="easyui-datebox" style="width: 90%" id="qstartdate" name="qstartdate">
+				</td>
+				
+				<td class="reprot_title">
+					上传止期
+				</td>
+				<td class="report_common">
+					<input class="easyui-datebox" style="width: 90%" id="qenddate" name="qenddate">
+				</td>
+			
+				<td class = "title">
+					上传子菜单
+				</td>
+				<td class = "common">
+					<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="qbuztype" id="qbuztype">
+					</select>
+				</td>
+				<td></td><td></td>
+				<td></td><td></td>
+				<td></td><td></td>
+			</tr>
+		</table>
+		<br>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id="uploadQuery" onclick="uploadQuery()">查询</a>
+		<br>
+		<br>
+		<table id="uploadList" class="easyui-datagrid" title="上传结算报告" style="width:auto;height:auto"
+			data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone">
+			<thead>
+				<tr>
+					<th data-options="field:'makedatestr',width:125">上传时间</th>
+					<th data-options="field:'oprname',width:80">上传人</th>
+					<th data-options="field:'menuname',width:100">上传子菜单</th>
+					<th data-options="field:'allcount',width:100">上传总行数</th>
+					<th data-options="field:'successcount',width:100">成功匹配行数</th>
+					<th data-options="field:'errorcount',width:100">未成功匹配行数</th>
+					<th data-options="field:'errormsg',width:125">错误报告</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+</body>
+
+</html>

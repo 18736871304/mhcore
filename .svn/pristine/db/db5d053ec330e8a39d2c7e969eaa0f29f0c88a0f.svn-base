@@ -15,7 +15,7 @@ function queryXbState(val,row,index)
 	{
 		if(row.xbstatename=='已续保')
 		{
-			return '<a href="#" onclick="disPolicyInfo(\''+row.ncorderid+'\')">已续保</a>';
+			return '<a href="#" onclick="disPolicyInfo(\''+row.orderid+'\')">已续保</a>';
 		}
 		else
 		{
