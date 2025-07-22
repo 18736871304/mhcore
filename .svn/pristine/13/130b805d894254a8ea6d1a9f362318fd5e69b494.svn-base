@@ -108,8 +108,6 @@ function displaysumdata(data) {
         $('#addratesum').val(data.addrate);
     }
 }
-
-
 	
 </script>
 </head>

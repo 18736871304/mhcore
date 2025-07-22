@@ -306,19 +306,24 @@ var indexFunc = {
 		// } else {
 		// 	$('#serviceImg').attr('src', 'http://insure.meihualife.com' + data.photourl);
 		// }
-
-		if (data.realname == null || data.realname == '') {
-			$('#serviceName').text('我的管家：');
-		} else {
-
-			if(data.gender === '0'){
-				$('#serviceName').text("我的管家：三文老师"); 
-			}else{
-				 $('#serviceName').text("我的管家：一芯老师");
+		
+		httpRequest('/rights/getServiceCom.do', 'get', '', {
+			success: function (res) {
+				if (res.managecom == 'benbu') {
+					if (data.realname == null || data.realname == '') {
+						$('#serviceName').text('我的管家：');
+					} else {
+						if(data.gender === '0'){
+							$('#serviceName').text("我的管家：三文老师"); 
+						}else{
+							 $('#serviceName').text("我的管家：一芯老师");
+						}
+					}
+				}else{
+					$('#serviceName').text("我的管家："+ data.realname)
+				}
 			}
-			
-			
-		}
+		})
 	},
 	renderLists: function (data) {
 		$('#protectingNum').text(data.length)

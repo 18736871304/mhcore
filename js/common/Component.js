@@ -102,7 +102,6 @@ function displayDataGrid20(gridid, param, turl, sfunName) {
 	if (param == null) {
 		param = new Object();
 	}
-	console.log(param)
 
 	param.iamsOpr = $('#iamsopr').val();
 	param.iamsOprName = $('#iamsoprname').val();

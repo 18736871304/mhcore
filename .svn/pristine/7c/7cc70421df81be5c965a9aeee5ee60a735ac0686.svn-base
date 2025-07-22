@@ -108,8 +108,6 @@ function displaysumdata(data) {
         $('#addratesum').val(data.addrate);
     }
 }
-
-
 	
 </script>
 </head>
@@ -206,10 +204,10 @@ function displaysumdata(data) {
 					<th data-options="field:'day30',width:25">30</th>
 					<th data-options="field:'day31',width:25">31</th>
 					
-					<!-- <th data-options="field:'notaddfriend',width:80">未添加好友数</th>
-					<th data-options="field:'addfriend',width:80">已添加好友数</th> -->
-					<th data-options="field:'addfriend',width:80">合计</th>
-					<!-- <th data-options="field:'addrate',width:80">通过率</th> -->
+					<th data-options="field:'notaddfriend',width:80">未添加好友数</th>
+					<th data-options="field:'addfriend',width:80">已添加好友数</th>
+					<th data-options="field:'cluecount',width:80">合计</th>
+					<th data-options="field:'addrate',width:80">通过率</th>
 				</tr>
 			</thead>
 		</table>
