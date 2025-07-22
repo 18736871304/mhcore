@@ -1,0 +1,234 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<html>
+<%@ include file="/WEB-INF/common/include.jsp"%>
+
+<head>
+<title></title>
+<link rel="stylesheet" href="../../../../css/inputbox/line6.css">
+<script>
+var inputList;
+var checkList;
+var doubleList;
+
+window.onload = function () 
+{
+	initDataGrid20($('#articleReportList'));
+	
+	inputList = [
+			];
+
+			checkList = [
+			];
+	
+	disComBox($('#qusergrade'),"usergrade",null);
+	disComBox($('#qchannel'), "source", null);
+	init02Org();
+	$('#qcluestartdate').datebox('setValue', getMonthOneFormatDate());
+}
+
+function aftercodeselect(comboxid) 
+{
+	if (comboxid.attr("id") == "qchannel") {
+		var tParam = new Object();
+		tParam.comboxType = 'sourcedetail_' + comboxid.combobox('getValue');
+
+		var tturl = "activity/getSourceDetail.do";
+		displayCombox($('#qappname'), tParam, tturl, "dd_key", "dd_value");
+	} else {
+		organAfterSelect(comboxid);
+	}
+}
+
+function selectone() 
+{
+	
+}
+
+function saveSuss() 
+{
+}
+
+function clearInputData() 
+{
+	
+}
+
+function articleClueQuery()
+{
+	var tturl = "articleMan/getArticleClueReport.do";
+
+	var tParam = new Object();
+
+	tParam.cluestartdate = $('#qcluestartdate').datebox("getValue");
+	tParam.clueenddate = $('#qclueenddate').datebox("getValue");
+	
+	tParam.channel = $('#qchannel').combobox('getValue');
+	tParam.appname = $('#qappname').combobox('getText');
+	
+	var usergrade_codes = $('#qusergrade').combobox('getValues');
+	var usergrade_Str = "'";
+	
+	for(var i=0;i<usergrade_codes.length;i++)
+    {
+		if (usergrade_Str != "'") 
+        {
+			usergrade_Str += "','";
+        }
+		
+		usergrade_Str += usergrade_codes[i];
+    }
+	usergrade_Str += "'";
+	
+	if (usergrade_Str != "''") 
+    {
+		tParam.usergrade = usergrade_Str;	
+    }
+	
+	tParam.q02org = $('#q02org').combobox('getValue');
+	tParam.q03org = $('#q03org').combobox('getValue');
+	tParam.q04org = getOrgan04Code();
+
+	tParam.teamid = getQTeamId();
+	
+	displayDataGrid20($('#articleReportList'), tParam, tturl);
+	var sumurl = "articleMan/getArticleClueReportSum.do";
+    ajaxdeal(sumurl, tParam, displaysumdata, null);
+}
+
+function displaysumdata(data) {
+    if (data == null || data == "") {
+        $('#cluecountsum').val("");
+        $('#addfriendsum').val("");
+        $('#notaddfriendsum').val("");
+        $('#addratesum').val("");
+    } else {
+        $('#cluecountsum').val(data.cluecount);
+        $('#addfriendsum').val(data.addfriend);
+        $('#notaddfriendsum').val(data.notaddfriend);
+        $('#addratesum').val(data.addrate);
+    }
+}
+
+
+	
+</script>
+</head>
+<body>
+	<div style="margin-left:0%">
+		<table class="common">
+			<tr>
+				<td class="reprot_title">
+					线索产生起期
+				</td>
+				<td class="report_common">
+					<input class="easyui-datebox" style="width: 90%" id="qcluestartdate" name="qcluestartdate">
+				</td>
+				
+				<td class="reprot_title">
+					线索产生止期
+				</td>
+				<td class="report_common">
+					<input class="easyui-datebox" style="width: 90%" id="qclueenddate" name="qclueenddate">
+				</td>
+			
+				<td class="reprot_title">
+					渠道类型
+				</td>
+				<td class="report_common">
+					<select class="easyui-combobox" style="width: 90%" panelHeight="auto" name="qchannel" id="qchannel">
+					</select>
+				</td>
+
+				<td class="reprot_title">
+					流量来源
+				</td>
+				<td class="report_common">
+					<select class="easyui-combobox" style="width: 90%" panelHeight="auto" name="qappname" id="qappname">
+					</select>
+				</td>
+			
+				<td class = "reprot_title">
+					职能级别
+				</td>
+				<td class = "report_common">
+					<select class = "easyui-combobox" panelHeight="auto" style="width:160%" name="qusergrade" id="qusergrade" data-options="multiple:true">
+					</select>
+				</td>
+				
+				<td></td><td></td>
+			</tr>
+			<%@ include file="/WEB-INF/jsp/admin/team/organAndTeamQuery.jsp"%>
+		</table>
+		<br>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id="articleClueQuery" onclick="articleClueQuery()">查询</a>
+		<br>
+		<br>
+		<table id="articleReportList" class="easyui-datagrid" title="企微分配报表" style="width:auto;height:auto"
+			data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone">
+			<thead>
+				<tr>
+					<th data-options="field:'organ02name',width:70">所属省公司</th>
+					<th data-options="field:'organname',width:70">所属分公司</th>
+					<th data-options="field:'agentcom',width:70">所属营业部</th>
+					<th data-options="field:'teamname',width:100">所属团队</th>
+					<th data-options="field:'usercode',width:70">业务员编号</th>
+					<th data-options="field:'username',width:70">业务员姓名</th>
+					
+					<th data-options="field:'day01',width:25">01</th>
+					<th data-options="field:'day02',width:25">02</th>
+					<th data-options="field:'day03',width:25">03</th>
+					<th data-options="field:'day04',width:25">04</th>
+					<th data-options="field:'day05',width:25">05</th>
+					<th data-options="field:'day06',width:25">06</th>
+					<th data-options="field:'day07',width:25">07</th>
+					<th data-options="field:'day08',width:25">08</th>
+					<th data-options="field:'day09',width:25">09</th>
+					<th data-options="field:'day10',width:25">10</th>
+					<th data-options="field:'day11',width:25">11</th>
+					<th data-options="field:'day12',width:25">12</th>
+					<th data-options="field:'day13',width:25">13</th>
+					<th data-options="field:'day14',width:25">14</th>
+					<th data-options="field:'day15',width:20">15</th>
+					<th data-options="field:'day16',width:25">16</th>
+					<th data-options="field:'day17',width:25">17</th>
+					<th data-options="field:'day18',width:25">18</th>
+					<th data-options="field:'day19',width:25">19</th>
+					<th data-options="field:'day20',width:25">20</th>
+					<th data-options="field:'day21',width:25">21</th>
+					<th data-options="field:'day22',width:25">22</th>
+					<th data-options="field:'day23',width:25">23</th>
+					<th data-options="field:'day24',width:25">24</th>
+					<th data-options="field:'day25',width:25">25</th>
+					<th data-options="field:'day26',width:25">26</th>
+					<th data-options="field:'day27',width:25">27</th>
+					<th data-options="field:'day28',width:25">28</th>
+					<th data-options="field:'day29',width:25">29</th>
+					<th data-options="field:'day30',width:25">30</th>
+					<th data-options="field:'day31',width:25">31</th>
+					
+					<!-- <th data-options="field:'notaddfriend',width:80">未添加好友数</th>
+					<th data-options="field:'addfriend',width:80">已添加好友数</th> -->
+					<th data-options="field:'addfriend',width:80">合计</th>
+					<!-- <th data-options="field:'addrate',width:80">通过率</th> -->
+				</tr>
+			</thead>
+		</table>
+		<br>
+		<br>
+		<table class="common">
+            <tr>
+                <td class="reprot_title_4">
+					合计
+                </td>
+                <td class="report_common_4">
+                	<input class="txt" id="addfriendsum" name="addfriendsum" readonly>
+                </td>
+                <td></td><td></td>
+                <td></td><td></td>
+                <td></td><td></td>
+            </tr>
+        </table>
+	</div>
+</body>
+
+</html>
