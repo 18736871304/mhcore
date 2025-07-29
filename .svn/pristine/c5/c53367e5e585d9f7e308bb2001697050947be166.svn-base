@@ -7,6 +7,8 @@
 
 			<script>
 
+
+
 				window.onload = function () {
 					initDataGrid20($('#policyList'));
 
@@ -17,15 +19,24 @@
 					disComBox($('#qworkyears'), "workyears", null);
 
 					$('#qacceptStartDate').datebox('setValue', getMonthOneFormatDate());
-					$('#q02org').combobox('setValue', '100100000');
+
+
+					$('#q02org').combobox('setValue', '100200000');
 					organAfterSelect($('#q02org'))
-					$('#q03org').combobox('setValue', '100100100');
+					$('#q03org').combobox('setValue', '100200100');
 					organAfterSelect($('#q03org'))
+
+					$('#q04org').combobox('setValue', '100200101');
+					organAfterSelect($('#q04org'))
 
 					displayCombox($('#qriskType'), null, "/jsondata/policy/risktypestr.json", "dd_key", "dd_value");
 				}
 
+
+
+
 				function aftercodeselect(comboxid) {
+					console.log(comboxid)
 					organAfterSelect(comboxid);
 				}
 
@@ -47,6 +58,7 @@
 					tParam.agentflag = '02';
 					tParam.isxubao = 'NOTY';
 					//tParam.has_coefficient = "N";
+					//tParam.is_shanxilc="Y"
 
 					tParam.q02org = $('#q02org').combobox('getValue');
 					tParam.q03org = $('#q03org').combobox('getValue');
@@ -85,11 +97,12 @@
 
 				function displaysumdata(data) {
 					if (data == null || data == "") {
-
 						$('#policycount').val("");
 						$('#ylpolicycount').val("");
 						$('#ylprem').val("");
 						$('#changxian_sumfyp20').val("");
+
+
 						$('#sumprem').val("");
 						$('#sumfyp').val("");
 						$('#sumfyp20').val("");
@@ -134,26 +147,8 @@
 				}
 
 
-				function biaobao(val, row, index) {
-					if (row.organcode === '100200101') {
-						return row.shanxi_changxian_sumfyp20
-					} else {
-						return row.changxian_sumfyp20;
-					}
-				}
 
 
-
-				function zhesuanBiaobao(val, row, index) {
-
-					console.log(row)
-					console.log(row.coefficient_changxian_sumfyp20)
-					if (row.organcode === '100200101') {
-						return row.shanxi_coefficient_changxian_sumfyp20
-					} else {
-						return row.coefficient_changxian_sumfyp20;
-					}
-				}
 
 
 			</script>
@@ -238,21 +233,17 @@
 						<tr>
 							<th data-options="field:'agentcom',width:70">所属营业部 </th>
 							<th data-options="field:'teamname',width:100">所属团队</th>
-
 							<th data-options="field:'usergradename',width:80">职能级别</th>
 							<th data-options="field:'reusername',width:70">出单业务员</th>
 							<th data-options="field:'policycount',width:80">长期险单数</th>
+							<th data-options="field:'changxian_sumfyp20',width:80">长期险标保</th>
+							<th data-options="field:'coefficient_changxian_sumfyp20',width:130">长期险折算系数后标保</th>
 
-
-							<th data-options="field:'changxian_sumfyp20',width:80,formatter:biaobao">长期险标保</th>
-							<th
-								data-options="field:'coefficient_changxian_sumfyp20',width:130, formatter:zhesuanBiaobao">
-								长期险折算系数后标保</th>
-
+							<th data-options="field:'coefficientSJsumfyp20',width:90,formatter:function(value){return value=='0.00' ? '' : value;}">其中升级部分</th>
+							<th data-options="field:'coefficientBSJsumfyp20',width:120,formatter:function(value){return value=='0.00' ? '' : value;}">其中被升级部分</th>
 
 							<th data-options="field:'ylpolicycount',width:80">医疗险单数</th>
 							<th data-options="field:'ylprem',width:80">医疗险保费</th>
-
 							<th data-options="field:'yl',width:80,formatter:jiaquanfyp">加权标保</th>
 							<th data-options="field:'workyears',width:70">司龄（月）</th>
 						</tr>
