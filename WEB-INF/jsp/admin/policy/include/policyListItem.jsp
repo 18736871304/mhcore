@@ -4,6 +4,8 @@
 	<th data-options="field:'teamname',width:100">出单团队</th>
 	<th data-options="field:'reusername',width:70">出单业务员</th>
 	<th data-options="field:'serviceusername',width:70">服务人员</th>
+	<th data-options="field:'fentan_username',width:70,hidden:true,formatter:function(value){return value ? value : '公司';}">被升级人员</th>
+	<th data-options="field:'shanxi_licai_type',width:140,hidden:true,formatter:licaiTypeName">理财资源来源</th>
 
 	<th data-options="field:'contno',width:180">保单号</th>
 	<th data-options="field:'statename',width:60">保单状态</th>
@@ -103,6 +105,20 @@
 				}
 			})
 
+		}
+
+		function  licaiTypeName(val){
+			console.log(val)
+
+			if(val=='01'){
+				 return "本人保障资源升级理财"
+			}else if(val=='02'){
+				 return "理财资源"
+			}else if(val=='03'){
+				 return "其他员工重疾资源升级理财"
+			}else if(val=='04'){
+				 return "其他移交资源"
+			}
 		}
 
 

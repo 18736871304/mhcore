@@ -1,0 +1,235 @@
+<%@ page contentType="text/html;charset=utf-8" %>
+  <table class="common">
+    <tr>
+      <td class="reprot_title">出单起期</td>
+      <td class="report_common">
+        <input class="easyui-datebox" style="width: 90%" id="qacceptStartDate" name="qacceptStartDate" notnull="出单起期" />
+      </td>
+
+      <td class="reprot_title">出单止期</td>
+      <td class="report_common">
+        <input class="easyui-datebox" style="width: 90%" id="qacceptEndDate" name="qacceptEndDate" notnull="出单止期" />
+      </td>
+
+      <td class="reprot_title">保单号</td>
+      <td class="report_common">
+        <input class="txt" name="qcontno" id="qcontno" />
+      </td>
+
+      <td class="reprot_title">保单状态</td>
+      <td class="report_common">
+        <select class="easyui-combobox" style="width: 90%" panelHeight="auto" name="qstate" id="qstate"></select>
+      </td>
+
+      <td class="reprot_title">回访状态</td>
+      <td class="report_common">
+        <select class="easyui-combobox" style="width: 90%" panelHeight="auto" name="qinsrevisitstate"
+          id="qinsrevisitstate"></select>
+      </td>
+
+      <td class="reprot_title">回执状态</td>
+      <td class="report_common">
+        <select class="easyui-combobox" style="width: 90%" panelHeight="auto" name="qreceiptstate"
+          id="qreceiptstate"></select>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="reprot_title">渠道类型</td>
+      <td class="report_common">
+        <select class="easyui-combobox" style="width: 90%" panelHeight="auto" name="qactivitychannel"
+          id="qactivitychannel"></select>
+      </td>
+
+      <td class="reprot_title">流量来源</td>
+      <td class="report_common">
+        <select class="easyui-combobox" style="width: 90%" panelHeight="auto" name="qactivityappname"
+          id="qactivityappname"></select>
+      </td>
+
+      <!-- <td class="reprot_title">是否续保</td>
+      <td class="reprot_common">
+        <select class="easyui-combobox" style="width: 90%" panelHeight="auto" name="qisxubao" id="qisxubao"></select>
+      </td>
+      <td class="reprot_title">险种类型</td>
+      <td class="report_common">
+        <select class="easyui-combobox" style="width: 90%" panelHeight="auto" name="qriskType" id="qriskType"
+          data-options="valueField:'id',textField:'text',multiple:true,panelHeight:'auto'"></select>
+      </td> -->
+
+      <td class="reprot_title dis_riskchannel" hidden>签约渠道</td>
+      <td class="report_common dis_riskchannel" hidden>
+        <select class="easyui-combobox" style="width: 90%" panelHeight="auto" name="qriskchannel"
+          id="qriskchannel"></select>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="reprot_title">出单业务员</td>
+      <td class="report_common">
+        <input class="txt" name="qusername" id="qusername" />
+      </td>
+
+      <td class="reprot_title">服务人员</td>
+      <td class="report_common">
+        <input class="txt" name="qserusername" id="qserusername" />
+      </td>
+
+      <td class="reprot_title">保险公司</td>
+      <td class="report_common">
+        <input class="easyui-combobox" id="qinsorgancode" style="width: 90%" name="qinsorgancode"
+          data-options="valueField:'id',textField:'text',multiple:true,panelHeight:'auto'" />
+      </td>
+
+      <td class="reprot_title">险种名称</td>
+      <td class="report_common">
+        <input class="easyui-combobox" id="qriskcode" style="width: 90%" name="qriskcode"
+          data-options="valueField:'id',textField:'text',multiple:true,panelHeight:'auto'" />
+      </td>
+
+      <td class="reprot_title">客户姓名</td>
+      <td class="report_common">
+        <input class="txt" name="qcusname" id="qcusname" />
+      </td>
+
+      <td class="reprot_title">电话号码</td>
+      <td class="report_common">
+        <input class="txt" name="qcusmobile" id="qcusmobile" />
+      </td>
+    </tr>
+
+  </table>
+  <script>
+    function initPolicyQuery(typeStr) {
+      if (typeStr.indexOf("riskchannel") >= 0) {
+        $(".dis_riskchannel").show();
+      }
+
+      disComBox($("#qriskchannel"), "channel", null);
+      disComBox($("#qinsorgancode"), "insorgancode", null);
+      disComBox($("#qstate"), "policyquery", null);
+      disComBox($("#qinsrevisitstate"), "insrevisitstate", null);
+      disComBox($("#qreceiptstate"), "receiptstate", null);
+      disComBox($("#qactivitychannel"), "source", null);
+      disComBox($("#qisxubao"), "yesno", null);
+      displayCombox(
+        $("#qriskType"),
+        null,
+        "/jsondata/policy/risktypestr.json",
+        "dd_key",
+        "dd_value"
+      );
+      $("#qstate").combobox("setValue", "40");
+      $("#qisxubao").combobox("setValue", "N");
+      $("#qacceptStartDate").datebox("setValue", getMonthOneFormatDate());
+    }
+
+    function qPolicyAftercodeselect(comboxid) {
+      if (comboxid.attr("id") == "qactivitychannel") {
+        var tParam = new Object();
+        tParam.comboxType = "sourcedetail_" + comboxid.combobox("getValue");
+
+        var tturl = "activity/getSourceDetail.do";
+        displayCombox(
+          $("#qactivityappname"),
+          tParam,
+          tturl,
+          "dd_key",
+          "dd_value"
+        );
+      } else if (comboxid.attr("id") == "qinsorgancode") {
+
+        var tParam = new Object();
+        var codes = comboxid.combobox("getValues");
+
+        // 判断是否为字母（包括大小写）
+        const isLetter = /^[A-Za-z]+$/.test(codes[0]);
+        // 判断是否为汉字
+        const isChinese = /^[\u4e00-\u9fa5]+$/.test(codes[0]);
+        if (isChinese) {
+          codes.splice(0, 1); // 从索引 0 开始删除 1 个元素
+          $("#qinsorgancode").combobox('setValue', codes);
+        }
+
+        var ic = "";
+        ic = codes.join(",");
+
+        tParam.insorgancode = ic;
+        var tturl1 = "policy/getRiskListin.do";
+
+        displayCombox($("#qriskcode"), tParam, tturl1, "dd_key", "dd_value");
+      } else {
+        organAfterSelect(comboxid);
+      }
+    }
+
+    function getQueryParam() {
+      var tParam = new Object();
+
+      tParam.ismain = 'Y';
+      tParam.contno = $("#qcontno").val();
+      tParam.cusname = $("#qcusname").val();
+      tParam.cusmobile = $("#qcusmobile").val();
+
+      tParam.reusername = $("#qusername").val();
+      tParam.serusername = $("#qserusername").val();
+
+      var codes = $("#qinsorgancode").combobox("getValues");
+
+      var ic = "";
+      ic = codes.join(",");
+
+
+      tParam.insorgancode = ic;
+      tParam.state = $("#qstate").combobox("getValue");
+      tParam.agentflag = "02";
+
+      tParam.q02org = "100200000";
+      tParam.q03org = "100200100";
+      tParam.q04org = "100200101";
+      tParam.teamid = '';
+
+      //险种编码多选
+      var codess = $("#qriskcode").combobox("getValues");
+      var icc = "";
+      icc = codess.join(",");
+
+      tParam.mainriskcode = icc;
+
+      tParam.insrevisitstate = $("#qinsrevisitstate").combobox("getValue");
+      tParam.acceptStartDate = $("#qacceptStartDate").datebox("getValue");
+      tParam.acceptEndDate = $("#qacceptEndDate").datebox("getValue");
+
+      var channel = $("#qactivitychannel").combobox("getValue");
+      if (channel.length == 4) {
+        tParam.channel = channel;
+      } else if (channel.length > 4) {
+        tParam.channeldetail = channel;
+      }
+
+      tParam.isxubao = "N";
+      tParam.riskTypeStr = "";
+      tParam.receiptstate = $("#qreceiptstate").combobox("getValue");
+      tParam.activityappname = $("#qactivityappname").combobox("getText");
+      tParam.riskchannel = $("#qriskchannel").combobox("getValue");
+
+      return tParam;
+    }
+
+    function policyquery() {
+      var tturl = "policy/getPolicy_New_List.do";
+
+      var tParam = getQueryParam();
+   
+
+      tParam.is_shanxilc = "Y"
+      console.log(tParam);
+      displayDataGrid20($("#policyList"), tParam, tturl);
+
+      var sumurl = "policy/getPolicySum.do";
+
+      ajaxdeal(sumurl, tParam, displaysumdata, null);
+
+      clearCarData();
+    }
+  </script>

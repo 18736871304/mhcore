@@ -58,7 +58,6 @@
 					tParam.agentflag = '02';
 					tParam.isxubao = 'NOTY';
 					//tParam.has_coefficient = "N";
-					//tParam.is_shanxilc="Y"
 
 					tParam.q02org = $('#q02org').combobox('getValue');
 					tParam.q03org = $('#q03org').combobox('getValue');
@@ -238,10 +237,8 @@
 							<th data-options="field:'policycount',width:80">长期险单数</th>
 							<th data-options="field:'changxian_sumfyp20',width:80">长期险标保</th>
 							<th data-options="field:'coefficient_changxian_sumfyp20',width:130">长期险折算系数后标保</th>
-
-							<th data-options="field:'coefficientSJsumfyp20',width:90,formatter:function(value){return value=='0.00' ? '' : value;}">其中升级部分</th>
-							<th data-options="field:'coefficientBSJsumfyp20',width:120,formatter:function(value){return value=='0.00' ? '' : value;}">其中被升级部分</th>
-
+							<!-- <th data-options="field:'ylpolicycount',width:90">其中升级部分</th>
+							<th data-options="field:'policycount',width:120"> 其中被升级部分</th> -->
 							<th data-options="field:'ylpolicycount',width:80">医疗险单数</th>
 							<th data-options="field:'ylprem',width:80">医疗险保费</th>
 							<th data-options="field:'yl',width:80,formatter:jiaquanfyp">加权标保</th>

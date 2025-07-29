@@ -145,7 +145,7 @@
 					"channelCode": "07e1e1f4d6e211ee927700163e123e09",
 					"channelLink": "https://work.weixin.qq.com/ca/cawcde0b4391a2966f?customer_channel=07e1e1f4d6e211ee927700163e123e09",
 					"channelQRCode": 'gzh_tyb01.zip',
-					"linkRemark": '',
+					"linkRemark": 'https://mp.weixin.qq.com/s/1nRmzIjNLPlP9r-8byUN9Q',
 				},
 				{
 					"activityCode": "自营知乎&公众号全量",
@@ -155,7 +155,7 @@
 					"channelCode": "0aae126cd6e211ee927700163e123e09",
 					"channelLink": "https://work.weixin.qq.com/ca/cawcde06bd4de53abf?customer_channel=0aae126cd6e211ee927700163e123e09",
 					"channelQRCode": 'gzh_tyb02.zip',
-					"linkRemark": '',
+					"linkRemark": 'https://mp.weixin.qq.com/s/CJsFJYmlSXudFJyH0qeRvw',
 				},
 				{
 					"activityCode": "自营知乎&公众号全量",
@@ -165,7 +165,7 @@
 					"channelCode": "67f49b66d6e211ee927700163e123e09",
 					"channelLink": "https://work.weixin.qq.com/ca/cawcde0b4391a2966f?customer_channel=67f49b66d6e211ee927700163e123e09",
 					"channelQRCode": 'gzh_dcxs01.zip',
-					"linkRemark": 'https://mp.weixin.qq.com/s/JjrhG9g7rLktv_s4JySOVA',
+					"linkRemark": 'https://mp.weixin.qq.com/s/SgJbi8BXXT5N-lWcqo6_-w',
 				},
 				{
 					"activityCode": "自营知乎&公众号全量",
@@ -175,7 +175,7 @@
 					"channelCode": "6a3bb91cd6e211ee927700163e123e09",
 					"channelLink": "https://work.weixin.qq.com/ca/cawcde06bd4de53abf?customer_channel=6a3bb91cd6e211ee927700163e123e09",
 					"channelQRCode": 'gzh_dcxs02.zip',
-					"linkRemark": 'https://mp.weixin.qq.com/s/tQTLgoKMj32lkEKFXzOvrQ',
+					"linkRemark": 'https://mp.weixin.qq.com/s/Ouvw7vjf3q2_ai3nVZFlog',
 				},
 				{
 					"activityCode": "自营知乎&公众号全量",
@@ -185,7 +185,7 @@
 					"channelCode": "8956cd7dd6e211ee927700163e123e09",
 					"channelLink": "https://work.weixin.qq.com/ca/cawcde0b4391a2966f?customer_channel=8956cd7dd6e211ee927700163e123e09",
 					"channelQRCode": 'gzh_mhbxzx01.zip',
-					"linkRemark": 'https://mp.weixin.qq.com/s/lNNlTGcni0qYKd140LAP0A',
+					"linkRemark": 'https://mp.weixin.qq.com/s/30xRbBkEj0m0xDrG-O5ZfQ',
 				},
 				{
 					"activityCode": "自营知乎&公众号全量",
@@ -195,7 +195,7 @@
 					"channelCode": "8b9433ccd6e211ee927700163e123e09",
 					"channelLink": "https://work.weixin.qq.com/ca/cawcde06bd4de53abf?customer_channel=8b9433ccd6e211ee927700163e123e09",
 					"channelQRCode": 'gzh_mhbxzx02.zip',
-					"linkRemark": 'https://mp.weixin.qq.com/s/jBJLBNW95qU-bH8nxRaEJw',
+					"linkRemark": 'https://mp.weixin.qq.com/s/Mfxmf3XBsnkiXHelnj7StQ',
 				},
 				{
 					"activityCode": "自营知乎&公众号全量",
@@ -205,7 +205,7 @@
 					"channelCode": "a3ba1463d6e211ee927700163e123e09",
 					"channelLink": "https://work.weixin.qq.com/ca/cawcde0b4391a2966f?customer_channel=a3ba1463d6e211ee927700163e123e09",
 					"channelQRCode": 'gzh_tybcp01.zip',
-					"linkRemark": 'https://mp.weixin.qq.com/s/lpvWMxXRKMy0U3Yz0Lny7g',
+					"linkRemark": 'https://mp.weixin.qq.com/s/suwaxJL9y8VlKG8NVQcoDw',
 				},
 				{
 					"activityCode": "自营知乎&公众号全量",
@@ -215,7 +215,27 @@
 					"channelCode": "a68040b7d6e211ee927700163e123e09",
 					"channelLink": "https://work.weixin.qq.com/ca/cawcde06bd4de53abf?customer_channel=a68040b7d6e211ee927700163e123e09",
 					"channelQRCode": 'gzh_tybcp02.zip',
-					"linkRemark": 'https://mp.weixin.qq.com/s/DJlgI-jZ0DNKIx1S8MWpjA',
+					"linkRemark": 'https://mp.weixin.qq.com/s/WgGvWOOslwzwNfQSEOM7XA',
+				},
+				{
+					"activityCode": "自营知乎&公众号全量",
+					"newMedia": "公众号",
+					"accountName": "公众号-医疗险",
+					"resourceType": "重疾",
+					"channelCode": "4beffac8682d11f08aaf00163e1ccaeb",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde0b4391a2966f?customer_channel=4beffac8682d11f08aaf00163e1ccaeb",
+					"channelQRCode": 'gzh_ylx01.zip',
+					"linkRemark": 'https://mp.weixin.qq.com/s/KQm3R24K2eNRFV9Jpyslhw',
+				},
+				{
+					"activityCode": "自营知乎&公众号全量",
+					"newMedia": "公众号",
+					"accountName": "公众号-医疗险",
+					"resourceType": "理财",
+					"channelCode": "523e10a4682d11f08aaf00163e1ccaeb",
+					"channelLink": "https://work.weixin.qq.com/ca/cawcde06bd4de53abf?customer_channel=523e10a4682d11f08aaf00163e1ccaeb",
+					"channelQRCode": '',
+					"linkRemark": '',
 				},
 				{
 					"activityCode": "自营小红书全量",
