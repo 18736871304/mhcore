@@ -105,7 +105,7 @@
 						$('#ylpolicycount').val("");
 						$('#ylprem').val("");
 						$('#company_sumfyp20').val("");
-						$('#shanxi_changxian_sumfyp20').val("");
+						$('#changxian_sumfyp20').val("");
 
 
 						$('#sumprem').val("");
@@ -118,7 +118,7 @@
 						$('#ylpolicycount').val(data.ylpolicycount);
 						$('#ylprem').val(data.ylprem);
 						$('#company_sumfyp20').val(data.company_sumfyp20);
-						$('#shanxi_changxian_sumfyp20').val(data.shanxi_changxian_sumfyp20);
+						$('#changxian_sumfyp20').val(data.changxian_sumfyp20);
 
 
 						$('#sumprem').val(data.sumprem);
@@ -302,7 +302,7 @@
 							长期险标保合计
 						</td>
 						<td class="report_common">
-							<input class="txt" id="shanxi_changxian_sumfyp20" name="shanxi_changxian_sumfyp20" readonly>
+							<input class="txt" id="changxian_sumfyp20" name="changxian_sumfyp20" readonly>
 						</td>
 
 						<td class="reprot_title">
