@@ -29,7 +29,7 @@
 			}
 
 			dlgUserInit();
-			initDataGrid($('#pusherList'));
+			initDataGrid20($('#pusherList'));
 
 			disComBox($('#source'), "source", null);
 			disComBox($('#qsource'), "source", null);
@@ -157,8 +157,11 @@
 			tParam.teamid = getQTeamId();
 			tParam.deleteflag = 'N';
 			tParam.yearMonth = '2020-09';
+			tParam.pageSize = '20';
 
-			displayDataGrid($('#pusherList'), tParam, tturl);
+			console.log(tParam)
+
+			displayDataGrid20($('#pusherList'), tParam, tturl);
 
 			var pushCount_url = "push/getPushturunCount.do";
 
