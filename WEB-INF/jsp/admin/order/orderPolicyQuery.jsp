@@ -122,21 +122,22 @@ function disStateName(val,row,index)
 				</select>
 			</td>
 			
-			<td></td><td></td>
-			<td></td><td></td>
-		</tr>
-		<tr>
-			<td class = "reprot_title" hidden>
-				业务员姓名
-			</td>
-			<td class = "report_common" hidden>
-				<input class = "txt" name="qusername" id="qusername">
-			</td>
-
 			<td class="reprot_title">签约渠道</td>
             <td class="reprot_common">
               <select class="easyui-combobox" style="width: 160%" name="qinsorgancode" id="qinsorgancode"></select>
             </td>
+			<td></td>
+			<td></td><td></td>
+		</tr>
+		<tr>
+			<td class = "reprot_title" >
+				业务员姓名
+			</td>
+			<td class = "report_common" >
+				<input class = "txt" name="qusername" id="qusername">
+			</td>
+
+		
 			
 			<td class = "reprot_title">
 				保险公司
