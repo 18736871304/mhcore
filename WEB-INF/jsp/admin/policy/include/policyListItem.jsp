@@ -4,28 +4,32 @@
 	<th data-options="field:'teamname',width:100">出单团队</th>
 	<th data-options="field:'reusername',width:70">出单业务员</th>
 	<th data-options="field:'serviceusername',width:70">服务人员</th>
-	<th data-options="field:'fentan_username',width:70,hidden:true,formatter:function(value){return value ? value : '公司';}">被升级人员</th>
+	<th
+		data-options="field:'fentan_username',width:70,hidden:true,formatter:function(value){return value ? value : '公司';}">
+		被升级人员</th>
 	<th data-options="field:'shanxi_licai_type',width:140,hidden:true,formatter:licaiTypeName">理财资源来源</th>
 
 	<th data-options="field:'contno',width:180">保单号</th>
 	<th data-options="field:'statename',width:60">保单状态</th>
-	<th data-options="field:'insrevisitstatename',width:60">回访状态</th>
-	<th data-options="field:'receiptstatename',width:60">回执状态</th>
+
+	<th data-options="field:'insrevisitstatename',width:60 ,formatter:visitstate">回访状态</th>
+	<th data-options="field:'receiptstatename',width:60,formatter:receiptstate">回执状态</th>
+
 	<th data-options="field:'insorganname',width:80">保险公司</th>
 	<th data-options="field:'contriskname',width:160">险种名称</th>
 
 	<th data-options="field:'appname',width:70">投保人姓名</th>
-	
+
 	<th data-options="field:'appprovincename',width:70">投保人所在省</th>
 	<th data-options="field:'appcityname',width:70">投保人所在市</th>
-	
+
 	<th data-options="field:'insname',width:70">被保人姓名</th>
-	
+
 	<th data-options="field:'payintvvalue',width:60">缴费方式</th>
 	<th data-options="field:'payendyearvalue',width:60">缴费年期</th>
 	<th data-options="field:'insuyearvalue',width:60">保障期限</th>
 	<th data-options="field:'contsumprem',width:60">保费</th>
-	
+
 	<th data-options="field:'contfyp20',width:60">标保</th>
 	<th data-options="field:'contcoefficientfyp20',width:60">折算系数后标保</th>
 	<th data-options="field:'activitychannelname',width:60">渠道类型</th>
@@ -43,7 +47,7 @@
 				} else {
 					return '否'
 				}
-			}else {
+			} else {
 				return '否'
 			}
 		}
@@ -90,8 +94,8 @@
 
 					if (res.code == '0' && res.policyUrl && res.policyUrl != '') {
 						if (res.policyUrl.startsWith('/opt/ps2')) {
-  res.policyUrl = res.policyUrl.replace('/opt/ps2', 'https://insure.meihualife.com');
-}
+							res.policyUrl = res.policyUrl.replace('/opt/ps2', 'https://insure.meihualife.com');
+						}
 						let a = document.createElement('a')
 						a.target = '_blank';
 						a.href = res.policyUrl;
@@ -107,17 +111,50 @@
 
 		}
 
-		function  licaiTypeName(val){
-			console.log(val)
+		function licaiTypeName(val) {
+			if (val == '01') {
+				return "本人保障资源升级理财"
+			} else if (val == '02') {
+				return "理财资源"
+			} else if (val == '03') {
+				return "其他员工重疾资源升级理财"
+			} else if (val == '04') {
+				return "其他移交资源"
+			}
+		}
 
-			if(val=='01'){
-				 return "本人保障资源升级理财"
-			}else if(val=='02'){
-				 return "理财资源"
-			}else if(val=='03'){
-				 return "其他员工重疾资源升级理财"
-			}else if(val=='04'){
-				 return "其他移交资源"
+		// 回访状态
+		function visitstate(val, row, index) {
+			if (val == '待回访' && row.revisiturl !='' ) {
+				return '<a onclick="copyText(\'' + row.revisiturl + '\')" style="color: blue; cursor: pointer;">' + val + '</a>';
+			} else if (val == '回访失败' && row.revisiturl !='') {
+				return '<a onclick="copyText(\'' + row.revisiturl + '\')" style="color: blue; cursor: pointer;">' + val + '</a>';
+			} else {
+				return val
+			}
+		}
+
+		// 回执状态
+		function receiptstate(val, row, index) {
+			console.log(val)
+			if (val == '待回执' && row.receipturl !='') {
+				return '<a onclick="copyText(\'' + row.receipturl + '\')" style="color: blue; cursor: pointer;">' + val + '</a>';
+			} else if (val == '回执失败' && row.receipturl !='') {
+				return '<a onclick="copyText(\'' + row.receipturl + '\')" style="color: blue; cursor: pointer;">' + val + '</a>';
+			} else {
+				return val
+			}
+		}
+
+		function copyText(val) {
+			if (val !== "undefined" && val !== '' && val !== null) {
+				navigator.clipboard.writeText(val).then(() => {
+					$.messager.alert('消息提示', '链接已复制到剪贴板', 'info');
+				}).catch(() => {
+					$.messager.alert('消息提示', '复制失败，请手动复制', 'info');
+				});
+			} else {
+				$.messager.alert('消息提示', '该数据没有链接', 'warning');
 			}
 		}
 

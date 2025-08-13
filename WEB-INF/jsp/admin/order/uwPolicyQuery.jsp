@@ -1,210 +1,291 @@
-<%@ page contentType="text/html;charset=utf-8"%>
-<html>
-<%@ include file="/WEB-INF/common/include.jsp"%><head>
-<title></title>
-<link rel="stylesheet" href="../../../../css/inputbox/line6.css">
-<script>
+<%@ page contentType="text/html;charset=utf-8" %>
+	<html>
+	<%@ include file="/WEB-INF/common/include.jsp" %>
 
-window.onload = function()
-{
-	disComBox($('#qinsorgancode'),"insorgancode",null);
-	
-	$('#qapplystartdate').datebox('setValue',getMonthOneFormatDate());
-	displayCombox($('#quwstate'),null,"/jsondata/order/uwstate.json","dd_key","dd_value");
-	
-	var tParam = new Object();
-	tParam.comboxType = "uwtype";
-	displayCombox($('#quwtype'),tParam,"/combox/getCommonComBox.do","dd_key","dd_value");
-	
-	initDataGrid20($('#orderPolicyList'));
-}
+		<head>
+			<title></title>
+			<link rel="stylesheet" href="../../../../css/inputbox/line6.css">
+			<script>
 
-function aftercodeselect(comboxid)
-{
-	if(comboxid.attr("id")=="qinsorgancode")
-	{
-		var tParam = new Object();
-		var codes = comboxid.combobox('getValues');
-        var ic = "";
-		ic = codes.join(","); 
-        // for(var i=0;i<codes.length;i++){
-        //     if (ic != "") ic += "\',\'";
-		// 	ic += codes[i];
-		// }
-        tParam.insorgancode = ic;
-		var tturl1 = "policy/getRiskListin.do";
-		
-		displayCombox($('#qriskcode'),tParam,tturl1,"dd_key","dd_value");
-	}
-}
+				window.onload = function () {
+					policyDetailDlgInit();
 
-function selectone()
-{
+					disComBox($('#qinsorgancode'), "insorgancode", null);
 
-}
+					$('#qapplystartdate').datebox('setValue', getMonthOneFormatDate());
+					disComBox($("#sealchannel"), "channel", null);
+					displayCombox($('#quwstate'), null, "/jsondata/order/uwstate.json", "dd_key", "dd_value");
 
-function uwquery()
-{
-	var tturl = "orderPolicy/getUwPollicyList.do";
+					var tParam = new Object();
+					tParam.comboxType = "uwtype";
+					displayCombox($('#quwtype'), tParam, "/combox/getCommonComBox.do", "dd_key", "dd_value");
 
-	var tParam = new Object();
-	
-	tParam.applystartdate = $('#qapplystartdate').datebox("getValue");
-	tParam.applyenddate = $('#qapplyenddate').datebox("getValue");
-	
-	tParam.uwtype = $('#quwtype').combobox('getValue');
-	tParam.uwstate = $('#quwstate').combobox('getValue');
-	
-	var codes = $('#qinsorgancode').combobox('getValues');
-    var ic = "";
-	ic = codes.join(","); 
-    // for(var i=0;i<codes.length;i++){
-    //     if (ic != "") ic += "\',\'";
-    //     ic += codes[i];
-    // }
-    tParam.insorgancode = ic;
-    
-    var codess = $('#qriskcode').combobox('getValues');
-    var icc = "";
-	icc = codess.join(",");
-    // for(var j=0;j<codess.length;j++){
-    //     if (icc != "") icc += "\',\'";
-    //     icc += codess[j];
-    // }
-    tParam.riskcode = icc;
-	
-	tParam.uwname = $('#quwname').val();
-	tParam.mobile = $('#qmobile').val();
-	
-	displayDataGrid20($('#orderPolicyList'), tParam, tturl);
+					initDataGrid20($('#orderPolicyList'));
+				}
 
-	clearCarData();
-}
+				function aftercodeselect(comboxid) {
+					if (comboxid.attr("id") == "qinsorgancode") {
+						var tParam = new Object();
+						var codes = comboxid.combobox('getValues');
+						var ic = "";
+						ic = codes.join(",");
+						tParam.insorgancode = ic;
+						var tturl1 = "policy/getRiskListin.do";
 
-function saveSuss()
-{
-	$('#orderPolicyList').datagrid('reload');
-}
+						displayCombox($('#qriskcode'), tParam, tturl1, "dd_key", "dd_value");
+					}
+				}
 
-function disremark(val,row,index)
-{
-	if(row.type!=null&&row.type!=''&&row.type=='02')
-	{
-		return '<a href="'+row.preuwurl+'" target = "_blank">'+row.preuwurl+'</a>';	
-	}
-	else
-	{
-		return row.remark;
-	}
-}
+				function selectone() {
 
-</script>
+				}
 
-</head>
-<body>
-<div style="margin-left:0%">
-	<table class = "common">
-		<tr>
-			<td class = "reprot_title">
-				申请起期
-			</td>
-			<td class = "report_common">
-				<input class="easyui-datebox" style="width: 90%" id="qapplystartdate" name="qapplystartdate">
-			</td>
-			
-			<td class = "reprot_title">
-				申请止期
-			</td>
-			<td class = "report_common">
-				<input class="easyui-datebox" style="width: 90%" id="qapplyenddate" name="qapplyenddate">
-			</td>
-			
-			<td class = "reprot_title">
-				核保类型
-			</td>
-			<td class = "report_common">
-				<select class = "easyui-combobox" style="width:90%" panelHeight="auto" name="quwtype" id="quwtype">
-				</select>
-			</td>
-			
-			<td class = "reprot_title">
-				人核状态
-			</td>
-			<td class = "report_common">
-				<select class = "easyui-combobox" style="width:90%" panelHeight="auto" name="quwstate" id="quwstate">
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td class = "reprot_title">
-				保险公司
-			</td>
-			<td class = "report_common">
-				<input class="easyui-combobox" id="qinsorgancode" style="width:90%" name="qinsorgancode" data-options="valueField:'id',textField:'text',multiple:true">
-			</td>
-			
-			<td class = "reprot_title">
-				险种名称
-			</td>
-			<td class = "report_common">
-				<input class="easyui-combobox" id="qriskcode" style="width:90%" name="qriskcode" data-options="valueField:'id',textField:'text',multiple:true">
-			</td>
-			
-			<td class = "reprot_title">
-				客户姓名
-			</td>
-			<td class = "report_common">
-				<input class = "txt" name="quwname" id="quwname">
-			</td>
-			
-			<td class = "reprot_title">
-				电话号码
-			</td>
-			<td class = "report_common">
-				<input class = "txt" name="qmobile" id="qmobile">
-			</td>
-			
-			<td></td><td></td>
-			<td></td><td></td>
-		</tr>
-	</table>
-	<br>
-	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id = "uwquery" onclick = "uwquery()">查询</a>
-	<br>
-	<br>
-	<table id="orderPolicyList" class="easyui-datagrid" title="人核信息" style="width:auto;height:auto"
-		data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone" >
-		<thead>
-		<tr>
-			<th data-options="field:'applyTime',width:125">申请时间</th>
-			<th data-options="field:'auditTime',width:125">更新时间</th>
-			<th data-options="field:'uwtypename',width:70">核保类型</th>
-			<th data-options="field:'hcid',width:70">人核单号</th>
-			<th data-options="field:'insorganname',width:80">保险公司</th>
-			<th data-options="field:'riskname',width:160">险种名称</th>
-			
-			<th data-options="field:'applyname',width:70">投保人姓名</th>
-			<th data-options="field:'applycerttypeName',width:100">投保人证件类型</th>
-			<th data-options="field:'applycert',width:130">投保人证件号码</th>
-			
-			<th data-options="field:'insCname',width:70">被保人姓名</th>
-			<th data-options="field:'insCertTypeName',width:100">被保人证件类型</th>
-			<th data-options="field:'insCert',width:130">被保人证件号码</th>
-			
-			<th data-options="field:'uwstatename',width:70">人核状态</th>
-			<th data-options="field:'insuwstatename',width:90">保司人核状态</th>
-			<th data-options="field:'remark',width:1000,formatter:disremark">备注</th>
-			
-			<th data-options="field:'insuranceLink',width:600">投保链接</th>
-			<th data-options="field:'isdeal',width:70">是否出单</th>
-			<th data-options="field:'applymobile',width:80">电话号码</th>
-			<th data-options="field:'applyemail',width:100">邮箱</th>
-			
-		</tr>
-		</thead>
-	</table>
-	<br>
-	<br>
-</div>
-</body>
-</html>
+				function uwquery() {
+					var tturl = "orderPolicy/getUwPollicyList.do";
+
+					var tParam = new Object();
+
+					tParam.applystartdate = $('#qapplystartdate').datebox("getValue");
+					tParam.applyenddate = $('#qapplyenddate').datebox("getValue");
+
+					tParam.uwtype = $('#quwtype').combobox('getValue');
+					tParam.uwstate = $('#quwstate').combobox('getValue');
+
+					var codes = $('#qinsorgancode').combobox('getValues');
+					var ic = "";
+					ic = codes.join(",");
+
+					tParam.insorgancode = ic;
+
+					var codess = $('#qriskcode').combobox('getValues');
+					var icc = "";
+					icc = codess.join(",");
+
+					tParam.riskcode = icc;
+
+					tParam.uwname = $('#quwname').val();
+					tParam.mobile = $('#qmobile').val();
+					tParam.sealchannel = $("#sealchannel").combobox("getValue");
+
+					displayDataGrid20($('#orderPolicyList'), tParam, tturl);
+
+					clearCarData();
+				}
+
+				function saveSuss() {
+					$('#orderPolicyList').datagrid('reload');
+				}
+
+				function disremark(val, row, index) {
+					if (row.type != null && row.type != '' && row.type == '02') {
+						return '<a href="' + row.preuwurl + '" target = "_blank">' + row.preuwurl + '</a>';
+					}
+					else {
+						return row.remark;
+					}
+				}
+				function remarkText(val, row, index) {
+
+
+
+					if (val != null) {
+						try {
+							const obj = JSON.parse(val);
+							// 解析成功且是对象或数组
+							if (obj.desc) {
+								return obj.desc
+							} else if (obj.reason) {
+								return obj.reason
+							} else if (obj.noticeList) {
+								const questionDescs = [];
+								obj.noticeList.forEach(notice => {
+									notice.qas.forEach(qa => {
+										if (qa.questionList && qa.questionList.length > 0) {
+											qa.questionList.forEach(question => {
+												if (question.questionDesc) {
+													questionDescs.push(question.questionDesc);
+												}
+											});
+										}
+									});
+								});
+								return questionDescs.join(',')
+							}
+
+
+						} catch (e) {
+							return val;
+						}
+
+
+
+					}
+				}
+
+
+
+
+
+
+
+				function queryPolicyInfo(val, row, index) {
+					return '<a href="#" onclick="openDlg(' + index + ')">查看详情</a>';
+				}
+
+				function openDlg(index) {
+					var rows = $('#orderPolicyList').datagrid('getRows'); //获取所有当前加载的数据行
+					var row = rows[index];
+
+					console.log(row)
+					//alert(row.agentcom);
+					row.queryinsured = 'Y';
+					dispolicyDetailDlg(row);
+				}
+
+
+
+
+			</script>
+
+		</head>
+		<%@ include file="/WEB-INF/jsp/admin/order/uwpolicyDetailDlg.jsp" %>
+
+			<body>
+				<div style="margin-left:0%">
+					<table class="common">
+						<tr>
+							<td class="reprot_title">
+								申请起期
+							</td>
+							<td class="report_common">
+								<input class="easyui-datebox" style="width: 90%" id="qapplystartdate"
+									name="qapplystartdate">
+							</td>
+
+							<td class="reprot_title">
+								申请止期
+							</td>
+							<td class="report_common">
+								<input class="easyui-datebox" style="width: 90%" id="qapplyenddate"
+									name="qapplyenddate">
+							</td>
+
+							<td class="reprot_title">
+								核保类型
+							</td>
+							<td class="report_common">
+								<select class="easyui-combobox" style="width:90%" panelHeight="auto" name="quwtype"
+									id="quwtype">
+								</select>
+							</td>
+
+							<td class="reprot_title">
+								人核状态
+							</td>
+							<td class="report_common">
+								<select class="easyui-combobox" style="width:90%" panelHeight="auto" name="quwstate"
+									id="quwstate">
+								</select>
+							</td>
+						</tr>
+						<tr>
+
+							<td class="reprot_title">签约渠道</td>
+							<td class="reprot_common">
+								<select class="easyui-combobox" style="width: 160%" name="sealchannel"
+									id="sealchannel"></select>
+							</td>
+
+
+							<td class="reprot_title">
+								保险公司
+							</td>
+							<td class="report_common">
+								<input class="easyui-combobox" id="qinsorgancode" style="width:90%" name="qinsorgancode"
+									data-options="valueField:'id',textField:'text',multiple:true">
+							</td>
+
+							<td class="reprot_title">
+								险种名称
+							</td>
+							<td class="report_common">
+								<input class="easyui-combobox" id="qriskcode" style="width:90%" name="qriskcode"
+									data-options="valueField:'id',textField:'text',multiple:true">
+							</td>
+
+							<td class="reprot_title">
+								客户姓名
+							</td>
+							<td class="report_common">
+								<input class="txt" name="quwname" id="quwname">
+							</td>
+
+							<td class="reprot_title">
+								电话号码
+							</td>
+							<td class="report_common">
+								<input class="txt" name="qmobile" id="qmobile">
+							</td>
+
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</table>
+					<br>
+					<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id="uwquery"
+						onclick="uwquery()">查询</a>
+					<br>
+					<br>
+					<table id="orderPolicyList" class="easyui-datagrid" title="人核信息" style="width:auto;height:auto"
+						data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone">
+						<thead>
+							<tr>
+								<th data-options="field:'applyTime',width:125">申请时间</th>
+								<th data-options="field:'auditTime',width:125">更新时间</th>
+
+
+
+								<th data-options="field:'dealid',width:70,formatter:function(value,row,index){return value === '0' ? '' : value;}">订单号</th>
+								<th data-options="field:'hcid',width:100">人核单号</th>
+								<th data-options="field:'uwtypename',width:70">核保类型</th>
+								<th data-options="field:'uwstatename',width:70">人核状态</th>
+								<!-- <th data-options="field:'remark',width:1000,formatter:disremark">备注信息</th> -->
+								<th data-options="field:'remark',width:400,styler:function(value,row,index){
+									return 'white-space:normal;word-break:break-all;'; 
+								  }">备注信息</th>
+								<th data-options="field:'insorganname',width:80">保险公司</th>
+								<th data-options="field:'riskname',width:160">险种名称</th>
+
+								<th data-options="field:'applyname',width:70">投保人姓名</th>
+								<th data-options="field:'applycerttypeName',width:100" hidden>投保人证件类型</th>
+								<th data-options="field:'applycert',width:130" hidden>投保人证件号码</th>
+
+								<th data-options="field:'insCname',width:70">被保人姓名</th>
+								<th data-options="field:'insCertTypeName',width:100" hidden>被保人证件类型</th>
+								<th data-options="field:'insCert',width:130" hidden>被保人证件号码</th>
+
+
+								<th data-options="field:'coconclusion',width:400,formatter:remarkText,styler:function(value,row,index){ return 'white-space:normal;word-break:break-all;'; 
+			  }">核保结论</th>
+								<th data-options="field:'validendtime',width:125">有效截止时间</th>
+								<th data-options="field:'insuwstatename',width:90" hidden>保司人核状态</th>
+
+
+								<th data-options="field:'insuranceLink',width:600" hidden>投保链接</th>
+								<th data-options="field:'isdeal',width:70" hidden>是否出单</th>
+								<th data-options="field:'applymobile',width:80" hidden>电话号码</th>
+								<th data-options="field:'applyemail',width:100" hidden>邮箱</th>
+
+								<th data-options="field:'_operate',width:60,formatter:queryPolicyInfo">查看详情</th>
+
+							</tr>
+						</thead>
+					</table>
+					<br>
+					<br>
+				</div>
+			</body>
+
+	</html>
