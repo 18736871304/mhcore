@@ -146,7 +146,17 @@
 			}
 		}
 
-	
+		function copyText(val) {
+			if (val !== "undefined" && val !== '' && val !== null) {
+				navigator.clipboard.writeText(val).then(() => {
+					$.messager.alert('消息提示', '链接已复制到剪贴板', 'info');
+				}).catch(() => {
+					$.messager.alert('消息提示', '复制失败，请手动复制', 'info');
+				});
+			} else {
+				$.messager.alert('消息提示', '该数据没有链接', 'warning');
+			}
+		}
 
 
 		function httpRequest(url, method, data, fnObj) {

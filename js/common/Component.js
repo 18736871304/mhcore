@@ -981,3 +981,21 @@ function getSevenDaysAgo() {
 
     return `${year}-${month}-${day}`; // 返回格式化的日期
 }
+
+
+// val 是要复制的内容
+
+function copyText(val) {
+	if (val !== "undefined" && val !== '' && val !== null) {
+		navigator.clipboard.writeText(val).then(() => {
+			$.messager.alert('消息提示', '数据已复制到剪贴板', 'info');
+		}).catch(() => {
+			$.messager.alert('消息提示', '复制失败，请手动复制', 'info');
+		});
+	} else {
+		$.messager.alert('消息提示', '该数据没有链接', 'warning');
+	}
+}
+
+
+

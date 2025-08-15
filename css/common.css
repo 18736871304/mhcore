@@ -266,3 +266,7 @@ button.smsbutton:active {
 	opacity: 0;
 	width:265px 
 }
+
+.panel{
+	overflow: unset;
+}

@@ -43,6 +43,9 @@
 					tParam.cusmobile = $('#qcusmobile').val();
 					tParam.sealchannel = $("#sealchannel").combobox("getValue");
 
+
+
+					console.log(tParam)
 					displayDataGrid20($('#orderPolicyList'), tParam, tturl);
 
 					clearCarData();
@@ -75,32 +78,16 @@
 				}
 
 				function dis_payurl(val, row, index) {
-					if (row.sealchannel == '13' && row.state != '40') {
-						return '<a href="#" onclick="openPayurl(' + index + ')">复制</a>';
-					}
-					if (val != null && val !== '') {
-						return '<a href="#" onclick="openPayurl(' + index + ')">复制</a>';
-					} else if (row.sealchannel == '13' && row.state != '40') {
-						return '<a href="#" onclick="openPayurl(' + index + ')">复制</a>';
-					} else {
-						return ''
-					}
-				}
-
-
-
-
-				function openPayurl(index) {
-					var rows = $('#orderPolicyList').datagrid('getRows'); //获取所有当前加载的数据行
-					var row = rows[index];
-					if (row.sealchannel == '13' && row.state != '40') {
+					if (row.sealchannel == '13' && row.state!='40') {
 						// 如果已经请求过，直接返回 payurl
 						if (row.payurl && row.payurl !== '加载中...') {
 							return row.payurl;
 						}
+
 						// 标记为加载中，避免重复请求
 						if (row.payurl !== '加载中...') {
 							row.payurl = '加载中...';
+
 							var tParam = {
 								orderid: row.orderid,
 								sealchannel: row.sealchannel
@@ -109,28 +96,23 @@
 							setTimeout(() => {
 								ajaxdeal(queryurl, tParam, function (data) {
 									var newPayurl = data.payurl || '';
-									if (data.payurl) {
-										copyText(newPayurl)
-									} else {
-										$.messager.alert('消息提示', '复制失败，暂无链接', 'info');
-									}
+									// 更新当前行数据
+									$('#orderPolicyList').datagrid('updateRow', {
+										index: index,
+										row: {
+											payurl: newPayurl
+										}
+									});
 								}, null);
 							}, 0);
 						}
+
 						return '加载中...';
 					} else {
-						copyText(row.payurl);
+						return val;
 					}
 				}
-
-				function dis_payment(val, row, index) {
-					if (val === null || val === undefined || val === '') {
-						return ''
-					} else {
-						return Number(val).toFixed(2)
-					}
-				}
-
+ 
 			</script>
 
 		</head>
@@ -236,12 +218,13 @@
 								<!-- <th data-options="field:'organ04name',width:70">所属营业部</th>
 			<th data-options="field:'teamname',width:100">所属团队</th>
 			<th data-options="field:'reusername',width:70">所属业务员</th> -->
-								<th data-options="field:'orderid',width:180">订单号</th>
+								<th data-options="field:'orderid',width:160">订单号</th>
 								<th data-options="field:'policystate',width:60,formatter:disStateName">订单状态</th>
-								<th data-options="field:'payurl',width:60,formatter:dis_payurl">支付链接</th>
+								<th data-options="field:'payurl',width:180,formatter:dis_payurl">支付链接</th>
 
-								<th data-options="field:'payendtime',width:125">支付截止时间</th>
-								<th data-options="field:'payment',width:80,formatter:dis_payment">
+								<th data-options="field:'payendtime',width:120">支付截止时间</th>
+								<th
+									data-options="field:'payment',width:80,formatter:function(value,row,index){return value === '0' ? '' : value;}">
 									支付金额</th>
 								<th data-options="field:'payerrormsg',width:120">支付失败原因</th>
 
@@ -254,7 +237,7 @@
 								<th data-options="field:'payintvvalue',width:60">缴费方式</th>
 								<th data-options="field:'payendyearvalue',width:60">缴费年期</th>
 								<th data-options="field:'insuyearvalue',width:60">保障期限</th>
-								<th data-options="field:'prem',width:80">保费</th>
+								<th data-options="field:'prem',width:60">保费</th>
 								<!-- <th data-options="field:'_operate',width:60,formatter:queryPolicyInfo">查看详情</th> -->
 							</tr>
 						</thead>
