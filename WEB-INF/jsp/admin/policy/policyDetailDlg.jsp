@@ -60,7 +60,7 @@
 			$('#dlgappjobcode').val(rowdata.appjobcode);
 			$('#dlgappsalary').val(rowdata.appsalary);
 			$('#dlgappemail').val(rowdata.appemail);
-			$('#dlgappemail').val(rowdata.appemail);
+			$('#dlgaccname').val(rowdata.accname);
 			$('#dlgbankname').val(rowdata.bankname);
 			$('#dlgaccno').val(rowdata.accno);
 
@@ -70,9 +70,12 @@
 
 			$('#dlgappphone').val(rowdata.appphone);
 
-			$('#dlgappprovincename').val(rowdata.appprovincename);
-			$('#dlgappcityname').val(rowdata.appcityname);
-			$('#dlgappcountryname').val(rowdata.appcountryname);
+	 
+			$('#dlgappprovincename').val(rowdata.appprovincename ? rowdata.appprovincename : rowdata.appprovince);
+
+ 
+			$('#dlgappcityname').val(rowdata.appcityname? rowdata.appcityname : rowdata.appcity);
+			$('#dlgappcountryname').val(rowdata.appcountryname? rowdata.appcountryname : rowdata.appcountry);
 
 			$('#dlgappaddress').val(rowdata.appaddress);
 
@@ -479,7 +482,7 @@
 				</tr>
 				<tr>
 					<td class="regittitle">
-						投保人证件号
+						投保人证件号码
 					</td>
 					<td class="common">
 						<input class="txt" readonly name="dlgappidno" id="dlgappidno">
@@ -612,7 +615,7 @@
 						续期银行卡姓名
 					</td>
 					<td class="common">
-						<input class="txt" readonly name="dlgappemail" id="dlgappemail">
+						<input class="txt" readonly name="dlgaccname" id="dlgaccname">
 					</td>
 				</tr>
 

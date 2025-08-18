@@ -212,7 +212,7 @@
 							<th data-options="field:'makedate',width:125">生成时间</th>
 							<th data-options="field:'modifydate',width:125" hidden>更新时间</th>
 							<th data-options="field:'orderid',width:180">订单号</th>
-							<th data-options="field:'authBuyId',width:120">认证单号</th>
+							<th data-options="field:'authBuyId',width:180">认证单号</th>
 							<th data-options="field:'authstatename',width:70">认证状态</th>
 							<th data-options="field:'authlink',width:60,formatter:dis_authlink">认证链接</th>
 							<th data-options="field:'validendtime',width:125,formatter:validendtime">认证截止时间</th>

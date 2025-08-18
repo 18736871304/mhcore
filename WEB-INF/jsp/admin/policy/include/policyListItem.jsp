@@ -20,9 +20,19 @@
 
 	<th data-options="field:'appname',width:70">投保人姓名</th>
 
-	<th data-options="field:'appprovincename',width:70">投保人所在省</th>
-	<th data-options="field:'appcityname',width:70">投保人所在市</th>
 
+	<!-- appprovince -->
+	<th data-options="field:'appprovincename',width:70,formatter:function(value,row){return value ? value : row.appprovince;}">
+		投保人所在省
+	  </th>
+ 
+	<!-- appcity -->
+	 
+	<th data-options="field:'appcityname',width:70,formatter:function(value,row){return value ? value : row.appcity;}">
+		投保人所在市
+	  </th>
+	  
+	<!-- appcountry  所在区 -->
 	<th data-options="field:'insname',width:70">被保人姓名</th>
 
 	<th data-options="field:'payintvvalue',width:60">缴费方式</th>
