@@ -126,6 +126,7 @@ function openDlg(index) {
 	//alert(row.agentcom);
 	
 	row.disxubao = 'Y';
+	row.queryinsured = 'Y';
 	dispolicyDetailDlg(row);
 }
 </script>
