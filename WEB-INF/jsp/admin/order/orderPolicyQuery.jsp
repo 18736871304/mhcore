@@ -259,15 +259,20 @@
 								<th data-options="field:'payurl',width:60,formatter:dis_payurl">支付链接</th>
 
 								<th data-options="field:'payendtime',width:125,formatter:dispayendtime">支付截止时间</th>
-								<th data-options="field:'payment',width:80,formatter:dis_payment">
+								<th data-options="field:'payment',width:80,formatter:dis_payment" hidden>
 									支付金额</th>
-								<th data-options="field:'payerrormsg',width:120">支付失败原因</th>
+								<th data-options="field:'payerrormsg',width:120" hidden>支付失败原因</th>
 
 								<th data-options="field:'insorganname',width:80">保险公司</th>
 								<th data-options="field:'riskname',width:160">险种名称</th>
 								<th data-options="field:'appname',width:70">投保人姓名</th>
-								<th data-options="field:'appprovincename',width:70">投保人所在省</th>
-								<th data-options="field:'appcityname',width:70">投保人所在市</th>
+								<!-- <th data-options="field:'appprovincename',width:70">投保人所在省</th> -->
+
+								<th data-options="field:'appprovincename',width:70,formatter:function(value,row,index){return (value == null || value === '') ? (row.appprovince || '') : value;}">投保人所在省</th>
+
+								<!-- <th data-options="field:'appcityname',width:70">投保人所在市</th> -->
+								<th data-options="field:'appcityname',width:70,formatter:function(value,row,index){return (value == null || value === '') ? (row.appcountry || '') : value;}">投保人所在市</th>
+
 								<th data-options="field:'insname',width:70">被保人姓名</th>
 								<th data-options="field:'payintvvalue',width:60">缴费方式</th>
 								<th data-options="field:'payendyearvalue',width:60">缴费年期</th>

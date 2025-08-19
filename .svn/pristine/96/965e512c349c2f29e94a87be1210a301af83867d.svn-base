@@ -53,8 +53,7 @@
 		function queryIsXbInfo(val, row, index) {
 			if (row.isxubao != null && row.isxubao != '') {
 				if (row.isxubao == '05') {
-					// return '<a href="#" onclick="disXbPolicyInfo(\'' + row.orderid + '\')">是</a>';
-					return '是';
+					return '<a href="#" onclick="disXbPolicyInfo(\'' + row.orderid + '\')">是</a>';
 				} else {
 					return '否'
 				}
@@ -63,23 +62,23 @@
 			}
 		}
 
-		// function disXbPolicyInfo(orderid) {
-		// 	var tturl = "policy/getRe_Xb_Policy.do";
+		function disXbPolicyInfo(orderid) {
+			var tturl = "policy/getRe_Xb_Policy.do";
 
-		// 	var tParam = new Object();
-		// 	tParam.orderid = orderid;
+			var tParam = new Object();
+			tParam.orderid = orderid;
 
-		// 	ajaxdeal(tturl, tParam, openPolicyDlg, null);
-		// }
+			ajaxdeal(tturl, tParam, openPolicyDlg, null);
+		}
 
-		// function openPolicyDlg(data) {
-		// 	if (data.code != '0') {
-		// 		$.messager.alert('操作提示', data.msg, 'error');
-		// 		return;
-		// 	} else {
-		// 		dispolicyDetailDlg(data.xbpolicyinfo);
-		// 	}
-		// }
+		function openPolicyDlg(data) {
+			if (data.code != '0') {
+				$.messager.alert('操作提示', data.msg, 'error');
+				return;
+			} else {
+				dispolicyDetailDlg(data.xbpolicyinfo);
+			}
+		}
 
 		function policydownload(val, row, index) {
 			if (row.policyurl != null && row.policyurl != '') {
