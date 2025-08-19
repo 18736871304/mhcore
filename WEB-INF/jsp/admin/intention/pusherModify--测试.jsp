@@ -23,7 +23,7 @@
 
 		#header-container {
 			list-style-type: none;
-			0 padding-left: 20px;
+			  padding-left: 20px;
 		}
 
 		#header-container li {

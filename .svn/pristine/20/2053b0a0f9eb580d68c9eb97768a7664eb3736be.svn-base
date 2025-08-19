@@ -271,7 +271,7 @@
 								<th data-options="field:'appprovincename',width:70,formatter:function(value,row,index){return (value == null || value === '') ? (row.appprovince || '') : value;}">投保人所在省</th>
 
 								<!-- <th data-options="field:'appcityname',width:70">投保人所在市</th> -->
-								<th data-options="field:'appcityname',width:70,formatter:function(value,row,index){return (value == null || value === '') ? (row.appcity || '') : value;}">投保人所在市</th>
+								<th data-options="field:'appcityname',width:70,formatter:function(value,row,index){return (value == null || value === '') ? (row.appcountry || '') : value;}">投保人所在市</th>
 
 								<th data-options="field:'insname',width:70">被保人姓名</th>
 								<th data-options="field:'payintvvalue',width:60">缴费方式</th>

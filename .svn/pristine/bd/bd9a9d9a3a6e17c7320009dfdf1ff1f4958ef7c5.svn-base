@@ -1,0 +1,200 @@
+<%@ page contentType="text/html;charset=utf-8" %>
+	<th data-options="field:'accepttime',width:125">出单日期</th>
+	<th data-options="field:'agentcom',width:70">出单营业部</th>
+	<th data-options="field:'teamname',width:100">出单团队</th>
+	<th data-options="field:'reusername',width:70">出单业务员</th>
+	<th data-options="field:'serviceusername',width:70">服务人员</th>
+	<th
+		data-options="field:'fentan_username',width:70,hidden:true,formatter:function(value){return value ? value : '公司';}">
+		被升级人员</th>
+	<th data-options="field:'shanxi_licai_type',width:140,hidden:true,formatter:licaiTypeName">理财资源来源</th>
+
+	<th data-options="field:'contno',width:180">保单号</th>
+	<th data-options="field:'statename',width:60">保单状态</th>
+
+	<th data-options="field:'insrevisitstatename',width:60 ,formatter:visitstate">回访状态</th>
+	<th data-options="field:'receiptstatename',width:60,formatter:receiptstate">回执状态</th>
+
+	<th data-options="field:'insorganname',width:80">保险公司</th>
+	<th data-options="field:'contriskname',width:160">险种名称</th>
+
+	<th data-options="field:'appname',width:70">投保人姓名</th>
+
+
+	<!-- appprovince -->
+	<th data-options="field:'appprovincename',width:70,formatter:function(value,row){return value ? value : row.appprovince;}">
+		投保人所在省
+	  </th>
+ 
+	<!-- appcity -->
+	 
+	<th data-options="field:'appcityname',width:70,formatter:function(value,row){return value ? value : row.appcity;}">
+		投保人所在市
+	  </th>
+	  
+	<!-- appcountry  所在区 -->
+	<th data-options="field:'insname',width:70">被保人姓名</th>
+
+	<th data-options="field:'payintvvalue',width:60">缴费方式</th>
+	<th data-options="field:'payendyearvalue',width:60">缴费年期</th>
+	<th data-options="field:'insuyearvalue',width:60">保障期限</th>
+	<th data-options="field:'contsumprem',width:60">保费</th>
+
+	<th data-options="field:'contfyp20',width:60">标保</th>
+	<th data-options="field:'contcoefficientfyp20',width:60">折算系数后标保</th>
+	<th data-options="field:'activitychannelname',width:60">渠道类型</th>
+	<th data-options="field:'activityappname',width:60">流量来源</th>
+	<th data-options="field:'activitymakedate',width:80">线索产生日期</th>
+	<th data-options="field:'policy_download',width:60,formatter:policydownload">电子保单</th>
+	<th data-options="field:'_operate',width:60,formatter:queryPolicyInfo">查看详情</th>
+	<th data-options="field:'_isxubao',width:60,formatter:queryIsXbInfo">是否续保</th>
+
+	<script>
+		function queryIsXbInfo(val, row, index) {
+			if (row.isxubao != null && row.isxubao != '') {
+				if (row.isxubao == '05') {
+					// return '<a href="#" onclick="disXbPolicyInfo(\'' + row.orderid + '\')">是</a>';
+					return '是';
+				} else {
+					return '否'
+				}
+			} else {
+				return '否'
+			}
+		}
+
+		// function disXbPolicyInfo(orderid) {
+		// 	var tturl = "policy/getRe_Xb_Policy.do";
+
+		// 	var tParam = new Object();
+		// 	tParam.orderid = orderid;
+
+		// 	ajaxdeal(tturl, tParam, openPolicyDlg, null);
+		// }
+
+		// function openPolicyDlg(data) {
+		// 	if (data.code != '0') {
+		// 		$.messager.alert('操作提示', data.msg, 'error');
+		// 		return;
+		// 	} else {
+		// 		dispolicyDetailDlg(data.xbpolicyinfo);
+		// 	}
+		// }
+
+		function policydownload(val, row, index) {
+			if (row.policyurl != null && row.policyurl != '') {
+				if (row.policyurl.indexOf("insure.meihualife.com") > 0 && row.policyurl.endsWith("/")) {
+					return '<a onclick = "disPolicyUrlDlg(\'' + row.orderid + '\',\'' + row.contno + '\')">下载</a>';
+				} else {
+					// return '<a href="' + row.policyurl + '" target = "_blank">下载</a>';
+					return '<a onclick = "disPolicyUrlDlg(\'' + row.orderid + '\',\'' + row.contno + '\',\'' + row.policyurl + '\')">下载</a>';
+				}
+			}
+		}
+
+		function disPolicyUrlDlg(orderid, contno, policyurl) {
+
+
+			var tturl = '/policy/policyDownLoad.do'
+			var tParam = {
+				orderid: orderid,
+				contno: contno
+			}
+			httpRequest(tturl, 'post', tParam, {
+				success: function (res) {
+
+					if (res.code == '0' && res.policyUrl && res.policyUrl != '') {
+						if (res.policyUrl.startsWith('/opt/ps2')) {
+							res.policyUrl = res.policyUrl.replace('/opt/ps2', 'https://insure.meihualife.com');
+						}
+						let a = document.createElement('a')
+						a.target = '_blank';
+						a.href = res.policyUrl;
+						a.click();
+					} else {
+						let a = document.createElement('a')
+						a.target = '_blank';
+						a.href = policyurl;
+						a.click();
+					}
+				}
+			})
+
+		}
+
+		function licaiTypeName(val) {
+			if (val == '01') {
+				return "本人保障资源升级理财"
+			} else if (val == '02') {
+				return "理财资源"
+			} else if (val == '03') {
+				return "其他员工重疾资源升级理财"
+			} else if (val == '04') {
+				return "其他移交资源"
+			}
+		}
+
+		// 回访状态
+		function visitstate(val, row, index) {
+			if (val == '待回访' && row.revisiturl !='' ) {
+				return '<a onclick="copyText(\'' + row.revisiturl + '\')" style="color: blue; cursor: pointer;">' + val + '</a>';
+			} else if (val == '回访失败' && row.revisiturl !='') {
+				return '<a onclick="copyText(\'' + row.revisiturl + '\')" style="color: blue; cursor: pointer;">' + val + '</a>';
+			} else {
+				return val
+			}
+		}
+
+		// 回执状态
+		function receiptstate(val, row, index) {
+			console.log(val)
+			if (val == '待回执' && row.receipturl !='') {
+				return '<a onclick="copyText(\'' + row.receipturl + '\')" style="color: blue; cursor: pointer;">' + val + '</a>';
+			} else if (val == '回执失败' && row.receipturl !='') {
+				return '<a onclick="copyText(\'' + row.receipturl + '\')" style="color: blue; cursor: pointer;">' + val + '</a>';
+			} else {
+				return val
+			}
+		}
+
+	
+
+
+		function httpRequest(url, method, data, fnObj) {
+			$.ajax({
+				url: url,
+				type: method,
+				data: data,
+				dataType: 'json',
+				timeout: 15000,
+				beforeSend: function () {
+					// $.showLoading("加载中...")
+					if (fnObj.beforeSend) {
+						fnObj.beforeSend()
+					}
+				},
+				complete: function (xhr, status) {
+					// $.hideLoading()
+					if (status === 'timeout') {
+						console.log('api time out')
+					}
+					if (fnObj.complete) {
+						fnObj.complete(status)
+					}
+				},
+				success: function (res) {
+					// $.hideLoading()
+					if (fnObj.success) {
+						fnObj.success(res)
+					}
+				},
+				error: function (error) {
+					// $.hideLoading()
+					console.log(error)
+					if (fnObj.error) {
+						fnObj.error(error)
+					}
+				}
+			})
+		}
+	</script>
