@@ -1,259 +1,300 @@
-<%@ page contentType="text/html;charset=utf-8"%>
-<html>
-<%@ include file="/WEB-INF/common/include.jsp"%>
+<%@ page contentType="text/html;charset=utf-8" %>
+	<html>
+	<%@ include file="/WEB-INF/common/include.jsp" %>
 
-<head>
-<title></title>
-<link rel="stylesheet" href="../../../../css/inputbox/line6.css">
-<script>
-var inputList;
-var checkList;
-var doubleList;
+		<head>
+			<title></title>
+			<link rel="stylesheet" href="../../../../css/inputbox/line6.css">
+			<script>
+				var inputList;
+				var checkList;
+				var doubleList;
+				var allOptions;
+				window.onload = function () {
+					initDataGrid20($('#pushRiskList'));
 
-window.onload = function () 
-{
-	initDataGrid20($('#pushRiskList'));
-	
-	inputList = [
-				$('#insorgancode'),
-				$('#riskcode'),
-				$('#yearmonth'),
-				$('#rate'),
-				$('#usergrade'),
-			];
+					inputList = [
+						$('#insorgancode'),
+						$('#riskcode'),
+						$('#yearmonth'),
+						$('#rate'),
+						$('#usergrade'),
+					];
 
-			checkList = [
-				$('#insorgancode'),
-				$('#riskcode'),
-				$('#yearmonth'),
-				$('#rate'),
-				$('#usergrade'),
-			];
-			
-	disComBox($('#insorgancode'),"insorgancode",null);
-	disComBox($('#usergrade'),"usergrade",null);
-	
-	$('#yearmonth').datebox({formatter:function(date){
-        var y = date.getFullYear();
-        var m = date.getMonth() + 1;
-        m = m < 10 ? '0' + m : m;
-        return y.toString() + '-' + m.toString();
-    },parser:function(date){
-        console.log(date);
-        if (date) {
-            return new Date(String(date).substring(0, 4) + '-'
-                    + String(date).substring(5,7));
-        } else {
-            return new Date();
-        }
-    }});
-	
-	pushRiskQuery();
-}
+					checkList = [
+						$('#insorgancode'),
+						$('#riskcode'),
+						$('#yearmonth'),
+						$('#rate'),
+						$('#usergrade'),
+					];
 
-function aftercodeselect(comboxid) 
-{
-	if(comboxid.attr("id")=="insorgancode")
-	{
-		dealInsOrgan();
-	}
-}
+					disComBox($('#insorgancode'), "insorgancode", null);
+					disComBox($('#usergrade'), "usergrade", null);
 
-function dealInsOrgan()
-{
-	var tturl1 = "policy/getRiskList.do";
-	
-	var tParam = new Object();
-	tParam.insorgancode = $('#insorgancode').combobox('getValue');
-	
-	displayCombox($('#riskcode'),tParam,tturl1,"dd_key","dd_value");
-}
+					$('#yearmonth').datebox({
+						formatter: function (date) {
+							var y = date.getFullYear();
+							var m = date.getMonth() + 1;
+							m = m < 10 ? '0' + m : m;
+							return y.toString() + '-' + m.toString();
+						}, parser: function (date) {
+						 
+							if (date) {
+								return new Date(String(date).substring(0, 4) + '-'
+									+ String(date).substring(5, 7));
+							} else {
+								return new Date();
+							}
+						}
+					});
+					setTimeout(function () {
+						pushRiskQuery();
+						allOptions = $('#usergrade').combobox('getData');
+					}, 100);  // 1000 毫秒 = 1 秒
 
-function selectone() 
-{
-	var row = $('#pushRiskList').datagrid('getSelected');
-	
-	$('#insorgancode').combobox('setValue',row.insorgancode);
-	dealInsOrgan();
-	
-	$('#riskcode').combobox('setValue',row.riskcode);
-	$('#yearmonth').datebox('setValue',row.yearmonth);
-	
-	if(row.usergrade!=null&&row.usergrade!='')
-	{
-		$('#usergrade').combobox('setValues', row.usergrade.split(","));
-	}
-	else
-	{
-		$('#usergrade').combobox('setValues', '');
-	}
-	
-	$('#rate').val(row.rate);
-}
+				}
 
-function saveSuss() 
-{
-	clearInputData() 
-	$('#pushRiskList').datagrid('reload');
-}
+				function aftercodeselect(comboxid) {
+					if (comboxid.attr("id") == "insorgancode") {
+						dealInsOrgan();
+					}
+					if (comboxid.attr("id") == "usergrade") {
+						var usergrade_combox = $('#usergrade').combobox('getValues');
+						if (usergrade_combox.length > 0 && usergrade_combox[0] === "") {
+							usergrade_combox.shift();
+						}
+						if (usergrade_combox !== "" && usergrade_combox != null) {
+							var usergrade = desc(usergrade_combox.join(","))
+						}
+						$('#usergrade').combobox('setValues', usergrade.split(","));
+					}
+				}
 
-function clearInputData() 
-{
-	cleardata(inputList);
-}
+				function dealInsOrgan() {
+					var tturl1 = "policy/getRiskList.do";
 
-function pushRiskAdd()
-{
-	if(!checknotnull(checkList))
-	{
-		return;
-	}
+					var tParam = new Object();
+					tParam.insorgancode = $('#insorgancode').combobox('getValue');
 
-	var tparam = prepareparam(inputList);
-	tparam.yearmonth = $('#yearmonth').datebox('getValue');
-	
-	var usergrade_combox = $('#usergrade').combobox('getValues');
-	var usergrade_str = "";
-	for (var j = 0; j < usergrade_combox.length; j++) {
-		usergrade_str = usergrade_str + usergrade_combox[j];
-		if(j!=usergrade_combox.length-1)
-		{
-			usergrade_str = usergrade_str + ","
-		}
-	}
-	tparam.usergrade = usergrade_str;
-	
-	ajaxdeal("pushrisk/pushRiskInsert.do", tparam, null, null, saveSuss);
-}
+					displayCombox($('#riskcode'), tParam, tturl1, "dd_key", "dd_value");
+				}
 
-function pushRiskEdit()
-{
-	var row = $('#pushRiskList').datagrid('getSelected');
-	
-	if (row == null) {
-		$.messager.alert('操作提示', '请选中要操作的数据！', 'error');
-		return;
-	}
-	
-	if(!checknotnull(checkList))
-	{
-		return;
-	}
+				function selectone() {
+					var row = $('#pushRiskList').datagrid('getSelected');
 
-	var tparam = prepareparam(inputList);
-	tparam.yearmonth = $('#yearmonth').datebox('getValue');
-	
-	var usergrade_combox = $('#usergrade').combobox('getValues');
-	var usergrade_str = "";
-	for (var j = 0; j < usergrade_combox.length; j++) {
-		usergrade_str = usergrade_str + usergrade_combox[j];
-		if(j!=usergrade_combox.length-1)
-		{
-			usergrade_str = usergrade_str + ","
-		}
-	}
-	tparam.usergrade = usergrade_str;
-	
-	tparam.pushriskserialno = row.pushriskserialno;
+					$('#insorgancode').combobox('setValue', row.insorgancode);
+					dealInsOrgan();
 
-	ajaxdeal("pushrisk/pushRiskUpdate.do", tparam, null, null, saveSuss);
-}
+					$('#riskcode').combobox('setValue', row.riskcode);
+					$('#yearmonth').datebox('setValue', row.yearmonth);
 
-function pushRiskDelete()
-{
-	var row = $('#pushRiskList').datagrid('getSelected');
-	
-	if (row == null) {
-		$.messager.alert('操作提示', '请选中要操作的数据！', 'error');
-		return;
-	}
+					if (row.usergrade != null && row.usergrade != '') {
+						if (row.usergrade.startsWith(',')) {
+							row.usergrade = row.usergrade.slice(1);
+						}
+						var usergrade = desc(row.usergrade)
+						$('#usergrade').combobox('setValues', usergrade.split(","));
+					} else {
+						$('#usergrade').combobox('setValues', '');
+					}
 
-	var tparam = prepareparam(inputList);
-	tparam.pushriskserialno = row.pushriskserialno;
+					$('#rate').val(row.rate);
+				}
 
-	ajaxdeal("pushrisk/pushRiskDelete.do", tparam, null, null, saveSuss);
-}
+				function saveSuss() {
+					clearInputData()
+					$('#pushRiskList').datagrid('reload');
+				}
 
-function pushRiskQuery()
-{
-	var tturl = "pushrisk/getPushRiskList.do";
+				function clearInputData() {
+					cleardata(inputList);
+				}
 
-	var tParam = new Object();
+				function pushRiskAdd() {
+					if (!checknotnull(checkList)) {
+						return;
+					}
 
-	displayDataGrid20($('#pushRiskList'), tParam, tturl);
+					var tparam = prepareparam(inputList);
+					tparam.yearmonth = $('#yearmonth').datebox('getValue');
 
-	clearInputData();
-}
-	
-</script>
-</head>
-<body>
-	<div style="margin-left:0%">
-		<table id="pushRiskList" class="easyui-datagrid" title="宣传推动奖励" style="width:auto;height:auto"
-			data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone">
-			<thead>
-				<tr>
-					<th data-options="field:'groupcode',width:90">保险产品编码</th>
-					<th data-options="field:'channelname',width:80">签约渠道</th>
-					<th data-options="field:'risktypename',width:80">险种类型</th>
-					<th data-options="field:'insorganname',width:90">保险公司</th>
-					<th data-options="field:'riskname',width:320">险种名称</th>
-					<th data-options="field:'usergradename',width:350">职能级别</th>
-					<th data-options="field:'yearmonth',width:100">奖励月</th>
-					<th data-options="field:'rate',width:100">推动比例</th>
-				</tr>
-			</thead>
-		</table>
-		<br>
-		<table class="common">
-			<tr>
-				<td class = "reprot_title_4">
-					保险公司
-				</td>
-				<td class = "report_common_4">
-					<select editable="false" class = "easyui-combobox" style="width:160%" name="insorgancode" id="insorgancode" notnull = "保险公司">
-					</select>
-				</td>
-				
-				<td class = "reprot_title_4">
-					险种名称
-				</td>
-				<td class = "report_common_4">
-					<select editable="false" class = "easyui-combobox" style="width:160%" name="riskcode" id="riskcode" notnull = "险种">
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td class = "reprot_title_4">
-					职能级别
-				</td>
-				<td class = "report_common_4">
-					<select editable="false" class = "easyui-combobox" style="width:160%" name="usergrade" id="usergrade" notnull = "职能级别"
-					data-options="valueField:'id',textField:'text',multiple:true,panelHeight:'auto'">
-					</select>
-				</td>
-				
-				<td class = "reprot_title_4">
-					奖励月
-				</td>
-				<td class = "report_common_4">
-					<input class="easyui-datebox" style="width: 160%" id="yearmonth" name="yearmonth" notnull = "奖励月">
-				</td>
-			
-				<td class="reprot_title_4">
-					推动比例
-				</td>
-				<td class="report_common_4">
-					<input class = "txt" name="rate" id="rate" notnull = "推动比例">
-				</td>
-				<td></td><td></td>
-			</tr>
-		</table>
-		<br>
-		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id="pushRiskAdd" onclick="pushRiskAdd()">新增</a>
-		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" id="pushRiskEdit" onclick="pushRiskEdit()">修改</a>
-		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" id="pushRiskDelete" onclick="pushRiskDelete()">删除</a>
-	</div>
-</body>
+					var usergrade_combox = $('#usergrade').combobox('getValues');
+					var usergrade_str = "";
+					for (var j = 0; j < usergrade_combox.length; j++) {
+						usergrade_str = usergrade_str + usergrade_combox[j];
+						if (j != usergrade_combox.length - 1) {
+							usergrade_str = usergrade_str + ","
+						}
+					}
+					tparam.usergrade = usergrade_str;
 
-</html>
+					ajaxdeal("pushrisk/pushRiskInsert.do", tparam, null, null, saveSuss);
+				}
+
+				function pushRiskEdit() {
+					var row = $('#pushRiskList').datagrid('getSelected');
+
+					if (row == null) {
+						$.messager.alert('操作提示', '请选中要操作的数据！', 'error');
+						return;
+					}
+
+					if (!checknotnull(checkList)) {
+						return;
+					}
+
+					var tparam = prepareparam(inputList);
+					tparam.yearmonth = $('#yearmonth').datebox('getValue');
+
+					var usergrade_combox = $('#usergrade').combobox('getValues');
+					var usergrade_str = "";
+					for (var j = 0; j < usergrade_combox.length; j++) {
+						usergrade_str = usergrade_str + usergrade_combox[j];
+						if (j != usergrade_combox.length - 1) {
+							usergrade_str = usergrade_str + ","
+						}
+					}
+					tparam.usergrade = usergrade_str;
+
+					tparam.pushriskserialno = row.pushriskserialno;
+
+					ajaxdeal("pushrisk/pushRiskUpdate.do", tparam, null, null, saveSuss);
+				}
+
+				function pushRiskDelete() {
+					var row = $('#pushRiskList').datagrid('getSelected');
+
+					if (row == null) {
+						$.messager.alert('操作提示', '请选中要操作的数据！', 'error');
+						return;
+					}
+
+					var tparam = prepareparam(inputList);
+					tparam.pushriskserialno = row.pushriskserialno;
+
+					ajaxdeal("pushrisk/pushRiskDelete.do", tparam, null, null, saveSuss);
+				}
+
+				function pushRiskQuery() {
+					var tturl = "pushrisk/getPushRiskList.do";
+
+					var tParam = new Object();
+
+					displayDataGrid20($('#pushRiskList'), tParam, tturl);
+
+					clearInputData();
+				}
+
+				function usergradeDesc(valData, row, index) {
+
+					if (valData !== "" && valData != null) {
+						var result = desc(valData)
+						return result
+					} else {
+						return ''
+					}
+
+				}
+
+				function desc(valData) {
+					// 1. 拆分字符串成数组，去除空格
+					var arr = valData.split(',').map(item => item.trim());
+					// 2. 建立 data 中 dd_value 到索引的映射，方便排序
+					var orderMap = {};
+					allOptions.forEach((item, index) => {
+						orderMap[item.dd_key] = index;
+					});
+					// 3. 过滤 arr 中存在于 orderMap 的项（排除 data 中没有的，比如 P8 不在 data 中，但你想保留它，稍后处理）
+					// 这里先保留所有 arr 中的项，排序时 P8 没有索引，放后面
+					arr.sort((a, b) => {
+						let indexA = orderMap.hasOwnProperty(a) ? orderMap[a] : Number.MAX_SAFE_INTEGER;
+						let indexB = orderMap.hasOwnProperty(b) ? orderMap[b] : Number.MAX_SAFE_INTEGER;
+						return indexA - indexB;
+					});
+					// 4. 拼接成字符串
+					var result = arr.join(',');
+					return result
+				}
+
+			</script>
+		</head>
+
+		<body>
+			<div style="margin-left:0%">
+				<table id="pushRiskList" class="easyui-datagrid" title="宣传推动奖励" style="width:auto;height:auto"
+					data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone">
+					<thead>
+						<tr>
+							<th data-options="field:'groupcode',width:90">保险产品编码</th>
+							<th data-options="field:'channelname',width:80">签约渠道</th>
+							<th data-options="field:'risktypename',width:80">险种类型</th>
+							<th data-options="field:'insorganname',width:90">保险公司</th>
+							<th data-options="field:'riskname',width:320">险种名称</th>
+							<th data-options="field:'usergradename',width:650,formatter:usergradeDesc">职能级别</th>
+							<th data-options="field:'yearmonth',width:100">奖励月</th>
+							<th data-options="field:'rate',width:100">推动比例</th>
+						</tr>
+					</thead>
+				</table>
+				<br>
+				<table class="common">
+					<tr>
+						<td class="reprot_title_4">
+							保险公司
+						</td>
+						<td class="report_common_4">
+							<select editable="false" class="easyui-combobox" style="width:160%" name="insorgancode"
+								id="insorgancode" notnull="保险公司">
+							</select>
+						</td>
+
+						<td class="reprot_title_4">
+							险种名称
+						</td>
+						<td class="report_common_4">
+							<select editable="false" class="easyui-combobox" style="width:160%" name="riskcode"
+								id="riskcode" notnull="险种">
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="reprot_title_4">
+							职能级别
+						</td>
+						<td class="report_common_4">
+							<select editable="false" class="easyui-combobox" style="width:160%" name="usergrade"
+								id="usergrade" notnull="职能级别"
+								data-options="valueField:'id',textField:'text',multiple:true,panelHeight:'auto'">
+							</select>
+						</td>
+
+						<td class="reprot_title_4">
+							奖励月
+						</td>
+						<td class="report_common_4">
+							<input class="easyui-datebox" style="width: 160%" id="yearmonth" name="yearmonth"
+								notnull="奖励月">
+						</td>
+
+						<td class="reprot_title_4">
+							推动比例
+						</td>
+						<td class="report_common_4">
+							<input class="txt" name="rate" id="rate" notnull="推动比例">
+						</td>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+				<br>
+				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id="pushRiskAdd"
+					onclick="pushRiskAdd()">新增</a>
+				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" id="pushRiskEdit"
+					onclick="pushRiskEdit()">修改</a>
+				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" id="pushRiskDelete"
+					onclick="pushRiskDelete()">删除</a>
+			</div>
+		</body>
+
+	</html>

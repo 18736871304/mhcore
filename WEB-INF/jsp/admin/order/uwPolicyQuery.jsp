@@ -5,9 +5,11 @@
 		<head>
 			<title></title>
 			<link rel="stylesheet" href="../../../../css/inputbox/line6.css">
+
 			<script>
 
 				window.onload = function () {
+					$('#remarkDlg').dialog('close');
 					policyDetailDlgInit();
 
 					disComBox($('#qinsorgancode'), "insorgancode", null);
@@ -129,6 +131,51 @@
 					dispolicyDetailDlg(row);
 				}
 
+				function uwurlEx(val, row, index) {
+
+					var rows = $('#orderPolicyList').datagrid('getRows'); //获取所有当前加载的数据行
+					var row = rows[index];
+					if (row.uwurl !== "" && row.uwurl != null && row.sealchannel == '10' && row.uwstatename == "核保中") {
+						return '<a href="#" onclick="uwurlDlg(' + index + ', \'uwurlEx\')"  style="color: blue; cursor: pointer;" >复制</a>';
+					} else {
+						return ''
+					}
+
+				}
+				// 13
+
+
+				function uwurlCus(val, row, index) {
+
+					var rows = $('#orderPolicyList').datagrid('getRows'); //获取所有当前加载的数据行
+					var row = rows[index];
+					if (row.uwurl !== "" && row.uwurl != null && row.uwstatename == "核保中") {
+						return '<a href="#" onclick="uwurlDlg(' + index + ', \'uwurlCus\')"  style="color: blue; cursor: pointer;" >复制</a>';
+					} else {
+						return ''
+					}
+				}
+
+				function uwurlDlg(index, str) {
+					var rows = $('#orderPolicyList').datagrid('getRows'); //获取所有当前加载的数据行
+					var row = rows[index];
+
+					if (str == 'uwurlEx' && row.sealchannel == '10') {
+						var uwurl = row.uwurl
+
+						var url = new URL(uwurl);
+						url.searchParams.set('vscene', '1');
+						var newUrl = url.toString();
+						copyText(newUrl)
+					}
+					if (str == "uwurlCus") {
+						copyText(row.uwurl)
+					}
+				}
+
+
+
+
 			</script>
 
 		</head>
@@ -171,14 +218,19 @@
 									id="quwstate">
 								</select>
 							</td>
-						</tr>
-						<tr>
+
 
 							<td class="reprot_title">签约渠道</td>
-							<td class="reprot_common">
-								<select class="easyui-combobox" style="width: 160%" name="sealchannel"
+							<td class="report_common">
+								<select class="easyui-combobox" style="width: 90%" name="sealchannel"
 									id="sealchannel"></select>
 							</td>
+
+
+
+
+						</tr>
+						<tr>
 
 
 							<td class="reprot_title">
@@ -231,14 +283,16 @@
 
 
 
-								<th data-options="field:'dealid',width:180,formatter:function(value,row,index){return value === '0' ? '' : value;}">订单号</th>
-								<th data-options="field:'hcid',width:180">人核单号</th>
+								<th
+									data-options="field:'dealid',width:160,formatter:function(value,row,index){return value === '0' ? '' : value;}">
+									订单号</th>
+								<th data-options="field:'hcid',width:160">人核单号</th>
 								<th data-options="field:'uwtypename',width:70">核保类型</th>
 								<th data-options="field:'uwstatename',width:70">人核状态</th>
-								<!-- <th data-options="field:'remark',width:1000,formatter:disremark">备注信息</th> -->
-								<th data-options="field:'remark',width:400,styler:function(value,row,index){
-									return 'white-space:normal;word-break:break-all;'; 
-								  }">备注信息</th>
+								<th data-options="field:'uwurl1',width:80,formatter:uwurlEx">顾问查看链接</th>
+								<th data-options="field:'uwurl2',width:80,formatter:uwurlCus">转发客户链接</th>
+
+
 								<th data-options="field:'insorganname',width:80">保险公司</th>
 								<th data-options="field:'riskname',width:160">险种名称</th>
 
@@ -251,8 +305,7 @@
 								<th data-options="field:'insCert',width:130" hidden>被保人证件号码</th>
 
 
-								<th data-options="field:'coconclusion',width:400,formatter:remarkText,styler:function(value,row,index){ return 'white-space:normal;word-break:break-all;'; 
-			  }">核保结论</th>
+
 								<th data-options="field:'validendtime',width:125">有效截止时间</th>
 								<th data-options="field:'insuwstatename',width:90" hidden>保司人核状态</th>
 
@@ -270,6 +323,17 @@
 					<br>
 					<br>
 				</div>
+
+
+				<!-- <div id="remarkDlg" class="easyui-dialog" title="信息"
+					style="width:700px;height:auto;padding:10px;top:10px" data-options="iconCls: 'icon-save'">
+					<div id="remarkText">
+					</div>
+				</div> -->
+
+
 			</body>
 
 	</html>
+
+	<!-- $('#remarkDlg').dialog('open').dialog('resize'); -->

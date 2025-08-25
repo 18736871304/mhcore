@@ -100,7 +100,9 @@
 
 				function validendtime(val, row, index) {
 
-					if (val && val != '') {
+				 
+
+					if (val && val != '' && row.authstate == '02') {
 						const validEndTime = val;
 						const date = new Date(Number(validEndTime) * 1000);
 						const year = date.getFullYear();
@@ -157,17 +159,23 @@
 							</select>
 						</td>
 
+						
+					  <td class="reprot_title">
+							签约渠道
+						</td>
+						<td class="report_common">
+							<select class="easyui-combobox" style="width:90%"   name="sealchannel"
+								id="sealchannel">
+							</select>
+						</td>  
+
 						<td></td>
 						<td></td>
 						<td></td>
 						<td></td>
 					</tr>
 					<tr>
-						<td class="reprot_title">签约渠道</td>
-						<td class="reprot_common">
-							<select class="easyui-combobox" style="width: 160%" name="sealchannel"
-								id="sealchannel"></select>
-						</td>
+		 
 
 						<td class="reprot_title">
 							保险公司
@@ -211,8 +219,8 @@
 						<tr>
 							<th data-options="field:'makedate',width:125">生成时间</th>
 							<th data-options="field:'modifydate',width:125" hidden>更新时间</th>
-							<th data-options="field:'orderid',width:180">订单号</th>
-							<th data-options="field:'authBuyId',width:180">认证单号</th>
+							<th data-options="field:'orderid',width:160">订单号</th>
+							<th data-options="field:'authBuyId',width:160">认证单号</th>
 							<th data-options="field:'authstatename',width:70">认证状态</th>
 							<th data-options="field:'authlink',width:60,formatter:dis_authlink">认证链接</th>
 							<th data-options="field:'validendtime',width:125,formatter:validendtime">认证截止时间</th>

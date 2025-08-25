@@ -163,6 +163,7 @@
 
 		function disInsured(row) {
 			var insuredHtml = "";
+			console.log(row.queryinsured  )
 			if (row.queryinsured == 'Y') {
 				var tParam = new Object();
 				tParam.orderid = row.orderid;
@@ -200,6 +201,7 @@
 
 		function dealInsuredList(data) {
 			var insuredHtml = "";
+			console.log(data)
  
 			for (var i = 0; i < data.insuredList.length; i++) {
 				var index = i + 1;
@@ -209,8 +211,8 @@
 				insuredHtml = insuredHtml + '<tr><td class = "regittitle">被保人姓名</td><td class = "common">	<input class = "txt" readonly name="dlginsname" id="dlginsname" value = "' + getQueryData(data.insuredList[i].insname) + '"></td></tr>';
 				insuredHtml = insuredHtml + '<tr><td class = "regittitle">被保人性别</td><td class = "common"><input class = "txt" readonly name="dlginssexname" id="dlginssexname" value = "' + getQueryData(data.insuredList[i].inssexname) + '"></td></tr>';
 				insuredHtml = insuredHtml + '<tr><td class = "regittitle">被保人生日</td><td class = "common"><input class = "txt" readonly name="dlginsbirthday" id="dlginsbirthday" value = "' + getQueryData(data.insuredList[i].insbirthday) + '"></td></tr>';
-				insuredHtml = insuredHtml + '<tr><td class = "regittitle">被保人证件类型</td><td class = "common"><input class = "txt" readonly name="dlginsidnotype" id="dlginsidnotype" value = "' + getQueryData(data.insuredList[i].insidnotype) + '"></td></tr>';
-				insuredHtml = insuredHtml + '<tr><td class = "regittitle">被保人证件号码</td><td class = "common"><input class = "txt" readonly name="dlginsidno" id="dlginsidno" value = "' + getQueryData(data.insuredList[i].insidno) + '"></td></tr>';
+				insuredHtml = insuredHtml + '<tr><td class = "regittitle">被保人证件类型</td><td class = "common"><input class = "txt" readonly name="dlginsidnotype" id="dlginsidnotype" value = "' + getQueryData(data.insuredList[i].insidtypename) + '"></td></tr>';
+				insuredHtml = insuredHtml + '<tr><td class = "regittitle">被保人证件号码</td><td class = "common"><input class = "txt" readonly name="dlginsidno" id="dlginsidno" value = "' + getQueryData(data.insuredList[i].idno) + '"></td></tr>';
 				insuredHtml = insuredHtml + '<tr><td class = "regittitle">被保人证件到期日期</td><td class = "common"><input class = "txt" readonly name="dlginsidexpdate" id="dlginsidexpdate" value = "' + getQueryData(data.insuredList[i].insidexpdate) + '"></td></tr>';
 				insuredHtml = insuredHtml + '<tr><td class = "regittitle">被保人国籍</td><td class = "common"><input class = "txt" readonly name="dlginsnationality" id="dlginsnationality" value = "' + getQueryData(data.insuredList[i].insnationality) + '"></td></tr>';
 				insuredHtml = insuredHtml + '<tr><td class = "regittitle">被保人身高</td><td class = "common"><input class = "txt" readonly name="dlginsstature" id="dlginsstature" value = "' + getQueryData(data.insuredList[i].insstature) + '"></td></tr>';
