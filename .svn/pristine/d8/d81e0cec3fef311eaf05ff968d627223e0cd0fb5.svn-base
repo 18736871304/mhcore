@@ -128,14 +128,6 @@
 					return (fyp * 15000).toFixed(2)
 				}
 
-				function ylpremaa(val, row, index) {
-					return (row.ylprem * 0.06).toFixed(2)
-				}
-
-
-
-
-
 
 			</script>
 
@@ -206,28 +198,26 @@
 							<th data-options="field:'reusername',width:70">人员姓名</th>
 							<th data-options="field:'degreename',width:70">学历</th>
 
-							<th data-options="field:'usergradename',width:70">职能级别</th>
-							<th data-options="field:'positionname',width:60">职岗</th>
-							<th data-options="field:'entrydate',width:70">下团队日期</th>
+							<th data-options="field:'usergradename',width:80">职能级别</th>
+							<th data-options="field:'positionname',width:80">职岗</th>
+							<th data-options="field:'entrydate',width:80">下团队日期</th>
 
 
-							<th data-options="field:'sumfyp20',width:70">标保</th>
-							<th data-options="field:'aaa1111',width:70,formatter:jiaquanfyp">加权标保</th>
-							<th data-options="field:'changxian_sumfyp20',width:70">长标</th>
-							<th data-options="field:'changxian_nian_sumfyp20',width:70">长年标</th>
-							<th data-options="field:'changxian_yue_sumfyp20',width:70">长月标</th>
-							<th data-options="field:'coefficient_changxian_sumfyp20',width:70">折长标</th>
-							<th data-options="field:'coefficient_changxian_nian_sumfyp20',width:70">折长年标</th>
-							<th data-options="field:'coefficient_changxian_yue_sumfyp20',width:70">折长月标</th>
-							<th data-options="field:'ylprem',width:70">医保费</th>
-						
-							<th data-options="field:'jixiao',width:70">绩效</th>
-							<th data-options="field:'cx_nian_fyp_ticheng',width:70">长年提成</th>
-							<th data-options="field:'cx_yue_fyp_ticheng',width:70">长月提成</th>
-							<!-- <th data-options="field:'ylpremaa',width:70,formatter:ylpremaa">医保费6%</th> -->
-							<th data-options="field:'yiliaoticheng',width:70">医提成</th>
-							<th data-options="field:'pushaward',width:80">宣传推动奖励</th>
-							<th data-options="field:'buxianshi',width:70">限时奖励</th>
+							<th data-options="field:'sumfyp20',width:100">标保</th>
+							<th data-options="field:'aaa1111',width:100,formatter:jiaquanfyp">加权标保</th>
+							<th data-options="field:'changxian_sumfyp20',width:120">长标</th>
+							<th data-options="field:'aa5',width:120">长年标</th>
+							<th data-options="field:'aa4',width:120">长月标</th>
+							<th data-options="field:'coefficient_changxian_sumfyp20',width:120">折长标</th>
+							<th data-options="field:'coefficient_sumnianfyp20',width:120">折长年标</th>
+							<th data-options="field:'coefficient_sumyuefyp20',width:120">折长月标</th>
+							<th data-options="field:'ylprem',width:120">医保费</th>
+							<th data-options="field:'jixiao',width:100">绩效</th>
+							<th data-options="field:'aa3',width:140">长年提成</th>
+							<th data-options="field:'aa2',width:140">长月提成</th>
+							<th data-options="field:'aa1',width:140">医提成</th>
+							<th data-options="field:'pushaward',width:160">宣传推动奖励</th>
+							<th data-options="field:'buxianshi',width:140">限时奖励</th>
 
 
 

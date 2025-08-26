@@ -11,24 +11,25 @@
 				var doubleList;
 				var allOptions;
 				window.onload = function () {
-					initDataGrid20($('#xianShiRuleList'));
+					initDataGrid20($('#pushRiskList'));
 
 					inputList = [
-						$('#usergrade'),
+						$('#insorgancode'),
+						$('#riskcode'),
 						$('#yearmonth'),
-						$('#nianfypstart'),
-						$('#nianfypend'),
-						$('#award'),
+						$('#rate'),
+						$('#usergrade'),
 					];
 
 					checkList = [
-						$('#usergrade'),
+						$('#insorgancode'),
+						$('#riskcode'),
 						$('#yearmonth'),
-						$('#nianfypstart'),
-						$('#nianfypend'),
-						$('#award'),
+						$('#rate'),
+						$('#usergrade'),
 					];
 
+					disComBox($('#insorgancode'), "insorgancode", null);
 					disComBox($('#usergrade'), "usergrade", null);
 
 					$('#yearmonth').datebox({
@@ -38,6 +39,7 @@
 							m = m < 10 ? '0' + m : m;
 							return y.toString() + '-' + m.toString();
 						}, parser: function (date) {
+						 
 							if (date) {
 								return new Date(String(date).substring(0, 4) + '-'
 									+ String(date).substring(5, 7));
@@ -46,28 +48,47 @@
 							}
 						}
 					});
-
 					setTimeout(function () {
-						xianShiRuleQuery();
+						pushRiskQuery();
 						allOptions = $('#usergrade').combobox('getData');
 					}, 100);  // 1000 毫秒 = 1 秒
 
 				}
 
 				function aftercodeselect(comboxid) {
-					var usergrade_combox = $('#usergrade').combobox('getValues');
-					if (usergrade_combox.length > 0 && usergrade_combox[0] === "") {
-						usergrade_combox.shift();
+					if (comboxid.attr("id") == "insorgancode") {
+						dealInsOrgan();
 					}
-					if (usergrade_combox !== "" && usergrade_combox != null) {
-						var usergrade = desc(usergrade_combox.join(","))
+					if (comboxid.attr("id") == "usergrade") {
+						var usergrade_combox = $('#usergrade').combobox('getValues');
+						if (usergrade_combox.length > 0 && usergrade_combox[0] === "") {
+							usergrade_combox.shift();
+						}
+						if (usergrade_combox !== "" && usergrade_combox != null) {
+							var usergrade = desc(usergrade_combox.join(","))
+						}
+						$('#usergrade').combobox('setValues', usergrade.split(","));
 					}
-					$('#usergrade').combobox('setValues', usergrade.split(","));
+				}
+
+				function dealInsOrgan() {
+					var tturl1 = "policy/getRiskList.do";
+
+					var tParam = new Object();
+					tParam.insorgancode = $('#insorgancode').combobox('getValue');
+
+					displayCombox($('#riskcode'), tParam, tturl1, "dd_key", "dd_value");
 				}
 
 				function selectone() {
-					var row = $('#xianShiRuleList').datagrid('getSelected');
+					var row = $('#pushRiskList').datagrid('getSelected');
+
+					$('#insorgancode').combobox('setValue', row.insorgancode);
+					dealInsOrgan();
+
+					$('#riskcode').combobox('setValue', row.riskcode);
 					$('#yearmonth').datebox('setValue', row.yearmonth);
+
 					if (row.usergrade != null && row.usergrade != '') {
 						if (row.usergrade.startsWith(',')) {
 							row.usergrade = row.usergrade.slice(1);
@@ -77,27 +98,27 @@
 					} else {
 						$('#usergrade').combobox('setValues', '');
 					}
-					$('#nianfypstart').val(row.nianfypstart);
-					$('#nianfypend').val(row.nianfypend);
-					$('#award').val(row.award);
+
+					$('#rate').val(row.rate);
 				}
 
 				function saveSuss() {
 					clearInputData()
-					$('#xianShiRuleList').datagrid('reload');
+					$('#pushRiskList').datagrid('reload');
 				}
 
 				function clearInputData() {
 					cleardata(inputList);
 				}
 
-				function xianShiRuleAdd() {
-					var usergrade_combox = $('#usergrade').combobox('getValues');
+				function pushRiskAdd() {
 					if (!checknotnull(checkList)) {
 						return;
 					}
+
 					var tparam = prepareparam(inputList);
 					tparam.yearmonth = $('#yearmonth').datebox('getValue');
+
 					var usergrade_combox = $('#usergrade').combobox('getValues');
 					var usergrade_str = "";
 					for (var j = 0; j < usergrade_combox.length; j++) {
@@ -108,11 +129,11 @@
 					}
 					tparam.usergrade = usergrade_str;
 
-					ajaxdeal("pushrisk/xianShiRuleInsert.do", tparam, null, null, saveSuss);
+					ajaxdeal("pushrisk/pushRiskInsert.do", tparam, null, null, saveSuss);
 				}
 
-				function xianShiRuleEdit() {
-					var row = $('#xianShiRuleList').datagrid('getSelected');
+				function pushRiskEdit() {
+					var row = $('#pushRiskList').datagrid('getSelected');
 
 					if (row == null) {
 						$.messager.alert('操作提示', '请选中要操作的数据！', 'error');
@@ -136,13 +157,13 @@
 					}
 					tparam.usergrade = usergrade_str;
 
-					tparam.ruleserialno = row.ruleserialno;
+					tparam.pushriskserialno = row.pushriskserialno;
 
-					ajaxdeal("pushrisk/xianShiRuleUpdate.do", tparam, null, null, saveSuss);
+					ajaxdeal("pushrisk/pushRiskUpdate.do", tparam, null, null, saveSuss);
 				}
 
-				function xianShiRuleDelete() {
-					var row = $('#xianShiRuleList').datagrid('getSelected');
+				function pushRiskDelete() {
+					var row = $('#pushRiskList').datagrid('getSelected');
 
 					if (row == null) {
 						$.messager.alert('操作提示', '请选中要操作的数据！', 'error');
@@ -150,23 +171,23 @@
 					}
 
 					var tparam = prepareparam(inputList);
-					tparam.ruleserialno = row.ruleserialno;
+					tparam.pushriskserialno = row.pushriskserialno;
 
-					ajaxdeal("pushrisk/xianShiRuleDelete.do", tparam, null, null, saveSuss);
+					ajaxdeal("pushrisk/pushRiskDelete.do", tparam, null, null, saveSuss);
 				}
 
-				function xianShiRuleQuery() {
-
-					var tturl = "pushrisk/getXianShiRuleList.do";
+				function pushRiskQuery() {
+					var tturl = "pushrisk/getPushRiskList.do";
 
 					var tParam = new Object();
 
-					displayDataGrid20($('#xianShiRuleList'), tParam, tturl);
+					displayDataGrid20($('#pushRiskList'), tParam, tturl);
 
 					clearInputData();
 				}
 
 				function usergradeDesc(valData, row, index) {
+
 					if (valData !== "" && valData != null) {
 						var result = desc(valData)
 						return result
@@ -196,31 +217,47 @@
 					return result
 				}
 
-
-
-
-
-
-
 			</script>
 		</head>
 
 		<body>
 			<div style="margin-left:0%">
-				<table id="xianShiRuleList" class="easyui-datagrid" title="限时奖励" style="width:auto;height:auto"
+				<table id="pushRiskList" class="easyui-datagrid" title="宣传推动奖励" style="width:auto;height:auto"
 					data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone">
 					<thead>
 						<tr>
-							<th data-options="field:'usergradename',width:600,formatter:usergradeDesc">职能级别</th>
+							<th data-options="field:'groupcode',width:90">保险产品编码</th>
+							<th data-options="field:'channelname',width:80">签约渠道</th>
+							<th data-options="field:'risktypename',width:80">险种类型</th>
+							<th data-options="field:'insorganname',width:90">保险公司</th>
+							<th data-options="field:'riskname',width:320">险种名称</th>
+							<th data-options="field:'usergradename',width:650,formatter:usergradeDesc">职能级别</th>
 							<th data-options="field:'yearmonth',width:100">奖励月</th>
-							<th data-options="field:'nianfypstart',width:160">起始长期险折算系数后标保</th>
-							<th data-options="field:'nianfypend',width:160">终止长期险折算系数后标保</th>
-							<th data-options="field:'award',width:100">限时奖励</th>
+							<th data-options="field:'rate',width:100">推动比例</th>
 						</tr>
 					</thead>
 				</table>
 				<br>
 				<table class="common">
+					<tr>
+						<td class="reprot_title_4">
+							保险公司
+						</td>
+						<td class="report_common_4">
+							<select editable="false" class="easyui-combobox" style="width:160%" name="insorgancode"
+								id="insorgancode" notnull="保险公司">
+							</select>
+						</td>
+
+						<td class="reprot_title_4">
+							险种名称
+						</td>
+						<td class="report_common_4">
+							<select editable="false" class="easyui-combobox" style="width:160%" name="riskcode"
+								id="riskcode" notnull="险种">
+							</select>
+						</td>
+					</tr>
 					<tr>
 						<td class="reprot_title_4">
 							职能级别
@@ -240,41 +277,23 @@
 								notnull="奖励月">
 						</td>
 
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td class="reprot_title_4" style="width: 15%;">
-							起始长期险折算系数后标保
-						</td>
-						<td class="report_common_4">
-							<input class="txt" name="nianfypstart" id="nianfypstart" notnull="起始标保">
-						</td>
-
-						<td class="reprot_title_4" style="width: 15%;">
-							终止长期险折算系数后标保
-						</td>
-						<td class="report_common_4">
-							<input class="txt" name="nianfypend" id="nianfypend" notnull="终止标保">
-						</td>
-
 						<td class="reprot_title_4">
-							限时奖励
+							推动比例
 						</td>
 						<td class="report_common_4">
-							<input class="txt" name="award" id="award" notnull="限时奖励">
+							<input class="txt" name="rate" id="rate" notnull="推动比例">
 						</td>
+						<td></td>
+						<td></td>
 					</tr>
 				</table>
 				<br>
-				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id="xianShiRuleAdd"
-					onclick="xianShiRuleAdd()">新增</a>
-				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" id="xianShiRuleEdit"
-					onclick="xianShiRuleEdit()">修改</a>
-				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" id="xianShiRuleDelete"
-					onclick="xianShiRuleDelete()">删除</a>
+				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id="pushRiskAdd"
+					onclick="pushRiskAdd()">新增</a>
+				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" id="pushRiskEdit"
+					onclick="pushRiskEdit()">修改</a>
+				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" id="pushRiskDelete"
+					onclick="pushRiskDelete()">删除</a>
 			</div>
 		</body>
 

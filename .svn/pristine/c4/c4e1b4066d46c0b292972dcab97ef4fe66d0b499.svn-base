@@ -211,7 +211,7 @@
 					data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone">
 					<thead>
 						<tr>
-							<th data-options="field:'usergradename',width:600,formatter:usergradeDesc">职能级别</th>
+							<th data-options="field:'usergradename',width:650,formatter:usergradeDesc">职能级别</th>
 							<th data-options="field:'yearmonth',width:100">奖励月</th>
 							<th data-options="field:'nianfypstart',width:160">起始长期险折算系数后标保</th>
 							<th data-options="field:'nianfypend',width:160">终止长期险折算系数后标保</th>

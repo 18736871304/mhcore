@@ -29,16 +29,6 @@
 					if (comboxid.attr("id") == "qinsorgancode") {
 						var tParam = new Object();
 						var codes = comboxid.combobox('getValues');
-
-						// 判断是否为字母（包括大小写）
-						const isLetter = /^[A-Za-z]+$/.test(codes[0]);
-						// 判断是否为汉字
-						const isChinese = /^[\u4e00-\u9fa5]+$/.test(codes[0]);
-						if (isChinese) {
-							codes.splice(0, 1); // 从索引 0 开始删除 1 个元素
-							$("#qinsorgancode").combobox('setValue', codes);
-						}
-
 						var ic = "";
 						ic = codes.join(",");
 						tParam.insorgancode = ic;

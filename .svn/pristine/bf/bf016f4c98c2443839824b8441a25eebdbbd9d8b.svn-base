@@ -15,35 +15,11 @@
 					$('#qorderstratdate').datebox('setValue', getSevenDaysAgo());
 
 					disComBox($("#sealchannel"), "channel", null);
-					disComBox($('#qinsorgancode'), "insorgancode", null);
 
 					displayCombox($('#qstate'), null, "/jsondata/order/orderstate.json", "dd_key", "dd_value");
 				}
 
 				function aftercodeselect(comboxid) {
-					if (comboxid.attr("id") == "qinsorgancode") {
-						var tParam = new Object();
-						var codes = comboxid.combobox('getValues');
-
-
-						// 判断是否为字母（包括大小写）
-						const isLetter = /^[A-Za-z]+$/.test(codes[0]);
-						// 判断是否为汉字
-						const isChinese = /^[\u4e00-\u9fa5]+$/.test(codes[0]);
-						if (isChinese) {
-							codes.splice(0, 1); // 从索引 0 开始删除 1 个元素
-							$("#qinsorgancode").combobox('setValue', codes);
-						}
-
-
-
-						var ic = "";
-						ic = codes.join(",");
-						tParam.insorgancode = ic;
-						var tturl1 = "policy/getRiskListin.do";
-
-						displayCombox($('#qriskcode'), tParam, tturl1, "dd_key", "dd_value");
-					}
 				}
 
 				function selectone() {
@@ -62,18 +38,6 @@
 
 					tParam.username = $('#qusername').val();
 					tParam.insorganname = $('#qinsorganname').val();
-
-					var codes = $('#qinsorgancode').combobox('getValues');
-					var ic = "";
-					ic = codes.join(",");
-					tParam.insorgancode = ic;
-
-					var codess = $('#qriskcode').combobox('getValues');
-					var icc = "";
-					icc = codess.join(",");
-					tParam.riskcode = icc;
-
-
 					tParam.riskname = $('#qriskname').val();
 					tParam.cusname = $('#qcusname').val();
 					tParam.cusmobile = $('#qcusmobile').val();
@@ -243,7 +207,8 @@
 								<input class="txt" name="qusername" id="qusername">
 							</td>
 
-							<!-- 
+
+
 							<td class="reprot_title">
 								保险公司
 							</td>
@@ -256,38 +221,7 @@
 							</td>
 							<td class="report_common">
 								<input class="txt" name="qriskname" id="qriskname">
-							</td> -->
-
-
-
-							<td class="reprot_title">
-								保险公司
 							</td>
-							<td class="report_common">
-								<input class="easyui-combobox" id="qinsorgancode" style="width:90%" name="qinsorgancode"
-									data-options="valueField:'id',textField:'text',multiple:true">
-							</td>
-
-							<td class="reprot_title">
-								险种名称
-							</td>
-							<td class="report_common">
-								<input class="easyui-combobox" id="qriskcode" style="width:90%" name="qriskcode"
-									data-options="valueField:'id',textField:'text',multiple:true">
-							</td>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 							<td class="reprot_title">
 								客户姓名
@@ -334,14 +268,10 @@
 								<th data-options="field:'appname',width:70">投保人姓名</th>
 								<!-- <th data-options="field:'appprovincename',width:70">投保人所在省</th> -->
 
-								<th
-									data-options="field:'appprovincename',width:70,formatter:function(value,row,index){return (value == null || value === '') ? (row.appprovince || '') : value;}">
-									投保人所在省</th>
+								<th data-options="field:'appprovincename',width:70,formatter:function(value,row,index){return (value == null || value === '') ? (row.appprovince || '') : value;}">投保人所在省</th>
 
 								<!-- <th data-options="field:'appcityname',width:70">投保人所在市</th> -->
-								<th
-									data-options="field:'appcityname',width:70,formatter:function(value,row,index){return (value == null || value === '') ? (row.appcity || '') : value;}">
-									投保人所在市</th>
+								<th data-options="field:'appcityname',width:70,formatter:function(value,row,index){return (value == null || value === '') ? (row.appcity || '') : value;}">投保人所在市</th>
 
 								<th data-options="field:'insname',width:70">被保人姓名</th>
 								<th data-options="field:'payintvvalue',width:60">缴费方式</th>
