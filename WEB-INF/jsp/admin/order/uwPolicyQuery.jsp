@@ -145,7 +145,8 @@
 
 					var rows = $('#orderPolicyList').datagrid('getRows'); //获取所有当前加载的数据行
 					var row = rows[index];
-					if (row.uwurl !== "" && row.uwurl != null && row.sealchannel == '10' && row.uwstatename == "核保中") {
+					// && row.uwstatename == "核保中"
+					if (row.uwurl !== "" && row.uwurl != null && row.sealchannel == '10' ) {
 						return '<a href="#" onclick="uwurlDlg(' + index + ', \'uwurlEx\')"  style="color: blue; cursor: pointer;" >复制</a>';
 					} else {
 						return ''
@@ -159,8 +160,9 @@
 
 					var rows = $('#orderPolicyList').datagrid('getRows'); //获取所有当前加载的数据行
 					var row = rows[index];
-					if (row.uwurl !== "" && row.uwurl != null && row.uwstatename == "核保中") {
+					if (row.uwurl !== "" && row.uwurl != null) {
 						return '<a href="#" onclick="uwurlDlg(' + index + ', \'uwurlCus\')"  style="color: blue; cursor: pointer;" >复制</a>';
+
 					} else {
 						return ''
 					}
@@ -169,8 +171,8 @@
 				function uwurlDlg(index, str) {
 					var rows = $('#orderPolicyList').datagrid('getRows'); //获取所有当前加载的数据行
 					var row = rows[index];
-
-					if (str == 'uwurlEx' && row.sealchannel == '10') {
+					// && row.sealchannel == '10'
+					if (str == 'uwurlEx') {
 						var uwurl = row.uwurl
 
 						var url = new URL(uwurl);

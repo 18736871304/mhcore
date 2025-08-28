@@ -41,7 +41,8 @@
 					tParam.reusername = $('#qusername').val();
 					tParam.acceptStartDate = $('#qacceptStartDate').datebox("getValue");
 					tParam.acceptEndDate = $('#qacceptEndDate').datebox("getValue");
-					tParam.usergrade = $('#qusergrade').combobox('getValue');
+					// tParam.usergrade = $('#qusergrade').combobox('getValue');
+					tParam.his_usergrade = $('#qusergrade').combobox('getValue');
 					tParam.position = $('#qposition').combobox('getValue');
 
 					tParam.q02org = $('#q02org').combobox('getValue');
