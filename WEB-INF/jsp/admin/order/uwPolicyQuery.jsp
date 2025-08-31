@@ -140,12 +140,19 @@
 				}
 
 				function uwurlEx(val, row, index) {
-
 					var rows = $('#orderPolicyList').datagrid('getRows'); //获取所有当前加载的数据行
 					var row = rows[index];
 					// && row.uwstatename == "核保中"
-					if (row.uwurl !== "" && row.uwurl != null && row.sealchannel == '10' ) {
-						return '<a href="#" onclick="uwurlDlg(' + index + ', \'uwurlEx\')"  style="color: blue; cursor: pointer;" >复制</a>';
+					if (row.uwurl !== "" && row.uwurl != null) {
+						if (row.sealchannel == '10') {
+							var uwurl = row.uwurl
+							var url = new URL(uwurl);
+							url.searchParams.set('vscene', '1');
+							var newUrl = url.toString();
+							return '<a href="' + newUrl + '"   target="_blank"   style="color: blue; cursor: pointer;" >打开</a>';
+						} else {
+							return '<a href="' + row.uwurl + '"   target="_blank"   style="color: blue; cursor: pointer;" >打开</a>';
+						}
 					} else {
 						return ''
 					}
@@ -155,7 +162,6 @@
 
 
 				function uwurlCus(val, row, index) {
-
 					var rows = $('#orderPolicyList').datagrid('getRows'); //获取所有当前加载的数据行
 					var row = rows[index];
 					if (row.uwurl !== "" && row.uwurl != null) {
@@ -170,14 +176,13 @@
 					var rows = $('#orderPolicyList').datagrid('getRows'); //获取所有当前加载的数据行
 					var row = rows[index];
 					// && row.sealchannel == '10'
-					if (str == 'uwurlEx') {
-						var uwurl = row.uwurl
-
-						var url = new URL(uwurl);
-						url.searchParams.set('vscene', '1');
-						var newUrl = url.toString();
-						copyText(newUrl)
-					}
+					// if (str == 'uwurlEx') {
+					// 	var uwurl = row.uwurl
+					// 	var url = new URL(uwurl);
+					// 	url.searchParams.set('vscene', '1');
+					// 	var newUrl = url.toString();
+					// 	copyText(newUrl)
+					// }
 					if (str == "uwurlCus") {
 						copyText(row.uwurl)
 					}

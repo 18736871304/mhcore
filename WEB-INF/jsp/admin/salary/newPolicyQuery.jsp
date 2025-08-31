@@ -123,7 +123,7 @@
 					}
 				}
 
-			
+
 			</script>
 
 		</head>
@@ -197,26 +197,71 @@
 							<th data-options="field:'entrydate',width:70">下团队日期</th>
 							<th data-options="field:'sumfyp20',width:70">标保</th>
 							<th data-options="field:'jiaquan_fyp',width:70">加权标保</th>
-							<th data-options="field:'changxian_sumfyp20',width:70">长标</th>
-							<th data-options="field:'changxian_nian_sumfyp20',width:70">长年标</th>
-							<th data-options="field:'changxian_yue_sumfyp20',width:70">长月标</th>
-							<th data-options="field:'coefficient_changxian_sumfyp20',width:70">折长标</th>
-							<th data-options="field:'coefficient_changxian_nian_sumfyp20',width:70">折长年标</th>
-							<th data-options="field:'coefficient_changxian_yue_sumfyp20',width:70">折长月标</th>
-							<th data-options="field:'ylprem',width:70">医保费</th>
+							<th data-options="field:'changxian_sumfyp20',width:90">长期险标保</th>
+							<th data-options="field:'changxian_nian_sumfyp20',width:100">长期险年缴标保</th>
+							<th data-options="field:'changxian_yue_sumfyp20',width:100">长期险月缴标保</th>
+							<th data-options="field:'coefficient_changxian_sumfyp20',width:140">折算系数后长期险标保</th>
+							<th data-options="field:'coefficient_changxian_nian_sumfyp20',width:160">折算系数后长期险年缴标保</th>
+							<th data-options="field:'coefficient_changxian_yue_sumfyp20',width:160">折算系数后长期险月缴标保</th>
+							<th data-options="field:'ylprem',width:70">医疗险保费</th>
 							<th data-options="field:'jixiao',width:70">绩效</th>
-							<th data-options="field:'cx_nian_fyp_ticheng',width:70">长年提成</th>
-							<th data-options="field:'cx_yue_fyp_ticheng',width:70">长月提成</th>
-							<th data-options="field:'yiliaoticheng',width:70">医提成</th>
+							<th data-options="field:'cx_nian_fyp_ticheng',width:100">长期险年缴提成</th>
+							<th data-options="field:'cx_yue_fyp_ticheng',width:100">长期险月缴提成</th>
+							<th data-options="field:'yiliaoticheng',width:70">医疗险提成</th>
 							<th data-options="field:'pushaward',width:80">宣传推动奖励</th>
 							<th data-options="field:'buxianshi',width:70">限时奖励</th>
 
- 
+
 						</tr>
 					</thead>
 				</table>
 				<br>
 				<table class="common">
+<!-- 
+					  <tr>
+						<td class="reprot_title_4"  style="width: 6%;"> 
+							绩效合计
+						</td>
+						<td class="report_common_6">
+							<input class="txt" id="policycount" name="policycount" readonly>
+						</td>
+						<td class="reprot_title_4">
+							长期险年缴提成合计
+						</td>
+						<td class="report_common_6">
+							<input class="txt" id="policycount" name="policycount" readonly>
+						</td>
+
+						<td class="reprot_title_4">
+							长期险月缴提成合计
+						</td>
+						<td class="report_common_6">
+							<input class="txt" id="policycount" name="policycount" readonly>
+						</td>
+
+						<td class="reprot_title_4">
+							医疗险提成合计
+						</td>
+						<td class="report_common_6">
+							<input class="txt" id="policycount" name="policycount" readonly>
+						</td>
+
+						<td class="reprot_title_4">
+							宣传推动奖励合计
+						</td>
+						<td class="report_common_6">
+							<input class="txt" id="policycount" name="policycount" readonly>
+						</td>
+
+						<td class="reprot_title_4">
+							限时奖励合计
+						</td>
+						<td class="report_common_6">
+							<input class="txt" id="policycount" name="policycount" readonly>
+						</td>
+					</tr>   -->
+
+
 					<tr>
 						<td class="reprot_title_4">
 							单数合计
