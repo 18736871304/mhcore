@@ -7,8 +7,6 @@
 
 			<script>
 
-
-
 				window.onload = function () {
 					initDataGrid20($('#policyList'));
 
@@ -19,24 +17,15 @@
 					disComBox($('#qworkyears'), "workyears", null);
 
 					$('#qacceptStartDate').datebox('setValue', getMonthOneFormatDate());
-
-
-					$('#q02org').combobox('setValue', '100200000');
+					$('#q02org').combobox('setValue', '100100000');
 					organAfterSelect($('#q02org'))
-					$('#q03org').combobox('setValue', '100200100');
+					$('#q03org').combobox('setValue', '100100100');
 					organAfterSelect($('#q03org'))
-
-					$('#q04org').combobox('setValue', '100200101');
-					organAfterSelect($('#q04org'))
 
 					displayCombox($('#qriskType'), null, "/jsondata/policy/risktypestr.json", "dd_key", "dd_value");
 				}
 
-
-
-
 				function aftercodeselect(comboxid) {
-					console.log(comboxid)
 					organAfterSelect(comboxid);
 				}
 
@@ -58,7 +47,6 @@
 					tParam.agentflag = '02';
 					tParam.isxubao = 'NOTY';
 					//tParam.has_coefficient = "N";
-					//tParam.is_shanxilc="Y"
 
 					tParam.q02org = $('#q02org').combobox('getValue');
 					tParam.q03org = $('#q03org').combobox('getValue');
@@ -72,7 +60,12 @@
 					// tParam.orderby = orderbystr;
 					tParam.orderby = orderbystr + " desc ";
 
+
+
+
 					tParam.riskTypeStr = $('#qriskType').combobox('getValue');
+
+
 
 					tParam.usergrade = $('#qusergrade').combobox('getValues').join(",");
 
@@ -82,8 +75,7 @@
 					var workyears_Str = "";
 					workyears_Str = workyears_codes.join(",");
 					tParam.workyears = workyears_Str;
-					tParam.pageSize = 20;
-					
+
 					displayDataGrid20($('#policyList'), tParam, tturl);
 
 					var sumurl = "policy/getPolicySum.do";
@@ -93,13 +85,11 @@
 
 				function displaysumdata(data) {
 					if (data == null || data == "") {
+
 						$('#policycount').val("");
 						$('#ylpolicycount').val("");
 						$('#ylprem').val("");
-						$('#company_sumfyp20').val("");
-						$('#shanxi_changxian_sumfyp20').val("");
-
-
+						$('#changxian_sumfyp20').val("");
 						$('#sumprem').val("");
 						$('#sumfyp').val("");
 						$('#sumfyp20').val("");
@@ -109,20 +99,13 @@
 						$('#policycount').val(data.policycount);
 						$('#ylpolicycount').val(data.ylpolicycount);
 						$('#ylprem').val(data.ylprem);
-						$('#company_sumfyp20').val(data.company_sumfyp20);
-						$('#shanxi_changxian_sumfyp20').val(data.shanxi_changxian_sumfyp20);
+						$('#changxian_sumfyp20').val(data.changxian_sumfyp20);
 
 
 						$('#sumprem').val(data.sumprem);
 						$('#sumfyp').val(data.sumfyp);
 						$('#sumfyp20').val(data.sumfyp20);
 					}
-
-			 
-
-
-
-
 				}
 
 				function getMonthOneFormatDate() {
@@ -152,7 +135,6 @@
 
 
 				function biaobao(val, row, index) {
-					console.log(row)
 					if (row.organcode === '100200101') {
 						return row.shanxi_changxian_sumfyp20
 					} else {
@@ -163,7 +145,6 @@
 
 
 				function zhesuanBiaobao(val, row, index) {
-					console.log(row)
 					if (row.organcode === '100200101') {
 						return row.shanxi_coefficient_changxian_sumfyp20
 					} else {
@@ -204,10 +185,10 @@
 							</select>
 						</td>
 
-						<td class="reprot_title" hidden>
+						<td class="reprot_title" >
 							险种类型
 						</td>
-						<td class="report_common" hidden>
+						<td class="report_common" >
 							<select class="easyui-combobox" style="width: 90%" panelHeight="auto" name="qriskType"
 								id="qriskType">
 							</select>
@@ -254,33 +235,22 @@
 						<tr>
 							<th data-options="field:'agentcom',width:70">所属营业部 </th>
 							<th data-options="field:'teamname',width:100">所属团队</th>
+
 							<th data-options="field:'usergradename',width:80">职能级别</th>
 							<th data-options="field:'reusername',width:70">出单业务员</th>
 							<th data-options="field:'policycount',width:80">长期险单数</th>
-
-
-
-							<th data-options="field:'changxian_sumfyp20',width:80,formatter:biaobao">长期险标保</th>
-							<th
-								data-options="field:'coefficient_changxian_sumfyp20',width:130, formatter:zhesuanBiaobao">
-								长期险折算系数后标保</th>
-
-							<th
-								data-options="field:'coefficientSJsumfyp20',width:90,formatter:function(value){return value=='0.00' ? '' : value;}">
-								其中升级部分</th>
-							<th
-								data-options="field:'coefficientBSJsumfyp20',width:120,formatter:function(value){return value=='0.00' ? '' : value;}">
-								其中被升级部分</th>
-
+							<th data-options="field:'changxian_sumfyp20',width:80">长期险标保</th>
+							<th data-options="field:'coefficient_changxian_sumfyp20',width:130">长期险折算系数后标保</th>
 							<th data-options="field:'ylpolicycount',width:80">医疗险单数</th>
 							<th data-options="field:'ylprem',width:80">医疗险保费</th>
+
 							<th data-options="field:'yl',width:80,formatter:jiaquanfyp">加权标保</th>
 							<th data-options="field:'workyears',width:70">司龄（月）</th>
 						</tr>
 					</thead>
 				</table>
 				<br>
-				<table class="common" style="width: 100%;">
+				<table class="common" style="width: 73.5%;">
 					<tr>
 						<td class="reprot_title">
 							长期险单数合计
@@ -289,21 +259,12 @@
 							<input class="txt" id="policycount" name="policycount" readonly>
 						</td>
 
-
 						<td class="reprot_title">
 							长期险标保合计
 						</td>
 						<td class="report_common">
-							<input class="txt" id="shanxi_changxian_sumfyp20" name="shanxi_changxian_sumfyp20" readonly>
+							<input class="txt" id="changxian_sumfyp20" name="changxian_sumfyp20" readonly>
 						</td>
-
-						<td class="reprot_title" style="width: 9%;">
-							公司被升级部分合计
-						</td>
-						<td class="report_common">
-							<input class="txt" id="company_sumfyp20" name="company_sumfyp20" readonly>
-						</td>
-
 
 						<td class="reprot_title">
 							医疗险单数合计
@@ -321,17 +282,18 @@
 						</td>
 
 
-
-
-
-
-
 					</tr>
-				
+					<tr hidden="">
+						<td class="reprot_title">
+							FYP合计
+						</td>
+						<td class="report_common">
+							<input class="txt" id="sumfyp" name="sumfyp" readonly>
+						</td>
+					</tr>
 				</table>
 				<br>
-				<font color="red">其中升级部分 - 03和04个人部分折算系数后标保  	<br>
-					其中被升级部分 - 03其他员工部分折算系数后标保</font>
+				<font color="red">金额不包含续保以及折算系数为0的保单（例如万能险）</font>
 			</div>
 		</body>
 
