@@ -7,6 +7,8 @@
 		}
 
 		function dispolicyDetailDlg(rowdata, disappphone) {
+
+			console.log("这是保单云托管")
 			$('#policyDetailDlg').dialog('open');
 
 			$('#dlgaccepttime').val(rowdata.accepttime);
@@ -89,7 +91,7 @@
 
 
 
-			console.log(rowdata.disxubao == 'Y')
+			 
 			if (rowdata.disxubao == 'Y') {
 				var tParam = new Object();
 				tParam.orderid = rowdata.xborderid;
@@ -107,7 +109,7 @@
 
 		function disXbContNo(data) {
 			common_contno_tr.style.display = "none";
-			console.log(data)
+	 
 
 			var xbHtml = "";
 
@@ -192,29 +194,15 @@
 
 		function dealInsuredList(data, row) {
 			var insuredList = data.insuredList
-console.log(data)
-		 
-			console.log(row.insname)
 			// 先过滤匹配的对象
 			const filteredList = insuredList.filter(item => item.insname == row.insname);
 			// 如果有匹配结果，替换 insuredList，否则保持原数组不变
-			console.log(filteredList)
 			if (filteredList.length > 0) {
 				insuredList = filteredList;
 			} 
-
-			console.log(insuredList)
-
 			var insuredHtml = "";
-
-
 			for (var i = 0; i < insuredList.length; i++) {
-				console.log( insuredList)
-				console.log(i)
-				console.log(insuredList[i].insname)
-				console.log(insuredList[0].insname)
 				var index = i + 1;
-
 				insuredHtml = insuredHtml + '<tr><td class = "dstitle" style="height:25px">被保人信息【' + getQueryData(getIndexName(index)) + '】</td></tr>';
 				insuredHtml = insuredHtml + '<tr><td class = "regittitle">投被保人关系</td><td class = "common"><input class = "txt" readonly name="dlgrelaname" id="dlgrelaname" value = "' + getQueryData(insuredList[i].relaname) + '"></td></tr>';
 				insuredHtml = insuredHtml + '<tr><td class = "regittitle">被保人姓名</td><td class = "common">	<input class = "txt" readonly name="dlginsname" id="dlginsname" value = "' + getQueryData(insuredList[i].insname) + '"></td></tr>';
