@@ -31,6 +31,9 @@
 					disComBox($('#qissea'), "yesno", null);
 
 					$('#qstartdate').datebox('setValue', getMonthOneFormatDate());
+
+					$('#sourcelevel').combobox('setValue', 'A');
+					$('#channel').combobox('setValue', '0001');
 				}
 
 				function aftercodeselect(comboxid) {
@@ -61,7 +64,7 @@
 				}
 
 				function saveSuss() {
-					clearCarData()
+					// clearCarData()
 					$('#activitylist').datagrid('reload');
 				}
 

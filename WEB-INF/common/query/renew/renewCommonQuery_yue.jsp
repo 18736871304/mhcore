@@ -149,7 +149,7 @@ function initRenewQuery(renewType,hasSum,oprtype)
 	
 	var t_stateList = "40,70,73,74"
 	$('#qstate').combobox('setValues', t_stateList.split(","));
-	
+	init02Org();
 	if(oprtype=='confirm')
 	{
 		$('#qrenew_callbacktype').combobox('setValue', '02');
