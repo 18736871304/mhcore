@@ -150,6 +150,7 @@ function openDlg(index)
 	var rows=$('#policyList').datagrid('getRows');//获取所有当前加载的数据行
 	var row=rows[index];
 	
+	row.queryinsured ='Y'
 	dispolicyDetailDlg(row);
 }
 
