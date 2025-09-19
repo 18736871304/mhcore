@@ -53,21 +53,12 @@
 			</select>
 		</td>
 		
-		<td class="reprot_title">
-			保险产品编码
-		</td>
-		<td class="report_common">
-			<input class="txt" name="qgroupcode" id="qgroupcode">
-		</td>
-		
-		<td class = "reprot_title">
-			险种类型
-		</td>
-		<td class = "report_common">
-			<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="qrisktype" id="qrisktype">
-			</select>
-		</td>
-		
+
+
+
+
+
+
 		<td class="reprot_title">
 			保险公司
 		</td>
@@ -81,13 +72,26 @@
 		<td class="report_common">
 			<input class="easyui-combobox" id="qriskcode" style="width:160%" name="qriskcode" data-options="valueField:'id',textField:'text',multiple:true,panelHeight:'auto'">
 		</td>
-		
+		<td class = "reprot_title">
+			险种类型
+		</td>
+		<td class = "report_common">
+			<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="qrisktype" id="qrisktype">
+			</select>
+		</td>
+	
 		<td class = "reprot_title">
 			产品属性
 		</td>
 		<td class = "report_common">
 			<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="qjointype" id="qjointype">
 			</select>
+		</td>
+		<td class="reprot_title">
+			保险产品编码
+		</td>
+		<td class="report_common">
+			<input class="txt" name="qgroupcode" id="qgroupcode">
 		</td>
 	</tr>
 	<tr>
