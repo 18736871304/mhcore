@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=utf-8"%>
-<th data-options="field:'orgin_accepttime',width:125">首年出单日期</th>
+<th data-options="field:'orgin_accepttime',width:125">首年出单日期</th> 
 <th data-options="field:'agentcom',width:70">出单营业部</th>
 <th data-options="field:'teamname',width:100">出单团队</th>
 <th data-options="field:'reusername',width:70">出单业务员</th>

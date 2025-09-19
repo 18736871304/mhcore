@@ -52,13 +52,20 @@
 			</select>
 		</td>
 		
+
 		<td class="reprot_title">
-			保险产品编码
+			保险公司
 		</td>
 		<td class="report_common">
-			<input class="txt" name="qgroupcode" id="qgroupcode">
+			<input class="easyui-combobox" id="qinsorgancode" style="width:160%" name="qinsorgancode" data-options="valueField:'id',textField:'text',multiple:true,panelHeight:'auto'">
 		</td>
-		
+	
+		<td class="reprot_title">
+			险种名称
+		</td>
+		<td class="report_common">
+			<input class="easyui-combobox" id="qriskcode" style="width:160%" name="qriskcode" data-options="valueField:'id',textField:'text',multiple:true,panelHeight:'auto'">
+		</td>
 		<td class = "reprot_title">
 			险种类型
 		</td>
@@ -66,27 +73,18 @@
 			<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="qrisktype" id="qrisktype">
 			</select>
 		</td>
-		
-		<td class="reprot_title">
-			保险公司
-		</td>
-		<td class="report_common">
-			<input class="easyui-combobox" id="qinsorgancode" style="width:160%" name="qinsorgancode" data-options="valueField:'id',textField:'text',multiple:true,panelHeight:'auto'">
-		</td>
-		
-		<td class="reprot_title">
-			险种名称
-		</td>
-		<td class="report_common">
-			<input class="easyui-combobox" id="qriskcode" style="width:160%" name="qriskcode" data-options="valueField:'id',textField:'text',multiple:true,panelHeight:'auto'">
-		</td>
-		
 		<td class = "reprot_title">
 				保证续保
 		</td>
-		<td class = "report_common" colspan="5">
+		<td class = "report_common" >
 			<select class = "easyui-combobox" style="width:160%" panelHeight="auto" name="qpromise_xubao" id="qpromise_xubao" notnull = "保证续保">
 			</select>
+		</td>
+		<td class="reprot_title">
+			保险产品编码
+		</td>
+		<td class="report_common" colspan="5">
+			<input class="txt" name="qgroupcode" id="qgroupcode">
 		</td>
 	</tr>
 	<tr>
@@ -238,14 +236,8 @@ function getXbQueryParam()
 
 	var xbStateList = $('#qxbstate').combobox('getValues');
 	var xbStateStr = "";
-	reStateStr = xbStateList.join(",");
-	// for (var f = 0; f < xbStateList.length; f++) {
-	// 	if (xbStateStr != "") xbStateStr += "\',\'";
-	// 	xbStateStr += xbStateList[f];
-	// }
-
+	xbStateStr = xbStateList.join(",");
 	tParam.xbstate = xbStateStr;
-
 	tParam.riskchannel = $('#qriskchannel').combobox('getValue');
 
 	tParam.xbpolicyyear = $('#qxbpolicyyear').val();
@@ -256,7 +248,7 @@ function getXbQueryParam()
 	tParam.cusname = $('#qcusname').val();
 	tParam.cusmobile = $('#qcusmobile').val();
 	tParam.groupcode = $('#qgroupcode').val();
-	
+	console.log(tParam)
 	return tParam;
 }
 
@@ -264,6 +256,7 @@ function xbPolicyquery()
 {
 	var tturl = "policy/getXbPolicyList.do";
 	var tParam = getXbQueryParam();
+	console.log(tParam)
 	displayDataGrid20($('#policyList'), tParam, tturl);
 
 	if(has_sum=='01')

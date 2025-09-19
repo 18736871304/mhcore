@@ -157,6 +157,7 @@
 
 		function disInsured(row) {
 			var insuredHtml = "";
+			console.log(row.queryinsured)
 			if (row.queryinsured == 'Y') {
 				var tParam = new Object();
 				tParam.orderid = row.orderid;
@@ -198,8 +199,12 @@
 			const filteredList = insuredList.filter(item => item.insname == row.insname);
 			// 如果有匹配结果，替换 insuredList，否则保持原数组不变
 			if (filteredList.length > 0) {
+				console.log("单个被保人")
 				insuredList = filteredList;
-			} 
+			}else{
+				console.log("多个被保人") 
+			}
+			
 			var insuredHtml = "";
 			for (var i = 0; i < insuredList.length; i++) {
 				var index = i + 1;

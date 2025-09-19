@@ -1,215 +1,218 @@
-<%@ page contentType="text/html;charset=utf-8"%>
-<html>
-<%@ include file="/WEB-INF/common/include.jsp"%><head>
-<script type="text/javascript" src="/js/echarts/echarts.min.js"></script>
-<title></title>
-<link rel="stylesheet" href="../../../css/inputbox/line3.css?v_2022_05_16">
-<script>
+<%@ page contentType="text/html;charset=utf-8" %>
+	<html>
+	<%@ include file="/WEB-INF/common/include.jsp" %>
 
-window.onload = function()
-{
-	initDataGrid20($('#agentReportList'));
-	$('#qacceptStartDate').datebox('setValue',getMonthOneFormatDate());
-}
+		<head>
+			<script type="text/javascript" src="/js/echarts/echarts.min.js"></script>
+			<title></title>
+			<link rel="stylesheet" href="../../../css/inputbox/line3.css?v_2022_05_16">
+			<script>
 
-function aftercodeselect(comboxid)
-{
-}
+				window.onload = function () {
+					initDataGrid20($('#agentReportList'));
+					$('#qacceptStartDate').datebox('setValue', getMonthOneFormatDate());
+				}
 
-function selectone()
-{
-}
+				function aftercodeselect(comboxid) {
+				}
 
-function finceReportQuery()
-{
-	if($('#quername').val()==null||$('#quername').val()=="")
-	{
-		$.messager.alert('操作提示','出单业务员不能为空！','error');
-		return;
-	}
-	
-	var tturl = "policy/getFinceReportShortList20.do";
+				function selectone() {
+				}
 
-	var tParam = new Object();
-	
-	tParam.reusername = $('#quername').val();
-	tParam.acceptStartDate = $('#qacceptStartDate').datebox("getValue");
-	tParam.acceptEndDate = $('#qacceptEndDate').datebox("getValue");
-	tParam.state = "40";
-	tParam.isxubao = 'NOTY';
-	tParam.has_coefficient = "N";
-	
-	displayDataGrid20($('#agentReportList'), tParam, tturl);
-	
-	var sumurl = "policy/getPolicySum.do";
-	
-	ajaxdeal(sumurl,tParam,displaysumdata,null);
-	
-	//图标的，需要排序和limit
-	//var chartParam = new Object();
-	//chartParam.reuserid = $('#quserid').val();
-	//chartParam.orderby = " order by 1 desc limit 20 "
-	//ajaxdeal("policy/getFinceReportShortData.do",chartParam,setCharts,null,null);
-}
+				function finceReportQuery() {
+					if ($('#quername').val() == null || $('#quername').val() == "") {
+						$.messager.alert('操作提示', '出单业务员不能为空！', 'error');
+						return;
+					}
 
-function displaysumdata(data)
-{
-	if(data==null||data=="")
-	{
-		$('#sumprem').val("");
-		$('#policycount').val("");
-		$('#sumfyp').val("");
-		$('#sumfyp20').val("");
-	}
-	else
-	{
-		$('#sumprem').val(data.sumprem);
-		$('#policycount').val(data.policycount);
-		$('#sumfyp').val(data.sumfyp);
-		$('#sumfyp20').val(data.sumfyp20);
-	}
-}
+					var tturl = "policy/getFinceReportShortList20.do";
 
-function setCharts(data)
-{
-	//alert(data.rows[2].sumfyp20);
-	
-	var xdata = [];
-	var ydata01 = [];
-	
-	for(var i=data.rows.length-1;i>=0;i--)
-	{
-		xdata.push(data.rows[i].acceptdate);
-		ydata01.push(data.rows[i].sumfyp20);
-	}
-	
-	// 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('hisScore'));
-    // 指定图表的配置项和数据
-    myChart.setOption(
-    {
-        title: {
-			text: '个人历史业绩'
-		},
-		tooltip: {
-			trigger: 'axis'
-		},
-		legend: {
-			data:['标保']
-		},
-		grid: {
-			left: '3%',
-			right: '4%',
-			bottom: '3%',
-			containLabel: true
-		},
-		toolbox: {
-			feature: {
-			  //saveAsImage: {}
-			}
-		},
-		xAxis: {
-			type: 'category',
-			boundaryGap: false,
-			data:xdata 
-			//["2019-01","2019-02","2019-03","2019-04","2019-05"]
-		},
-		yAxis: {
-			type: 'value'
-		},
-		series: [
-			{
-			  	name:'标保',
-			  	type:'line',
-			  	stack: '总量',
-			  	data:ydata01
-				//["1000","888","760","890","1200"]
-			}
-		]
-    });
-}
+					var tParam = new Object();
 
-</script>
+					tParam.reusername = $('#quername').val();
+					tParam.acceptStartDate = $('#qacceptStartDate').datebox("getValue");
+					tParam.acceptEndDate = $('#qacceptEndDate').datebox("getValue");
+					tParam.state = "40";
+					tParam.isxubao = 'NOTY';
+					tParam.has_coefficient = "N";
 
-</head>
-<body>
-<div style="margin-left:0%">
-	<table class = "common" style="width:49%">
-		<tr>
-			<td class = "reprot_title">
-				出单起期
-			</td>
-			<td class = "report_common">
-				<input class="easyui-datebox" style="width: 160%" id="qacceptStartDate" name="qacceptStartDate" notnull = "出单起期">
-			</td>
-			<td class = "reprot_title">
-				出单止期
-			</td>
-			<td class = "report_common">
-				<input class="easyui-datebox" style="width: 160%" id="qacceptEndDate" name="qacceptEndDate" notnull = "出单止期">
-			</td>
-			<td class = "reprot_title">
-				出单员姓名
-			</td>
-			<td class = "report_common">
-				<input class = "txt" name="quername" id="quername">
-			</td>
-		
-		</tr>
-	</table>
-	<br>
-	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id = "finceReportQuery" onclick = "finceReportQuery()">查询</a>
-	<br>
-	<br>
-	<table id="agentReportList" class="easyui-datagrid" title="历史业绩" style="width:auto;height:auto"
-		data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone" >
-		<thead>
-			<tr>
-				<th data-options="field:'acceptdate',width:60">出单月</th>
-				
-				<th data-options="field:'policycount',width:60">单数</th>
-				<th data-options="field:'sumprem',width:80">保费</th>
-				<th data-options="field:'sumfyp20',width:80">标保</th>
-				<th data-options="field:'sumnianfyp20',width:80">年缴标保</th>
-				<th data-options="field:'sumyuefyp20',width:80">月缴标保</th>
-			</tr>
-		</thead>
-	</table>
-	<br>
-	<table class = "common" style="width: 73.5%;">
-		<tr>
-			<td class = "reprot_title">
-				单数合计
-			</td>
-			<td class = "report_common">
-				<input class = "txt" id="policycount" name="policycount" readonly>
-			</td>
-			<td class = "reprot_title">
-				保费合计
-			</td>
-			<td class = "report_common">
-				<input class = "txt" id="sumprem" name="sumprem" readonly>
-			</td>
-			<td class = "reprot_title">
-				标保合计
-			</td>
-			<td class = "report_common">
-				<input class = "txt" id="sumfyp20" name="sumfyp20" readonly>
-			</td>
-		
-		</tr>
-		<tr hidden = "">
-			<td class = "title">
-				10年FYP合计
-			</td>
-			<td class = "common">
-				<input class = "txt" id="sumfyp" name="sumfyp" readonly>
-			</td>
-		</tr>
-	</table>
-	<br>
-	<font color="red">金额不包含续保以及折算系数为0的保单（例如万能险）</font>
-	<div id="hisScore" style="width:1000px;height:400px;"></div>
-</div>
-</body>
-</html>
+					displayDataGrid20($('#agentReportList'), tParam, tturl);
+
+					var sumurl = "policy/getPolicySum.do";
+
+					ajaxdeal(sumurl, tParam, displaysumdata, null);
+
+					//图标的，需要排序和limit
+					//var chartParam = new Object();
+					//chartParam.reuserid = $('#quserid').val();
+					//chartParam.orderby = " order by 1 desc limit 20 "
+					//ajaxdeal("policy/getFinceReportShortData.do",chartParam,setCharts,null,null);
+				}
+
+				function displaysumdata(data) {
+					if (data == null || data == "") {
+						$('#sumprem').val("");
+						$('#policycount').val("");
+						$('#sumfyp').val("");
+						$('#sumfyp20').val("");
+					}
+					else {
+						$('#sumprem').val(data.sumprem);
+						$('#policycount').val(data.policycount);
+						$('#sumfyp').val(data.sumfyp);
+						$('#sumfyp20').val(data.sumfyp20);
+					}
+				}
+
+				function jiaquanfyp(val, row, index) {
+					var fyp = (row.changxian_sumfyp20 / 15000) + (row.ylprem / 25000)
+					return (fyp * 15000).toFixed(2)
+				}
+
+				function setCharts(data) {
+					//alert(data.rows[2].sumfyp20);
+
+					var xdata = [];
+					var ydata01 = [];
+
+					for (var i = data.rows.length - 1; i >= 0; i--) {
+						xdata.push(data.rows[i].acceptdate);
+						ydata01.push(data.rows[i].sumfyp20);
+					}
+
+					// 基于准备好的dom，初始化echarts实例
+					var myChart = echarts.init(document.getElementById('hisScore'));
+					// 指定图表的配置项和数据
+					myChart.setOption(
+						{
+							title: {
+								text: '个人历史业绩'
+							},
+							tooltip: {
+								trigger: 'axis'
+							},
+							legend: {
+								data: ['标保']
+							},
+							grid: {
+								left: '3%',
+								right: '4%',
+								bottom: '3%',
+								containLabel: true
+							},
+							toolbox: {
+								feature: {
+									//saveAsImage: {}
+								}
+							},
+							xAxis: {
+								type: 'category',
+								boundaryGap: false,
+								data: xdata
+								//["2019-01","2019-02","2019-03","2019-04","2019-05"]
+							},
+							yAxis: {
+								type: 'value'
+							},
+							series: [
+								{
+									name: '标保',
+									type: 'line',
+									stack: '总量',
+									data: ydata01
+									//["1000","888","760","890","1200"]
+								}
+							]
+						});
+				}
+
+			</script>
+
+		</head>
+
+		<body>
+			<div style="margin-left:0%">
+				<table class="common" style="width:49%">
+					<tr>
+						<td class="reprot_title">
+							出单起期
+						</td>
+						<td class="report_common">
+							<input class="easyui-datebox" style="width: 160%" id="qacceptStartDate"
+								name="qacceptStartDate" notnull="出单起期">
+						</td>
+						<td class="reprot_title">
+							出单止期
+						</td>
+						<td class="report_common">
+							<input class="easyui-datebox" style="width: 160%" id="qacceptEndDate" name="qacceptEndDate"
+								notnull="出单止期">
+						</td>
+						<td class="reprot_title">
+							出单员姓名
+						</td>
+						<td class="report_common">
+							<input class="txt" name="quername" id="quername">
+						</td>
+
+					</tr>
+				</table>
+				<br>
+				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id="finceReportQuery"
+					onclick="finceReportQuery()">查询</a>
+				<br>
+				<br>
+				<table id="agentReportList" class="easyui-datagrid" title="历史业绩" style="width:auto;height:auto"
+					data-options="rownumbers:true,singleSelect:true,pagination:true,onClickRow: selectone">
+					<thead>
+						<tr>
+							<th data-options="field:'acceptdate',width:60">出单月</th>
+
+							<th data-options="field:'policycount',width:60">单数</th>
+							<th data-options="field:'sumprem',width:80">保费</th>
+							<th data-options="field:'sumfyp20',width:80">标保</th>
+							<th data-options="field:'sumnianfyp20',width:80">年缴标保</th>
+							<th data-options="field:'sumyuefyp20',width:80">月缴标保</th>
+							<th data-options="field:'yl',width:80,formatter:jiaquanfyp">加权标保</th>
+						</tr>
+					</thead>
+				</table>
+				<br>
+				<table class="common" style="width: 73.5%;">
+					<tr>
+						<td class="reprot_title">
+							单数合计
+						</td>
+						<td class="report_common">
+							<input class="txt" id="policycount" name="policycount" readonly>
+						</td>
+						<td class="reprot_title">
+							保费合计
+						</td>
+						<td class="report_common">
+							<input class="txt" id="sumprem" name="sumprem" readonly>
+						</td>
+						<td class="reprot_title">
+							标保合计
+						</td>
+						<td class="report_common">
+							<input class="txt" id="sumfyp20" name="sumfyp20" readonly>
+						</td>
+
+					</tr>
+					<tr hidden="">
+						<td class="title">
+							10年FYP合计
+						</td>
+						<td class="common">
+							<input class="txt" id="sumfyp" name="sumfyp" readonly>
+						</td>
+					</tr>
+				</table>
+				<br>
+				<font color="red">金额不包含续保以及折算系数为0的保单（例如万能险）</font>
+				<div id="hisScore" style="width:1000px;height:400px;"></div>
+			</div>
+		</body>
+
+	</html>

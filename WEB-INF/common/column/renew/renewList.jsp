@@ -1,31 +1,36 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <th data-options="field:'renewtime',width:80">应收日期</th>
+<th data-options="field:'renew_payendtime',width:80">续期止期</th>
 <th data-options="field:'policyyear',width:60">保单年度</th>
+<th data-options="field:'restatename',width:60">续期状态</th>
+<th data-options="field:'callbacktypename',width:60">确认方式</th>
 <th data-options="field:'renewpaytime',width:80">实收日期</th>
 <th data-options="field:'actualprem',width:60">实收保费</th>
-<th data-options="field:'callbacktypename',width:60">确认方式</th>
-<th data-options="field:'restatename',width:60">续期状态</th>
-<th data-options="field:'fincestatename',width:60">结算状态</th>
+<th data-options="field:'reprem',width:60">应收保费</th>
+<th data-options="field:'fincestatename',width:60" hidden>结算状态</th>
+<th data-options="field:'accepttime',width:120">出单日期</th>
 <th data-options="field:'agentcom',width:70">出单营业部</th>
 <th data-options="field:'teamname',width:100">出单团队</th>
 <th data-options="field:'reusername',width:70">出单业务员</th>
 <th data-options="field:'serviceusername',width:70">服务人员</th>
 <th data-options="field:'contno',width:180">保单号</th>
 <th data-options="field:'statename',width:60">保单状态</th>
+<th data-options="field:'insrevisitstatename',width:60">回访状态</th>
+<th data-options="field:'receiptstatename',width:60">回执状态</th>
 <th data-options="field:'riskchannelname',width:80">签约渠道</th>
-<th data-options="field:'groupcode',width:90">保险产品编码</th>
-<th data-options="field:'risktypename',width:80">险种类型</th>
 <th data-options="field:'insorganname',width:80">保险公司</th>
 <th data-options="field:'riskname',width:160">险种名称</th>
-<th data-options="field:'jointypename',width:80">产品属性</th>
+<th data-options="field:'groupcode',width:90">保险产品编码</th>
+<th data-options="field:'risktypename',width:80" hidden>险种类型</th>
 <th data-options="field:'appname',width:70">投保人姓名</th>
 <th data-options="field:'insname',width:70">被保人姓名</th>
 <th data-options="field:'payintvvalue',width:60">缴费方式</th>
 <th data-options="field:'payendyearvalue',width:60">缴费年期</th>
 <th data-options="field:'insuyearvalue',width:60">保障期限</th>
-<th data-options="field:'reprem',width:60">保费</th>
+<!-- <th data-options="field:'reprem',width:60">保费</th> -->
 <th data-options="field:'policy_download',width:60,formatter:policydownload">电子保单</th>
 <th data-options="field:'_operate',width:60,formatter:queryPolicyInfo">查看详情</th>
+<th data-options="field:'jointypename',width:80">产品属性</th>
 <script>
 	function policydownload(val, row, index) {
 		if (row.policyurl != null && row.policyurl != '') {
@@ -114,7 +119,7 @@
 		var rows = $('#policyList').datagrid('getRows'); //获取所有当前加载的数据行
 		var row = rows[index];
 		//alert(row.agentcom);
-
+         row.queryinsured = 'Y'
 		dispolicyDetailDlg(row);
 	}
 </script>
